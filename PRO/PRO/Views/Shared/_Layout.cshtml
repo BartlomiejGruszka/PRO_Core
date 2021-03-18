@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PRO</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-lumen.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="@Url.Content("~/Scripts/tinymce/tinymce.min.js")" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+</head>
+<body>
+    <div class="container body-content">
+        <div class="">
+            <div class="top-homebar">
+                <div class="navbar">
+                    @Html.ActionLink("Archiwum Gier", "Index", "Home", new { area = "" }, new { @class = "mainbutton" })
+                </div>
+                <div class="">
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/articles?platform=all">Artykuły</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/games">Gry</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/games/ranking">Rankingi</a>
+                    </li>
+                    @{
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/panel/admin">Panel admina</a>
+                            </li>
+                        }
+                        if (User.IsInRole("Moderator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/panel/moderator">Panel moderatora</a>
+                            </li>
+                        }
+                        if (User.IsInRole("Author"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/panel/author">Panel autora</a>
+                            </li>
+                        }
+
+                    }
+
+                </ul>
+
+                <div class="form-inline my-2 my-lg-0">
+
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { style = "display:flex;" }))
+                    {
+                        <select class="form-control" id="type" name="type" style="margin-right:5px;">
+                            <option hidden disabled selected> Wybierz</option>
+                            <option value="games">Gry</option>
+                            <option value="articles">Artykuły</option>
+
+                        </select>
+
+                        <input class="form-control mr-sm-2" type="text" placeholder="Szukaj" name="SearchString">
+                        <input class="btn btn-secondary my-2 my-sm-0" type="submit" value="Szukaj">
+                    }
+
+
+
+
+                </div>
+            </div>
+        </nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Strona główna</li>
+        </ol>
+        @RenderBody()
+        <hr />
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

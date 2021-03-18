@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "8XwxHJ9e4R2Z+CLslGUWTphYUSeQOTaFNKmEMo/3Tf+N1LBt5a4JIi2BPIxOnhL1awB2e84LcCprqfbfgEGR0g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.12\\microsoft.aspnetcore.http.features.3.1.12.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.12\\microsoft.extensions.primitives.3.1.12.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\system.io.pipelines\\4.7.4\\system.io.pipelines.4.7.4.nupkg.sha512"
+  ],
+  "logs": []
+}
