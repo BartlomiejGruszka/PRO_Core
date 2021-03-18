@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,10 +8,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PRO.Entities
 {
-    public class ApplicationUser :IdentityUser
-    {   
-        [Key]
-        public int Id { get; set; } //pk
+    public class ApplicationUser : IdentityUser<int>
+    {
+       // [Key]
+       // public int ApplicationUserId { get; set; } //pk
 
         [Required, DisplayName("Data rejestracji")]
         [DataType(DataType.Date)]
@@ -29,14 +30,14 @@ namespace PRO.Entities
         [DisplayName("Obraz profilu")]
         public int? ImageId { get; set; }
 
-        [ForeignKey("ImageId"),DisplayName("Obraz profilu")]
-        public Image Image{ get; set; }
+        [ForeignKey("ImageId"), DisplayName("Obraz profilu")]
+        public Image Image { get; set; }
 
-       // [Required, MaxLength(128), ForeignKey("ApplicationUser"), DisplayName("Pseudonim")]
+        // [Required, MaxLength(128), ForeignKey("ApplicationUser"), DisplayName("Pseudonim")]
         //public string UserId { get; set; }
 
-       // [DisplayName("Pseudonim")]
-       // public IdentityUser ApplicationUser { get; set; }
+        // [DisplayName("Pseudonim")]
+        // public IdentityUser ApplicationUser { get; set; }
 
 
 

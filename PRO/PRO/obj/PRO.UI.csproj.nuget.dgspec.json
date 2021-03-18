@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO\\PRO.UI.csproj": {}
+    "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
+    "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+        "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
         "projectName": "PRO.Domain",
-        "projectPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+        "projectPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
         "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\obj\\",
+        "outputPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -43,7 +43,15 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[3.1.12, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
               "version": "[3.1.12, )"
             }
@@ -67,14 +75,14 @@
         }
       }
     },
-    "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
+    "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
+        "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
         "projectName": "PRO.Persistance",
-        "projectPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
+        "projectPath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
         "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\obj\\",
+        "outputPath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -94,8 +102,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
-                "projectPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj"
+              "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
+                "projectPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj"
               }
             }
           }
@@ -142,14 +150,14 @@
         }
       }
     },
-    "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO\\PRO.UI.csproj": {
+    "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO\\PRO.UI.csproj",
+        "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
         "projectName": "PRO.UI",
-        "projectPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO\\PRO.UI.csproj",
+        "projectPath": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
         "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO\\obj\\",
+        "outputPath": "D:\\PRO_Core\\PRO\\PRO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -169,8 +177,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
-                "projectPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
+              "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
+                "projectPath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
               }
             }
           }

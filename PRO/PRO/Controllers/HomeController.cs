@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using PRO.Domain.Interfaces.Services;
+using PRO.Persistance.Data;
 
 namespace PRO.Controllers
 {
@@ -23,7 +24,10 @@ namespace PRO.Controllers
         {
 
             var test = _gameService.GetAll();
-          //  var list =  test.Result;
+            var userId = User.GetLoggedInUserId<string>(); // Specify the type of your UserId;
+            var userName = User.GetLoggedInUserName();
+            var userEmail = User.GetLoggedInUserEmail();
+            //  var list =  test.Result;
             return View();
         }
 

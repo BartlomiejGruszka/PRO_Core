@@ -248,7 +248,7 @@ namespace PRO.Data.Migrations
 
                     b.HasIndex("ImageId");
 
-                    b.ToTable("AppUsers");
+                    b.ToTable("ApplicationUsers");
                 });
 
             modelBuilder.Entity("PRO.Entities.Article", b =>

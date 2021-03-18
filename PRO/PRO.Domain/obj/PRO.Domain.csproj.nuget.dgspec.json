@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj": {}
+    "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
+    "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+        "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
         "projectName": "PRO.Domain",
-        "projectPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+        "projectPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
         "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Domain\\obj\\",
+        "outputPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -43,7 +43,15 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[3.1.12, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
               "version": "[3.1.12, )"
             }

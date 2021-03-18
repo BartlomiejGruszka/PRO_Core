@@ -7,3 +7,12 @@ C:\Users\Eilinn\source\repos\PRO\PRO.Domain\bin\Debug\netcoreapp3.1\PRO.Domain.d
 C:\Users\Eilinn\source\repos\PRO\PRO.Domain\bin\Debug\netcoreapp3.1\PRO.Domain.pdb
 C:\Users\Eilinn\source\repos\PRO\PRO.Domain\obj\Debug\netcoreapp3.1\PRO.Domain.dll
 C:\Users\Eilinn\source\repos\PRO\PRO.Domain\obj\Debug\netcoreapp3.1\PRO.Domain.pdb
+D:\PRO_Core\PRO\PRO.Domain\bin\Debug\netcoreapp3.1\PRO.Domain.deps.json
+D:\PRO_Core\PRO\PRO.Domain\bin\Debug\netcoreapp3.1\PRO.Domain.dll
+D:\PRO_Core\PRO\PRO.Domain\bin\Debug\netcoreapp3.1\PRO.Domain.pdb
+D:\PRO_Core\PRO\PRO.Domain\obj\Debug\netcoreapp3.1\PRO.Domain.csprojAssemblyReference.cache
+D:\PRO_Core\PRO\PRO.Domain\obj\Debug\netcoreapp3.1\PRO.Domain.AssemblyInfoInputs.cache
+D:\PRO_Core\PRO\PRO.Domain\obj\Debug\netcoreapp3.1\PRO.Domain.AssemblyInfo.cs
+D:\PRO_Core\PRO\PRO.Domain\obj\Debug\netcoreapp3.1\PRO.Domain.csproj.CoreCompileInputs.cache
+D:\PRO_Core\PRO\PRO.Domain\obj\Debug\netcoreapp3.1\PRO.Domain.dll
+D:\PRO_Core\PRO\PRO.Domain\obj\Debug\netcoreapp3.1\PRO.Domain.pdb

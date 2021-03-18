@@ -170,7 +170,7 @@ namespace PRO.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppUsers",
+                name: "ApplicationUsers",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -183,9 +183,9 @@ namespace PRO.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppUsers", x => x.Id);
+                    table.PrimaryKey("PK_ApplicationUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppUsers_Images_ImageId",
+                        name: "FK_ApplicationUsers_Images_ImageId",
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
@@ -278,9 +278,9 @@ namespace PRO.Data.Migrations
                 {
                     table.PrimaryKey("PK_Authors", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Authors_AppUsers_UserId",
+                        name: "FK_Authors_ApplicationUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AppUsers",
+                        principalTable: "ApplicationUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -298,9 +298,9 @@ namespace PRO.Data.Migrations
                 {
                     table.PrimaryKey("PK_Moderators", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Moderators_AppUsers_UserId",
+                        name: "FK_Moderators_ApplicationUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AppUsers",
+                        principalTable: "ApplicationUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -327,9 +327,9 @@ namespace PRO.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserLists_AppUsers_UserId",
+                        name: "FK_UserLists_ApplicationUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AppUsers",
+                        principalTable: "ApplicationUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -484,9 +484,9 @@ namespace PRO.Data.Migrations
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reviews_AppUsers_UserId",
+                        name: "FK_Reviews_ApplicationUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AppUsers",
+                        principalTable: "ApplicationUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -522,8 +522,8 @@ namespace PRO.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppUsers_ImageId",
-                table: "AppUsers",
+                name: "IX_ApplicationUsers_ImageId",
+                table: "ApplicationUsers",
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
@@ -709,7 +709,7 @@ namespace PRO.Data.Migrations
                 name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "AppUsers");
+                name: "ApplicationUsers");
 
             migrationBuilder.DropTable(
                 name: "Companies");

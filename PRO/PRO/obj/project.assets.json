@@ -50,6 +50,19 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
+          "System.Text.Encodings.Web": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Http.Features/3.1.12": {
         "type": "package",
         "dependencies": {
@@ -2737,7 +2750,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Microsoft.AspNetCore.Http.Features": "3.1.12"
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Http.Features": "3.1.12",
+          "Microsoft.Extensions.Identity.Stores": "3.1.12"
         },
         "compile": {
           "bin/placeholder/PRO.Domain.dll": {}
@@ -2827,6 +2842,19 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.xml",
         "microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.html.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+      "sha512": "Nxs7Z1q3f1STfLYKJSVXCs1iBl+Ya6E8o4Oy1bCxJ/rNI44E/0f6tbsrVqAWfB7jlnJfyaAtIalBVxPKUPQb4Q==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.http.abstractions/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.xml",
+        "microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.abstractions.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Http.Features/3.1.12": {
@@ -8884,11 +8912,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO\\PRO.UI.csproj",
+      "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
       "projectName": "PRO.UI",
-      "projectPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO\\PRO.UI.csproj",
+      "projectPath": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
       "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO\\obj\\",
+      "outputPath": "D:\\PRO_Core\\PRO\\PRO\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -8908,8 +8936,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
-              "projectPath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
+            "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
+              "projectPath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
             }
           }
         }

@@ -25,7 +25,7 @@ namespace PRO.Persistance.Data
         public DbSet<Series> Series { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<ApplicationUser> AppUsers { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<GameList> GameLists { get; set; }
         public DbSet<ImageType> ImageTypes { get; set; }
         public DbSet<GameLanguage> GameLanguage { get; set; }

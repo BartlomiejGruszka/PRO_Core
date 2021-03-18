@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "FC7Z6PTX9msfldWvB5ShExUAFHJCJSzX6kxfpObXYD3PS5VHGruIdqc1e77sLBkzjrrcQf+slAQNZmILXL80Cg==",
+  "dgSpecHash": "P9GXcEs2+1UO/ArT4VlFhgABB5ENmMZu37jkmY5DFKHnfiiTACaUbxFCrJYOgccDzqI8YuVopHR3Ky8zfGUAhQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Eilinn\\source\\repos\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
+  "projectFilePath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.12\\microsoft.aspnetcore.cryptography.internal.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.12\\microsoft.aspnetcore.cryptography.keyderivation.3.1.12.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.12\\microsoft.aspnetcore.http.features.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\3.1.12\\microsoft.aspnetcore.identity.entityframeworkcore.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
@@ -101,6 +102,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encoding.codepages\\4.5.0\\system.text.encoding.codepages.4.5.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encoding.extensions\\4.3.0\\system.text.encoding.extensions.4.3.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.regularexpressions\\4.3.0\\system.text.regularexpressions.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
