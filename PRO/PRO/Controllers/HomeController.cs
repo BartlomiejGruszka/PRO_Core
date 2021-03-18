@@ -24,7 +24,7 @@ namespace PRO.Controllers
         {
 
             var test = _gameService.GetAll();
-            var userId = User.GetLoggedInUserId<string>(); // Specify the type of your UserId;
+            var userId = User.GetLoggedInUserId<int>(); // Specify the type of your UserId;
             var userName = User.GetLoggedInUserName();
             var userEmail = User.GetLoggedInUserEmail();
             //  var list =  test.Result;
