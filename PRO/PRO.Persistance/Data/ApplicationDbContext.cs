@@ -20,7 +20,6 @@ namespace PRO.Persistance.Data
         public DbSet<UserList> UserLists { get; set; }
         public DbSet<ListType> ListTypes { get; set; }
         public DbSet<Moderator> Moderators { get; set; }
-
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Series> Series { get; set; }
@@ -41,12 +40,14 @@ namespace PRO.Persistance.Data
             base.OnConfiguring(optionsBuilder);
 
             //TODO setup of in-memory database just for testing purposes
-           // optionsBuilder.UseInMemoryDatabase("SampleDatabase");
+            // optionsBuilder.UseInMemoryDatabase("SampleDatabase");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+           // modelBuilder.Seed();
         }
     }
 
