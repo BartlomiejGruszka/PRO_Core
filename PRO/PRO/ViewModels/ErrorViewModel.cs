@@ -1,5 +1,5 @@
 using System;
-
+using PRO.Entities;
 namespace PRO.Models
 {
     public class ErrorViewModel
