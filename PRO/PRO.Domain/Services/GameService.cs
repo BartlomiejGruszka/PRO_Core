@@ -18,15 +18,15 @@ namespace PRO.Domain.Services
             _gameRepository = gameRepository;
         }
 
-        public async Task AddGameAsync(Game newGame)
+        public void AddGame(Game newGame)
         {
-            await _repository.Add(newGame);
-            await _repository.Save();
+             _repository.Add(newGame);
+             _repository.Save();
         }
 
-        public async Task<IEnumerable<Game>> GetGamesAsync()
+        public IEnumerable<Game> GetGames()
         {
-            return await _repository.GetAllAsync();
+            return  _repository.GetAll();
         }
         public List<Game> GetAll()
         {

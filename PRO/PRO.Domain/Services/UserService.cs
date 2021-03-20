@@ -14,9 +14,10 @@ namespace PRO.Domain.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void YourMethodName()
+        public int GetLoggedInUserId()
         {
-            var userId = _httpContextAccessor.HttpContext.User.GetLoggedInUserId<string>(); // Specify the type of your UserId;
+            var userId = _httpContextAccessor.HttpContext.User.GetLoggedInUserId<int>(); // Specify the type of your UserId;
+            return userId;
         }
     }
 }

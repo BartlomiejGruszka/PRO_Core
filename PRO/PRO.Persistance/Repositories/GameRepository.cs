@@ -10,31 +10,16 @@ using System.Threading.Tasks;
 
 namespace PRO.Persistance.Repositories
 {
-    public class GameRepository :IGameRepository
+    public class GameRepository : BaseRepository<Game>, IGameRepository
     {
-        private readonly ApplicationDbContext _dbContext;
 
-        public GameRepository(ApplicationDbContext dbContext)
+        public GameRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
-        public Task Add(Game newElement)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<Game> Find(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<Game> Get(Func<Game, bool> wherePredicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Game> GetAll()
+        public new IEnumerable<Game> GetAll()
         {
 
             var games = _dbContext.Games
@@ -46,29 +31,15 @@ namespace PRO.Persistance.Repositories
                  .Include(a => a.DeveloperCompany)
                  .Include(a => a.Image)
                  .Include(a => a.Reviews)
-                 .Include(a=>a.GameLanguages)
-                 .Include(a=>a.GameTags);
+                 .Include(a => a.GameLanguages)
+                 .Include(a => a.GameTags);
 
             var languages = _dbContext.GameLanguage.ToList();
             var tags = _dbContext.GameTag.ToList();
-            
+
 
             return games;
         }
 
-        public Task<IEnumerable<Game>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(Game elementToRemove)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Save()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

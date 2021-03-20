@@ -10,6 +10,6 @@ namespace PRO.Domain.Interfaces.Repositories
     public interface IGameRepository :IRepository<Game>
     {
 
-        public IEnumerable<Game> GetAll();
+        public new IEnumerable<Game> GetAll();
     }
 }

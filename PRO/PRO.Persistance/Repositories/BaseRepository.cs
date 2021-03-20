@@ -10,25 +10,25 @@ using System.Threading.Tasks;
 namespace PRO.Persistance.Repositories
 {
 
-    public class BaseRepository<T> : IRepository<T>,
+    public abstract class BaseRepository<T> : IRepository<T>,
                                 IDisposable
                                 where T : class
     {
-        private readonly ApplicationDbContext _dbContext;
+       public readonly ApplicationDbContext _dbContext;
 
         public BaseRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public IEnumerable<T> GetAll()
         {
-            return await _dbContext.Set<T>().ToListAsync();
+            return _dbContext.Set<T>().ToList();
         }
 
-        public async Task<T> Find(int id)
+        public T Find(int id)
         {
-            return await _dbContext.Set<T>().FindAsync(id);
+            return _dbContext.Set<T>().Find(id);
         }
 
         public IEnumerable<T> Get(Func<T, bool> wherePredicate)
@@ -36,20 +36,19 @@ namespace PRO.Persistance.Repositories
             return _dbContext.Set<T>().Where(wherePredicate).ToList();
         }
 
-        public async Task Add(T newElement)
+        public void Add(T newElement)
         {
-            await _dbContext.Set<T>().AddAsync(newElement);
+            _dbContext.Set<T>().Add(newElement);
         }
 
         public void Remove(T elementToRemove)
         {
-            _dbContext.Set<T>().Attach(elementToRemove);
-            _dbContext.Entry(elementToRemove).State = EntityState.Deleted;
+            _dbContext.Set<T>().Remove(elementToRemove);
         }
 
-        public async Task Save()
+        public void Save()
         {
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
         public void Dispose()
@@ -58,5 +57,10 @@ namespace PRO.Persistance.Repositories
                 _dbContext.Dispose();
         }
 
+        public void Update(T updatedElement)
+        {
+            _dbContext.Attach(updatedElement);
+            _dbContext.Entry(updatedElement).State = EntityState.Modified;
+        }
     }
 }

@@ -40,9 +40,20 @@ namespace PRO
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
 
-            services.AddScoped<IGameService, GameService>();
-            services.AddScoped<IRepository<Game>, BaseRepository<Game>>();
+            services.AddScoped(typeof(IRepository<Game>), typeof(GameRepository));
+            services.AddScoped(typeof(IRepository<Image>), typeof(ImageRepository));
+
+            // services.AddScoped<IRepository<Game>, BaseRepository<Game>>();
+            // services.AddScoped<IRepository<Image>, BaseRepository<Image>>();
+            //  services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            //services.AddScoped<IRepository<Image>, BaseRepository<Image>>();
+
             services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
+
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IImageService, ImageService>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 

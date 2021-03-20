@@ -9,8 +9,8 @@ namespace PRO.Domain.Interfaces.Services
     public interface IGameService
     {
 
-        Task<IEnumerable<Game>> GetGamesAsync();
+        IEnumerable<Game> GetGames();
         List<Game> GetAll();
-        Task AddGameAsync(Game newGame);
+        void AddGame(Game newGame);
     }
 }

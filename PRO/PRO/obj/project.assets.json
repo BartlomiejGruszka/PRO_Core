@@ -2759,7 +2759,10 @@
         },
         "runtime": {
           "bin/placeholder/PRO.Domain.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "PRO.Persistance/1.0.0": {
         "type": "project",
@@ -2775,7 +2778,10 @@
         },
         "runtime": {
           "bin/placeholder/PRO.Persistance.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },

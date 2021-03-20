@@ -347,7 +347,6 @@ D:\PRO_Core\PRO\PRO\obj\Debug\netcoreapp3.1\PRO.UI.csprojAssemblyReference.cache
 D:\PRO_Core\PRO\PRO\obj\Debug\netcoreapp3.1\PRO.UI.AssemblyInfoInputs.cache
 D:\PRO_Core\PRO\PRO\obj\Debug\netcoreapp3.1\PRO.UI.AssemblyInfo.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\netcoreapp3.1\PRO.UI.csproj.CoreCompileInputs.cache
-D:\PRO_Core\PRO\PRO\obj\Debug\netcoreapp3.1\PRO.UI.MvcApplicationPartsAssemblyInfo.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\netcoreapp3.1\PRO.UI.MvcApplicationPartsAssemblyInfo.cache
 D:\PRO_Core\PRO\PRO\obj\Debug\netcoreapp3.1\PRO.UI.RazorAssemblyInfo.cache
 D:\PRO_Core\PRO\PRO\obj\Debug\netcoreapp3.1\PRO.UI.RazorAssemblyInfo.cs
