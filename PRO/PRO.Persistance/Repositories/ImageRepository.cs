@@ -50,5 +50,10 @@ namespace PRO.Persistance.Repositories
             _dbContext.Entry(image).Property(x => x.Name).IsModified = true;
             _dbContext.Entry(image).Property(x => x.ImageTypeId).IsModified = true;
         }
+
+        public void DetachOld(Image image)
+        {
+            _dbContext.Entry(image).State = EntityState.Detached;
+        }
     }
 }

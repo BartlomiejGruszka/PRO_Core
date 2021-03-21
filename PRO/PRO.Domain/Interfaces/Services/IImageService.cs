@@ -10,7 +10,7 @@ namespace PRO.Domain.Interfaces.Services
         public IEnumerable<Image> ImagesList();
         public Image FindImage(int? id);
 
-        public void UploadImageFile(Image image);
+        public Image UploadImageFile(Image image);
         public void AddImage(Image image);
         public void UpdateImage(Image image);
         public void DeleteImage(Image image);

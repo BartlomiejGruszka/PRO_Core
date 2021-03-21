@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0aHtObYsaVbDncZq4hHM8rkRI43Xi79k36xWRqPFtUjJOkXqJXb5aQj2p1wg1UWx/jHmZYdafl8VmvJyE3Gs/A==",
+  "dgSpecHash": "BNPzWcOEnufpE9mOgCXfeVpLUg8E+RZIa0GHhruwOCQAuZMoCdqY/R6kMKNzBgo1v4iTKm/00ntBrwSSbWu0Sw==",
   "success": true,
   "projectFilePath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
   "expectedPackageFiles": [
@@ -20,6 +20,9 @@
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.12\\microsoft.extensions.logging.abstractions.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.options\\3.1.12\\microsoft.extensions.options.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.12\\microsoft.extensions.primitives.3.1.12.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\system.io.pipelines\\4.7.4\\system.io.pipelines.4.7.4.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
   ],

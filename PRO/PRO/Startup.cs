@@ -42,20 +42,20 @@ namespace PRO
 
             services.AddScoped(typeof(IRepository<Game>), typeof(GameRepository));
             services.AddScoped(typeof(IRepository<Image>), typeof(ImageRepository));
-
-            // services.AddScoped<IRepository<Game>, BaseRepository<Game>>();
-            // services.AddScoped<IRepository<Image>, BaseRepository<Image>>();
-            //  services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            //services.AddScoped<IRepository<Image>, BaseRepository<Image>>();
+            services.AddScoped(typeof(IRepository<ImageType>), typeof(ImageTypeRepository));
 
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IImageTypeRepository, ImageTypeRepository>();
 
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IImageTypeService, ImageTypeService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             //identity services
             services.Configure<IdentityOptions>(options =>

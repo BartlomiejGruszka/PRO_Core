@@ -11,20 +11,18 @@ namespace PRO.Domain.Services
 {
     public class ImageService : IImageService
     {
-       // private readonly IRepository<ImageType> _imagetypeRepository;
         private readonly IImageRepository _imageRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
+
         public ImageService(
             IImageRepository imageRepository,
-            IWebHostEnvironment hostEnvironment
-           /*, IRepository<ImageType> imagetypeRepository*/)
-        {
+            IWebHostEnvironment hostEnvironment)
+         {
             _imageRepository = imageRepository;
             webHostEnvironment = hostEnvironment;
-          //  _imagetypeRepository = imagetypeRepository;
         }
 
-        public void UploadImageFile(Image image)
+        public Image UploadImageFile(Image image)
         {
 
             string fileName = Path.GetFileNameWithoutExtension(image.ImageFile.FileName);
@@ -38,7 +36,8 @@ namespace PRO.Domain.Services
             {
                 image.ImageFile.CopyTo(fileStream);
             }
-
+            image.ImagePath = fileName;
+            return image;
 
         }
 
@@ -58,18 +57,30 @@ namespace PRO.Domain.Services
 
         public void AddImage(Image image)
         {
+           // if()
+            image = UploadImageFile(image);
             _imageRepository.Add(image);
             _imageRepository.Save();
-            UploadImageFile(image);
+
         }
 
         public void UpdateImage(Image image)
         {
-            var oldimage = _imageRepository.Find(image.Id);
-            _imageRepository.Update(image);
+            if (image.ImageFile != null)
+            {
+                var oldimage = _imageRepository.Find(image.Id);
+                _imageRepository.DetachOld(oldimage);
+                image = UploadImageFile(image);
+                RemoveImageFile(oldimage);
+                _imageRepository.Update(image);
+            }
+            else
+            {
+                RenameImage(image);
+            }
+
+
             _imageRepository.Save();
-            UploadImageFile(image);
-            RemoveImageFile(oldimage);
         }
 
         public void DeleteImage(Image image)
@@ -78,10 +89,6 @@ namespace PRO.Domain.Services
             _imageRepository.Save();
             RemoveImageFile(image);
         }
-       /* public IEnumerable<ImageType> GetImageTypes()
-        {
-            return _imagetypeRepository.GetAll();
-        }*/
 
         public IEnumerable<Image> GetImagesByType(int id)
         {
@@ -90,9 +97,12 @@ namespace PRO.Domain.Services
 
         public void RemoveImageFile(Image image)
         {
-            if (File.Exists(image.ImagePath))
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+            string filePath = Path.Combine(uploadsFolder, image.ImagePath);
+
+            if (File.Exists(filePath))
             {
-                File.Delete(image.ImagePath);
+                File.Delete(filePath);
             }
         }
 

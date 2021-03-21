@@ -13,16 +13,19 @@ using PRO.Domain.Interfaces.Services;
 
 namespace PRO.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     public class ImagesController : Controller
     {
 
 
         private readonly IImageService _imageService;
+        private readonly IImageTypeService _imageTypeService;
 
-        public ImagesController(IImageService imageService)
+        public ImagesController(IImageService imageService,
+            IImageTypeService imageTypeService)
         {
             _imageService = imageService;
+            _imageTypeService = imageTypeService;
         }
 
         // GET: Image
@@ -32,12 +35,12 @@ namespace PRO.Controllers
             return View();
         }
         [Route("images/manage")]
-       // [Authorize(Roles = "Admin,Author")]
+        // [Authorize(Roles = "Admin,Author")]
         public ActionResult Manage()
         {
             // var pageString = Request.QueryString["page"];
             //  var itemString = Request.QueryString["items"];
-            var images = _imageService.ImagesList(); 
+            var images = _imageService.ImagesList();
             ViewBag.Pagination = new Pagination(null, null, images.Count());
             return View(images);
         }
@@ -56,10 +59,10 @@ namespace PRO.Controllers
 
         [HttpGet]
         [Route("images/add")]
-       // [Authorize(Roles = "Admin,Author")]
+        // [Authorize(Roles = "Admin,Author")]
         public ActionResult Add()
         {
-           // ViewBag.ImageTypes = _imageService.GetImageTypes();
+            ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View();
         }
 
@@ -69,12 +72,15 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(Image image)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
 
                 _imageService.AddImage(image);
 
-            return RedirectToAction("Manage");
+                return RedirectToAction("Manage");
             }
+            ViewBag.ImageTypes = _imageTypeService.GetAll();
+
             return View(image);
         }
 
@@ -88,7 +94,7 @@ namespace PRO.Controllers
             {
                 return BadRequest();
             }
-           // ViewBag.ImageTypes = _imageService.GetImageTypes();
+            ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View(image);
         }
         [Route("images/rename/{id}")]
@@ -100,71 +106,64 @@ namespace PRO.Controllers
             {
                 return BadRequest();
             }
-           // ViewBag.ImageTypes = _imageService.GetImageTypes();
+            ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View(image);
         }
 
 
         [HttpPost]
         [Route("images/edit/{id}")]
-       // [Authorize(Roles = "Admin,Author")]
+        // [Authorize(Roles = "Admin,Author")]
         [ValidateAntiForgeryToken]
         public ActionResult EditFile(Image image)
         {
             if (ModelState.IsValid)
             {
                 _imageService.UpdateImage(image);
-                
+
                 return RedirectToAction("Manage");
             }
-           // ViewBag.ImageTypes = _imageService.GetImageTypes();
+            ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View(image);
         }
 
         [HttpPost]
         [Route("images/rename/{id}")]
-       // [Authorize(Roles = "Admin,Author")]
+        // [Authorize(Roles = "Admin,Author")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Image image)
         {
-            var errorList = ModelState
-                .Where(x => x.Value.Errors.Count > 0)
-                .ToDictionary(
-                    kvp => kvp.Key,
-                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                );
-            if (!errorList.ContainsKey("Name") && image.ImageFile == null)
+            if (ModelState.IsValid)
             {
+            
                 _imageService.RenameImage(image);
                 return RedirectToAction("Manage");
             }
-            //ViewBag.ImageTypes = _imageService.GetImageTypes();
+           
+            ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View(image);
         }
 
         [Route("images/delete/{id}")]
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             Image image = _imageService.FindImage(id);
 
-            if (image == null)
-            {
-                return BadRequest();
-            }
+            if (image == null) { return BadRequest(); }
             return View(image);
         }
 
         [HttpPost, ActionName("Delete")]
         [Route("images/delete/{id}")]
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Image image = _imageService.FindImage(id);
 
-            _imageService.DeleteImage(image);  
-            
+            _imageService.DeleteImage(image);
+
             return RedirectToAction("Manage");
         }
 

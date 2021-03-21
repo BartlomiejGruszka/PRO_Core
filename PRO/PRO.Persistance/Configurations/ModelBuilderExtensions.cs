@@ -29,7 +29,7 @@ namespace PRO.Persistance.Data
             modelBuilder.SeedCompanies();
             modelBuilder.SeedPlatforms();
             modelBuilder.SeedImageTypes();
-            // modelBuilder.SeedImages(); //need image paths
+            modelBuilder.SeedImages(); //need image paths
             modelBuilder.SeedGames();
             modelBuilder.SeedAwards();
             modelBuilder.SeedGameLanguages();
