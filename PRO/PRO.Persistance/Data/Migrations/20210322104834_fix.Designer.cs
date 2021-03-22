@@ -10,8 +10,8 @@ using PRO.Persistance.Data;
 namespace PRO.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210318163838_InitialFixes")]
-    partial class InitialFixes
+    [Migration("20210322104834_fix")]
+    partial class fix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -549,6 +549,10 @@ namespace PRO.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ImageTypeId");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasName("Name");
 
                     b.ToTable("Images");
                 });

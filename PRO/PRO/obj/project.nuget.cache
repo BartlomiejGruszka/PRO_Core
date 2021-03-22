@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "c/TlAxu2Ox9htqueS4/g6WjFFjfn/rhWawzEW8NkGH2eDZ0wYyEPu0nxYdY/PkNQWe5eNjYvs8WC/c4kY9ktXg==",
+  "dgSpecHash": "YhDZ5zvy1GGpM1ZZJuT8GlhCTG9sYmlkpvLNwUo7bomWN1j8vSbuxkaYMLlYNZToJjkWFIJhnwEzbDhpqGK/DQ==",
   "success": true,
   "projectFilePath": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
   "expectedPackageFiles": [
@@ -180,7 +180,10 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\toolbelt.entityframeworkcore.annotationbasedmodelbuilder\\3.1.0\\toolbelt.entityframeworkcore.annotationbasedmodelbuilder.3.1.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\toolbelt.entityframeworkcore.indexattribute\\5.0.0\\toolbelt.entityframeworkcore.indexattribute.5.0.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\toolbelt.entityframeworkcore.indexattribute.attribute\\5.0.0\\toolbelt.entityframeworkcore.indexattribute.attribute.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

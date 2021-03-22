@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BNPzWcOEnufpE9mOgCXfeVpLUg8E+RZIa0GHhruwOCQAuZMoCdqY/R6kMKNzBgo1v4iTKm/00ntBrwSSbWu0Sw==",
+  "dgSpecHash": "Q9ireYg6+ZDXW2Ab6/fPmPUUt+6Fv1CcdygzoJGa+rkM9Dn4gCg02+GyPuUWMG035joAzDH4fwAHtSjQYucssQ==",
   "success": true,
   "projectFilePath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,14 @@
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.12\\microsoft.aspnetcore.cryptography.keyderivation.3.1.12.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.12\\microsoft.aspnetcore.http.features.3.1.12.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.entityframeworkcore\\3.1.12\\microsoft.entityframeworkcore.3.1.12.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\3.1.12\\microsoft.entityframeworkcore.abstractions.3.1.12.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\3.1.12\\microsoft.entityframeworkcore.analyzers.3.1.12.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.0.0\\microsoft.entityframeworkcore.relational.3.0.0.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.12\\microsoft.extensions.caching.abstractions.3.1.12.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.caching.memory\\3.1.12\\microsoft.extensions.caching.memory.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.12\\microsoft.extensions.configuration.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.12\\microsoft.extensions.configuration.abstractions.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.12\\microsoft.extensions.configuration.binder.3.1.12.nupkg.sha512",
@@ -22,9 +29,15 @@
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.12\\microsoft.extensions.primitives.3.1.12.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\system.collections.immutable\\1.7.1\\system.collections.immutable.1.7.1.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\system.io.pipelines\\4.7.4\\system.io.pipelines.4.7.4.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\toolbelt.entityframeworkcore.annotationbasedmodelbuilder\\3.1.0\\toolbelt.entityframeworkcore.annotationbasedmodelbuilder.3.1.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\toolbelt.entityframeworkcore.indexattribute\\5.0.0\\toolbelt.entityframeworkcore.indexattribute.5.0.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\toolbelt.entityframeworkcore.indexattribute.attribute\\5.0.0\\toolbelt.entityframeworkcore.indexattribute.attribute.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -2470,12 +2470,54 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "Toolbelt.EntityFrameworkCore.AnnotationBasedModelBuilder/3.1.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "3.1.13"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Toolbelt.EntityFrameworkCore.AnnotationBasedModelBuilder.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.1/Toolbelt.EntityFrameworkCore.AnnotationBasedModelBuilder.dll": {}
+        }
+      },
+      "Toolbelt.EntityFrameworkCore.IndexAttribute/5.0.0": {
+        "dependencies": {
+          "Toolbelt.EntityFrameworkCore.AnnotationBasedModelBuilder": "3.1.0",
+          "Toolbelt.EntityFrameworkCore.IndexAttribute.Attribute": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Toolbelt.EntityFrameworkCore.IndexAttribute.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.1/Toolbelt.EntityFrameworkCore.IndexAttribute.dll": {}
+        }
+      },
+      "Toolbelt.EntityFrameworkCore.IndexAttribute.Attribute/5.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/Toolbelt.EntityFrameworkCore.IndexAttribute.Attribute.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Toolbelt.EntityFrameworkCore.IndexAttribute.Attribute.dll": {}
+        }
+      },
       "PRO.Domain/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Http.Features": "3.1.12",
+          "Microsoft.EntityFrameworkCore": "3.1.13",
           "Microsoft.Extensions.Identity.Stores": "3.1.12",
-          "System.Drawing.Common": "5.0.2"
+          "System.Drawing.Common": "5.0.2",
+          "Toolbelt.EntityFrameworkCore.IndexAttribute": "5.0.0"
         },
         "runtime": {
           "PRO.Domain.dll": {}
@@ -2489,7 +2531,8 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.12",
           "Microsoft.EntityFrameworkCore": "3.1.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.13",
-          "PRO.Domain": "1.0.0"
+          "PRO.Domain": "1.0.0",
+          "Toolbelt.EntityFrameworkCore.IndexAttribute": "5.0.0"
         },
         "runtime": {
           "PRO.Persistance.dll": {}
@@ -5304,6 +5347,27 @@
       "sha512": "sha512-VShQJhOxgD/5M2Z1IWm1vMaSqlbjo1zdFf8H7Ahte6bTvSUhUko/gDpAVVhGgGgTDeue4QyNg1fu1Zz2GKSEuQ==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "Toolbelt.EntityFrameworkCore.AnnotationBasedModelBuilder/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-q9WO8huR4+rfjxtBKaUQ7GPi2BEPtwFlWcmq8VGvPfZ2PrZNw293D0D03TB55QQQ2M9bh/my/sLR1J62Rr9zjA==",
+      "path": "toolbelt.entityframeworkcore.annotationbasedmodelbuilder/3.1.0",
+      "hashPath": "toolbelt.entityframeworkcore.annotationbasedmodelbuilder.3.1.0.nupkg.sha512"
+    },
+    "Toolbelt.EntityFrameworkCore.IndexAttribute/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OPUlS3EsiAShlOq51qVXk69+9zGJfnpBj4cjgl2HOCKSQWkaggKqCSYwezSoh7EIZmKDoKuAvxFskaG1FhkoFw==",
+      "path": "toolbelt.entityframeworkcore.indexattribute/5.0.0",
+      "hashPath": "toolbelt.entityframeworkcore.indexattribute.5.0.0.nupkg.sha512"
+    },
+    "Toolbelt.EntityFrameworkCore.IndexAttribute.Attribute/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nU5CDf5xa+9CmWhUd3TwMMEBHHNZVflSJEX0b1UyMpm+vcKzNStuGL4jmA2HlAiKqH8VmKwVAC1JRHDg0urBUQ==",
+      "path": "toolbelt.entityframeworkcore.indexattribute.attribute/5.0.0",
+      "hashPath": "toolbelt.entityframeworkcore.indexattribute.attribute.5.0.0.nupkg.sha512"
     },
     "PRO.Domain/1.0.0": {
       "type": "project",

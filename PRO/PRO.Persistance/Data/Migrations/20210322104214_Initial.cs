@@ -225,11 +225,10 @@ namespace PRO.Persistance.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    RegisterDate = table.Column<DateTime>(nullable: true),
+                    RegisterDate = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(maxLength: 5000, nullable: true),
-                    IsActive = table.Column<bool>(nullable: true),
-                    IsPublic = table.Column<bool>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    IsPublic = table.Column<bool>(nullable: false),
                     ImageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -333,8 +332,8 @@ namespace PRO.Persistance.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
@@ -378,8 +377,8 @@ namespace PRO.Persistance.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -696,6 +695,11 @@ namespace PRO.Persistance.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_ImageId",
+                table: "AspNetUsers",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -706,11 +710,6 @@ namespace PRO.Persistance.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_ImageId",
-                table: "AspNetUsers",
-                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Awards_GameId",
