@@ -15,8 +15,8 @@ namespace PRO.Persistance.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -31,18 +31,18 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
+                        .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
@@ -164,12 +164,12 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasMaxLength(5000);
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -190,12 +190,12 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -216,19 +216,19 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ImageId");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
+                        .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
@@ -246,8 +246,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasMaxLength(10000);
+                        .HasMaxLength(10000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GameId")
                         .HasColumnType("int");
@@ -260,20 +260,20 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Preview")
                         .IsRequired()
-                        .HasColumnType("nvarchar(400)")
-                        .HasMaxLength(400);
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SourceLink")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -300,8 +300,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -318,16 +318,16 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("UserId");
 
@@ -349,8 +349,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -374,8 +374,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -390,8 +390,8 @@ namespace PRO.Persistance.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int?>("DeveloperId")
                         .HasColumnType("int");
@@ -422,8 +422,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -518,8 +518,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -541,8 +541,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -550,7 +550,7 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasName("Name");
+                        .HasDatabaseName("Name");
 
                     b.ToTable("Images");
                 });
@@ -564,8 +564,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -581,8 +581,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -598,8 +598,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -640,8 +640,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
@@ -662,8 +662,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasMaxLength(5000);
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EditDate")
                         .HasColumnType("datetime2");
@@ -712,8 +712,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -729,8 +729,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -746,8 +746,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -772,8 +772,8 @@ namespace PRO.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -843,6 +843,8 @@ namespace PRO.Persistance.Migrations
                     b.HasOne("PRO.Entities.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("PRO.Entities.Article", b =>
@@ -868,6 +870,14 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ArticleType");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("PRO.Entities.Author", b =>
@@ -877,6 +887,8 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PRO.Entities.Award", b =>
@@ -886,6 +898,8 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("PRO.Entities.Game", b =>
@@ -923,6 +937,20 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("DeveloperCompany");
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Image");
+
+                    b.Navigation("Platform");
+
+                    b.Navigation("PublisherCompany");
+
+                    b.Navigation("Series");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("PRO.Entities.GameLanguage", b =>
@@ -938,6 +966,10 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("PRO.Entities.GameList", b =>
@@ -953,6 +985,10 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("UserListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("UserList");
                 });
 
             modelBuilder.Entity("PRO.Entities.GameTag", b =>
@@ -968,6 +1004,10 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("PRO.Entities.Image", b =>
@@ -977,6 +1017,8 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("ImageTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ImageType");
                 });
 
             modelBuilder.Entity("PRO.Entities.Moderator", b =>
@@ -986,6 +1028,8 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PRO.Entities.Platform", b =>
@@ -995,6 +1039,8 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("PRO.Entities.Review", b =>
@@ -1014,6 +1060,12 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Moderator");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PRO.Entities.UserList", b =>
@@ -1029,6 +1081,101 @@ namespace PRO.Persistance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ListType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PRO.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("Reviews");
+
+                    b.Navigation("UserLists");
+                });
+
+            modelBuilder.Entity("PRO.Entities.ArticleType", b =>
+                {
+                    b.Navigation("Articles");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Author", b =>
+                {
+                    b.Navigation("Articles");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Company", b =>
+                {
+                    b.Navigation("DevelopedGames");
+
+                    b.Navigation("Platforms");
+
+                    b.Navigation("PublishedGames");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Game", b =>
+                {
+                    b.Navigation("Articles");
+
+                    b.Navigation("Awards");
+
+                    b.Navigation("GameLanguages");
+
+                    b.Navigation("GameLists");
+
+                    b.Navigation("GameTags");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Genre", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("PRO.Entities.ImageType", b =>
+                {
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Language", b =>
+                {
+                    b.Navigation("GameLanguages");
+                });
+
+            modelBuilder.Entity("PRO.Entities.ListType", b =>
+                {
+                    b.Navigation("UserLists");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Moderator", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Platform", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Series", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Status", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("PRO.Entities.Tag", b =>
+                {
+                    b.Navigation("GameTags");
+                });
+
+            modelBuilder.Entity("PRO.Entities.UserList", b =>
+                {
+                    b.Navigation("GameLists");
                 });
 #pragma warning restore 612, 618
         }

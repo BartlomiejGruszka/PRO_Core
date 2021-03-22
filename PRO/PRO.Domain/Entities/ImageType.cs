@@ -13,5 +13,7 @@ namespace PRO.Entities
         public string Name { get; set; }
 
         public ICollection<Image> Images { get; set; }
+
+
     }
 }

@@ -29,9 +29,10 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
-        public ImageType Find(int id)
+        public ImageType Find(int? id)
         {
-            return _repository.Find(id);
+            if (!id.HasValue) return null;
+            return _repository.Find(id.Value);
         }
 
         public IEnumerable<ImageType> GetAll()

@@ -9,7 +9,7 @@ namespace PRO.Domain.Interfaces.Services
     public interface IImageTypeService
     {
         public IEnumerable<ImageType> GetAll();
-        public ImageType Find(int id);
+        public ImageType Find(int? id);
         public void Add(ImageType imageType);
         public void Delete(ImageType imageType);
 

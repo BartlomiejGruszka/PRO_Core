@@ -48,26 +48,9 @@ namespace PRO.Persistance.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.BuildIndexesFromAnnotations();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-            // modelBuilder.Seed();
+           // modelBuilder.Seed();
         }
-        protected override DbEntityValidationResult ValidateEntity
-            (DbEntityEntry entityEntry, IDictionary<object, object> items)
-        {
-            // create our customized result to add a possible DbValidationError to it
-            var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
 
-            // We need to check for duplication just in case of adding new entities or modifing existed ones
-            if (entityEntry.State == EntityState.Added || entityEntry.State == EntityState.Modified)
-                checkDuplication(entityEntry, result);
-
-            // After we did our check to the entity, if we found any duplication, we don't want to continue
-            // so we just return our DbEntityValidationResult
-            if (!result.IsValid)
-                return result;
-
-            // If we didn't find and duplications, then let DbContext do its ordinary checks
-            return base.ValidateEntity(entityEntry, items);
-        }
     }
 
 
