@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PRO.Persistance.Repositories
 {
 
-    public abstract class BaseRepository<T> : IRepository<T>,
+    public class BaseRepository<T> : IRepository<T>,
                                 IDisposable
                                 where T : class
     {
