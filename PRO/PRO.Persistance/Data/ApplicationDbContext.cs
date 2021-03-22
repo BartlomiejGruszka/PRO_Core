@@ -47,7 +47,7 @@ namespace PRO.Persistance.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-           // modelBuilder.Seed();
+            modelBuilder.Seed();
         }
     }
 
