@@ -1,27 +1,33 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
 
-namespace PRO.Models
+
+namespace PRO.Controllers
 {
     [Authorize(Roles = "Admin,Author")]
     public class SeriesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ISeriesService _seriesService;
+        public SeriesController(ISeriesService seriesService)
+        {
+            _seriesService = seriesService;
+        }
 
         // GET: Series
         [Route("series/manage")]
         public ActionResult Manage()
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
-            var series = db.Series.ToList();
-            ViewBag.Pagination = new Pagination(pageString, itemString, series.Count());
+            // var pageString = Request.QueryString["page"];
+            // var itemString = Request.QueryString["items"];
+            var series = _seriesService.GetAll();
+            ViewBag.Pagination = new Pagination(null, null, series.Count());
             return View(series);
         }
 
@@ -29,14 +35,10 @@ namespace PRO.Models
         [Route("series/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Series series = db.Series.Find(id);
+            Series series = _seriesService.Find(id);
             if (series == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(series);
         }
@@ -49,17 +51,14 @@ namespace PRO.Models
         }
 
         // POST: Series/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("series/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,Name")] Series series)
+        public ActionResult Add([Bind("Name")] Series series)
         {
             if (ModelState.IsValid)
             {
-                db.Series.Add(series);
-                db.SaveChanges();
+                _seriesService.Add(series);
                 return RedirectToAction("Manage");
             }
 
@@ -70,30 +69,26 @@ namespace PRO.Models
         [Route("series/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Series series = db.Series.Find(id);
+
+            Series series = _seriesService.Find(id);
             if (series == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(series);
         }
 
         // POST: Series/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [Route("series/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Series series)
+        public ActionResult Edit([Bind("Name")] Series series)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(series).State = EntityState.Modified;
-                db.SaveChanges();
+                _seriesService.Update(series);
+
                 return RedirectToAction("Manage");
             }
             return View(series);
@@ -104,14 +99,10 @@ namespace PRO.Models
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Series series = db.Series.Find(id);
+            Series series = _seriesService.Find(id);
             if (series == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(series);
         }
@@ -123,26 +114,12 @@ namespace PRO.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Series series = db.Series.Find(id);
+            Series series = _seriesService.Find(id);
 
-            var games = db.Games.Where(i => i.SeriesId == id).ToList();
-            foreach (var element in games)
-            {
-                element.SeriesId = null;
-            };
+            _seriesService.RemoveFromGames(id);
+            _seriesService.Delete(series);
 
-            db.Series.Remove(series);
-            db.SaveChanges();
             return RedirectToAction("Manage");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

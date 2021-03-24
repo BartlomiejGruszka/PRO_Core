@@ -10,9 +10,9 @@ namespace PRO.Domain.Interfaces.Services
     {
         public IEnumerable<Language> GetAll();
         public Language Find(int? id);
-        public void Add(Language imageType);
-        public void Delete(Language imageType);
+        public void Add(Language language);
+        public void Delete(Language language);
 
-        public void Update(Language imageType);
+        public void Update(Language language);
     }
 }

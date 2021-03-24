@@ -1,35 +1,39 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using PRO.Models;
 
 namespace PRO.Controllers
 {
     [Authorize(Roles = "Admin,Author")]
     public class CompaniesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ICompanyService _companyService;
 
-        // GET: Companies
+        public CompaniesController(ICompanyService companyService)
+        {
+            _companyService = companyService;
+        }
+
         [Route("companies/")]
         public ActionResult Index()
         {
-            return View(db.Companies.ToList());
+            return View(_companyService.GetAll());
         }
 
         // GET: Companies
         [Route("companies/manage")]
         public ActionResult Manage()
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
-            var companies = db.Companies.ToList();
-            ViewBag.Pagination = new Pagination(pageString, itemString, companies.Count());
+            // var pageString = Request.QueryString["page"];
+            // var itemString = Request.QueryString["items"];
+            var companies = _companyService.GetAll();
+            ViewBag.Pagination = new Pagination(null, null, companies.Count());
             return View(companies);
         }
 
@@ -37,14 +41,10 @@ namespace PRO.Controllers
         [Route("companies/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Company company = db.Companies.Find(id);
+            Company company = _companyService.Find(id);
             if (company == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(company);
         }
@@ -56,18 +56,14 @@ namespace PRO.Controllers
             return View();
         }
 
-        // POST: Companies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("companies/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,Name,CreatedDate,IsActive")] Company company)
+        public ActionResult Add([Bind("Name,CreatedDate,IsActive")] Company company)
         {
             if (ModelState.IsValid)
             {
-                db.Companies.Add(company);
-                db.SaveChanges();
+                _companyService.Add(company);
                 return RedirectToAction("Manage");
             }
 
@@ -78,30 +74,24 @@ namespace PRO.Controllers
         [Route("companies/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Company company = db.Companies.Find(id);
+
+            Company company = _companyService.Find(id);
             if (company == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(company);
         }
 
         // POST: Companies/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("companies/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,CreatedDate,IsActive")] Company company)
+        public ActionResult Edit([Bind("Name,CreatedDate,IsActive")] Company company)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(company).State = EntityState.Modified;
-                db.SaveChanges();
+                _companyService.Update(company);
                 return RedirectToAction("Manage");
             }
             return View(company);
@@ -112,14 +102,11 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Company company = db.Companies.Find(id);
+
+            Company company = _companyService.Find(id);
             if (company == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(company);
         }
@@ -131,19 +118,10 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Company company = db.Companies.Find(id);
-            db.Companies.Remove(company);
-            db.SaveChanges();
+            Company company = _companyService.Find(id);
+            _companyService.Delete(company);
             return RedirectToAction("Manage");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

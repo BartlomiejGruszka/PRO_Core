@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
 using PRO.Models;
 
 namespace PRO.Controllers
@@ -13,21 +14,26 @@ namespace PRO.Controllers
     [Authorize(Roles = "Admin,Author")]
     public class GenresController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+
+        private readonly IGenreService _genreService;
+        public GenresController(IGenreService genreService)
+        {
+            _genreService = genreService;
+        }
 
         // GET: Genres
         [Route("genres/")]
         public ActionResult Index()
         {
-            return View(db.Genres.ToList());
+            return View(_genreService.GetAll());
         }
         [Route("genres/manage")]
         public ActionResult Manage()
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
-            var genres = db.Genres.ToList();
-            ViewBag.Pagination = new Pagination(pageString, itemString, genres.Count());
+            // var pageString = Request.QueryString["page"];
+            //  var itemString = Request.QueryString["items"];
+            var genres = _genreService.GetAll();
+            ViewBag.Pagination = new Pagination(null, null, genres.Count());
 
             return View(genres);
         }
@@ -36,14 +42,10 @@ namespace PRO.Controllers
         [Route("genres/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+            Genre genre = _genreService.Find(id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(genre);
         }
@@ -55,18 +57,14 @@ namespace PRO.Controllers
             return View();
         }
 
-        // POST: Genres/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("genres/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,Name")] Genre genre)
+        public ActionResult Add([Bind("Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                db.Genres.Add(genre);
-                db.SaveChanges();
+                _genreService.Add(genre);
                 return RedirectToAction("Manage");
             }
 
@@ -77,30 +75,24 @@ namespace PRO.Controllers
         [Route("genres/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+
+            Genre genre = _genreService.Find(id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(genre);
         }
 
-        // POST: Genres/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [Route("genres/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Genre genre)
+        public ActionResult Edit([Bind("Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(genre).State = EntityState.Modified;
-                db.SaveChanges();
+                _genreService.Update(genre);
                 return RedirectToAction("Manage");
             }
             return View(genre);
@@ -111,14 +103,11 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+
+            Genre genre = _genreService.Find(id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(genre);
         }
@@ -130,19 +119,10 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Genre genre = db.Genres.Find(id);
-            db.Genres.Remove(genre);
-            db.SaveChanges();
+            Genre genre = _genreService.Find(id);
+            _genreService.Delete(genre);
             return RedirectToAction("Manage");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

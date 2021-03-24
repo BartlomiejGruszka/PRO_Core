@@ -1,28 +1,32 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
 
-namespace PRO.Models
+namespace PRO.Controllers
 {
     [Authorize]
     public class ListTypesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+
+        private readonly IListTypeService _listTypeService;
+        public ListTypesController(IListTypeService listTypeService)
+        {
+            _listTypeService = listTypeService;
+        }
 
         // GET: ListTypes
         [Route("listtypes/manage")]
         public ActionResult Manage()
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
+            //var pageString = Request.QueryString["page"];
+            // var itemString = Request.QueryString["items"];
 
-            var listTypes = db.ListTypes.ToList();
-            ViewBag.Pagination = new Pagination(pageString, itemString, listTypes.Count());
+            var listTypes = _listTypeService.GetAll();
+            ViewBag.Pagination = new Pagination(null, null, listTypes.Count());
 
             return View(listTypes);
         }
@@ -31,14 +35,10 @@ namespace PRO.Models
         [Route("listtypes/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ListType listType = db.ListTypes.Find(id);
+            ListType listType = _listTypeService.Find(id);
             if (listType == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(listType);
         }
@@ -51,17 +51,14 @@ namespace PRO.Models
         }
 
         // POST: ListTypes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("listtypes/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,Name")] ListType listType)
+        public ActionResult Add([Bind("Name")] ListType listType)
         {
             if (ModelState.IsValid)
             {
-                db.ListTypes.Add(listType);
-                db.SaveChanges();
+                _listTypeService.Add(listType);
                 return RedirectToAction("Manage");
             }
 
@@ -72,30 +69,24 @@ namespace PRO.Models
         [Route("listtypes/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ListType listType = db.ListTypes.Find(id);
+
+            ListType listType = _listTypeService.Find(id);
             if (listType == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(listType);
         }
 
         // POST: ListTypes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("listtypes/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] ListType listType)
+        public ActionResult Edit([Bind("Name")] ListType listType)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(listType).State = EntityState.Modified;
-                db.SaveChanges();
+                _listTypeService.Update(listType);
                 return RedirectToAction("Manage");
             }
             return View(listType);
@@ -105,14 +96,10 @@ namespace PRO.Models
         [Route("listtypes/delete/{id}")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ListType listType = db.ListTypes.Find(id);
+            ListType listType = _listTypeService.Find(id);
             if (listType == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(listType);
         }
@@ -123,19 +110,9 @@ namespace PRO.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ListType listType = db.ListTypes.Find(id);
-            db.ListTypes.Remove(listType);
-            db.SaveChanges();
+            ListType listType = _listTypeService.Find(id);
+            _listTypeService.Delete(listType);
             return RedirectToAction("Manage");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

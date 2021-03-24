@@ -9,9 +9,9 @@ namespace PRO.Domain.Interfaces.Services
     {
         public IEnumerable<ArticleType> GetAll();
         public ArticleType Find(int? id);
-        public void Add(ArticleType imageType);
-        public void Delete(ArticleType imageType);
+        public void Add(ArticleType articleType);
+        public void Delete(ArticleType articleType);
 
-        public void Update(ArticleType imageType);
+        public void Update(ArticleType articleType);
     }
 }

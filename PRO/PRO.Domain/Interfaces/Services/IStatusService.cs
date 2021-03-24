@@ -10,9 +10,9 @@ namespace PRO.Domain.Interfaces.Services
     {
         public IEnumerable<Status> GetAll();
         public Status Find(int? id);
-        public void Add(Status imageType);
-        public void Delete(Status imageType);
+        public void Add(Status status);
+        public void Delete(Status status);
 
-        public void Update(Status imageType);
+        public void Update(Status status);
     }
 }

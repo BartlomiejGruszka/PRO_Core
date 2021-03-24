@@ -1,27 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using PRO.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
 
 namespace PRO.Controllers
 {
     [Authorize]
     public class StatusController : Controller
     {
-        private ApplicationDbContext _context = new ApplicationDbContext();
-
+        private readonly IStatusService _statusService;
+        public StatusController(IStatusService statusService)
+        {
+            _statusService = statusService;
+        }
         // GET: Status
         [Route("status/manage")]
         public ActionResult Manage()
-        {var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
-            var statuses = _context.Statuses.ToList();
-            ViewBag.Pagination = new Pagination(pageString, itemString, statuses.Count());
+        {
+            //var pageString = Request.QueryString["page"];
+            // var itemString = Request.QueryString["items"];
+            var statuses = _statusService.GetAll();
+            ViewBag.Pagination = new Pagination(null, null, statuses.Count());
             return View(statuses);
         }
 
@@ -29,14 +32,10 @@ namespace PRO.Controllers
         [Route("status/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Status status = _context.Statuses.Find(id);
+            Status status = _statusService.Find(id);
             if (status == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(status);
         }
@@ -49,18 +48,14 @@ namespace PRO.Controllers
         }
 
         // POST: Status/Create
-        
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("status/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,Name")] Status status)
+        public ActionResult Add([Bind("Name")] Status status)
         {
             if (ModelState.IsValid)
             {
-                _context.Statuses.Add(status);
-                _context.SaveChanges();
+                _statusService.Add(status);
                 return RedirectToAction("Manage");
             }
 
@@ -71,30 +66,23 @@ namespace PRO.Controllers
         [Route("status/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Status status = _context.Statuses.Find(id);
+            Status status = _statusService.Find(id);
             if (status == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(status);
         }
 
         // POST: Status/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("status/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Status status)
+        public ActionResult Edit([Bind("Name")] Status status)
         {
             if (ModelState.IsValid)
             {
-                _context.Entry(status).State = EntityState.Modified;
-                _context.SaveChanges();
+                _statusService.Update(status);
                 return RedirectToAction("Manage");
             }
             return View(status);
@@ -104,14 +92,10 @@ namespace PRO.Controllers
         [Route("status/delete/{id}")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Status status = _context.Statuses.Find(id);
+            Status status = _statusService.Find(id);
             if (status == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(status);
         }
@@ -122,19 +106,9 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Status status = _context.Statuses.Find(id);
-            _context.Statuses.Remove(status);
-            _context.SaveChanges();
+            Status status = _statusService.Find(id);
+            _statusService.Delete(status);
             return RedirectToAction("Manage");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

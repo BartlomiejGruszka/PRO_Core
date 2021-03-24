@@ -10,9 +10,9 @@ namespace PRO.Domain.Interfaces.Services
     {
         public IEnumerable<ListType> GetAll();
         public ListType Find(int? id);
-        public void Add(ListType imageType);
-        public void Delete(ListType imageType);
+        public void Add(ListType listType);
+        public void Delete(ListType listType);
 
-        public void Update(ListType imageType);
+        public void Update(ListType listType);
     }
 }

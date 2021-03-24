@@ -10,9 +10,9 @@ namespace PRO.Domain.Interfaces.Services
     {
         public IEnumerable<Tag> GetAll();
         public Tag Find(int? id);
-        public void Add(Tag imageType);
-        public void Delete(Tag imageType);
+        public void Add(Tag tag);
+        public void Delete(Tag tag);
 
-        public void Update(Tag imageType);
+        public void Update(Tag tag);
     }
 }

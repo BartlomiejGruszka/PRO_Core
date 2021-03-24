@@ -1,35 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using PRO.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
 
 namespace PRO.Controllers
 {
     [Authorize]
     public class LanguagesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ILanguageService _languageService;
+        public LanguagesController(ILanguageService languageService)
+        {
+            _languageService = languageService;
+        }
 
         // GET: Languages
         [Route("languages/")]
         public ActionResult Index()
         {
-            return View(db.Languages.ToList());
+            return View(_languageService.GetAll());
         }
 
         [Route("languages/manage")]
         public ActionResult Manage()
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
+           // var pageString = Request.QueryString["page"];
+           // var itemString = Request.QueryString["items"];
 
-            var languages = db.Languages.ToList();
-            ViewBag.Pagination = new Pagination(pageString, itemString, languages.Count());
+            var languages = _languageService.GetAll();
+            ViewBag.Pagination = new Pagination(null, null, languages.Count());
             return View(languages);
 
         }
@@ -38,14 +40,11 @@ namespace PRO.Controllers
         [Route("languages/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Language language = db.Languages.Find(id);
+
+            Language language = _languageService.Find(id);
             if (language == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(language);
         }
@@ -58,17 +57,14 @@ namespace PRO.Controllers
         }
 
         // POST: Languages/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("languages/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,Name")] Language language)
+        public ActionResult Add([Bind("Name")] Language language)
         {
             if (ModelState.IsValid)
             {
-                db.Languages.Add(language);
-                db.SaveChanges();
+                _languageService.Add(language);
                 return RedirectToAction("Manage");
             }
 
@@ -79,30 +75,24 @@ namespace PRO.Controllers
         [Route("languages/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Language language = db.Languages.Find(id);
+
+            Language language = _languageService.Find(id);
             if (language == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(language);
         }
 
         // POST: Languages/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("languages/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Language language)
+        public ActionResult Edit([Bind("Name")] Language language)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(language).State = EntityState.Modified;
-                db.SaveChanges();
+                _languageService.Update(language);
                 return RedirectToAction("Manage");
             }
             return View(language);
@@ -112,14 +102,10 @@ namespace PRO.Controllers
         [Route("languages/delete/{id}")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Language language = db.Languages.Find(id);
+            Language language = _languageService.Find(id);
             if (language == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(language);
         }
@@ -130,19 +116,9 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Language language = db.Languages.Find(id);
-            db.Languages.Remove(language);
-            db.SaveChanges();
+            Language language = _languageService.Find(id);
+            _languageService.Delete(language);
             return RedirectToAction("Manage");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

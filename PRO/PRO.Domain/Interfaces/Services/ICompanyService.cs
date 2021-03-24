@@ -11,9 +11,9 @@ namespace PRO.Domain.Interfaces.Services
     {
         public IEnumerable<Company> GetAll();
         public Company Find(int? id);
-        public void Add(Company imageType);
-        public void Delete(Company imageType);
+        public void Add(Company company);
+        public void Delete(Company company);
 
-        public void Update(Company imageType);
+        public void Update(Company company);
     }
 }

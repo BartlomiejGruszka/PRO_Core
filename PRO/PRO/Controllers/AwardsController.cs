@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using PRO.Models;
@@ -15,17 +16,19 @@ namespace PRO.Controllers
     public class AwardsController : Controller
     {
         private readonly IAwardService _awardService;
-        public AwardsController(IAwardService awardService)
+        private readonly IGameService _gameService;
+        public AwardsController(IAwardService awardService, IGameService gameService)
         {
             _awardService = awardService;
+            _gameService = gameService;
         }
 
         [Route("awards/manage")]
         public ActionResult Manage()
         {
-           // var pageString = Request.QueryString["page"];
-          //  var itemString = Request.QueryString["items"];
-            var awards = db.Awards.Include(a => a.Game).ToList();
+            // var pageString = Request.QueryString["page"];
+            //  var itemString = Request.QueryString["items"];
+            var awards = _awardService.GetAll();
             ViewBag.Pagination = new Pagination(null, null, awards.Count());
             return View(awards);
         }
@@ -34,7 +37,7 @@ namespace PRO.Controllers
         [Route("awards/details/{id}")]
         public ActionResult Details(int? id)
         {
-            Award award = db.GetAwardById((int)id);
+            Award award = _awardService.Find(id);
             if (award == null)
             {
                 return BadRequest();
@@ -46,26 +49,22 @@ namespace PRO.Controllers
         [Route("awards/add")]
         public ActionResult Add()
         {
-            ViewBag.GameId = new SelectList(db.Games, "Id", "Title");
+            ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title");
             return View();
         }
 
-        // POST: Awards/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("awards/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,Name,AwardDate,GameId")] Award award)
+        public ActionResult Add([Bind("Name,AwardDate,GameId")] Award award)
         {
             if (ModelState.IsValid)
             {
-                db.Awards.Add(award);
-                db.SaveChanges();
+                _awardService.Add(award);      
                 return RedirectToAction("Manage");
             }
 
-            ViewBag.GameId = new SelectList(db.Games, "Id", "Title", award.GameId);
+            ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title", award.GameId);
             return View(award);
         }
 
@@ -73,16 +72,12 @@ namespace PRO.Controllers
         [Route("awards/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Award award = db.Awards.Find(id);
+            Award award = _awardService.Find(id);
             if (award == null)
             {
-                return HttpNotFound();
+                return BadRequest();
             }
-            ViewBag.GameId = new SelectList(db.Games, "Id", "Title", award.GameId);
+            ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title", award.GameId);
             return View(award);
         }
 
@@ -92,15 +87,14 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("awards/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,AwardDate,GameId")] Award award)
+        public ActionResult Edit([Bind(",Name,AwardDate,GameId")] Award award)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(award).State = EntityState.Modified;
-                db.SaveChanges();
+                _awardService.Update(award);
                 return RedirectToAction("Manage");
             }
-            ViewBag.GameId = new SelectList(db.Games, "Id", "Title", award.GameId);
+            ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title", award.GameId); ;
             return View(award);
         }
 
@@ -109,14 +103,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Award award = db.GetAwardById((int)id);
+            Award award = _awardService.Find(id);
             if (award == null)
             {
-                return HttpNotFound();
+                return BadRequest();
             }
             return View(award);
         }
@@ -128,19 +118,13 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Award award = db.Awards.Find(id);
-            db.Awards.Remove(award);
-            db.SaveChanges();
-            return RedirectToAction("Manage");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            Award award = _awardService.Find(id);
+            if (award == null)
             {
-                db.Dispose();
+                return BadRequest();
             }
-            base.Dispose(disposing);
+            _awardService.Delete(award);
+            return RedirectToAction("Manage");
         }
     }
 }
