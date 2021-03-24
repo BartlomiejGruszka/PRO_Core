@@ -22,12 +22,10 @@ namespace PRO.Controllers
 
 
         [Route("articletypes/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            // var pageString = Request.QueryString["page"];
-            // var itemString = Request.QueryString["items"];
             var articleTypesList = _articleTypeService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, articleTypesList.Count());
+            ViewBag.Pagination = new Pagination(page, items, articleTypesList.Count());
 
             return View(articleTypesList);
         }

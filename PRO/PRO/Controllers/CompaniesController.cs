@@ -28,12 +28,10 @@ namespace PRO.Controllers
 
         // GET: Companies
         [Route("companies/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            // var pageString = Request.QueryString["page"];
-            // var itemString = Request.QueryString["items"];
             var companies = _companyService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, companies.Count());
+            ViewBag.Pagination = new Pagination(page, items, companies.Count());
             return View(companies);
         }
 

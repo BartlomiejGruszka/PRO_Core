@@ -21,12 +21,10 @@ namespace PRO.Controllers
         }
 
         [Route("ImageTypes/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            // var pageString = Request.QueryString["page"];
-            // var itemString = Request.QueryString["items"];
             var ImageTypes = _imageTypeService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, ImageTypes.Count());
+            ViewBag.Pagination = new Pagination(page, items, ImageTypes.Count());
 
             return View(ImageTypes);
         }

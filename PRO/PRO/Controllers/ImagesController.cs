@@ -36,12 +36,10 @@ namespace PRO.Controllers
         }
         [Route("images/manage")]
         // [Authorize(Roles = "Admin,Author")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            // var pageString = Request.QueryString["page"];
-            //  var itemString = Request.QueryString["items"];
             var images = _imageService.ImagesList();
-            ViewBag.Pagination = new Pagination(null, null, images.Count());
+            ViewBag.Pagination = new Pagination(page, items, images.Count());
             return View(images);
         }
 

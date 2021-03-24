@@ -24,12 +24,10 @@ namespace PRO.Controllers
         }
 
         [Route("awards/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            // var pageString = Request.QueryString["page"];
-            //  var itemString = Request.QueryString["items"];
             var awards = _awardService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, awards.Count());
+            ViewBag.Pagination = new Pagination(page, items, awards.Count());
             return View(awards);
         }
 

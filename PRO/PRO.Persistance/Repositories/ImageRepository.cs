@@ -40,9 +40,10 @@ namespace PRO.Persistance.Repositories
             _dbContext.Remove(image);
         }
 
-        public new Image Find(int id)
+        public new Image Find(int? id)
         {
-            return _dbContext.Images.Include(i => i.ImageType).SingleOrDefault(s=>s.Id == id);
+            if (!id.HasValue) return null;
+            return _dbContext.Images.Include(i => i.ImageType).SingleOrDefault(s=>s.Id == id.Value);
         }
         public void UpdateName(Image image)
         {

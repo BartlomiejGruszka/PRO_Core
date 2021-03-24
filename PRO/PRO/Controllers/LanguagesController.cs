@@ -25,15 +25,11 @@ namespace PRO.Controllers
         }
 
         [Route("languages/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-           // var pageString = Request.QueryString["page"];
-           // var itemString = Request.QueryString["items"];
-
             var languages = _languageService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, languages.Count());
+            ViewBag.Pagination = new Pagination(page, items, languages.Count());
             return View(languages);
-
         }
 
         // GET: Languages/Details/5

@@ -22,12 +22,10 @@ namespace PRO.Controllers
 
         // GET: Series
         [Route("series/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            // var pageString = Request.QueryString["page"];
-            // var itemString = Request.QueryString["items"];
             var series = _seriesService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, series.Count());
+            ViewBag.Pagination = new Pagination(page, items, series.Count());
             return View(series);
         }
 

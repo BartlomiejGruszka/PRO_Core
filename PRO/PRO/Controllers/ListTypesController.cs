@@ -20,14 +20,10 @@ namespace PRO.Controllers
 
         // GET: ListTypes
         [Route("listtypes/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            //var pageString = Request.QueryString["page"];
-            // var itemString = Request.QueryString["items"];
-
             var listTypes = _listTypeService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, listTypes.Count());
-
+            ViewBag.Pagination = new Pagination(page, items, listTypes.Count());
             return View(listTypes);
         }
 

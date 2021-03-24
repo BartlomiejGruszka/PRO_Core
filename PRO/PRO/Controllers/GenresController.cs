@@ -28,12 +28,10 @@ namespace PRO.Controllers
             return View(_genreService.GetAll());
         }
         [Route("genres/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            // var pageString = Request.QueryString["page"];
-            //  var itemString = Request.QueryString["items"];
             var genres = _genreService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, genres.Count());
+            ViewBag.Pagination = new Pagination(page, items, genres.Count());
 
             return View(genres);
         }

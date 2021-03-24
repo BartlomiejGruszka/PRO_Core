@@ -19,12 +19,10 @@ namespace PRO.Controllers
         }
         // GET: Status
         [Route("status/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            //var pageString = Request.QueryString["page"];
-            // var itemString = Request.QueryString["items"];
             var statuses = _statusService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, statuses.Count());
+            ViewBag.Pagination = new Pagination(page, items, statuses.Count());
             return View(statuses);
         }
 

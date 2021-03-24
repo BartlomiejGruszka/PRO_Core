@@ -22,12 +22,10 @@ namespace PRO.Controllers
 
         // GET: Tags
         [Route("tags/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-           // var pageString = Request.QueryString["page"];
-            //var itemString = Request.QueryString["items"];
             var tags = _tagService.GetAll();
-            ViewBag.Pagination = new Pagination(null, null, tags.Count());
+            ViewBag.Pagination = new Pagination(page, items, tags.Count());
             return View(tags);
         }
 

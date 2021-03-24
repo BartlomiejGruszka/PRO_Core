@@ -26,9 +26,12 @@ namespace PRO.Persistance.Repositories
             return _dbContext.Set<T>().ToList();
         }
 
-        public T Find(int id)
+        public T Find(int? id)
         {
-            return _dbContext.Set<T>().Find(id);
+            if (!id.HasValue) return null;
+            var item = _dbContext.Set<T>().Find(id.Value);
+
+            return item;
         }
 
         public IEnumerable<T> Get(Func<T, bool> wherePredicate)

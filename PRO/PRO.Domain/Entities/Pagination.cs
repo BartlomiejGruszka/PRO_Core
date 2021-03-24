@@ -17,20 +17,14 @@ namespace PRO.Entities
         public int pageIteratorEnd { get; set; }
         public int allItems { get; set; }
 
-        public Pagination(string pageString, string itemsString, int allItems)
+        public Pagination(int? page, int? items, int allItems)
         {
             //read url query values
-            try
-            {
-                currentPage = Convert.ToInt32(pageString);
-                itemsPerPage = Convert.ToInt32(itemsString);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                currentPage = 1;
-                itemsPerPage = 5;
-            }
+            if (!page.HasValue) currentPage = 1;
+            else currentPage = page.Value;
+
+            if (!items.HasValue) itemsPerPage = 5;
+            else itemsPerPage = items.Value;
 
             //set first page
             firstPage = 1;
