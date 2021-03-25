@@ -11,5 +11,6 @@ namespace PRO.Domain.Interfaces.Repositories
     {
 
         public new IEnumerable<Article> GetAll();
+        public new Article Find(int? id);
     }
 }
