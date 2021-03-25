@@ -18,6 +18,8 @@ namespace PRO.Persistance.Data
             modelBuilder.SeedApplicationUsers();
             modelBuilder.SeedRoles();
             modelBuilder.SeedUserRoles();
+            modelBuilder.SeedAuthors();
+            modelBuilder.SeedModerators();
 
             modelBuilder.SeedStatuses();
             modelBuilder.SeedSeries();

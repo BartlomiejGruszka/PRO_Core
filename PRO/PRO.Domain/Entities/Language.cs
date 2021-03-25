@@ -12,7 +12,7 @@ namespace PRO.Entities
         [Required, DisplayName("Nazwa"), MaxLength(50), MinLength(3)] //add custom is unique constraint UniqueListTypeName
         public string Name { get; set; }
 
-        public ICollection<GameLanguage> GameLanguages{ get; set; }
+        public ICollection<Game> Games{ get; set; }
 
     }
 }

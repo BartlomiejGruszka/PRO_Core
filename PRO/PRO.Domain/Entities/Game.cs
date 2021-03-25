@@ -10,20 +10,20 @@ namespace PRO.Entities
     {
         public Game()
         {
-           // this.Languages = new HashSet<Language>();
-           // this.Tags = new HashSet<Tag>();
+            // this.Languages = new HashSet<Language>();
+            // this.Tags = new HashSet<Tag>();
         }
 
         [Key]
         public int Id { get; set; }
 
-        [Required, MaxLength(100), DisplayName("Tytuł"),MinLength(3)]
+        [Required, MaxLength(100), DisplayName("Tytuł"), MinLength(3)]
         public string Title { get; set; }
 
         [MaxLength(1000), DisplayName("Opis")]
         public string Description { get; set; }
 
-        
+
         [DataType(DataType.Date), DisplayName("Data premiery")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? ReleaseDate { get; set; }
@@ -55,26 +55,26 @@ namespace PRO.Entities
         public int? SeriesId { get; set; }
 
 
-        [ForeignKey("ImageId"),DisplayName("Obraz")]
+        [ForeignKey("ImageId"), DisplayName("Obraz")]
         public Image Image { get; set; }
         public int? ImageId { get; set; }
 
         public int? PublisherId { get; set; }
 
-        [ForeignKey("PublisherId"),InverseProperty("PublishedGames"), DisplayName("Wydawca")]
-        
-        public  Company PublisherCompany { get; set; }
+        [ForeignKey("PublisherId"), InverseProperty("PublishedGames"), DisplayName("Wydawca")]
+
+        public Company PublisherCompany { get; set; }
 
         public int? DeveloperId { get; set; }
 
         [ForeignKey("DeveloperId"), InverseProperty("DevelopedGames"), DisplayName("Producent")]
         public Company DeveloperCompany { get; set; }
 
-        public ICollection<GameLanguage> GameLanguages { get; set; }
+        public ICollection<Language> Languages { get; set; }
 
-        public ICollection<GameTag> GameTags{ get; set; }
+        public ICollection<Tag> Tags { get; set; }
 
-        public ICollection<Award> Awards{ get; set; }
+        public ICollection<Award> Awards { get; set; }
 
         public ICollection<Article> Articles { get; set; }
 

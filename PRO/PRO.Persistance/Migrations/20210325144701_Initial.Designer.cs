@@ -10,7 +10,7 @@ using PRO.Persistance.Data;
 namespace PRO.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210322130401_Initial")]
+    [Migration("20210325144701_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -958,13 +958,13 @@ namespace PRO.Persistance.Migrations
             modelBuilder.Entity("PRO.Entities.GameLanguage", b =>
                 {
                     b.HasOne("PRO.Entities.Game", "Game")
-                        .WithMany("GameLanguages")
+                        .WithMany()
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PRO.Entities.Language", "Language")
-                        .WithMany("GameLanguages")
+                        .WithMany()
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -996,13 +996,13 @@ namespace PRO.Persistance.Migrations
             modelBuilder.Entity("PRO.Entities.GameTag", b =>
                 {
                     b.HasOne("PRO.Entities.Game", "Game")
-                        .WithMany("GameTags")
+                        .WithMany()
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PRO.Entities.Tag", "Tag")
-                        .WithMany("GameTags")
+                        .WithMany()
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1121,11 +1121,7 @@ namespace PRO.Persistance.Migrations
 
                     b.Navigation("Awards");
 
-                    b.Navigation("GameLanguages");
-
                     b.Navigation("GameLists");
-
-                    b.Navigation("GameTags");
 
                     b.Navigation("Reviews");
                 });
@@ -1138,11 +1134,6 @@ namespace PRO.Persistance.Migrations
             modelBuilder.Entity("PRO.Entities.ImageType", b =>
                 {
                     b.Navigation("Images");
-                });
-
-            modelBuilder.Entity("PRO.Entities.Language", b =>
-                {
-                    b.Navigation("GameLanguages");
                 });
 
             modelBuilder.Entity("PRO.Entities.ListType", b =>
@@ -1168,11 +1159,6 @@ namespace PRO.Persistance.Migrations
             modelBuilder.Entity("PRO.Entities.Status", b =>
                 {
                     b.Navigation("Games");
-                });
-
-            modelBuilder.Entity("PRO.Entities.Tag", b =>
-                {
-                    b.Navigation("GameTags");
                 });
 
             modelBuilder.Entity("PRO.Entities.UserList", b =>

@@ -9,11 +9,10 @@ namespace PRO.Entities
 {
     public class GameLanguage
     {
-        [Key,Column(Order =1)]
+        [Required]
         public int GameId { get; set; }
 
-
-        [Key, Column(Order = 2)]
+        [Required]
         public int LanguageId { get; set; }
 
 

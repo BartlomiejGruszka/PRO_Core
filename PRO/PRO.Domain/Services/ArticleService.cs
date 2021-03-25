@@ -44,14 +44,7 @@ namespace PRO.Domain.Services
         }
         public IEnumerable<Article> GetAllActive()
         {
-            return _repository
-            .Get(s => s.IsActive == true)
-            .Include(i => i.Image)
-             .Include(i => i.Author)
-             .Include(i => i.ArticleType)
-             .Include(i => i.Game)
-             .Include(i => i.Game.Platform)
-             .OrderByDescending(d => d.PublishedDate);
+            return _repository.GetAll();//
         }
     }
 }

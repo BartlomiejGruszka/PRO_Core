@@ -1,4 +1,5 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Entities;
 using PRO.Persistance.Data;
 using System;
@@ -14,15 +15,11 @@ namespace PRO.Persistance.Repositories
         public ArticleRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
-        public void Add(Article newElement)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Article Find(int? id)
+        public new Article Find(int? id)
         {
             if (!id.HasValue) return null;
-            Article article = context.Articles
+            Article article = _dbContext.Articles
                 .Include(a => a.Game)
                 .Include(a => a.Game.Tags)
                 .Include(a => a.Author)
@@ -32,27 +29,9 @@ namespace PRO.Persistance.Repositories
             return article;
         }
 
-        public IEnumerable<Article> Get(Func<Article, bool> wherePredicate)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<Article> GetAll()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Remove(Article elementToRemove)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Article updatedElement)
+        public new IEnumerable<Article> GetAll()
         {
             throw new NotImplementedException();
         }

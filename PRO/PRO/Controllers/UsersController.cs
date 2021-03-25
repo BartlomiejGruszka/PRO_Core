@@ -1,18 +1,8 @@
-﻿using PRO.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Data.Entity;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity;
-using PRO.ViewModels;
-using PRO.Helpers;
-using static PRO.Controllers.ManageController;
 
+/*
 namespace PRO.Controllers
 {
 
@@ -232,10 +222,10 @@ namespace PRO.Controllers
                     };
 
                     //temp also in Account Controller
-                    /*var roleStore = new RoleStore<IdentityRole>(_context);
-                    var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    await roleManager.CreateAsync(new IdentityRole(""));
-                    await UserManager.AddToRoleAsync(user.Id, "");*/
+                    //var roleStore = new RoleStore<IdentityRole>(_context);
+                   // var roleManager = new RoleManager<IdentityRole>(roleStore);
+                   // await roleManager.CreateAsync(new IdentityRole(""));
+                   // await UserManager.AddToRoleAsync(user.Id, "");
                     //end temp
 
                     _context.AppUsers.Add(userModel);
@@ -590,4 +580,4 @@ namespace PRO.Controllers
             }
         }
     }
-}
+}*/

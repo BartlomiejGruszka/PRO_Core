@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PRO.Entities;
 using PRO.Domain.Interfaces.Services;
-
+/*
 namespace PRO.Controllers
 {
 
@@ -26,11 +26,11 @@ namespace PRO.Controllers
         {
 
 
-            IEnumerable<Article> articlesList = new List<Article>();
-            IEnumerable<Article> otherArticles = new List<Article>();
+            List<Article> articlesList = new List<Article>();
+            List<Article> otherArticles = new List<Article>();
             if (platform == null || platform == "all")
             {
-                articlesList = _articleService.GetAllActive();
+                articlesList = _context.GetArticlesList().Where(a=>a.IsActive == true).ToList();
             }
             else if (platform == "other")
             {
@@ -247,4 +247,4 @@ namespace PRO.Controllers
         }
 
     }
-}
+}*/

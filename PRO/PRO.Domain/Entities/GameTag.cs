@@ -10,13 +10,13 @@ namespace PRO.Entities
     public class GameTag
     {
 
-        [Key, Column(Order = 1)]
+        [Required]
         public int GameId { get; set; }
 
         public Game Game { get; set; }
 
 
-        [Key, Column(Order = 2)]
+        [Required]
         public int TagId { get; set; }
 
         public Tag Tag { get; set; }

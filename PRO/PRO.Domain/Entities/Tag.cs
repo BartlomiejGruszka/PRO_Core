@@ -12,6 +12,6 @@ namespace PRO.Entities
         [Required, MaxLength(100), DisplayName("Słowo kluczowe"), MinLength(2)] //add custom is unique constraintUniqueTagName
         public string Name { get; set; }
 
-        public ICollection<GameTag> GameTags { get; set; }
+        public ICollection<Game> Games { get; set; }
     }
 }

@@ -48,7 +48,23 @@ namespace PRO.Persistance.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.BuildIndexesFromAnnotations();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-           // modelBuilder.Seed();
+             modelBuilder.Seed();
+
+            modelBuilder.Entity<Game>().HasMany(x => x.Tags)
+                .WithMany(x => x.Games)
+                .UsingEntity<GameTag>(
+                    x => x.HasOne(x => x.Tag)
+                    .WithMany().HasForeignKey(x => x.TagId),
+                    x => x.HasOne(x => x.Game)
+                   .WithMany().HasForeignKey(x => x.GameId));
+
+            modelBuilder.Entity<Game>().HasMany(x => x.Languages)
+                .WithMany(x => x.Games)
+                .UsingEntity<GameLanguage>(
+                    x => x.HasOne(x => x.Language)
+                    .WithMany().HasForeignKey(x => x.LanguageId),
+                    x => x.HasOne(x => x.Game)
+                   .WithMany().HasForeignKey(x => x.GameId));
         }
 
     }

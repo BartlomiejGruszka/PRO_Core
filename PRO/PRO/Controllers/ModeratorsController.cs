@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNetCore.Identity;
-using PRO.Models;
 
-
+/*
 namespace PRO.Controllers
 {
     public class ModeratorsController : Controller
@@ -199,3 +191,4 @@ namespace PRO.Controllers
         }
     }
 }
+*/

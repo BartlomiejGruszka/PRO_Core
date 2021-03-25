@@ -1,18 +1,7 @@
-﻿using PRO.Models;
-using PRO.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Security.Claims;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.Net;
-using System.Data.Entity;
-using PRO.Helpers;
-
+/*
 namespace PRO.Controllers
 {
     //[Authorize]
@@ -213,4 +202,4 @@ namespace PRO.Controllers
             return id;
         }
     }
-}
+}*/

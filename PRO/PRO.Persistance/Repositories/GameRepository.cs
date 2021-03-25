@@ -31,8 +31,8 @@ namespace PRO.Persistance.Repositories
                  .Include(a => a.DeveloperCompany)
                  .Include(a => a.Image)
                  .Include(a => a.Reviews)
-                 .Include(a => a.GameLanguages)
-                 .Include(a => a.GameTags);
+                 .Include(a => a.Languages)
+                 .Include(a => a.Tags);
 
             var languages = _dbContext.GameLanguage.ToList();
             var tags = _dbContext.GameTag.ToList();
