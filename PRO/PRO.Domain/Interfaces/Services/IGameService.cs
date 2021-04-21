@@ -10,7 +10,8 @@ namespace PRO.Domain.Interfaces.Services
     {
 
         IEnumerable<Game> GetGames();
-        List<Game> GetAll();
+        IEnumerable<Game> GetComingGames();
+        IEnumerable<Game> GetAll();
         void AddGame(Game newGame);
     }
 }

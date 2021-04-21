@@ -33,7 +33,16 @@ namespace PRO.Persistance.Repositories
 
         public new IEnumerable<Article> GetAll()
         {
-            throw new NotImplementedException();
+            var articles = _dbContext.Articles
+             .Include(i => i.Image)
+             .Include(i => i.Author)
+             .Include(i => i.ArticleType)
+             .Include(i => i.Game)
+             .Include(i => i.Game.Platform)
+             .OrderByDescending(d => d.PublishedDate);
+            return articles;
         }
+
+        
     }
 }

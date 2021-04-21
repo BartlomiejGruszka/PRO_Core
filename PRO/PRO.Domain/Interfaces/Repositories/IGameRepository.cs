@@ -11,5 +11,6 @@ namespace PRO.Domain.Interfaces.Repositories
     {
 
         public new IEnumerable<Game> GetAll();
+        public new Game Find(int? id);
     }
 }

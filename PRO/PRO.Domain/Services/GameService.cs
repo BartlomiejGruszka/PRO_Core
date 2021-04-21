@@ -1,6 +1,7 @@
 ﻿using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,17 +25,20 @@ namespace PRO.Domain.Services
              _repository.Save();
         }
 
+        public IEnumerable<Game> GetAll()
+        {
+            
+            return _gameRepository.GetAll();
+        }
+
+        public IEnumerable<Game> GetComingGames()
+        {
+            return _gameRepository.GetAll().Where(a => a.ReleaseDate > DateTime.Now).OrderBy(a => a.ReleaseDate).Take(3);
+        }
+
         public IEnumerable<Game> GetGames()
         {
-            return  _repository.GetAll();
+            throw new System.NotImplementedException();
         }
-        public List<Game> GetAll()
-        {
-           var test =  _gameRepository.GetAll();
-            var list = test.ToList();
-            return list;
-        }
-       
-
     }
 }

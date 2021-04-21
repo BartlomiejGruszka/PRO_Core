@@ -8,16 +8,32 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PRO.Entities;
 using PRO.Domain.Interfaces.Services;
-/*
+using Microsoft.EntityFrameworkCore;
+using PRO.Domain.Extensions;
+
 namespace PRO.Controllers
 {
 
     public class ArticlesController : Controller
     {
         private readonly IArticleService _articleService;
-        public ArticlesController(IArticleService articleService)
+        private readonly IGameService _gameService;
+        private readonly IGameListService _gameListService;
+        private readonly IReviewService _reviewService;
+        private readonly IUserService _userService;
+        public ArticlesController(
+            IArticleService articleService,
+            IGameService gameService,
+            IGameListService gameListService,
+            IReviewService reviewService,
+            IUserService userService
+            )
         {
             _articleService = articleService;
+            _gameService = gameService;
+            _gameListService = gameListService;
+            _reviewService = reviewService;
+            _userService = userService;
         }
 
         [AllowAnonymous]
@@ -26,28 +42,28 @@ namespace PRO.Controllers
         {
 
 
-            List<Article> articlesList = new List<Article>();
-            List<Article> otherArticles = new List<Article>();
+            IEnumerable<Article> articlesList = new List<Article>();
+            IEnumerable<Article> otherArticles = new List<Article>();
             if (platform == null || platform == "all")
             {
-                articlesList = _context.GetArticlesList().Where(a=>a.IsActive == true).ToList();
+                articlesList = _articleService.GetAllActive();
             }
             else if (platform == "other")
             {
-                otherArticles = _context.GetArticlesList().Where(a => a.IsActive == true).ToList(); ;
+                otherArticles = _articleService.GetAllActive(); ;
                 articlesList = otherArticles
                 .Where(i =>
                           !i.Game.Platform.Name.Contains("PC")
                         & !i.Game.Platform.Name.Contains("Playstation")
                         & !i.Game.Platform.Name.Contains("Xbox")
                         & !i.Game.Platform.Name.Contains("Switch"))
-                .OrderByDescending(d=>d.PublishedDate)
+                .OrderByDescending(d => d.PublishedDate)
                 .ToList();
 
             }
             else
             {
-                articlesList = _context.GetArticlesListByPlatform(platform);
+                articlesList = _articleService.GetAllByPlatform(platform);
             }
 
             ViewBag.Pagination = new Pagination(page, items, articlesList.Count());
@@ -59,15 +75,15 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Author")]
         public ActionResult Manage(int? page, int? items)
         {
-            List<Article> articlesList = null;
+            IEnumerable<Article> articlesList = null;
 
             if (!User.IsInRole("Admin"))
             {
-                articlesList = _context.GetArticlesList().Where(s => s.Author.UserId == getCurrentUserId()).ToList();
+                articlesList = _articleService.GetAll().Where(s => s.Author.UserId == _userService.GetLoggedInUserId());
             }
             else
             {
-                articlesList = _context.GetArticlesList();
+                articlesList = _articleService.GetAll();
             }
 
             ViewBag.Pagination = new Pagination(page, items, articlesList.Count());
@@ -78,23 +94,13 @@ namespace PRO.Controllers
         [Route("articles/{id}")]
         public ActionResult Details(int? id)
         {
-            var article = _context.GetArticleById((int)id);
-            var games = _context.GetGamesList().Where(a => a.ReleaseDate > DateTime.Now).OrderBy(a => a.ReleaseDate).Take(3).ToList();
-            if (article == null)
-            {
-                return NotFound();
-            }
-            if(article.IsActive == false)
-            {
-                return NotFound();
-            }
-            var highestRatedGames = _context.GetUnorderedGamesRanking().OrderByDescending(o => o.Item2).Take(3).ToList();
+            var highestRatedGames = _gameListService.GetGamesRanking();//.OrderByDescending(o => o.Item2).Take(3).ToList();
 
             ArticleDetailsViewModel articleDetails = new ArticleDetailsViewModel
             {
-                Article = article,
-                RecentGames = games,
-                RecentReviews = _context.GetRecentReviews(),
+                Article = _articleService.FindActive(id),
+                RecentGames = _gameService.GetComingGames(),
+                RecentReviews = _reviewService.GetRecentReviews(),
                 BestRatedGames = highestRatedGames
             };
             return View(articleDetails);
@@ -106,7 +112,7 @@ namespace PRO.Controllers
         public ActionResult ManageDetails(int? id)
         {
 
-            var article = _context.GetArticleById((int)id);
+            var article = _articleService.Find(id);
             if (article == null)
             {
                 return NotFound();
@@ -119,6 +125,16 @@ namespace PRO.Controllers
         public ActionResult Add()
         {
 
+            var viewModel = new ArticleViewModel
+            {
+                Images = context.Images.ToList(),
+                ArticleTypes = context.ArticleTypes.ToList(),
+                Games = context.Games.ToList(),
+                Authors = context.Authors.ToList(),
+                Article = null,
+                ImageTypes = context.ImageTypes.ToList()
+
+            };
             return View(_context.GetFullArticleForm(null));
         }
 
@@ -131,7 +147,7 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userid = getCurrentUserId();
+                var userid = _userService.GetLoggedInUserId();
                 if (userid == null)
                 {
                     return RedirectToAction("Login", "Account");
@@ -140,13 +156,10 @@ namespace PRO.Controllers
                 {
                     return NotFound();
                 }
-                article.UserId = (int)userid;
-                article.PublishedDate = DateTime.Now;
-                _context.Articles.Add(article);
-                _context.SaveChanges();
+                _articleService.Add(article, userid);
                 return RedirectToAction("Manage");
             }
-            var articleViewModel = _context.GetFullArticleForm(null);
+            var articleViewModel = _articleService.GetFullArticleForm(null);
             articleViewModel.Article = article;
             return View(articleViewModel);
         }
@@ -155,16 +168,18 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Author")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ArticleViewModel articleViewModel = _context.GetFullArticleForm(id);
+            ArticleViewModel articleViewModel = _articleService.GetFullArticleForm(id);
             if (articleViewModel.Article == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            if (articleViewModel.Article.UserId != getCurrentUserId() && !User.IsInRole("Admin")) { RedirectToAction("Manage"); }
+            if (
+                articleViewModel.Article.UserId != _userService.GetLoggedInUserId()
+                && !User.IsInRole("Admin")
+                )
+            {
+                RedirectToAction("Manage");
+            }
 
             return View(articleViewModel);
         }
@@ -175,11 +190,16 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ArticleViewModel articleViewModel)
         {
-            if (articleViewModel.Article.UserId != getCurrentUserId() && !User.IsInRole("Admin")) { RedirectToAction("Manage"); }
+            if (
+                articleViewModel.Article.UserId != _userService.GetLoggedInUserId()
+                && !User.IsInRole("Admin")
+                )
+            {
+                RedirectToAction("Manage");
+            }
             if (ModelState.IsValid)
             {
-                _context.Entry(articleViewModel.Article).State = EntityState.Modified;
-                _context.SaveChanges();
+                _articleService.Update(articleViewModel.Article);
                 return RedirectToAction("Manage");
             }
             articleViewModel = _context.GetFullArticleForm(articleViewModel.Article.Id);
@@ -190,14 +210,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Article article = _context.GetArticleById((int)id);
+            Article article = _articleService.Find(id);
             if (article == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(article);
         }
@@ -209,37 +225,17 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Article article = _context.Articles.Find(id);
-            _context.Articles.Remove(article);
-            _context.SaveChanges();
+            Article article = _articleService.Find(id);
+            _articleService.Delete(article);
             return RedirectToAction("Manage");
         }
-        public int? getCurrentUserId()
-        {
-            string currentUserId = User.Identity.GetUserId();
-            var user = _context.AppUsers.SingleOrDefault(s => s.UserId.Equals(currentUserId));
-            if (user == null) return null;
-            var id = user.Id;
-            return id;
-        }
-
-
 
         [AllowAnonymous]
         [Route("articles/search/{query?}")]
         public ActionResult Search(string query, int? page, int? items)
         {
+            var searchList = _articleService.SearchResultArticles(query);
 
-            List<Article> articlesList = new List<Article>();
-            List<Article> searchList = new List<Article>();
-
-            articlesList = _context.GetArticlesList().Where(a => a.IsActive == true).ToList(); ;
-            searchList = articlesList.Where(a =>
-            a.Title.CaseInsensitiveContains(query) ||
-            a.Preview.CaseInsensitiveContains(query) ||
-            a.Content.CaseInsensitiveContains(query)
-            ).ToList();
-            
             ViewBag.Pagination = new Pagination(page, items, searchList.Count());
             ViewBag.Query = query;
             ViewBag.platform = "none";
@@ -247,4 +243,4 @@ namespace PRO.Controllers
         }
 
     }
-}*/
+}

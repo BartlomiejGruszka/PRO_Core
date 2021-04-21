@@ -1,16 +1,21 @@
 ﻿using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
     class GameListService : IGameListService
     {
         private readonly IRepository<GameList> _repository;
-        public GameListService(IRepository<GameList> repository)
+        private readonly IGameListRepository _gameListRepository;
+
+        public GameListService(IRepository<GameList> repository, IGameListRepository gameListRepository)
         {
             _repository = repository;
+            _gameListRepository = gameListRepository;
         }
 
         public void Add(GameList gameList)
@@ -33,8 +38,9 @@ namespace PRO.Domain.Services
 
         public IEnumerable<GameList> GetAll()
         {
-            return _repository.GetAll();
+            return  _gameListRepository.GetAll();
         }
+
 
         public void Update(GameList gameList)
         {

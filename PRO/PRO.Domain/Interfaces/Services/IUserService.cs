@@ -15,5 +15,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(ApplicationUser user);
 
         public void Update(ApplicationUser user);
+        public int? GetLoggedInUserId();
+
     }
 }

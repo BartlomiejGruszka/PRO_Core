@@ -18,7 +18,33 @@ namespace PRO.Persistance.Repositories
         }
 
 
+        public new Game Find(int? id)
+        {
+            if (!id.HasValue) { return null; }
+            var game = _dbContext.Games
+         .Include(i => i.Platform)
+         .Include(a => a.Genre)
+         .Include(a => a.Status)
+         .Include(a => a.Series)
+         .Include(a => a.Series.Games)
+         .Include(a => a.PublisherCompany)
+         .Include(a => a.DeveloperCompany)
+         .Include(a => a.Tags)
+         .Include(a => a.Languages)
+         .Include(a => a.Image)
+         .Include(a => a.Awards)
+         .Include(a => a.Reviews)
+         .SingleOrDefault(g => g.Id == id.Value);
 
+           /* if (game == null) return null;
+
+            var series = _dbContext.Series.Include(g => g.Games)
+                .SingleOrDefault(s => s.Id == game.SeriesId);
+
+            game.Series = series;*/
+
+            return game;
+        }
         public new IEnumerable<Game> GetAll()
         {
 
@@ -33,10 +59,6 @@ namespace PRO.Persistance.Repositories
                  .Include(a => a.Reviews)
                  .Include(a => a.Languages)
                  .Include(a => a.Tags);
-
-            var languages = _dbContext.GameLanguage.ToList();
-            var tags = _dbContext.GameTag.ToList();
-
 
             return games;
         }

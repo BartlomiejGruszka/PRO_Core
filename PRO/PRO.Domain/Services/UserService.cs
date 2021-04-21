@@ -36,9 +36,9 @@ namespace PRO.Domain.Services
             throw new NotImplementedException();
         }
 
-        public int GetLoggedInUserId()
+        public int? GetLoggedInUserId()
         {
-            var userId = _httpContextAccessor.HttpContext.User.GetLoggedInUserId<int>();
+            int? userId = _httpContextAccessor.HttpContext.User.GetLoggedInUserId<int>();
             return userId;
         }
 

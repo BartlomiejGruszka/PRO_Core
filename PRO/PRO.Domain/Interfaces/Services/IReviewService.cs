@@ -15,5 +15,6 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Review review);
 
         public void Update(Review review);
+        IEnumerable<Review> GetRecentReviews();
     }
 }
