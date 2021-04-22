@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PRO.Domain.Services
 {
-    class ArticleService : IArticleService
+    public class ArticleService : IArticleService
     {
 
         private readonly IArticleRepository _articleRepository;
@@ -37,7 +37,8 @@ namespace PRO.Domain.Services
         public Article FindActive(int? id)
         {
             var article = Find(id);
-            if (article == null && article.IsActive == false) {return null; }
+            if (article == null) {return null; }
+            if (article.IsActive == false) { return null; }
             return article;
         }
 
@@ -51,13 +52,13 @@ namespace PRO.Domain.Services
             _articleRepository.Update(article);
             _articleRepository.Save();
         }
-        public IEnumerable<Article> GetAllActive()
+        public List<Article> GetAllActive()
         {
-            return _articleRepository.GetAll().Where(i=>i.IsActive==true);
+            return _articleRepository.GetAll().Where(i=>i.IsActive==true).ToList();
         }
         public IEnumerable<Article> GetAllByPlatform(string platform)
         {
-            return _articleRepository.GetAll().Where(i=>i.Game.Platform.Name.Contains(platform));
+            return _articleRepository.GetAll().Where(i=>i.Game.Platform.Name.Contains(platform)).ToList();
         }
 
         public IEnumerable<Article> SearchResultArticles(string query)

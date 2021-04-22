@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class ModeratorService : IModeratorService
+    public class ModeratorService : IModeratorService
     {
         private readonly IRepository<Moderator> _repository;
         public ModeratorService(IRepository<Moderator> repository)

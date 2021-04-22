@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PRO.Domain.Services
 {
-    class UserService :IUserService
+    public class UserService :IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public UserService(IHttpContextAccessor httpContextAccessor)

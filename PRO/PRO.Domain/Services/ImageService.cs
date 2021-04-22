@@ -41,7 +41,7 @@ namespace PRO.Domain.Services
 
         }
 
-        public Image FindImage(int? id)
+        public Image Find(int? id)
         {
             if (!id.HasValue) return null;
             var image = _imageRepository.Find(id.Value);
@@ -50,12 +50,12 @@ namespace PRO.Domain.Services
             return image;
         }
 
-        public IEnumerable<Image> ImagesList()
+        public IEnumerable<Image> GetAll()
         {
             return _imageRepository.GetAll();
         }
 
-        public void AddImage(Image image)
+        public void Add(Image image)
         {
            // if()
             image = UploadImageFile(image);
@@ -64,7 +64,7 @@ namespace PRO.Domain.Services
 
         }
 
-        public void UpdateImage(Image image)
+        public void Update(Image image)
         {
             if (image.ImageFile != null)
             {
@@ -83,7 +83,7 @@ namespace PRO.Domain.Services
             _imageRepository.Save();
         }
 
-        public void DeleteImage(Image image)
+        public void Delete(Image image)
         {
             _imageRepository.Delete(image);
             _imageRepository.Save();

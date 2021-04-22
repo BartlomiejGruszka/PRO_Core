@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class PlatformService : IPlatformService
+    public class PlatformService : IPlatformService
     {
         private readonly IRepository<Platform> _repository;
         public PlatformService(IRepository<Platform> repository)

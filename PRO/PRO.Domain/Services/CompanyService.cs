@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class CompanyService : ICompanyService
+    public class CompanyService : ICompanyService
     {
         private readonly IRepository<Company> _repository;
         public CompanyService(IRepository<Company> repository)

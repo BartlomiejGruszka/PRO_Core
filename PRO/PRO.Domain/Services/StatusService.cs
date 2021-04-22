@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class StatusService : IStatusService
+    public class StatusService : IStatusService
     {
         private readonly IRepository<Status> _repository;
         public StatusService(IRepository<Status> repository)

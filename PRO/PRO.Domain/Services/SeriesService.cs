@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class SeriesService : ISeriesService
+    public class SeriesService : ISeriesService
     {
         private readonly IRepository<Series> _repository;
         private readonly IGameRepository _gameRepository;

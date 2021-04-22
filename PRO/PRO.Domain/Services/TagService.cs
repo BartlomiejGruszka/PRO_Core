@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class TagService : ITagService
+    public class TagService : ITagService
     {
         private readonly IRepository<Tag> _repository;
         public TagService(IRepository<Tag> repository)

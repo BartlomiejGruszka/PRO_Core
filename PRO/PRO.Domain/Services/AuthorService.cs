@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class AuthorService : IAuthorService
+    public class AuthorService : IAuthorService
     {
         private readonly IRepository<Author> _repository;
         public AuthorService(IRepository<Author> repository)

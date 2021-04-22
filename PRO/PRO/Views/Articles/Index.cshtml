@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="nav nav-tabs" id="myTab">
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.platform == "all" ? "active" : "")" href="/articles?platform=all">Wszystkie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.platform == "PC" ? "active" : "")" href="/articles?platform=PC">PC</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.platform.Contains("Playstation") ? "active" : "")" href="/articles?platform=Playstation">Playstation</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.platform.Contains("Xbox") ? "active" : "")" href="/articles?platform=Xbox">Xbox</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.platform == "Switch" ? "active" : "")" href="/articles?platform=Switch">Switch</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @((ViewBag.platform != "all" && ViewBag.platform != "PC" && !ViewBag.platform.Contains("Playstation") && !ViewBag.platform.Contains("Xbox") && ViewBag.platform != "Switch") || ViewBag.platform == "other" ? "active" : "")" href="/articles?platform=other">Inne</a>
+    </li>
+
+</ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active show" id="all">
+        <div class="list-group">
+            @{ var start = ViewBag.Pagination.pageIteratorStart;
+                var end = ViewBag.Pagination.pageIteratorEnd;
+                for (var i = start; i <= end; i++)
+                {
+                    var item = Model.ToArray()[i];
+                    <div class="news-list mt16 mr8">
+                        <div class="news-unit">
+                            @if (item.Image != null)
+                            {
+                                <a href="/articles/@item.Id" class="image-link">
+                                    <img style="max-height:300px;max-width:200px;" class="img" alt="myimage" src="/images/@item.Image.ImagePath">
+                                </a>
+                            }
+                            <div class="news-unit-right">
+                                <p class="title">
+                                    <a href="/articles/@item.Id">@item.Title</a>
+                                </p>
+                                <div class="text">
+                                    @item.Preview
+                                </div>
+                                <div class="information">
+                                    <p class="info di-ib">
+                                        @item.PublishedDate <text>przez</text> <a href="/users/@item.Author.UserId">@item.Author.FirstName @item.Author.LastName</a> <a href="/articles?platform=@item.Game.Platform.Name" class="nav-item">@item.Game.Platform.Name</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+        </div>
+    </div>
+
+</div>
+<div>
+    <ul class="pagination">
+        @{
+            var first = ViewBag.Pagination.firstPage;
+            var current = ViewBag.Pagination.currentPage;
+            var previous = ViewBag.Pagination.previousPage;
+            var items = ViewBag.Pagination.itemsPerPage;
+            var next = ViewBag.Pagination.nextPage;
+            var last = ViewBag.Pagination.lastPage;
+        }
+
+
+
+
+        @{
+            if (@current >= 3)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@first&items=@items">«</a>
+                </li>
+            }
+            if (@current >= 2 && @previous != @current)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@previous&items=@items">@previous</a>
+                </li>
+            }
+
+            <li class="page-item active">
+                <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@current&items=@items">@current</a>
+            </li>
+
+            if (@last > @current)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@next&items=@items">@next</a>
+                </li>
+            }
+
+            if (@last > @current + 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@last&items=@items">&raquo;</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+
+

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class ListTypeService : IListTypeService
+    public class ListTypeService : IListTypeService
     {
         private readonly IRepository<ListType> _repository;
         public ListTypeService(IRepository<ListType> repository)

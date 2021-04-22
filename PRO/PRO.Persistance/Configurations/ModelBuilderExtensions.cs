@@ -124,7 +124,7 @@ namespace PRO.Persistance.Data
                       UserName = "Andrzej",
                       NormalizedUserName = "ANDRZEJ",
                       Email = "b@b.pl",
-                      NormalizedEmail = "A@A.PL",
+                      NormalizedEmail = "B@B.PL",
                       PasswordHash = "AQAAAAEAACcQAAAAEG6cNJRSVylV3/tdiHn5UVECZMhhvHP7hT3fVxqTRzhpU9OJReOkZoHisfkoLk5W7Q==",
                       SecurityStamp = "XDQ77TTJDPKOJKPRKF6HKYC6Y7P2BCBN",
                       ConcurrencyStamp = "6931d766-59a6-42a4-9c40-3593ea2bdd4a",

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace PRO.Domain.Services
 {
-    class GameListService : IGameListService
+    public class GameListService : IGameListService
     {
         private readonly IRepository<GameList> _repository;
         private readonly IGameListRepository _gameListRepository;

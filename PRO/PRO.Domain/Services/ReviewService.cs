@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace PRO.Domain.Services
 {
-    class ReviewService : IReviewService
+    public class ReviewService : IReviewService
     {
         private readonly IRepository<Review> _repository;
         private readonly IReviewRepository _reviewRepository;

@@ -13,5 +13,7 @@ namespace PRO.Domain.Interfaces.Services
         IEnumerable<Game> GetComingGames();
         IEnumerable<Game> GetAll();
         void AddGame(Game newGame);
+        List<Tuple<Game, double?>> GetUnorderedGamesRanking();
+        List<Tuple<Game, double?>> GetHighestRatedGames(int number);
     }
 }

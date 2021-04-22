@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class ArticleTypeService :IArticleTypeService
+    public class ArticleTypeService :IArticleTypeService
     {
         private readonly IRepository<ArticleType> _repository;
         public ArticleTypeService(IRepository<ArticleType> repository)

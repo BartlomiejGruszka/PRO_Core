@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class AwardService : IAwardService
+    public class AwardService : IAwardService
     {
         private readonly IRepository<Award> _repository;
         public AwardService(IRepository<Award> repository)

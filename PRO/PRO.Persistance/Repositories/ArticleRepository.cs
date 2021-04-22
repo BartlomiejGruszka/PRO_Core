@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PRO.Persistance.Repositories
 {
-    class ArticleRepository : BaseRepository<Article>, IArticleRepository
+    public class ArticleRepository : BaseRepository<Article>, IArticleRepository
     {
         public ArticleRepository(ApplicationDbContext dbContext) : base(dbContext)
         {

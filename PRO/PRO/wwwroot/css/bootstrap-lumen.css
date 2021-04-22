@@ -11408,7 +11408,7 @@ a.text-dark:hover, a.text-dark:focus {
         float: left;
         margin-right: 12px;
         overflow: hidden;
-        width: 100px;
+        width: 200px;
     }
 
     .news-list .news-unit.rect .image-link .image {

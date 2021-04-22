@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class GenreService : IGenreService
+    public class GenreService : IGenreService
     {
         private readonly IRepository<Genre> _repository;
         public GenreService(IRepository<Genre> repository)

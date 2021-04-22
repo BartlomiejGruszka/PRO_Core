@@ -23,12 +23,8 @@ namespace PRO.Persistance.Repositories
             return null;
         }
         public new IEnumerable<GameList> GetAll()
-        {
-            var images = _dbContext.Images.ToList();
-            var games = _dbContext.GameLists
-                 .Include(i => i.Game);
-
-            return games;
+        {   
+            return _dbContext.GameLists.Include(i => i.Game);
         }
 
     }

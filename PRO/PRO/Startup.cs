@@ -43,14 +43,31 @@ namespace PRO
             services.AddScoped(typeof(IRepository<Game>), typeof(GameRepository));
             services.AddScoped(typeof(IRepository<Image>), typeof(ImageRepository));
             services.AddScoped(typeof(IRepository<ImageType>), typeof(BaseRepository<ImageType>));
+            services.AddScoped(typeof(IRepository<ApplicationUser>), typeof(BaseRepository<ApplicationUser>));
+            services.AddScoped(typeof(IRepository<Article>), typeof(BaseRepository<Article>));
+            services.AddScoped(typeof(IRepository<GameList>), typeof(BaseRepository<GameList>));
+            services.AddScoped(typeof(IRepository<Review>), typeof(BaseRepository<Review>));
+            services.AddScoped(typeof(IRepository<ArticleType>), typeof(BaseRepository<ArticleType>));
+            services.AddScoped(typeof(IRepository<Author>), typeof(BaseRepository<Author>));
+
 
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
-          //  services.AddScoped<IRepository<ImageType>, ImageTypeRepository>();
+            services.AddScoped<IGameListRepository, GameListRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
+            services.AddScoped<IPlatformRepository, PlatformRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+            //  services.AddScoped<IRepository<ImageType>, ImageTypeRepository>();
 
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IImageTypeService, ImageTypeService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IGameListService, GameListService>();
+            services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IArticleTypeService, ArticleTypeService>();
+            services.AddScoped<IAuthorService, AuthorService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

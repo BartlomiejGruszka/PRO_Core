@@ -21,12 +21,21 @@ namespace PRO.Controllers
         private readonly IGameListService _gameListService;
         private readonly IReviewService _reviewService;
         private readonly IUserService _userService;
+        private readonly IImageService _imageService;
+        private readonly IArticleTypeService _articleTypeService;
+        private readonly IAuthorService _authorService;
+        private readonly IImageTypeService _imageTypeService;
+
         public ArticlesController(
             IArticleService articleService,
             IGameService gameService,
             IGameListService gameListService,
             IReviewService reviewService,
-            IUserService userService
+            IUserService userService,
+            IImageService imageService,
+            IArticleTypeService articleTypeService,
+            IAuthorService authorService,
+            IImageTypeService imageTypeService
             )
         {
             _articleService = articleService;
@@ -34,6 +43,10 @@ namespace PRO.Controllers
             _gameListService = gameListService;
             _reviewService = reviewService;
             _userService = userService;
+            _imageService = imageService;
+            _articleTypeService = articleTypeService;
+            _authorService = authorService;
+            _imageTypeService = imageTypeService;
         }
 
         [AllowAnonymous]
@@ -94,15 +107,18 @@ namespace PRO.Controllers
         [Route("articles/{id}")]
         public ActionResult Details(int? id)
         {
-            var highestRatedGames = _gameListService.GetGamesRanking();//.OrderByDescending(o => o.Item2).Take(3).ToList();
 
             ArticleDetailsViewModel articleDetails = new ArticleDetailsViewModel
             {
                 Article = _articleService.FindActive(id),
                 RecentGames = _gameService.GetComingGames(),
                 RecentReviews = _reviewService.GetRecentReviews(),
-                BestRatedGames = highestRatedGames
+                BestRatedGames = _gameService.GetHighestRatedGames(3)
             };
+            if (articleDetails.Article == null)
+            {
+                return NotFound();
+            }
             return View(articleDetails);
         }
 
@@ -125,17 +141,8 @@ namespace PRO.Controllers
         public ActionResult Add()
         {
 
-            var viewModel = new ArticleViewModel
-            {
-                Images = context.Images.ToList(),
-                ArticleTypes = context.ArticleTypes.ToList(),
-                Games = context.Games.ToList(),
-                Authors = context.Authors.ToList(),
-                Article = null,
-                ImageTypes = context.ImageTypes.ToList()
-
-            };
-            return View(_context.GetFullArticleForm(null));
+            var viewModel = PopulateArticleViewModel(null);
+            return View(viewModel);
         }
 
 
@@ -152,14 +159,14 @@ namespace PRO.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
-                if (_context.Authors.SingleOrDefault(s => s.UserId == (int)userid) == null)
+                if (_authorService.Find(userid) == null)
                 {
                     return NotFound();
                 }
                 _articleService.Add(article, userid);
                 return RedirectToAction("Manage");
             }
-            var articleViewModel = _articleService.GetFullArticleForm(null);
+            var articleViewModel = PopulateArticleViewModel(null);
             articleViewModel.Article = article;
             return View(articleViewModel);
         }
@@ -168,7 +175,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Author")]
         public ActionResult Edit(int? id)
         {
-            ArticleViewModel articleViewModel = _articleService.GetFullArticleForm(id);
+            ArticleViewModel articleViewModel = PopulateArticleViewModel(id);
             if (articleViewModel.Article == null)
             {
                 return NotFound();
@@ -202,7 +209,7 @@ namespace PRO.Controllers
                 _articleService.Update(articleViewModel.Article);
                 return RedirectToAction("Manage");
             }
-            articleViewModel = _context.GetFullArticleForm(articleViewModel.Article.Id);
+            articleViewModel = PopulateArticleViewModel(articleViewModel.Article.Id);
             return View(articleViewModel);
         }
 
@@ -240,6 +247,23 @@ namespace PRO.Controllers
             ViewBag.Query = query;
             ViewBag.platform = "none";
             return View(searchList);
+        }
+
+        public ArticleViewModel PopulateArticleViewModel (int? id)
+        {
+            var article = _articleService.Find(id);
+            var viewModel = new ArticleViewModel
+            {
+                Images = _imageService.GetAll(),
+                ArticleTypes = _articleTypeService.GetAll(),
+                Games = _gameService.GetAll(),
+                Authors = _authorService.GetAll(),
+                Article = article,
+                ImageTypes = _imageTypeService.GetAll()
+
+            };
+            return viewModel;
+
         }
 
     }

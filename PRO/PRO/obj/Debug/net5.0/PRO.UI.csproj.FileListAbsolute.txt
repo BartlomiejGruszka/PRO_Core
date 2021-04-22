@@ -525,3 +525,11 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\ref\PRO.UI.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.pdb
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.genruntimeconfig.cache
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\Add.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\Delete.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\Details.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\Edit.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\Index.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\Manage.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\ManageDetails.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\Search.cshtml.g.cs

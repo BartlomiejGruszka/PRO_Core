@@ -12,7 +12,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Add(Article article, int? userid);
         public void Delete(Article article);
         public void Update(Article article);
-        IEnumerable<Article> GetAllActive();
+        List<Article> GetAllActive();
         public IEnumerable<Article> GetAllByPlatform(string platform);
         public IEnumerable<Article> SearchResultArticles(string query);
     }

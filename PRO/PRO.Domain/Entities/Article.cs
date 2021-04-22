@@ -10,16 +10,16 @@ namespace PRO.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required, MaxLength(100), DisplayName("Tytuł"),MinLength(10)]
+        [Required(ErrorMessage = "Pole \"Tytuł\" jest wymagane."), MaxLength(100), DisplayName("Tytuł"),MinLength(10)]
         public string Title { get; set; }
 
-        [Required, MaxLength(400), DisplayName("Skrót"), MinLength(100)]
+        [Required(ErrorMessage = "Pole \"Skrót\" jest wymagane."), MaxLength(400), DisplayName("Skrót"), MinLength(100)]
         public string Preview { get; set; }
 
-        [Required, MaxLength(10000), DisplayName("Treść"),MinLength(100)]
+        [Required(ErrorMessage = "Pole \"Treść\" jest wymagane."), MaxLength(10000), DisplayName("Treść"),MinLength(100)]
         public string Content { get; set; }
 
-        [Required, DisplayName("Data publikacji")]
+        [Required(ErrorMessage = "Pole \"Data publikacji\" jest wymagane."), DisplayName("Data publikacji")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PublishedDate { get; set; }
 
@@ -35,7 +35,7 @@ namespace PRO.Entities
         [ForeignKey("ImageId")]
         public Image Image { get; set; }
 
-        [Required, DisplayName("Gra")]
+        [Required(ErrorMessage = "Pole \"Gra\" jest wymagane."), DisplayName("Gra")]
         public int GameId { get; set; }
 
         [ForeignKey("GameId"),DisplayName("Gra")]
@@ -47,7 +47,7 @@ namespace PRO.Entities
         [ForeignKey("UserId")]
         public Author Author { get; set; }
 
-        [Required, DisplayName("Rodzaj artykułu")]
+        [Required(ErrorMessage = "Pole \"Rodzaj artykułu\" jest wymagane."), DisplayName("Rodzaj artykułu")]
         public int ArticleTypeId { get; set; }
 
         [ForeignKey("ArticleTypeId"),DisplayName("Rodzaj artykułu")]

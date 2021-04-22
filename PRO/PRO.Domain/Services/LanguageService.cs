@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PRO.Domain.Services
 {
-    class LanguageService : ILanguageService
+    public class LanguageService : ILanguageService
     {
         private readonly IRepository<Language> _repository;
         public LanguageService(IRepository<Language> repository)

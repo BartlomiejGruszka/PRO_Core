@@ -58,7 +58,8 @@ namespace PRO.Persistance.Repositories
                  .Include(a => a.Image)
                  .Include(a => a.Reviews)
                  .Include(a => a.Languages)
-                 .Include(a => a.Tags);
+                 .Include(a => a.Tags)
+                 .Include(i => i.GameLists);
 
             return games;
         }

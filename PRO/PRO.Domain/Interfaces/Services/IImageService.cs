@@ -7,13 +7,13 @@ namespace PRO.Domain.Interfaces.Services
 {
     public interface IImageService
     {
-        public IEnumerable<Image> ImagesList();
-        public Image FindImage(int? id);
+        public IEnumerable<Image> GetAll();
+        public Image Find(int? id);
 
         public Image UploadImageFile(Image image);
-        public void AddImage(Image image);
-        public void UpdateImage(Image image);
-        public void DeleteImage(Image image);
+        public void Add(Image image);
+        public void Update(Image image);
+        public void Delete(Image image);
         public void RemoveImageFile(Image image);
         public void RenameImage(Image image);
        // public IEnumerable<ImageType> GetImageTypes();

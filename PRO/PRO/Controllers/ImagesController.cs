@@ -38,7 +38,7 @@ namespace PRO.Controllers
         // [Authorize(Roles = "Admin,Author")]
         public ActionResult Manage(int? page, int? items)
         {
-            var images = _imageService.ImagesList();
+            var images = _imageService.GetAll();
             ViewBag.Pagination = new Pagination(page, items, images.Count());
             return View(images);
         }
@@ -47,7 +47,7 @@ namespace PRO.Controllers
         //[Authorize(Roles = "Admin,Author")]
         public ActionResult Details(int? id)
         {
-            Image image = _imageService.FindImage(id);
+            Image image = _imageService.Find(id);
             if (image == null)
             {
                 return BadRequest();
@@ -73,7 +73,7 @@ namespace PRO.Controllers
             if (ModelState.IsValid)
             {
 
-                _imageService.AddImage(image);
+                _imageService.Add(image);
 
                 return RedirectToAction("Manage");
             }
@@ -87,7 +87,7 @@ namespace PRO.Controllers
         //[Authorize(Roles = "Admin,Author")]
         public ActionResult EditFile(int? id)
         {
-            Image image = _imageService.FindImage(id);
+            Image image = _imageService.Find(id);
             if (image == null)
             {
                 return BadRequest();
@@ -99,7 +99,7 @@ namespace PRO.Controllers
         //[Authorize(Roles = "Admin,Author")]
         public ActionResult Edit(int? id)
         {
-            Image image = _imageService.FindImage(id);
+            Image image = _imageService.Find(id);
             if (image == null)
             {
                 return BadRequest();
@@ -117,7 +117,7 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _imageService.UpdateImage(image);
+                _imageService.Update(image);
 
                 return RedirectToAction("Manage");
             }
@@ -146,7 +146,7 @@ namespace PRO.Controllers
         // [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            Image image = _imageService.FindImage(id);
+            Image image = _imageService.Find(id);
 
             if (image == null) { return BadRequest(); }
             return View(image);
@@ -158,9 +158,9 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Image image = _imageService.FindImage(id);
+            Image image = _imageService.Find(id);
 
-            _imageService.DeleteImage(image);
+            _imageService.Delete(image);
 
             return RedirectToAction("Manage");
         }
