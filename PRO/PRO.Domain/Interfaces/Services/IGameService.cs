@@ -9,11 +9,18 @@ namespace PRO.Domain.Interfaces.Services
     public interface IGameService
     {
 
-        IEnumerable<Game> GetGames();
+        Game Find(int? id);
+        Game FindActive(int? id);
         IEnumerable<Game> GetComingGames();
-        IEnumerable<Game> GetAll();
-        void AddGame(Game newGame);
+        List<Game> GetAll();
+        List<Game> GetAllActive();
+        void Delete(Game game);
+        void Add(Game newGame);
+        void AddTags(Game newGame, IEnumerable<int> selectedTagsId);
+        void AddLanguages(Game newGame, IEnumerable<int> selectedLanguagesId);
         List<Tuple<Game, double?>> GetUnorderedGamesRanking();
-        List<Tuple<Game, double?>> GetHighestRatedGames(int number);
+        List<Tuple<Game, double?>> GetHighestRatedGames(int? number);
+        List<Game> FilterGames(string query);
+        void Update(Game game);
     }
 }

@@ -1,4 +1,5 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using PRO.Domain.Extensions;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -10,34 +11,90 @@ namespace PRO.Domain.Services
 {
     public class GameService : IGameService
     {
-        private readonly IRepository<Game> _repository;
         private readonly IGameRepository _gameRepository;
         private readonly IImageRepository _imageRepository;
         private readonly IGameListRepository _gameListRepository;
+        private readonly IRepository<Language> _languageRepository;
+        private readonly IRepository<Tag> _tagRepository;
 
         public GameService(
-            IRepository<Game> repository,
             IGameRepository gameRepository,
             IImageRepository imageRepository,
-            IGameListRepository gameListRepository)
+            IGameListRepository gameListRepository,
+            IRepository<Language> languageRepository,
+            IRepository<Tag> tagRepository)
         {
-            _repository = repository;
             _gameRepository = gameRepository;
             _gameListRepository = gameListRepository;
-            _imageRepository = imageRepository;
+            _languageRepository = languageRepository;
+            _tagRepository = tagRepository;
         }
 
 
-        public void AddGame(Game newGame)
+        public void Add(Game newGame)
         {
-            _repository.Add(newGame);
-            _repository.Save();
+            _gameRepository.Add(newGame);
+
+            _gameRepository.Save();
+        }
+        public void AddTags(Game newGame, IEnumerable<int> selectedTagsId)
+        {
+            List<Tag> newTags = new List<Tag>();
+            var tags = _tagRepository.GetAll().ToList();
+
+            if (selectedTagsId != null)
+            {
+                foreach (var tagid in selectedTagsId)
+                {
+                    newTags.Add(tags.Single(s => s.Id == tagid));
+                }
+                newGame.Tags = newTags;
+            }
+
         }
 
-        public IEnumerable<Game> GetAll()
+        public void AddLanguages(Game newGame, IEnumerable<int> selectedLanguagesId)
+        {
+            List<Language> newLanguages = new List<Language>();
+            var languages = _languageRepository.GetAll().ToList();
+
+            if (selectedLanguagesId != null)
+            {
+                foreach (var languageid in selectedLanguagesId)
+                {
+                    newLanguages.Add(languages.Single(s => s.Id == languageid));
+                }
+                newGame.Languages = newLanguages;
+            }
+
+        }
+        public Game Find(int? id)
+        {
+            if (!id.HasValue) { return null; }
+            return _gameRepository.Find(id.Value);
+        }
+
+        public Game FindActive(int? id)
+        {
+            var game = Find(id);
+            if (game == null) { return null; }
+            if (game.IsActive == false) { return null; }
+            return game;
+        }
+
+        public List<Game> GetAll()
         {
 
-            return _gameRepository.GetAll();
+            return _gameRepository.GetAll().ToList();
+        }
+        public List<Game> GetAllActive()
+        {
+            return _gameRepository.GetAll().Where(i => i.IsActive == true).ToList();
+        }
+        public void Delete(Game game)
+        {
+            _gameRepository.Remove(game);
+            _gameRepository.Save();
         }
 
         public IEnumerable<Game> GetComingGames()
@@ -45,14 +102,13 @@ namespace PRO.Domain.Services
             return _gameRepository.GetAll().Where(a => a.ReleaseDate > DateTime.Now).OrderBy(a => a.ReleaseDate).Take(3);
         }
 
-        public IEnumerable<Game> GetGames()
+        public List<Tuple<Game, double?>> GetHighestRatedGames(int? number)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public List<Tuple<Game, double?>> GetHighestRatedGames(int number)
-        {
-            var orderedRanking = GetUnorderedGamesRanking().OrderByDescending(o => o.Item2).Take(number).ToList();
+            var orderedRanking = GetUnorderedGamesRanking().OrderByDescending(o => o.Item2).ThenByDescending(d => d.Item1.ReleaseDate).ToList();
+            if (number.HasValue)
+            {
+                return orderedRanking.Take(number.Value).ToList();
+            }
             return orderedRanking;
         }
 
@@ -67,7 +123,7 @@ namespace PRO.Domain.Services
                 .Select(c => new Tuple<Game, double?>(c.game, c.average))
                 .ToList();
 
-            var games = _gameRepository.GetAll().Where(g => !g.GameLists.Any()).ToList();
+            var games = GetAllActive().Where(g => !g.GameLists.Any()).ToList();
             foreach (Game game in games)
             {
                 ranking.Add(new Tuple<Game, double?>(game, null));
@@ -76,6 +132,25 @@ namespace PRO.Domain.Services
 
 
             return ranking;
+        }
+
+        public List<Game> FilterGames(string query)
+        {
+            var filteredgames = GetAllActive()
+                .Where(g =>
+                g.Title.CaseInsensitiveContains(query) ||
+                g.Description.CaseInsensitiveContains(query) ||
+                g.DeveloperCompany.Name.CaseInsensitiveContains(query) ||
+                g.PublisherCompany.Name.CaseInsensitiveContains(query) ||
+                g.Status.Name.CaseInsensitiveContains(query)
+                ).ToList();
+            return filteredgames;
+        }
+
+        public void Update(Game game)
+        {
+            _gameRepository.Update(game);
+            _gameRepository.Save();
         }
     }
 }
