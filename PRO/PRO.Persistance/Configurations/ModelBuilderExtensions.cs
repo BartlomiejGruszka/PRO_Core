@@ -78,7 +78,7 @@ namespace PRO.Persistance.Data
                    Description = null,
                    IsActive = true,
                    IsPublic = true,
-                   ImageId = null,
+                   ImageId = 27,
                    EmailConfirmed = true,
                    LockoutEnabled = true
                },
@@ -96,7 +96,7 @@ namespace PRO.Persistance.Data
                     Description = null,
                     IsActive = true,
                     IsPublic = true,
-                    ImageId = null,
+                    ImageId = 27,
                     EmailConfirmed = true,
                     LockoutEnabled = true
                 },
@@ -114,7 +114,7 @@ namespace PRO.Persistance.Data
                      Description = null,
                      IsActive = true,
                      IsPublic = true,
-                     ImageId = null,
+                     ImageId = 27,
                      EmailConfirmed = true,
                      LockoutEnabled = true
                  },
@@ -132,7 +132,7 @@ namespace PRO.Persistance.Data
                       Description = null,
                       IsActive = true,
                       IsPublic = true,
-                      ImageId = null,
+                      ImageId = 27,
                       EmailConfirmed = true,
                       LockoutEnabled = true
                   }
@@ -722,7 +722,7 @@ namespace PRO.Persistance.Data
                 new Review { Id = 12, ReviewDate = DateTime.Parse("20.02.2020 00:00:00"), EditDate = null, GraphicsScore = 7, StoryScore = 2, MusicScore = 3, GameplayScore = 5, UserId = 5, GameId = 2, ModeratorId = null, Content = "Są drobne bugi w grze, najczęściej zdarzało mi się, że nie mogłem podnosić różnych itemów. Postacie jak i auta kawałek się teleportują. Animacje postaci ludzią przeskakiwać tzn. jedna po drugiej nie są płynne." },
                 new Review { Id = 13, ReviewDate = DateTime.Parse("20.02.2014 00:00:00"), EditDate = DateTime.Parse("21.02.2015 00:00:00"), GraphicsScore = 5, StoryScore = 7, MusicScore = 6, GameplayScore = 4, UserId = 5, GameId = 5, ModeratorId = 2, Content = "Obcowanie z tą grą to sinusoida oceny. Od początkowego zachwytu (grafiką i klimatem), przez rozczarowanie (odkrywanie elementów, które są strasznie słabe), realizm (wady nie przesłaniają zalet), aż po zakochanie (zżycie z postaciami i siła emocji przesłaniają biedę innych elementów)" },
                 new Review { Id = 14, ReviewDate = DateTime.Parse("20.02.2018 00:00:00"), EditDate = null, GraphicsScore = 8, StoryScore = 7, MusicScore = 8, GameplayScore = 8, UserId = 5, GameId = 7, ModeratorId = null, Content = "Zdecydowanie się nie zawiodłem, klimaty i oprawa gry jest dokładnie taka jak sobie wyobrażałem. Rozgrywka bardzo przyjemna zdecydowanie nie będziecie się nudzić na mapie jest mnóstwo aktywności. Mapa jest świetnie zrobiona Night City wygląda ja faktyczna cyberpunkowa metropolia. Niestety na tą chwilę ma duże problemy z optymalizacją i jest sporo błędów ale wierzę że za jakiś czas twórcy to naprawią. Gra zdecydowanie warta polecenia." },
-                new Review { Id = 15, ReviewDate = DateTime.Parse("20.03.2016 00:00:00"), EditDate = null, GraphicsScore = 5, StoryScore = 7, MusicScore = 6, GameplayScore = 10, UserId = 1, GameId = 1, ModeratorId = null, Content = "Mimo kilku małych problemów nie przeszkodziło mi to z cieszenia się z gry. Przez 6 godzin grania musiałem wczytać checkpoint tylko raz przez jednego buga. Nowe patche mogą pomóc z optymalizacją więc polecam na nie czekać ( Patch 1.04 właśnie wiele problemów z optymalizacją naprawił )" },
+                new Review { Id = 15, ReviewDate = DateTime.Parse("20.03.2016 00:00:00"), EditDate = null, GraphicsScore = 5, StoryScore = 7, MusicScore = 6, GameplayScore = 10, UserId = 1, GameId = 11, ModeratorId = null, Content = "Mimo kilku małych problemów nie przeszkodziło mi to z cieszenia się z gry. Przez 6 godzin grania musiałem wczytać checkpoint tylko raz przez jednego buga. Nowe patche mogą pomóc z optymalizacją więc polecam na nie czekać ( Patch 1.04 właśnie wiele problemów z optymalizacją naprawił )" },
                 new Review { Id = 16, ReviewDate = DateTime.Parse("12.02.2015 00:00:00"), EditDate = null, GraphicsScore = 7, StoryScore = 6, MusicScore = 9, GameplayScore = 8, UserId = 2, GameId = 1, ModeratorId = null, Content = "Uwaga uwaga, gra ma bugi, kto by się spodziewał. Dobra to teraz o grze. Jest spoko, krótka, ale sporo zadań pobocznych. customizacja jest dość słaba, ale dobieranie zdolności i ogólnie aspekty RPG typu drzewka, statystyki broni itp są bardzo mocne. Grafika jest dobra, nawet na średnio niskich ustawieniach. Na pierwszym patchu w czasie jednej z misji pod koniec drugiego aktu gra się wysypywała, ale teraz nie ma większych problemów. Fabuła jest okej" }
 
 

@@ -9,42 +9,39 @@ namespace PRO.Domain.Services
 {
     public class ReviewService : IReviewService
     {
-        private readonly IRepository<Review> _repository;
         private readonly IReviewRepository _reviewRepository;
-        public ReviewService(IRepository<Review> repository,
-            IReviewRepository reviewRepository)
+        public ReviewService(IReviewRepository reviewRepository)
         {
             _reviewRepository = reviewRepository;
-            _repository = repository;
         }
 
         public void Add(Review review)
         {
-            _repository.Add(review);
-            _repository.Save();
+            _reviewRepository.Add(review);
+            _reviewRepository.Save();
         }
 
         public void Delete(Review review)
         {
-            _repository.Remove(review);
-            _repository.Save();
+            _reviewRepository.Remove(review);
+            _reviewRepository.Save();
         }
 
         public Review Find(int? id)
         {
             if (!id.HasValue) { return null; }
-            return _repository.Find(id.Value);
+            return _reviewRepository.Find(id.Value);
         }
 
         public IEnumerable<Review> GetAll()
         {
-            return _repository.GetAll();
+            return _reviewRepository.GetAll();
         }
 
         public void Update(Review review)
         {
-            _repository.Update(review);
-            _repository.Save();
+            _reviewRepository.Update(review);
+            _reviewRepository.Save();
         }
         public IEnumerable<Review> GetRecentReviews()
         {
@@ -53,6 +50,12 @@ namespace PRO.Domain.Services
                .OrderByDescending(o => o.ReviewDate)
                .Take(5);
             return recentReviews;
+        }
+
+        public List<Review> GetGameReviews(int id)
+        {
+            var reviews = _reviewRepository.GetAll().Where(c => c.GameId == id).ToList();
+            return reviews;
         }
     }
 }

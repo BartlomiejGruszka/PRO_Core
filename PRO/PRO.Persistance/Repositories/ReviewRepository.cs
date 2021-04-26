@@ -20,7 +20,8 @@ namespace PRO.Persistance.Repositories
         {
             var reviews = _dbContext.Reviews
                .Include(o => o.Game)
-               .Include(o => o.User);
+               .Include(o => o.User)
+               .Include(o => o.User.Image);
             return reviews;
         }
 

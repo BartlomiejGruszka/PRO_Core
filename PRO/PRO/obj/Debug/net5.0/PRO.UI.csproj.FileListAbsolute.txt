@@ -536,3 +536,17 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Articles\Search.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_BestRatedGames.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_ClosestReleaseGames.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_NewReviews.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Add.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Delete.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Details.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Edit.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Index.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Manage.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\ManageDetails.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Ranking.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Reviews.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\SingleReview.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\_AddGameToListForm.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_GameInfoBar.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_GameTitleBar.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_SingleReview.cshtml.g.cs

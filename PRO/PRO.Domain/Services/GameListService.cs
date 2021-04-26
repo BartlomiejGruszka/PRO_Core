@@ -41,6 +41,14 @@ namespace PRO.Domain.Services
             return  _gameListRepository.GetAll();
         }
 
+        public int? GetUserReviewPlaytime(Review review)
+        {
+            if (review == null) return null;
+            var gamelist = _gameListRepository.FindByGameReview(review.GameId, review.UserId);
+            int? playtime = null;
+            if (gamelist != null) { playtime = gamelist.HoursPlayed; };
+            return playtime;
+        }
 
         public void Update(GameList gameList)
         {

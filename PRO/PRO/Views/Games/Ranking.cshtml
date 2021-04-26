@@ -1,0 +1,156 @@
+﻿@model PRO.ViewModels.GameFilterViewModel
+@using PRO.Domain.Extensions
+@using PRO.Entities;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewBag.Title = "Ranking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool userLoggedIn = (SignInManager.IsSignedIn(User));
+}
+
+@using (Html.BeginForm("FilterRanking", "Games"))
+{
+    /*<div class="form-group">
+        @Html.LabelFor(l=>l.Platforms)
+    </div>*/
+}
+
+<div>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table">
+        <tbody>
+            <tr class="table-header">
+                <td class="rank">Ranga</td>
+                <td class="title">Tytuł</td>
+                <td class="release-date">Data premiery</td>
+                @{ if (userLoggedIn)
+                    {
+                        <td class="your-score">Twoja ocena</td>
+                    } }
+                <td class="score">Średnia ocena</td>
+            </tr>
+            @{
+                var start = ViewBag.Pagination.pageIteratorStart;
+                var end = ViewBag.Pagination.pageIteratorEnd;
+                var scores = Model.GameScores.ToArray();
+                for (var i = start; i <= end; i++)
+                {
+
+                    var game = scores[i].Item1;
+                    var score = scores.Where(g => g.Item1.Id == game.Id).SingleOrDefault();
+
+
+                    <tr class="ranking-list">
+                        <td class="rank ac" valign="top">
+                            <span class="lightLink top-game-rank-text rank1">@(i+1)</span>
+                        </td>
+                        <td class="title al va-t word-break">
+                            <div class="gameListImageGrid">
+                                <div>
+                                    @if (game.Image != null)
+                                    {
+                                        <a class="fl-l ml12 mr8" href="/games/@game.Id" style="position: relative;">
+                                            <img width="70" height="90" class=" lazyloaded" border="0" src="/images/@game.Image.ImagePath">
+                                        </a>
+                                    }
+                                </div>
+
+                                <div class="detail">
+                                    <div class="di-flex clearfix">
+                                        <a class="" href="/games/@game.Id">@game.Title</a>
+                                    </div>
+                                    <div class="information di-ib mt4" style="overflow:hidden; text-overflow:clip; max-width:500px; min-width:200px;">
+                                        @Html.Raw(@game.Description.Truncate(140))...<a href="/games/@game.Id">więcej</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td class="status ac">
+                            @if (game.ReleaseDate.HasValue)
+                            {@game.ReleaseDate.Value.Day<text>.</text>@game.ReleaseDate.Value.Month<text>.</text>@game.ReleaseDate.Value.Year}
+                        else
+                        { <text>brak daty</text>}
+
+                        </td>
+                        @{if (userLoggedIn)
+                            {
+                                <td class="your-score ac fs14">
+                                    <div class="js-top-ranking-your-score-col di-ib al" style="width: 43.4063px;">
+                                        <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">N/A</span>
+                                    </div>
+                                </td>
+                            }}
+                        <td class="score ac fs14">
+                            <div class="js-top-ranking-score-col di-ib al" style="width: 48.7969px;">
+                                <i class="icon-score-star mr4 on"></i>
+                                <span class="text on score-label score-9">
+                                    @{
+                                        if (score.Item2.HasValue && !Double.IsNaN(score.Item2.Value))
+                                        {
+                                            @Math.Round((double)score.Item2, 1)
+                                        }
+                                        else
+                                        {
+                                            @:0
+                                        }
+                                    }
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <ul class="pagination">
+        @{
+            var first = ViewBag.Pagination.firstPage;
+            var current = ViewBag.Pagination.currentPage;
+            var previous = ViewBag.Pagination.previousPage;
+            var items = ViewBag.Pagination.itemsPerPage;
+            var next = ViewBag.Pagination.nextPage;
+            var last = ViewBag.Pagination.lastPage;
+        }
+
+
+
+
+        @{
+            if (@current >= 3)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/games/ranking?page=@first&items=@items">«</a>
+                </li>
+            }
+            if (@current >= 2 && @previous != @current)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/games/ranking?page=@previous&items=@items">@previous</a>
+                </li>
+            }
+
+            <li class="page-item active">
+                <a class="page-link" href="/games/ranking?page=@current&items=@items">@current</a>
+            </li>
+
+            if (@last > @current)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/games/ranking?page=@next&items=@items">@next</a>
+                </li>
+            }
+
+            if (@last > @current + 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/games/ranking?page=@last&items=@items">&raquo;</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+

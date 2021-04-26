@@ -28,6 +28,7 @@ namespace PRO.Domain.Services
             _gameListRepository = gameListRepository;
             _languageRepository = languageRepository;
             _tagRepository = tagRepository;
+            _imageRepository = imageRepository;
         }
 
 
@@ -102,7 +103,7 @@ namespace PRO.Domain.Services
             return _gameRepository.GetAll().Where(a => a.ReleaseDate > DateTime.Now).OrderBy(a => a.ReleaseDate).Take(3);
         }
 
-        public List<Tuple<Game, double?>> GetHighestRatedGames(int? number)
+        public List<Tuple<Game, double?>> GetOrderedGamesRanking(int? number)
         {
             var orderedRanking = GetUnorderedGamesRanking().OrderByDescending(o => o.Item2).ThenByDescending(d => d.Item1.ReleaseDate).ToList();
             if (number.HasValue)
@@ -134,6 +135,29 @@ namespace PRO.Domain.Services
             return ranking;
         }
 
+        public List<Tuple<Game, int?>> GetGamesByPopularity()
+        {
+            var popularity = _gameListRepository.GetAll()
+                .GroupBy(g => g.Game)
+                .Select(g => new
+                {
+                    game = g.Key,
+                    count = g.Select(i => i.UserList.UserId).Distinct().Count()
+                })
+                .AsEnumerable()
+                .Select(c => new Tuple<Game, int?>(c.game, c.count))
+                .ToList();
+
+            var games = _gameRepository.GetAll().Where(g => !g.GameLists.Any()).ToList();
+            foreach (Game game in games)
+            {
+                popularity.Add(new Tuple<Game, int?>(game, null));
+            }
+
+
+            return popularity;
+        }
+
         public List<Game> FilterGames(string query)
         {
             var filteredgames = GetAllActive()
@@ -151,6 +175,34 @@ namespace PRO.Domain.Services
         {
             _gameRepository.Update(game);
             _gameRepository.Save();
+        }
+
+        public int? GetGamePosition(int gameid)
+        {
+            var gamesRankings = GetOrderedGamesRanking(null);
+            int? position = gamesRankings.IndexOf(gamesRankings.Single(g => g.Item1.Id == gameid)) + 1;
+            return position;
+        }
+
+        public double? GetGameRating(int gameid)
+        {
+            var gamesRankings = GetOrderedGamesRanking(null);
+            double? rating = gamesRankings.FirstOrDefault(g => g.Item1.Id == gameid).Item2;
+            if (rating.HasValue)
+            {
+                rating = Math.Round(rating.Value, 1);
+            }
+            else
+            {
+                rating = 0;
+            }
+            return rating;
+        }
+
+        public int GetGamePopularity(int gameid)
+        {
+            var games = GetGamesByPopularity();
+            return games.FindIndex(s => s.Item1.Id == gameid) + 1;
         }
     }
 }

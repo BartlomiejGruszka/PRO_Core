@@ -49,6 +49,14 @@ namespace PRO
             services.AddScoped(typeof(IRepository<Review>), typeof(BaseRepository<Review>));
             services.AddScoped(typeof(IRepository<ArticleType>), typeof(BaseRepository<ArticleType>));
             services.AddScoped(typeof(IRepository<Author>), typeof(BaseRepository<Author>));
+            services.AddScoped(typeof(IRepository<Language>), typeof(BaseRepository<Language>));
+            services.AddScoped(typeof(IRepository<Tag>), typeof(BaseRepository<Tag>));
+            services.AddScoped(typeof(IRepository<Genre>), typeof(BaseRepository<Genre>));
+            services.AddScoped(typeof(IRepository<Platform>), typeof(BaseRepository<Platform>));
+            services.AddScoped(typeof(IRepository<Company>), typeof(BaseRepository<Company>));
+            services.AddScoped(typeof(IRepository<UserList>), typeof(BaseRepository<UserList>));
+            services.AddScoped(typeof(IRepository<Series>), typeof(BaseRepository<Series>));
+            services.AddScoped(typeof(IRepository<Status>), typeof(BaseRepository<Status>));
 
 
             services.AddScoped<IGameRepository, GameRepository>();
@@ -57,9 +65,11 @@ namespace PRO
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IPlatformRepository, PlatformRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             //  services.AddScoped<IRepository<ImageType>, ImageTypeRepository>();
 
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IImageTypeService, ImageTypeService>();
             services.AddScoped<IUserService, UserService>();
@@ -68,6 +78,13 @@ namespace PRO
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IArticleTypeService, ArticleTypeService>();
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IPlatformService, PlatformService>();
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IUserListService, UserListService>();
+            services.AddScoped<ISeriesService, SeriesService>();
+            services.AddScoped<IStatusService, StatusService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<ITagService, TagService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

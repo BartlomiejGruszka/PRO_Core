@@ -19,7 +19,14 @@ namespace PRO.Domain.Interfaces.Services
         void AddTags(Game newGame, IEnumerable<int> selectedTagsId);
         void AddLanguages(Game newGame, IEnumerable<int> selectedLanguagesId);
         List<Tuple<Game, double?>> GetUnorderedGamesRanking();
-        List<Tuple<Game, double?>> GetHighestRatedGames(int? number);
+        List<Tuple<Game, double?>> GetOrderedGamesRanking(int? number);
+        public List<Tuple<Game, int?>> GetGamesByPopularity();
+       // public List<Tuple<Game, double?>> GetGame
+        public int? GetGamePosition(int gameid);
+        public double? GetGameRating(int gameid);
+        public int GetGamePopularity(int gameid);
+
+
         List<Game> FilterGames(string query);
         void Update(Game game);
     }

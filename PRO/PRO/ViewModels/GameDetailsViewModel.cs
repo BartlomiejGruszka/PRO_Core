@@ -10,7 +10,7 @@ namespace PRO.ViewModels
     {
         public GameAndGameListFormViewModel GameGameList { get; set; }
         public List<Game> RecommendedGames { get; set; }
-        public IEnumerable<ReviewGametimeViewModel> ReviewGametimes { get; set; }
+        public IEnumerable<ReviewPlaytimeViewModel> ReviewGametimes { get; set; }
         public IEnumerable<Article> RelevantArticles { get; set; }
 
     }

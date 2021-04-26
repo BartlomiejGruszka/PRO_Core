@@ -10,7 +10,7 @@ namespace PRO.ViewModels
         public IEnumerable<Status> Statuses{ get; set; }
         public IEnumerable<Genre> Genres { get; set; }
         public IEnumerable<Series> Series { get; set; }
-        public IEnumerable<Company> Publlishers { get; set; }
+        public IEnumerable<Company> Publishers { get; set; }
         public IEnumerable<Company> Developers { get; set; }
         public IEnumerable<Image> Images{ get; set; }
         public IEnumerable<ImageType> ImageTypes { get; set; }

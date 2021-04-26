@@ -13,7 +13,7 @@ namespace PRO.ViewModels
         public List<UserList> userLists { get; set; }
 
         public int Popularity { get; set; }
-        public int? Ranking { get; set; }
+        public int? Position { get; set; }
         public double? Rating { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Web;
 using PRO.Entities;
 namespace PRO.ViewModels
 {
-    public class ReviewGametimeViewModel
+    public class ReviewPlaytimeViewModel
     {
         public Review Review { get; set; }
         public int? Playtime { get; set; }

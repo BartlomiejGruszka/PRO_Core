@@ -15,5 +15,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(GameList gameList);
 
         public void Update(GameList gameList);
+
+        public int? GetUserReviewPlaytime(Review review);
     }
 }

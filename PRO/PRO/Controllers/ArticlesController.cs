@@ -113,7 +113,7 @@ namespace PRO.Controllers
                 Article = _articleService.FindActive(id),
                 RecentGames = _gameService.GetComingGames(),
                 RecentReviews = _reviewService.GetRecentReviews(),
-                BestRatedGames = _gameService.GetHighestRatedGames(3)
+                BestRatedGames = _gameService.GetOrderedGamesRanking(3)
             };
             if (articleDetails.Article == null)
             {

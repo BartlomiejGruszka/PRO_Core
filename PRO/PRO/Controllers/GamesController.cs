@@ -16,10 +16,52 @@ namespace PRO.Controllers
     {
         private readonly IGameService _gameService;
         private readonly IUserService _userService;
-        public GamesController(IGameService gameService, IUserService userService)
+        private readonly IGenreService _genreService;
+        private readonly IPlatformService _platformService;
+        private readonly ISeriesService _seriesService;
+        private readonly ICompanyService _companyService;
+        private readonly IStatusService _statusService;
+        private readonly IImageService _imageService;
+        private readonly ILanguageService _languageService;
+        private readonly ITagService _tagService;
+        private readonly IImageTypeService _imageTypeService;
+        private readonly IArticleService _articleService;
+        private readonly IReviewService _reviewService;
+        private readonly IGameListService _gameListService;
+        private readonly IUserListService _userListService;
+        public GamesController(
+            IGameService gameService,
+            IUserService userService,
+            IGenreService genreService,
+            IPlatformService platformService,
+            ISeriesService seriesService,
+            ICompanyService companyService,
+            IStatusService statusService,
+            IImageService imageService,
+            ILanguageService languageService,
+            ITagService tagService,
+            IImageTypeService imageTypeService,
+            IArticleService articleService,
+            IReviewService reviewService,
+            IGameListService gameListService,
+            IUserListService userListService
+            )
         {
             _gameService = gameService;
             _userService = userService;
+            _genreService = genreService;
+            _platformService = platformService;
+            _seriesService = seriesService;
+            _companyService = companyService;
+            _statusService = statusService;
+            _imageService = imageService;
+            _languageService = languageService;
+            _tagService = tagService;
+            _imageTypeService = imageTypeService;
+            _articleService = articleService;
+            _reviewService = reviewService;
+            _gameListService = gameListService;
+            _userListService = userListService;
         }
 
 
@@ -57,41 +99,41 @@ namespace PRO.Controllers
         public ActionResult Details(int id)
         {
             var viewModel = SetupDetailsPage(id, null);
-           // Session["CurrentUrl"] = Request.Url.ToString();
+            // Session["CurrentUrl"] = Request.Url.ToString();
             return View(viewModel);
         }
 
-       // [ChildActionOnly] requires rework
+        // [ChildActionOnly] requires rework
         [HttpGet]
         public ActionResult AddGameToList(int id)
         {
 
-          /*  var userid = _userService.GetLoggedInUserId();
-            var userLists = _context.UserLists.Where(u => u.UserId == userid).ToList();
+            /*  var userid = _userService.GetLoggedInUserId();
+              var userLists = _context.UserLists.Where(u => u.UserId == userid).ToList();
 
-            var gameList = TempData["gameList"] as GameList;
+              var gameList = TempData["gameList"] as GameList;
 
-            if (gameList == null) { gameList = _context.GameLists.Include(u => u.UserList).SingleOrDefault(g => g.GameId == id && g.UserList.UserId == userid); }
-            if (gameList == null) { gameList = new GameList(); }
+              if (gameList == null) { gameList = _context.GameLists.Include(u => u.UserList).SingleOrDefault(g => g.GameId == id && g.UserList.UserId == userid); }
+              if (gameList == null) { gameList = new GameList(); }
 
-            var errors = TempData["errors"] as List<KeyValuePair<string, ModelState>>;
-            if (errors != null)
-            {
-                foreach (var error in errors)
-                {
-                    var keyerror = error.Key;
-                    if (error.Value.Errors.Count() > 0)
-                    {
-                        foreach(var value in error.Value.Errors)
-                        {
-                            ModelState.AddModelError(keyerror, value.ErrorMessage);
-                        }
-                    }
-                }
-            }
-            ViewBag.userLists = userLists;
-            ViewBag.GameId = id;
-          */
+              var errors = TempData["errors"] as List<KeyValuePair<string, ModelState>>;
+              if (errors != null)
+              {
+                  foreach (var error in errors)
+                  {
+                      var keyerror = error.Key;
+                      if (error.Value.Errors.Count() > 0)
+                      {
+                          foreach(var value in error.Value.Errors)
+                          {
+                              ModelState.AddModelError(keyerror, value.ErrorMessage);
+                          }
+                      }
+                  }
+              }
+              ViewBag.userLists = userLists;
+              ViewBag.GameId = id;
+            */
             return PartialView("_AddGameToListForm", null);
         }
 
@@ -147,35 +189,25 @@ namespace PRO.Controllers
             if (game == null) return null;
 
             //get reviews and articles for the game, set pagination
-            var reviews = _context.GetGameReviewsList(game.Id);
+            var reviews = _reviewService.GetGameReviews(game.Id);
             ViewBag.Pagination = new Pagination(null, null, reviews.Count());
-            var articles = _context.GetArticlesList().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3);
+            var articles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3);
 
             //get userlists for logged user for quick add to list form
             var userid = _userService.GetLoggedInUserId();
-            var userLists = _context.UserLists.Where(u => u.UserId == userid).ToList();
-
-            //setup stats if game is present on any user game list
-
-            var gamesRankings = _gameService.GetUnorderedGamesRanking().OrderByDescending(o => o.Item2).ThenByDescending(d => d.Item1.ReleaseDate).ToList();
-
-            int? position = gamesRankings.IndexOf(gamesRankings.Single(g => g.Item1.Id == id)) + 1;
-            double? rating = gamesRankings.FirstOrDefault(g => g.Item1.Id == id).Item2;
-            if (rating.HasValue) { rating = Math.Round(rating.Value, 1); } else { rating = 0; }
-
-            var popularity = _context.GetGamesByPopularity().FindIndex(s => s.Item1.Id == id) + 1;
+            var userLists = _userListService.GetAll().Where(u => u.UserId == userid).ToList();
 
             var GameGameList = new GameAndGameListFormViewModel
             {
                 Game = game,
                 GameList = gamelist,
                 userLists = userLists,
-                Popularity = popularity,
-                Ranking = position,
-                Rating = rating
+                Popularity = _gameService.GetGamePopularity(game.Id),
+                Position = _gameService.GetGamePosition(game.Id),
+                Rating = _gameService.GetGameRating(game.Id)
             };
 
-            var reviewGametimes = setupReviewGametime(reviews);
+            var reviewGametimes = SetupReviewPlaytime(reviews);
             var viewModel = new GameDetailsViewModel
             {
                 GameGameList = GameGameList,
@@ -200,7 +232,7 @@ namespace PRO.Controllers
         [Route("games/add")]
         public ActionResult Add()
         {
-            return View(_context.GetFullGameForm(null));
+            return View(GetFullGameForm(null));
         }
 
         [HttpPost]
@@ -215,7 +247,7 @@ namespace PRO.Controllers
                 _gameService.Add(viewModel.Game);
                 return RedirectToAction("Manage");
             }
-            var newViewModel = _context.GetFullGameForm(null);
+            var newViewModel = GetFullGameForm(null);
             newViewModel.Game = viewModel.Game;
             return View(newViewModel);
         }
@@ -224,7 +256,7 @@ namespace PRO.Controllers
         [Route("games/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            var gameViewModel = _context.GetFullGameForm(id);
+            var gameViewModel = GetFullGameForm(id);
 
             if (gameViewModel.Game == null) return NotFound();
 
@@ -246,7 +278,7 @@ namespace PRO.Controllers
                 //  if (Session["CurrentUrl"] == null) { return View(viewModel); }
                 return Redirect(null);//return to saved url
             }
-            var gameViewModel = _context.GetFullGameForm(viewModel.Game.Id);
+            var gameViewModel = GetFullGameForm(viewModel.Game.Id);
             gameViewModel.Game = viewModel.Game;
             gameViewModel.selectedLanguagesId = viewModel.selectedLanguagesId;
             gameViewModel.selectedTagsId = viewModel.selectedTagsId;
@@ -285,8 +317,8 @@ namespace PRO.Controllers
         {
 
 
-            var games = _gameService.GetAllActive().OrderBy(s=>s.Title);
-            var gamesRankings = _gameService.GetHighestRatedGames(null);
+            var games = _gameService.GetAllActive().OrderBy(s => s.Title);
+            var gamesRankings = _gameService.GetOrderedGamesRanking(null);
             var viewModel = new GameFilterViewModel
             {
                 Games = games,
@@ -302,29 +334,25 @@ namespace PRO.Controllers
         {
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
-            var reviews = _context.GetGameReviewsList(game.Id);
-           // Session["CurrentUrl"] = Request.Url.ToString();
-            ViewBag.Pagination = new Pagination(page, items, reviews.Count());
+            // Session["CurrentUrl"] = Request.Url.ToString();
+            ViewBag.Pagination = new Pagination(page, items, game.Reviews.Count());
 
             var model = SetupDetailsPage(id, null);
 
             return View(model);
         }
 
-        public IEnumerable<ReviewGametimeViewModel> setupReviewGametime(IEnumerable<Review> reviews)
+        public IEnumerable<ReviewPlaytimeViewModel> SetupReviewPlaytime(IEnumerable<Review> reviews)
         {
-            var reviewGametimes = new List<ReviewGametimeViewModel>();
+            var reviewGametimes = new List<ReviewPlaytimeViewModel>();
             foreach (var rev in reviews)
             {
-                var gamelist = _context.GameLists.Include(i => i.UserList).FirstOrDefault(f => f.GameId == rev.GameId && f.UserList.UserId == rev.UserId);
-                int? playtime = null;
-                if (gamelist != null) { playtime = gamelist.HoursPlayed; };
 
-                var reviewGametime = new ReviewGametimeViewModel
+                var reviewGametime = new ReviewPlaytimeViewModel
                 {
                     Review = rev,
-                    Playtime = playtime
-                };
+                    Playtime = _gameListService.GetUserReviewPlaytime(rev)
+            };
                 reviewGametimes.Add(reviewGametime);
             }
             return reviewGametimes;
@@ -337,12 +365,12 @@ namespace PRO.Controllers
         {
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
-            var selectedReview = _context.GetReviewById(review);
+            var selectedReview = _reviewService.Find(review);
             //Session["CurrentUrl"] = Request.Url.ToString();
             ViewBag.Pagination = new Pagination(page, items, 1);
-            List < Review > Reviews = new List<Review>();
+            List<Review> Reviews = new List<Review>();
             Reviews.Add(selectedReview);
-            var reviewGametimes = setupReviewGametime(Reviews);
+            var reviewGametimes = SetupReviewPlaytime(Reviews);
             var model = SetupDetailsPage(id, null);
             model.ReviewGametimes = reviewGametimes;
             return View(model);
@@ -363,5 +391,38 @@ namespace PRO.Controllers
             ViewBag.Pagination = new Pagination(page, items, filteredgames.Count());
             return View("Index", viewModel);
         }
+
+
+        public GameViewModel GetFullGameForm(int? id)
+        {
+            List<int> selectedLanguagesId = null;
+            List<int> selectedTagsId = null;
+            var game = _gameService.Find(id);
+
+            if (game != null)
+            {
+                selectedLanguagesId = game.Languages.Select(l => l.Id).ToList();
+                selectedTagsId = game.Tags.Select(l => l.Id).ToList();
+            }
+
+            var gameViewModel = new GameViewModel
+            {
+                Platforms = _platformService.GetAll(),
+                Statuses = _statusService.GetAll(),
+                Genres = _genreService.GetAll(),
+                Series = _seriesService.GetAll(),
+                Publishers = _companyService.GetAll(),
+                Developers = _companyService.GetAll(),
+                Images = _imageService.GetAll(),
+                Languages = _languageService.GetAll(),
+                Tags = _tagService.GetAll(),
+                Game = game,
+                selectedLanguagesId = selectedLanguagesId,
+                selectedTagsId = selectedTagsId,
+                ImageTypes = _imageTypeService.GetAll()
+            };
+            return gameViewModel;
+        }
+
     }
 }
