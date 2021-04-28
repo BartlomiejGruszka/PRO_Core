@@ -1,10 +1,6 @@
-﻿using PRO.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
 using PRO.Entities;
-namespace PRO.ViewModels
+namespace PRO.UI.ViewModels
 {
     public class SearchViewModel
     {

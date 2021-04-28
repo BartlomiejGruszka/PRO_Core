@@ -1,10 +1,8 @@
-﻿using PRO.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using PRO.Entities;
-namespace PRO.ViewModels
+
+namespace PRO.UI.ViewModels
 {
     public class UserProfileViewModel
     {
@@ -15,7 +13,8 @@ namespace PRO.ViewModels
         public List<ReviewPlaytimeViewModel> Reviews { get; set; }
         public List<ListType> ListTypes { get; set; }
         public int? LoggedUserId { get; set; }
-
+        public EditUserViewModel EditUser { get; set; }
+        public ChangePasswordViewModel ChangePassword { get; set; }
 
     }
 }

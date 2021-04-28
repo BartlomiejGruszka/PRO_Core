@@ -1,15 +1,11 @@
-﻿using PRO.Models;
-using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
-using PRO.ViewModels;
-using System.Net;
+using PRO.UI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PRO.Entities;
 using PRO.Domain.Interfaces.Services;
-using Microsoft.EntityFrameworkCore;
-using PRO.Domain.Extensions;
 
 namespace PRO.Controllers
 {

@@ -21,7 +21,7 @@ using PRO;
 #nullable disable
 #nullable restore
 #line 2 "D:\PRO_Core\PRO\PRO\Views\_ViewImports.cshtml"
-using PRO.Models;
+using PRO.UI.ViewModels;
 
 #line default
 #line hidden
@@ -41,7 +41,7 @@ using PRO.Entities;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"460b8ac1beb68439b69da86ac67f0ff00d819b42", @"/Views/Shared/_LoginPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4578dd96b4e1783e15166ecff815f4ae736b10d0", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"50bf9f3a3aa24260c90f9edb8910125fa82e0c97", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__LoginPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("btn btn-primary my-2 my-sm-0"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -94,7 +94,7 @@ using PRO.Entities;
 #line hidden
 #nullable disable
             WriteLiteral("        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "460b8ac1beb68439b69da86ac67f0ff00d819b427382", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "460b8ac1beb68439b69da86ac67f0ff00d819b427389", async() => {
                 WriteLiteral("Witaj ");
 #nullable restore
 #line 11 "D:\PRO_Core\PRO\PRO\Views\Shared\_LoginPartial.cshtml"
@@ -126,7 +126,7 @@ using PRO.Entities;
             BeginWriteAttribute("class", " class=\"", 498, "\"", 506, 0);
             EndWriteAttribute();
             WriteLiteral(">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "460b8ac1beb68439b69da86ac67f0ff00d819b429497", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "460b8ac1beb68439b69da86ac67f0ff00d819b429504", async() => {
                 WriteLiteral("\r\n                <button type=\"submit\" class=\"btn btn-secondary my-2 my-sm-0\">Wyloguj</button>\r\n            ");
             }
             );
@@ -175,7 +175,7 @@ using PRO.Entities;
 #line hidden
 #nullable disable
             WriteLiteral("        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "460b8ac1beb68439b69da86ac67f0ff00d819b4212613", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "460b8ac1beb68439b69da86ac67f0ff00d819b4212620", async() => {
                 WriteLiteral("Zarejestruj");
             }
             );
@@ -196,7 +196,7 @@ using PRO.Entities;
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n");
             WriteLiteral("        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "460b8ac1beb68439b69da86ac67f0ff00d819b4214177", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "460b8ac1beb68439b69da86ac67f0ff00d819b4214184", async() => {
                 WriteLiteral("Zaloguj");
             }
             );

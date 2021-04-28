@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PRO.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using PRO.Domain.Interfaces.Services;
 using PRO.Persistance.Data;
+using PRO.UI.ViewModels;
 
 namespace PRO.Controllers
 {

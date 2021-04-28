@@ -1,0 +1,149 @@
+﻿@model PRO.UI.ViewModels.UserProfileViewModel
+@{
+    ViewBag.Title = "Profil użytkownika";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1 class="main_h1 edit-info">
+        <span class="h1-title">
+            <span>
+                @Model.ApplicationUser.UserName
+            </span>
+
+        </span>
+    </h1>
+</div>
+<div id="content" class="userprofilecontent">
+    @if (Model.ApplicationUser.IsPublic)
+    {
+
+        @Html.Partial("_UserLeftSide", Model)
+
+        <div valign="top" style="padding-left: 5px;">
+            <div class="js-scrollfix-bottom-rel">
+                <div style=" margin:0 auto"></div><a name="lower"></a>
+
+                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td class="pb24">
+                                <div class="underlined_h2">Opis</div>
+                                @if (Model.ApplicationUser.Description != null)
+                                {<p>
+                                        @Html.Raw(@Model.ApplicationUser.Description)
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p>
+                                        Ten użytkownik nie wprowadził jeszcze opisu.
+                                    </p>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="pb24">
+                                <div class="user-statistics mb24">
+                                    <div class="underlined_h2">Statystyki</div>
+                                    <div class="userprofile-statistics mt16">
+                                        <div class="stats userprofile-cell">
+                                            <div class="underlined_h2" style="font-weight: 400;">Listy</div>
+                                            <div class="spaceit user-list-stats font-weight-bold"><span class="dark_text">Wszystkich gier: </span><a href="#">@Model.GameLists.Count()</a></div>
+                                            <div class="spaceit user-list-stats font-weight-bold">
+                                                <span class="dark_text">Średnia ocen: </span>
+                                                @{
+                                                    double? avr = Model.GameLists.Average(s => s.PersonalScore);
+                                                    if (avr.HasValue)
+                                                    {
+                                                        <text>@Math.Round(avr.Value, 1)</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text> Brak ocen</text>
+                                                    };
+                                                }
+
+
+
+                                            </div>
+                                            <div class="clearfix mauto mt16" style="width:160px;padding-right:10px"></div>
+                                            @foreach (var type in Model.ListTypes)
+                                            {<div class="spaceit user-list-stats"><span class="dark_text">@type.Name </span><a href="#">@Model.GameLists.Where(t => t.UserList.ListTypeId == type.Id).Count()</a></div>
+                                        }
+
+                                        </div>
+                                        <div class="updates game userprofile-cell">
+                                            <div class="underlined_h2" style="font-weight: 400;">Ostatnio aktualizowane</div>
+                                            @if (Model.RecentlyUpdatedGames?.Any() ?? false)
+                                            {
+
+                                                foreach (var game in Model.RecentlyUpdatedGames)
+                                                {<div class="statistics-updates di-b w100 mb8">
+                                                        @if (game.Item1.Game.Image != null)
+                                                        {<a href="/games/@game.Item1.GameId" class="image fl-l di-ib mr8">
+                                                                <img style="max-width:60px;width: expression(this.width > 60 ? 60: true);" class="lazyloaded" src="/images/@game.Item1.Game.Image.ImagePath">
+                                                            </a>}
+                                                        <div class="data" style="font-size:0.85rem;">
+                                                            <a href="#">@game.Item1.Game.Title</a>
+                                                            <div class="clearfix graph-content pt8" style="display:flex; flex-direction:column;">
+                                                                <span class="fl-r fn-grey2">@game.Item2</span>
+                                                                <span class="text anime completed">@game.Item1.UserList.ListType.Name</span>
+                                                                <span class="text anime completed score-label score-8">Ocena: @game.Item1.PersonalScore</span>
+                                                            </div>
+
+                                                            <div class="clearfix graph-content pt8">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            { <text>Brak gier</text>}
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="pb24">
+                                <div>
+                                    <span class="floatRightHeader">
+                                        @{
+                                            if (Model.Reviews != null)
+                                            {
+                                                <a href="/users/@Model.ApplicationUser.Id/reviews?page=1&items=5">Wszystkie recenzje</a>}
+                                        }
+                                    </span>
+                                    <div class="underlined_h2">Recenzje użytkownika</div>
+                                </div>
+                                @if (Model.Reviews.Count() == 0)
+                                {<p>Użytkownik nie napisał jeszcze żadnej recenzji</p>}
+                                @for (int i = 1; i <= 3; i++)
+                                {
+                                    if (Model.Reviews.Count() >= i)
+                                    {
+                                        @Html.Partial("_SingleReview", Model.Reviews.ToList()[i - 1])
+                                    }
+
+                                }
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    }
+    else
+    {
+        <p style="display:flex; justify-content:center; margin-top:1rem;">Ten profil jest prywatny</p>
+    }
+</div>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 
-using PRO.Models;
+using PRO.Entities;
 /*
 namespace PRO.Controllers
 {

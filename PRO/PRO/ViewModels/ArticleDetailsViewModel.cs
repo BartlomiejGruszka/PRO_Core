@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using PRO.Entities;
-using PRO.Models;
 
-namespace PRO.ViewModels
+
+namespace PRO.UI.ViewModels
 {
     public class ArticleDetailsViewModel
     {

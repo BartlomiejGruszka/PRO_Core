@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
-using PRO.Models;
 
 namespace PRO.Controllers
 {

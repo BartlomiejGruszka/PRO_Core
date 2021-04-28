@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
-using PRO.Models;
 
 namespace PRO.Controllers
 {

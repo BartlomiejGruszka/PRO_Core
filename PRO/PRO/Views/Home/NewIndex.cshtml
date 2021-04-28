@@ -1,0 +1,118 @@
+﻿@model  PRO.ViewModels.HomeViewModel
+@using PRO.Helpers
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@using System.Text.RegularExpressions;
+
+@helper StripHTML(string input, int length)
+{
+    if (!string.IsNullOrEmpty(input))
+    {
+        input = Regex.Replace(input, "<.*?>", String.Empty);
+        input = Regex.Replace(input, "&nbsp;", " ");
+        input = input.Truncate(length);
+        <span>@input</span>
+    }
+}
+
+
+<div class="maingrid-container">
+    <div class="">
+        <div class="list-group">
+            <h2>Bieżące informacje</h2>
+            @{
+                var articles = Model.RecentArticles.ToList().Take(3);
+                foreach (var article in articles)
+                {
+
+                    <a href="/articles/@article.Id" class="list-group-item list-group-item-action flex-column align-items-start " id="home-article-cards">
+                        <div>
+                            @if (article.Image != null)
+                            {<img style="max-width: 100px;max-height: 100%;align-self: flex-start;flex-direction: row;" class=" lazyloaded" src="@Url.Content(article.Image.ImagePath)">
+                            }
+                        </div>
+                        <div>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@article.Title</h5>
+                            </div>
+                            <p class="mb-1">@article.Preview</p>
+                            <small class="text-muted">@article.PublishedDate przez @article.Author.FirstName @article.Author.LastName</small>
+                        </div>
+                    </a>
+                }
+            }
+        </div>
+        <div>
+            <br />
+            <h2>Ostatnie premiery</h2>
+            <div class="leftinnergrid-container">
+
+                @{
+                    var games = Model.RecentGames.ToList().Take(4);
+
+                    foreach (var game in games)
+                    {
+                        <div class="card mb-3 recentlyReleasedGames">
+                            <a href="/games/@game.Id" style="text-decoration:none; color:black; display:block;width: 100%; ">
+                                <div class="">
+                                    <div style=" text-align: center;">
+                                        @if (game.Image != null)
+                                        {
+                                            <img style="max-width: 100%; max-height: 100%;" class=" lazyloaded" src="@Url.Content(game.Image.ImagePath)">
+                                        }
+                                    </div>
+                                    <div class="card-body">
+
+                                        <p class="card-ellipsis">@game.Title</p>
+
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                    } }
+
+            </div>
+        </div>
+        <div class="list-group">
+            <h2>Najpopularniejsze</h2>
+            @{
+                var popularGames = Model.MostPopularGames;
+
+                foreach (var item in popularGames)
+                {
+                    var game = item.Item1;
+                    <a href="/games/@game.Id" class="list-group-item list-group-item-action flex-column align-items-start " id="home-article-cards">
+                        <div>
+                            @if (game.Image != null)
+                            {
+                                <img style="max-width: 100px;max-height: 100%;align-self: flex-start;flex-direction: row;" class=" lazyloaded" src="@Url.Content(game.Image.ImagePath)">
+                            }
+                        </div>
+                        <div>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@game.Title</h5>
+                            </div>
+                            <p class="mb-1">@Html.Raw(@StripHTML(@game.Description, 300))...
+                            </p>
+
+                        </div>
+                    </a>
+                }
+            }
+        </div>
+        <br />
+    </div>
+
+    <div>
+        @Html.Partial("_BestRatedGames", Model.BestRatedGames)
+        <br />
+        @Html.Partial("_ClosestReleaseGames", Model.ComingGames)
+        <br />
+        @Html.Partial("_NewReviews", Model.RecentReviews)
+        <br />
+    </div>
+</div>

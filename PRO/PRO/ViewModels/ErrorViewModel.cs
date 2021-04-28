@@ -1,6 +1,6 @@
 using System;
 using PRO.Entities;
-namespace PRO.Models
+namespace PRO.UI.ViewModels
 {
     public class ErrorViewModel
     {

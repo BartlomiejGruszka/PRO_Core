@@ -1,8 +1,7 @@
-﻿using PRO.Models;
-using System;
+﻿
 using System.Collections.Generic;
 using PRO.Entities;
-namespace PRO.ViewModels
+namespace PRO.UI.ViewModels
 {
     public class GameViewModel
     {
