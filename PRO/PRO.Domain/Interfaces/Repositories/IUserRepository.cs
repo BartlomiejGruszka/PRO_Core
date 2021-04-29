@@ -11,5 +11,6 @@ namespace PRO.Domain.Interfaces.Repositories
     {
 
         public new IEnumerable<ApplicationUser> GetAll();
+        public ApplicationUser Find(int id);
     }
 }

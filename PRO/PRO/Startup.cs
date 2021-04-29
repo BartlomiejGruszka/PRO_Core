@@ -57,7 +57,9 @@ namespace PRO
             services.AddScoped(typeof(IRepository<UserList>), typeof(BaseRepository<UserList>));
             services.AddScoped(typeof(IRepository<Series>), typeof(BaseRepository<Series>));
             services.AddScoped(typeof(IRepository<Status>), typeof(BaseRepository<Status>));
-
+            services.AddScoped(typeof(IRepository<ListType>), typeof(BaseRepository<ListType>));
+            services.AddScoped(typeof(IRepository<Moderator>), typeof(BaseRepository<Moderator>));
+            services.AddScoped(typeof(IRepository<Award>), typeof(BaseRepository<Award>));
 
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
@@ -68,24 +70,27 @@ namespace PRO
             services.AddScoped<IUserRepository, UserRepository>();
             //  services.AddScoped<IRepository<ImageType>, ImageTypeRepository>();
 
+            services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IArticleTypeService, ArticleTypeService>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IAwardService, AwardService>();
+            services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameListService, GameListService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IImageTypeService, ImageTypeService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IArticleService, ArticleService>();
-            services.AddScoped<IGameListService, GameListService>();
-            services.AddScoped<IReviewService, ReviewService>();
-            services.AddScoped<IArticleTypeService, ArticleTypeService>();
-            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IListTypeService, ListTypeService>();
+            services.AddScoped<IModeratorService, ModeratorService>();
             services.AddScoped<IPlatformService, PlatformService>();
-            services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<IUserListService, UserListService>();
+            services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<ISeriesService, SeriesService>();
             services.AddScoped<IStatusService, StatusService>();
-            services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ITagService, TagService>();
-
+            services.AddScoped<IUserListService, UserListService>();
+            services.AddScoped<IUserService, UserService>();
+                 
             services.AddControllersWithViews();
             services.AddRazorPages();
 

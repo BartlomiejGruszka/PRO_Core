@@ -16,6 +16,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public void Update(Review review);
         public IEnumerable<Review> GetRecentReviews();
+        public List<Review> GetUserReviews(int? id);
         public List<Review> GetGameReviews(int id);
     }
 }

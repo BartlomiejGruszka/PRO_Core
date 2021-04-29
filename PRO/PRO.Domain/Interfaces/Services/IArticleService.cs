@@ -15,5 +15,6 @@ namespace PRO.Domain.Interfaces.Services
         List<Article> GetAllActive();
         public IEnumerable<Article> GetAllByPlatform(string platform);
         public IEnumerable<Article> SearchResultArticles(string query);
+        public IEnumerable<Article> ArticlesByPlatform(string platform);
     }
 }

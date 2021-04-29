@@ -10,8 +10,6 @@ namespace PRO.Entities
 {
     public class ApplicationUser : IdentityUser<int>
     {
-       // [Key]
-       // public int ApplicationUserId { get; set; } //pk
 
         [Required, DisplayName("Data rejestracji")]
         [DataType(DataType.Date)]
@@ -32,14 +30,6 @@ namespace PRO.Entities
 
         [ForeignKey("ImageId"), DisplayName("Obraz profilu")]
         public Image Image { get; set; }
-
-        // [Required, MaxLength(128), ForeignKey("ApplicationUser"), DisplayName("Pseudonim")]
-        //public string UserId { get; set; }
-
-        // [DisplayName("Pseudonim")]
-        // public IdentityUser ApplicationUser { get; set; }
-
-
 
         public ICollection<UserList> UserLists { get; set; }
         public ICollection<Review> Reviews { get; set; }

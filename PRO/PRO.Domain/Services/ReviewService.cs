@@ -51,6 +51,11 @@ namespace PRO.Domain.Services
                .Take(5);
             return recentReviews;
         }
+        public List<Review> GetUserReviews(int? id)
+        {
+            if (!id.HasValue) { return null; }
+            return _reviewRepository.GetAll().Where(i => i.UserId == id.Value).ToList();
+        }
 
         public List<Review> GetGameReviews(int id)
         {

@@ -17,7 +17,7 @@
     @if (Model.ApplicationUser.IsPublic)
     {
 
-        @Html.Partial("_UserLeftSide", Model)
+        <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model" />
 
         <div valign="top" style="padding-left: 5px;">
             <div class="js-scrollfix-bottom-rel">
@@ -128,7 +128,8 @@
                                 {
                                     if (Model.Reviews.Count() >= i)
                                     {
-                                        @Html.Partial("_SingleReview", Model.Reviews.ToList()[i - 1])
+                                        <partial name="~/Views/Shared/_SingleReview.cshtml" , model="Model.Reviews.ToList()[i - 1]" />
+
                                     }
 
                                 }

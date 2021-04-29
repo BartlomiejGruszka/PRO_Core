@@ -1,42 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
+using PRO.UI.ViewModels;
 
-/*
 namespace PRO.Controllers
 {
 
     public class UsersController : Controller
     {
-        private ApplicationDbContext _context;
-        private ApplicationUserManager _userManager;
-        private ApplicationSignInManager _signInManager;
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-        public UsersController()
-        {
-            _context = new ApplicationDbContext();
+        private readonly IUserService _userService;
+        private readonly IReviewService _reviewService;
+        private readonly IImageService _imageService;
+        private readonly IUserListService _userListService;
+        private readonly IGameListService _gameListService;
+        private readonly IListTypeService _listTypeService;
 
+        public UsersController
+            (
+            IUserService userService,
+            IReviewService reviewService,
+            IImageService imageService,
+            IUserListService userListService,
+            IGameListService gameListService,
+            IListTypeService listTypeService
+            )
+
+        {
+            _imageService = imageService;
+            _userService = userService;
+            _reviewService = reviewService;
+            _userListService = userListService;
+            _gameListService = gameListService;
+            _listTypeService = listTypeService; 
         }
 
         //get userprofile
@@ -44,11 +45,11 @@ namespace PRO.Controllers
         [Route("users/userprofile")]
         public ActionResult UserProfile()
         {
-            int? loggeduserid = getCurrentUserId();
+            int? loggeduserid = _userService.GetLoggedInUserId();
 
             if (loggeduserid == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return RedirectToAction("Details", new { id = loggeduserid });
         }
@@ -56,14 +57,12 @@ namespace PRO.Controllers
         // GET: Users
         [Route("users/manage")]
         [Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
 
-            var users = _context.AppUsers.Include(a => a.ApplicationUser).Include(i => i.Image).ToList();
+            var users = _userService.GetAll().ToList();
 
-            ViewBag.Pagination = new Pagination(pageString, itemString, users.Count());
+            ViewBag.Pagination = new Pagination(page, items, users.Count());
             return View(users);
         }
 
@@ -72,72 +71,20 @@ namespace PRO.Controllers
         public ActionResult Details(int? id)
         {
             var model = UserProfileSetup(id);
-            if (model == null) { return HttpNotFound(); }
+            if (model == null) { return NotFound(); }
             return View(model);
         }
         public UserProfileViewModel UserProfileSetup(int? id)
         {
-            if (id == null)
-            {
-                return null;
-            }
-
-            User user = _context.AppUsers
-                .Include(a => a.ApplicationUser)
-                .Include(a => a.Image)
-                .SingleOrDefault(i => i.Id == id);
+            ApplicationUser user = _userService.Find(id);
 
             if (user == null)
             {
                 return null;
             }
-            if (user.IsActive == false)
-            {
-                return null;
-            }
+            List<GameList> gameLists = _gameListService.GetAll().Where(u => u.UserList.UserId == id).ToList();
+            List<Review> reviews = _reviewService.GetUserReviews(user.Id);
 
-            List<UserList> userLists = _context.UserLists
-                .Where(u => u.UserId == id)
-                .Include(l => l.ListType)
-                .ToList();
-            List<GameList> gameLists = _context.GameLists
-                .Include(i => i.UserList)
-                .Include(i => i.Game)
-                .Include(i => i.Game.Image)
-                .Where(u => u.UserList.UserId == id)
-                .ToList();
-            List<Review> reviews = _context.
-                GetReviewsList()
-                .Where(r => r.UserId == id)
-                .ToList();
-            List<ListType> listTypes = _context.ListTypes.ToList();
-
-
-
-            int? loggeduserid = getCurrentUserId();
-            IndexViewModel index = null;
-            if (loggeduserid == null) { loggeduserid = -1; }
-            else
-            {
-                var controller = DependencyResolver.Current.GetService<ManageController>();
-                controller.ControllerContext = new ControllerContext(this.Request.RequestContext, controller);
-
-                var task = Task.Run(async () => await controller.setupUserPageAsync());
-                index = task.Result;
-
-            }
-            //
-            //
-           // var gameController = new GamesController();
-           // var reviewGametimes = gameController.setupReviewGametime(reviews).ToList();
-
-            var recentlyAddedGames = gameLists.OrderByDescending(d => d.AddedDate).Take(5).ToArray();
-            var recentlyEditedGames = gameLists.OrderByDescending(d => d.EditedDate).Take(5).ToArray();
-            List<GameList> list = new List<GameList>();
-            for (int i = 0; i < recentlyEditedGames.Length + recentlyAddedGames.Length; i++)
-            {
-
-            }
             var tuplelist = new List<Tuple<GameList, DateTime>>();
             foreach (var gamelist in gameLists)
             {
@@ -156,13 +103,12 @@ namespace PRO.Controllers
 
             UserProfileViewModel model = new UserProfileViewModel
             {
-                User = user,
-                UserLists = userLists,
+                ApplicationUser = user,
+                UserLists = _userListService.GetAll().ToList(),
                 GameLists = gameLists,
-               // Reviews = reviewGametimes,
-                Index = index,
-                LoggedUserId = loggeduserid,
-                ListTypes = listTypes,
+                // Reviews = reviewGametimes,
+                LoggedUserId = _userService.GetLoggedInUserId(),
+                ListTypes = _listTypeService.GetAll().ToList(),
                 RecentlyUpdatedGames = recentGames
             };
             return model;
@@ -172,17 +118,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult ManageDetails(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = _context.AppUsers
-                .Include(a => a.ApplicationUser)
-                .Include(a => a.Image)
-                .SingleOrDefault(i => i.Id == id);
+            ApplicationUser user = _userService.Find(id);
             if (user == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(user);
         }
@@ -193,7 +132,7 @@ namespace PRO.Controllers
         {
             NewUserViewModel viewModel = new NewUserViewModel
             {
-                Images = _context.Images.ToList()
+                Images = _imageService.GetAll().ToList()
             };
             return View(viewModel);
         }
@@ -207,13 +146,13 @@ namespace PRO.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await _userService.AddUserAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     //create normal user object
-                    var userModel = new User
+                    var userModel = new ApplicationUser
                     {
-                        UserId = user.Id,
+                        Id = user.Id,
                         RegisterDate = model.RegisterDate,
                         IsActive = model.IsActive,
                         IsPublic = model.IsPublic,
@@ -221,23 +160,13 @@ namespace PRO.Controllers
                         Description = model.Description
                     };
 
-                    //temp also in Account Controller
-                    //var roleStore = new RoleStore<IdentityRole>(_context);
-                   // var roleManager = new RoleManager<IdentityRole>(roleStore);
-                   // await roleManager.CreateAsync(new IdentityRole(""));
-                   // await UserManager.AddToRoleAsync(user.Id, "");
-                    //end temp
-
-                    _context.AppUsers.Add(userModel);
-                    _context.SaveChanges();
-
                     return RedirectToAction("Manage", "Users");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            model.Images = _context.Images.ToList();
+            model.Images = _imageService.GetAll().ToList();
             return View(model);
         }
 
@@ -245,35 +174,24 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = _context.AppUsers.Include(a => a.ApplicationUser).SingleOrDefault(i => i.Id == id);
+
+            ApplicationUser user = _userService.Find(id);
             if (user == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
+            
             EditUserViewModel viewModel = new EditUserViewModel
             {
-                UserName = user.ApplicationUser.UserName,
-                Id = (int)id,
-                Email = user.ApplicationUser.Email,
-                RegisterDate = user.RegisterDate,
-                Description = user.Description,
-                IsActive = user.IsActive,
-                IsPublic = user.IsPublic,
+                AppUser = user,        
                 ImageId = user.ImageId,
-                Images = _context.Images.ToList()
+                Images = _imageService.GetAll().ToList()
             };
 
 
             return View(viewModel);
         }
 
-        // POST: Authors/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Admin,Moderator")]
         [Route("users/edit/{id}")]
@@ -282,28 +200,22 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _context.AppUsers.Include(s => s.ApplicationUser).SingleOrDefault(s => s.Id == model.Id);
-                var appuser = user.ApplicationUser;
+                var user = _userService.Find(model.AppUser.Id);
+                var appuser = user;
 
-                appuser.Email = model.Email;
-                appuser.UserName = model.UserName;
+                appuser.Email = model.AppUser.Email;
+                appuser.UserName = model.AppUser.UserName;
 
-                user.RegisterDate = model.RegisterDate;
-                user.Description = model.Description;
-                user.IsActive = model.IsActive;
-                user.IsPublic = model.IsPublic;
-                user.ImageId = model.ImageId;
-
-
-                _context.Entry(user).State = EntityState.Modified;
-                _context.Entry(appuser).State = EntityState.Modified;
-
-                _context.SaveChanges();
+                user.RegisterDate = model.AppUser.RegisterDate;
+                user.Description = model.AppUser.Description;
+                user.IsActive = model.AppUser.IsActive;
+                user.IsPublic = model.AppUser.IsPublic;
+                user.ImageId = model.AppUser.ImageId;
 
                 return RedirectToAction("Manage", "Users");
 
             }
-            model.Images = _context.Images.ToList();
+            model.Images = _imageService.GetAll().ToList();
             return View(model);
         }
 
@@ -312,17 +224,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = _context.AppUsers
-                .Include(a => a.ApplicationUser)
-                .Include(a => a.Image)
-                .SingleOrDefault(i => i.Id == id);
+            ApplicationUser user = _userService.Find(id);
             if (user == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(user);
         }
@@ -334,16 +239,10 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = _context.AppUsers
-                .Include(a => a.ApplicationUser)
-                .Include(a => a.Image)
-                .SingleOrDefault(i => i.Id == id);
-            var userid = user.UserId;
-            // _context.AppUsers.Remove(user);
+            ApplicationUser user = _userService.Find(id);
 
-            //remove applicationUser too right here
-            _context.SaveChanges();
-            return RedirectToAction("DeleteUser", "Manage", new { userId = userid });
+            //remove applicationUser
+            return RedirectToAction("DeleteUser", "Manage", new { userId = user.Id });
         }
 
         // GET: /Manage/ChangePassword
@@ -366,16 +265,15 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(AdminChangePasswordViewModel model)
         {
-            var userdata = _context.AppUsers.Include(a => a.ApplicationUser).SingleOrDefault(a => a.Id == model.id);
-            if (userdata == null)
-            { return RedirectToAction("Manage"); }
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            string resetToken = await UserManager.GeneratePasswordResetTokenAsync(userdata.UserId);
-            IdentityResult passwordChangeResult = await UserManager.ResetPasswordAsync(userdata.UserId, resetToken, model.NewPassword);
+            var userdata = _userService.Find(model.id);
+            if (userdata == null)
+            { return RedirectToAction("Manage"); }
+
+            IdentityResult passwordChangeResult = await _userService.ResetPasswordAsync(userdata, model.NewPassword);
             if (passwordChangeResult.Succeeded)
             {
                 return RedirectToAction("Manage");
@@ -391,21 +289,20 @@ namespace PRO.Controllers
         [Route("users/{id}/password")]
         public ActionResult UserChangePassword(int id)
         {
-            int? loggeduserid = getCurrentUserId();
-            if (loggeduserid == null) return HttpNotFound();
-            if (loggeduserid != id) return HttpNotFound();
-            User user = _context.AppUsers.Include(a => a.ApplicationUser).Include(i => i.Image).SingleOrDefault(i => i.Id == id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
+            var userdata = _userService.Find(id);
+            if (userdata == null)
+            { return RedirectToAction("Details"); }
+
+            int? loggeduserid = _userService.GetLoggedInUserId();
+            if (loggeduserid == null) return NotFound();
+            if (loggeduserid != id) return NotFound();
             ChangePasswordViewModel changePassword = new ChangePasswordViewModel
             {
                 id = id
             };
             UserProfileViewModel model = new UserProfileViewModel
             {
-                User = user,
+                ApplicationUser = userdata,
                 LoggedUserId = loggeduserid,
                 ChangePassword = changePassword
             };
@@ -421,13 +318,13 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UserChangePassword(ChangePasswordViewModel model, int id)
         {
-            int? loggeduserid = getCurrentUserId();
-            if (loggeduserid == null) return HttpNotFound();
-            if (loggeduserid != id) return HttpNotFound();
-
-            var userdata = _context.AppUsers.Include(a => a.ApplicationUser).Include(i => i.Image).SingleOrDefault(a => a.Id == model.id);
+            var userdata = _userService.Find(id);
             if (userdata == null)
             { return RedirectToAction("Details"); }
+
+            int? loggeduserid = _userService.GetLoggedInUserId();
+            if (loggeduserid == null) return NotFound();
+            if (loggeduserid != id) return NotFound();
 
             ChangePasswordViewModel changePassword = new ChangePasswordViewModel
             {
@@ -435,7 +332,7 @@ namespace PRO.Controllers
             };
             UserProfileViewModel userProfile = new UserProfileViewModel
             {
-                User = userdata,
+                ApplicationUser = userdata,
                 LoggedUserId = loggeduserid,
                 ChangePassword = changePassword
             };
@@ -444,7 +341,7 @@ namespace PRO.Controllers
             {
                 return View(userProfile);
             }
-            var result = await UserManager.ChangePasswordAsync(userdata.UserId, model.OldPassword, model.NewPassword);
+            var result = await _userService.ChangePasswordAsync(userdata, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
                 return RedirectToAction("Details");
@@ -469,35 +366,27 @@ namespace PRO.Controllers
         [Route("users/{id}/profile")]
         public ActionResult EditProfile(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            int? loggeduserid = getCurrentUserId();
-            if (loggeduserid == null) return HttpNotFound();
-            if (loggeduserid != id) return HttpNotFound();
-
-            User user = _context.AppUsers.Include(a => a.ApplicationUser).SingleOrDefault(i => i.Id == id);
+            ApplicationUser user = _userService.Find(id);
             if (user == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
+            int? loggeduserid = _userService.GetLoggedInUserId();
+            if (loggeduserid == null) return NotFound();
+            if (loggeduserid != id) return NotFound();
+
+
+
             EditUserViewModel editViewModel = new EditUserViewModel
             {
-                UserName = user.ApplicationUser.UserName,
-                Id = (int)id,
-                Email = user.ApplicationUser.Email,
-                RegisterDate = user.RegisterDate,
-                Description = user.Description,
-                IsActive = user.IsActive,
-                IsPublic = user.IsPublic,
+                AppUser = user,
                 ImageId = user.ImageId,
-                Images = _context.Images.ToList()
+                Images = _imageService.GetAll().ToList()
             };
 
             UserProfileViewModel model = new UserProfileViewModel
             {
-                User = user,
+                ApplicationUser = user,
                 LoggedUserId = loggeduserid,
                 EditUser = editViewModel
             };
@@ -506,9 +395,6 @@ namespace PRO.Controllers
             return View(model);
         }
 
-        // POST: Authors/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize]
         [Route("users/{id}/profile")]
@@ -517,67 +403,40 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _context.AppUsers.Include(s => s.ApplicationUser).SingleOrDefault(s => s.Id == model.Id);
-                var appuser = user.ApplicationUser;
-
-                appuser.Email = model.Email;
-                appuser.UserName = model.UserName;
-
-                user.RegisterDate = model.RegisterDate;
-                user.Description = model.Description;
-                user.IsActive = model.IsActive;
-                user.IsPublic = model.IsPublic;
+                var user = _userService.Find(model.AppUser.Id);
+                user.Email = model.AppUser.Email;
+                user.UserName = model.AppUser.UserName;
+                user.RegisterDate = model.AppUser.RegisterDate;
+                user.Description = model.AppUser.Description;
+                user.IsActive = model.AppUser.IsActive;
+                user.IsPublic = model.AppUser.IsPublic;
                 user.ImageId = model.ImageId;
 
-
-                _context.Entry(user).State = EntityState.Modified;
-
-                _context.SaveChanges();
-
-                return RedirectToAction("Details", "Users", new { id = model.Id });
+                return RedirectToAction("Details", "Users", new { id = model.AppUser.Id });
 
             }
-            model.Images = _context.Images.ToList();
+            model.Images = _imageService.GetAll().ToList();
             return View(model);
         }
 
         [HttpGet]
         [AllowAnonymous]
         [Route("users/{id}/reviews")]
-        public ActionResult Reviews(int? id)
+        public ActionResult Reviews(int? id, int? page, int? items)
         {
             var model = UserProfileSetup(id);
-            if (model == null) { return HttpNotFound(); }
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
-            ViewBag.Pagination = new Pagination(pageString, itemString, model.Reviews.Count());
-          
-            return View(model);
-        }
+            if (model == null) { return NotFound(); }
+            ViewBag.Pagination = new Pagination(page, items, model.Reviews.Count());
 
-        public int? getCurrentUserId()
-        {
-            string currentUserId = User.Identity.GetUserId();
-            var user = _context.AppUsers.SingleOrDefault(s => s.UserId.Equals(currentUserId));
-            if (user == null) return null;
-            var id = user.Id;
-            return id;
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
+            return View(model);
         }
 
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError("", error.Description);
             }
         }
     }
-}*/
+}

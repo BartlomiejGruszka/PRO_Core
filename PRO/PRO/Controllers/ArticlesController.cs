@@ -50,30 +50,8 @@ namespace PRO.Controllers
         public ActionResult Index(int? page, int? items, string platform)
         {
 
-
-            IEnumerable<Article> articlesList = new List<Article>();
-            IEnumerable<Article> otherArticles = new List<Article>();
-            if (platform == null || platform == "all")
-            {
-                articlesList = _articleService.GetAllActive();
-            }
-            else if (platform == "other")
-            {
-                otherArticles = _articleService.GetAllActive(); ;
-                articlesList = otherArticles
-                .Where(i =>
-                          !i.Game.Platform.Name.Contains("PC")
-                        & !i.Game.Platform.Name.Contains("Playstation")
-                        & !i.Game.Platform.Name.Contains("Xbox")
-                        & !i.Game.Platform.Name.Contains("Switch"))
-                .OrderByDescending(d => d.PublishedDate)
-                .ToList();
-
-            }
-            else
-            {
-                articlesList = _articleService.GetAllByPlatform(platform);
-            }
+            var articlesList = _articleService.ArticlesByPlatform(platform);
+           
 
             ViewBag.Pagination = new Pagination(page, items, articlesList.Count());
             ViewBag.Platform = platform;
@@ -171,7 +149,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Author")]
         public ActionResult Edit(int? id)
         {
-            ArticleViewModel articleViewModel = PopulateArticleViewModel(id);
+            var articleViewModel = PopulateArticleViewModel(id);
             if (articleViewModel.Article == null)
             {
                 return NotFound();

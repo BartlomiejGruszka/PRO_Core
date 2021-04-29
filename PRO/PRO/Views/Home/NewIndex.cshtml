@@ -1,19 +1,24 @@
-﻿@model  PRO.ViewModels.HomeViewModel
-@using PRO.Helpers
+﻿@model PRO.UI.ViewModels.HomeViewModel
+@using PRO.Domain.Extensions
 @{
     ViewBag.Title = "Home Page";
 }
 
 @using System.Text.RegularExpressions;
 
-@helper StripHTML(string input, int length)
-{
-    if (!string.IsNullOrEmpty(input))
+@{string StripHTML(string input, int length)
     {
-        input = Regex.Replace(input, "<.*?>", String.Empty);
-        input = Regex.Replace(input, "&nbsp;", " ");
-        input = input.Truncate(length);
-        <span>@input</span>
+        if (!string.IsNullOrEmpty(input))
+        {
+            input = Regex.Replace(input, "<.*?>", String.Empty);
+            input = Regex.Replace(input, "&nbsp;", " ");
+            input = input.Truncate(length);
+            return input;
+        }
+        else
+        {
+            return "";
+        }
     }
 }
 
@@ -96,7 +101,8 @@
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">@game.Title</h5>
                             </div>
-                            <p class="mb-1">@Html.Raw(@StripHTML(@game.Description, 300))...
+                            <p class="mb-1">
+                                @Html.Raw(@StripHTML(@game.Description, 300))...
                             </p>
 
                         </div>
@@ -108,11 +114,11 @@
     </div>
 
     <div>
-        @Html.Partial("_BestRatedGames", Model.BestRatedGames)
+        <partial name="~/Views/Shared/_BestRatedGames.cshtml" , model="Model.BestRatedGames" />
         <br />
-        @Html.Partial("_ClosestReleaseGames", Model.ComingGames)
+        <partial name="~/Views/Shared/_ClosestReleaseGames.cshtml" , model="Model.ComingGames" />
         <br />
-        @Html.Partial("_NewReviews", Model.RecentReviews)
+        <partial name="~/Views/Shared/_NewReviews.cshtml" , model="Model.RecentReviews" />
         <br />
     </div>
 </div>

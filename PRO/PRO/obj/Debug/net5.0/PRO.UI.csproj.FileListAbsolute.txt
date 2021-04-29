@@ -614,3 +614,6 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Users\Reviews.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Users\UserChangePassword.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Users\_UserChangePassword.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Users\_UserLeftSide.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Home\About.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Home\Contact.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Home\NewIndex.cshtml.g.cs

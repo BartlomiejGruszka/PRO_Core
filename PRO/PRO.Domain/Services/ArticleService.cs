@@ -61,6 +61,34 @@ namespace PRO.Domain.Services
             return _articleRepository.GetAll().Where(i=>i.Game.Platform.Name.Contains(platform)).ToList();
         }
 
+        public IEnumerable<Article> ArticlesByPlatform(string platform)
+        {
+            IEnumerable<Article> articlesList = new List<Article>();
+            IEnumerable<Article> otherArticles = new List<Article>();
+            if (platform == null || platform == "all")
+            {
+                articlesList = GetAllActive();
+            }
+            else if (platform == "other")
+            {
+                otherArticles = GetAllActive(); ;
+                articlesList = otherArticles
+                .Where(i =>
+                          !i.Game.Platform.Name.Contains("PC")
+                        & !i.Game.Platform.Name.Contains("Playstation")
+                        & !i.Game.Platform.Name.Contains("Xbox")
+                        & !i.Game.Platform.Name.Contains("Switch"))
+                .OrderByDescending(d => d.PublishedDate)
+                .ToList();
+
+            }
+            else
+            {
+                articlesList = GetAllByPlatform(platform);
+            }
+            return articlesList.ToList();
+        }
+
         public IEnumerable<Article> SearchResultArticles(string query)
         {
             IEnumerable<Article> searchList = new List<Article>();

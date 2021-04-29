@@ -9,7 +9,7 @@ namespace PRO.UI.ViewModels
 {
     public class EditUserViewModel
     {
-        public int Id { get; set; }
+       /* public int Id { get; set; }
 
         [EmailAddress]//UniqueUserEmail
         [Display(Name = "Email")]
@@ -31,7 +31,8 @@ namespace PRO.UI.ViewModels
         public bool IsActive { get; set; }
 
         [DisplayName("Publiczny profil")]
-        public bool IsPublic { get; set; }
+        public bool IsPublic { get; set; }*/
+       public ApplicationUser AppUser { get; set; }
 
         [DisplayName("Obraz profilu")]
         public int? ImageId { get; set; }

@@ -1,18 +1,29 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using PRO.Persistance.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PRO.Domain.Services
 {
-    public class UserService :IUserService
+    public class UserService : IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public UserService(IHttpContextAccessor httpContextAccessor)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserRepository _userRepository;
+        public UserService(
+            UserManager<ApplicationUser> userManager,
+            IUserRepository userRepository,
+            IHttpContextAccessor httpContextAccessor
+            )
         {
+            _userRepository = userRepository;
+            _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -28,12 +39,22 @@ namespace PRO.Domain.Services
 
         public ApplicationUser Find(int? id)
         {
-            throw new NotImplementedException();
+            if (!id.HasValue) { return null; }
+            return _userRepository.Find(id.Value);
         }
+
+        public ApplicationUser FindActive(int? id)
+        {
+            ApplicationUser user = Find(id);
+            if (user == null) { return null; }
+            if (!user.IsActive) { return null; }
+            return user;
+        }
+
 
         public IEnumerable<ApplicationUser> GetAll()
         {
-            throw new NotImplementedException();
+            return _userRepository.GetAll();
         }
 
         public int? GetLoggedInUserId()
@@ -45,6 +66,25 @@ namespace PRO.Domain.Services
         public void Update(ApplicationUser user)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<IdentityResult> ChangePasswordAsync(ApplicationUser user,string oldpassword, string newpassword )
+        {
+            return  _userManager.ChangePasswordAsync(user, oldpassword,newpassword);
+        }
+        public Task<string> ResetTokenAsync(ApplicationUser user)
+        {
+            return _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+        public Task<IdentityResult> ResetPasswordAsync(ApplicationUser user, string newpassword)
+        {
+            string token =  ResetTokenAsync(user).Result;
+            return _userManager.ResetPasswordAsync(user, token, newpassword);
+        }
+
+        public Task<IdentityResult> AddUserAsync(ApplicationUser user, string password)
+        {
+            return _userManager.CreateAsync(user, password);
         }
     }
 }

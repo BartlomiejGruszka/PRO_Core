@@ -23,6 +23,10 @@ namespace PRO.Persistance.Repositories
                .ToList();
             return users;
         }
+        public ApplicationUser Find(int id)
+        {
+            return _dbContext.ApplicationUsers.SingleOrDefault(u => u.Id == id);
+        }
 
     }
 }

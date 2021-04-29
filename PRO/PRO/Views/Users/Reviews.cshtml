@@ -16,8 +16,8 @@
 <div id="content" class="userprofilecontent">
     @if (Model.ApplicationUser.IsPublic)
     {
+        <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model" />
 
-        @Html.Partial("_UserLeftSide", Model)
 
         <div valign="top" style="padding-left: 5px;">
             <div class="js-scrollfix-bottom-rel">
@@ -46,8 +46,7 @@
                                                         for (var i = start; i <= end; i++)
                                                         {
 
-
-                                                            @Html.Partial("_SingleReview", reviewGametime[i])
+                                                            <partial name="~/Views/Shared/_SingleReview.cshtml" , model="reviewGametime[i]" />
 
                                                             <div class="underlined_h2"></div>
                                                         }

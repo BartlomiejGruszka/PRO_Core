@@ -4,38 +4,32 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Web;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
-/*
+
 namespace PRO.Controllers
-{
+{/* 
     [Authorize]
     public class AuthorsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
+        private readonly IAuthorService _authorService;
+        private readonly IUserService _userService;
+        public AuthorsController(IUserService userService, IAuthorService authorService)
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            _authorService = authorService;
+            _userService = userService;
         }
 
         // GET: Authors
         [Route("authors/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
 
             var authors = db.Authors.Include(a => a.User).Include(a => a.User.ApplicationUser).ToList();
 
-            ViewBag.Pagination = new Pagination(pageString, itemString, authors.Count());
+            ViewBag.Pagination = new Pagination(page, items, authors.Count());
             return View(authors);
         }
 
@@ -43,14 +37,10 @@ namespace PRO.Controllers
         [Route("authors/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Author author = db.Authors.Include(i => i.User).Include(i => i.User.ApplicationUser).SingleOrDefault(i => i.UserId == id);
             if (author == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(author);
         }
@@ -66,21 +56,18 @@ namespace PRO.Controllers
             return View();
         }
 
-        // POST: Authors/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("authors/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "UserId,FirstName,LastName,CreatedDate,isActive")] Author author)
+        public ActionResult Add([Bind("UserId,FirstName,LastName,CreatedDate,isActive")] Author author)
         {
             if (ModelState.IsValid)
             {
                 var user = db.AppUsers.Include(s => s.ApplicationUser).SingleOrDefault(s => s.Id == author.UserId);
-                
+
                 if (author.IsActive)
                 {
-                    UserManager.AddToRole(user.UserId, "Author");
+                   // UserManager.AddToRole(user.UserId, "Author");
                 }
 
                 db.Authors.Add(author);
@@ -90,7 +77,7 @@ namespace PRO.Controllers
 
             var users = db.AppUsers.Include(i => i.ApplicationUser).ToList();
             ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
-           
+
             return View(author);
         }
 
@@ -98,41 +85,34 @@ namespace PRO.Controllers
         [Route("authors/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Author author = db.Authors.Find(id);
             if (author == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(author);
         }
 
-        // POST: Authors/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("authors/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,FirstName,LastName,CreatedDate")] Author author)
+        public ActionResult Edit([Bind("UserId,FirstName,LastName,CreatedDate")] Author author)
         {
             if (ModelState.IsValid)
             {
                 var user = db.AppUsers.Include(s => s.ApplicationUser).SingleOrDefault(s => s.Id == author.UserId);
-                var isAuthor = UserManager.IsInRole(user.UserId, "Author");
-                
+               // var isAuthor = UserManager.IsInRole(user.UserId, "Author");
+
                 if (isAuthor && !author.IsActive)
                 {
-                    UserManager.RemoveFromRole(user.UserId, "Moderator");
+                   // UserManager.RemoveFromRole(user.UserId, "Moderator");
                 };
                 if (!isAuthor && author.IsActive)
                 {
-                    UserManager.AddToRole(user.UserId, "Moderator");
+                    //UserManager.AddToRole(user.UserId, "Moderator");
                 }
 
-                db.Entry(author).State = EntityState.Modified;
+                //db.Entry(author).State = EntityState.Modified;
 
                 db.SaveChanges();
                 return RedirectToAction("Manage");
@@ -146,12 +126,12 @@ namespace PRO.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return NotFound();
             }
-            Author author = db.Authors.Include(i=>i.User).Include(i => i.User.ApplicationUser).SingleOrDefault(i=>i.UserId==id);
+            Author author = db.Authors.Include(i => i.User).Include(i => i.User.ApplicationUser).SingleOrDefault(i => i.UserId == id);
             if (author == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(author);
         }
@@ -163,27 +143,17 @@ namespace PRO.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Author author = db.Authors.Include(s => s.User).Single(s => s.UserId == id);
-           
-            var isAuthor = UserManager.IsInRole(author.User.UserId, "Author");
+
+           // var isAuthor = UserManager.IsInRole(author.UserId, "Author");
 
             if (isAuthor)
             {
-                UserManager.RemoveFromRole(author.User.UserId, "Author");
+                //UserManager.RemoveFromRole(author.UserId, "Author");
             };
 
             db.Authors.Remove(author);
             db.SaveChanges();
             return RedirectToAction("Manage");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-    }
+    }*/
 }
-*/
