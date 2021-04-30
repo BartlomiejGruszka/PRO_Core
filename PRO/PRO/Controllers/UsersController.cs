@@ -68,14 +68,19 @@ namespace PRO.Controllers
         }
         public UserProfileViewModel UserProfileSetup(int? id)
         {
-            ApplicationUser user = _userService.Find(id);
+            ApplicationUser user = _userService.FindActive(id);
             if (user == null)
             {
                 return null;
             }
+            var edituser = new EditUserViewModel
+            {
+                AppUser = user,
+                Images = _imageService.GetAll().ToList()
+            };
             UserProfileViewModel model = new UserProfileViewModel
             {
-                ApplicationUser = user,
+                EditUser = edituser,
                 UserLists = _userListService.GetAll().ToList(),
                 GameLists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).ToList(),
                 ReviewsPlaytimes = _reviewService.UserPlaytimeList(user.Id),
@@ -153,13 +158,16 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         [Route("users/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditUserViewModel model)
+        public async Task<ActionResult> EditAsync(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _userService.Update(model.AppUser);
+                var result = await _userService.Update(model.AppUser);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Manage", "Users");
+                }
 
-                return RedirectToAction("Manage", "Users");
 
             }
             model.Images = _imageService.GetAll().ToList();
@@ -246,7 +254,7 @@ namespace PRO.Controllers
         {
             var userdata = _userService.Find(id);
             if (userdata == null)
-            { return RedirectToAction("Details"); }
+            { return RedirectToAction("Details","Users", new { id=id}); }
 
             int? loggeduserid = _userService.GetLoggedInUserId();
             if (loggeduserid == null) return NotFound();
@@ -255,9 +263,13 @@ namespace PRO.Controllers
             {
                 id = id
             };
+            var edituser = new EditUserViewModel {
+                AppUser = userdata,
+                Images = _imageService.GetAll().ToList()
+            };
             UserProfileViewModel model = new UserProfileViewModel
             {
-                ApplicationUser = userdata,
+                EditUser = edituser,
                 LoggedUserId = loggeduserid,
                 ChangePassword = changePassword
             };
@@ -275,35 +287,19 @@ namespace PRO.Controllers
         {
             var userdata = _userService.Find(id);
             if (userdata == null)
-            { return RedirectToAction("Details"); }
+            { return RedirectToAction("Details", "Users", new { id = id }); }
 
-            int? loggeduserid = _userService.GetLoggedInUserId();
-            if (loggeduserid == null) return NotFound();
-            if (loggeduserid != id) return NotFound();
-
-            ChangePasswordViewModel changePassword = new ChangePasswordViewModel
+            if (ModelState.IsValid)
             {
-                id = id
-            };
-            UserProfileViewModel userProfile = new UserProfileViewModel
-            {
-                ApplicationUser = userdata,
-                LoggedUserId = loggeduserid,
-                ChangePassword = changePassword
-            };
-
-            if (!ModelState.IsValid)
-            {
-                return View(userProfile);
+                var result = await _userService.ChangePasswordAsync(userdata, model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Details", "Users", new { id = id });
+                }
+                AddErrors(result);
             }
-            var result = await _userService.ChangePasswordAsync(userdata, model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Details");
-            }
-            AddErrors(result);
-
-
+            var userProfile = UserProfileSetup(id);
+            if (userProfile == null) return NotFound();
             return View(userProfile);
         }
 
@@ -321,53 +317,27 @@ namespace PRO.Controllers
         [Route("users/{id}/profile")]
         public ActionResult EditProfile(int? id)
         {
-            ApplicationUser user = _userService.Find(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            int? loggeduserid = _userService.GetLoggedInUserId();
-            if (loggeduserid == null) return NotFound();
-            if (loggeduserid != id) return NotFound();
+
+            var userprofile = UserProfileSetup(id);
+            if (userprofile == null) return NotFound();
 
 
-
-            EditUserViewModel editViewModel = new EditUserViewModel
-            {
-                AppUser = user,
-                Images = _imageService.GetAll().ToList()
-            };
-
-            UserProfileViewModel model = new UserProfileViewModel
-            {
-                ApplicationUser = user,
-                LoggedUserId = loggeduserid,
-                EditUser = editViewModel
-            };
-
-
-            return View(model);
+            return View(userprofile.EditUser);
         }
 
         [HttpPost]
         [Authorize]
         [Route("users/{id}/profile")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProfile(EditUserViewModel model)
+        public async Task<ActionResult> EditProfileAsync(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = _userService.Find(model.AppUser.Id);
-                user.Email = model.AppUser.Email;
-                user.UserName = model.AppUser.UserName;
-                user.RegisterDate = model.AppUser.RegisterDate;
-                user.Description = model.AppUser.Description;
-                user.IsActive = model.AppUser.IsActive;
-                user.IsPublic = model.AppUser.IsPublic;
-                user.ImageId = model.AppUser.ImageId;
-
-                return RedirectToAction("Details", "Users", new { id = model.AppUser.Id });
-
+                var result = await _userService.Update(model.AppUser);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Details", "Users", new { id = model.AppUser.Id });
+                }
             }
             model.Images = _imageService.GetAll().ToList();
             return View(model);

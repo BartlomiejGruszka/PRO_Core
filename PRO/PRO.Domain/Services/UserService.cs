@@ -63,7 +63,7 @@ namespace PRO.Domain.Services
             return userId;
         }
 
-        public void Update(ApplicationUser editUser)
+        public Task<IdentityResult> Update(ApplicationUser editUser)
         {
             var user = Find(editUser.Id);
             user.Email = editUser.Email;
@@ -73,8 +73,7 @@ namespace PRO.Domain.Services
             user.IsActive = editUser.IsActive;
             user.IsPublic = editUser.IsPublic;
             user.ImageId = editUser.ImageId;
-            _userRepository.Update(user);
-            _userRepository.Save();
+            return _userManager.UpdateAsync(user);
         }
 
         public Task<IdentityResult> ChangePasswordAsync(ApplicationUser user,string oldpassword, string newpassword )

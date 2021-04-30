@@ -7,17 +7,17 @@
     <h1 class="main_h1 edit-info">
         <span class="h1-title">
             <span>
-                @Model.ApplicationUser.UserName
+                @Model.EditUser.AppUser.UserName
             </span>
 
         </span>
     </h1>
 </div>
 <div id="content" class="userprofilecontent">
-    @if (Model.ApplicationUser.IsPublic)
+    @if (Model.EditUser.AppUser.IsPublic)
     {
 
-        <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model" />
+        <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.EditUser.AppUser" />
 
         <div valign="top" style="padding-left: 5px;">
             <div class="js-scrollfix-bottom-rel">
@@ -28,9 +28,9 @@
                         <tr>
                             <td class="pb24">
                                 <div class="underlined_h2">Opis</div>
-                                @if (Model.ApplicationUser.Description != null)
+                                @if (Model.EditUser.AppUser.Description != null)
                                 {<p>
-                                        @Html.Raw(@Model.ApplicationUser.Description)
+                                        @Html.Raw(@Model.EditUser.AppUser.Description)
                                     </p>
                                 }
                                 else
@@ -117,7 +117,7 @@
                                         @{
                                             if (Model.ReviewsPlaytimes != null)
                                             {
-                                                <a href="/users/@Model.ApplicationUser.Id/reviews?page=1&items=5">Wszystkie recenzje</a>}
+                                                <a href="/users/@Model.EditUser.AppUser.Id/reviews?page=1&items=5">Wszystkie recenzje</a>}
                                         }
                                     </span>
                                     <div class="underlined_h2">Recenzje użytkownika</div>

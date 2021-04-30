@@ -7,14 +7,14 @@
     <h1 class="main_h1 edit-info">
         <span class="h1-title">
             <span>
-                @Model.ApplicationUser.UserName
+                @Model.EditUser.AppUser.UserName
             </span>
 
         </span>
     </h1>
 </div>
 <div id="content" class="userprofilecontent">
-    @if (Model.ApplicationUser.IsPublic)
+    @if (Model.EditUser.AppUser.IsPublic)
     {
         <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model" />
 
@@ -37,7 +37,7 @@
 
                                                     <div class="underlined_h2">
                                                         <text class="">Wszystkie recenzje</text>
-                                                        <a style="float:right; text-decoration:none; font-weight:normal;" href="/users/@Model.ApplicationUser.Id">Powrót</a>
+                                                        <a style="float:right; text-decoration:none; font-weight:normal;" href="/users/@Model.EditUser.AppUser.Id">Powrót</a>
                                                     </div>
                                                     @{
                                                         var start = ViewBag.Pagination.pageIteratorStart;
@@ -77,31 +77,31 @@
                                             if (@current >= 3)
                                             {
                                                 <li class="page-item">
-                                                    <a class="page-link" href="/users/@Model.ApplicationUser.Id/reviews?page=@first&items=@items">«</a>
+                                                    <a class="page-link" href="/users/@Model.EditUser.AppUser.Id/reviews?page=@first&items=@items">«</a>
                                                 </li>
                                             }
                                             if (@current >= 2 && @previous != @current)
                                             {
                                                 <li class="page-item">
-                                                    <a class="page-link" href="/users/@Model.ApplicationUser.Id/reviews?page=@previous&items=@items">@previous</a>
+                                                    <a class="page-link" href="/users/@Model.EditUser.AppUser.Id/reviews?page=@previous&items=@items">@previous</a>
                                                 </li>
                                             }
 
                                             <li class="page-item active">
-                                                <a class="page-link" href="/users/@Model.ApplicationUser.Id/reviews?page=@current&items=@items">@current</a>
+                                                <a class="page-link" href="/users/@Model.EditUser.AppUser.Id/reviews?page=@current&items=@items">@current</a>
                                             </li>
 
                                             if (@last > @current)
                                             {
                                                 <li class="page-item">
-                                                    <a class="page-link" href="/users/@Model.ApplicationUser.Id/reviews?page=@next&items=@items">@next</a>
+                                                    <a class="page-link" href="/users/@Model.EditUser.AppUser.Id/reviews?page=@next&items=@items">@next</a>
                                                 </li>
                                             }
 
                                             if (@last > @current + 1)
                                             {
                                                 <li class="page-item">
-                                                    <a class="page-link" href="/users/@Model.ApplicationUser.Id/reviews?page=@last&items=@items">&raquo;</a>
+                                                    <a class="page-link" href="/users/@Model.EditUser.AppUser.Id/reviews?page=@last&items=@items">&raquo;</a>
                                                 </li>
                                             }
                                         }

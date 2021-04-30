@@ -16,7 +16,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Add(ApplicationUser user);
         public Task<IdentityResult> Delete(ApplicationUser user);
 
-        public void Update(ApplicationUser user);
+        public Task<IdentityResult> Update(ApplicationUser user);
         public int? GetLoggedInUserId();
         public Task<IdentityResult> ChangePasswordAsync(ApplicationUser user, string oldpassword, string newpassword);
         public Task<IdentityResult> ResetPasswordAsync(ApplicationUser user, string newpassword);

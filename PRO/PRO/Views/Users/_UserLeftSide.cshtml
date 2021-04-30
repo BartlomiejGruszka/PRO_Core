@@ -1,25 +1,28 @@
-﻿@model PRO.UI.ViewModels.UserProfileViewModel
+﻿@model PRO.Entities.ApplicationUser
+@using PRO.Entities
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 
 <div class="borderClass userprofile" style="border-width: 0 1px 0 0;" valign="top">
     <div class="userprofilebuttons">
 
         <div style="text-align: center;">
-            @if (Model.ApplicationUser.Image != null)
+            @if (Model.Image != null)
             {<a>
-                    <img style="max-width:200px;width: expression(this.width > 200 ? 200: true);" class="lazyloaded" src="/images/@Model.ApplicationUser.Image.ImagePath">
+                    <img style="max-width:200px;width: expression(this.width > 200 ? 200: true);" class="lazyloaded" src="/images/@Model.Image.ImagePath">
                 </a>}
 
         </div>
         <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
         </div>
-        <div class="underlined_h2">Dołączył: </div><p>@Model.ApplicationUser.RegisterDate</p>
+        <div class="underlined_h2">Dołączył: </div><p>@Model.RegisterDate</p>
 
         <div class="underlined_h2"></div>
         <a style="margin: 20px; display:block;" href="#" class="btn btn-secondary">Listy użytkownika</a>
-        @if (User.Identity.IsAuthenticated && Model.LoggedUserId == Model.ApplicationUser.Id)
+        @if (SignInManager.IsSignedIn(User))
         {
-            <a style="margin: 20px; display:block;" href="/users/@Model.ApplicationUser.Id/profile" class="btn btn-primary">Edytuj profil</a>
-            <a style="margin: 20px; display:block;" href="/users/@Model.ApplicationUser.Id/password" class="btn btn-primary">Zmień hasło</a>
+            <a style="margin: 20px; display:block;" href="/users/@Model.Id/profile" class="btn btn-primary">Edytuj profil</a>
+            <a style="margin: 20px; display:block;" href="/users/@Model.Id/password" class="btn btn-primary">Zmień hasło</a>
         }
 
         <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
