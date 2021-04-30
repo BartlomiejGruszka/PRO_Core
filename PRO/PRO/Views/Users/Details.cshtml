@@ -85,7 +85,7 @@
                                                                 <img style="max-width:60px;width: expression(this.width > 60 ? 60: true);" class="lazyloaded" src="/images/@game.Item1.Game.Image.ImagePath">
                                                             </a>}
                                                         <div class="data" style="font-size:0.85rem;">
-                                                            <a href="#">@game.Item1.Game.Title</a>
+                                                            <a href="/games/@game.Item1.GameId">@game.Item1.Game.Title</a>
                                                             <div class="clearfix graph-content pt8" style="display:flex; flex-direction:column;">
                                                                 <span class="fl-r fn-grey2">@game.Item2</span>
                                                                 <span class="text anime completed">@game.Item1.UserList.ListType.Name</span>
@@ -115,20 +115,20 @@
                                 <div>
                                     <span class="floatRightHeader">
                                         @{
-                                            if (Model.Reviews != null)
+                                            if (Model.ReviewsPlaytimes != null)
                                             {
                                                 <a href="/users/@Model.ApplicationUser.Id/reviews?page=1&items=5">Wszystkie recenzje</a>}
                                         }
                                     </span>
                                     <div class="underlined_h2">Recenzje użytkownika</div>
                                 </div>
-                                @if (Model.Reviews.Count() == 0)
+                                @if (Model.ReviewsPlaytimes.Count() == 0)
                                 {<p>Użytkownik nie napisał jeszcze żadnej recenzji</p>}
                                 @for (int i = 1; i <= 3; i++)
                                 {
-                                    if (Model.Reviews.Count() >= i)
+                                    if (Model.ReviewsPlaytimes.Count() >= i)
                                     {
-                                        <partial name="~/Views/Shared/_SingleReview.cshtml" , model="Model.Reviews.ToList()[i - 1]" />
+                                        <partial name="~/Views/Shared/_SingleReview.cshtml" , model="Model.ReviewsPlaytimes.ToList()[i - 1]" />
 
                                     }
 

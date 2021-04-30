@@ -14,7 +14,7 @@ namespace PRO.Domain.Interfaces.Services
         public ApplicationUser Find(int? id);
         public ApplicationUser FindActive(int? id);
         public void Add(ApplicationUser user);
-        public void Delete(ApplicationUser user);
+        public Task<IdentityResult> Delete(ApplicationUser user);
 
         public void Update(ApplicationUser user);
         public int? GetLoggedInUserId();

@@ -18,13 +18,20 @@ namespace PRO.Persistance.Repositories
         }
 
 
-        public GameList FindByGameReview(int gameid, int userid)
+        public int? GetGameListPlaytime(int gameid, int userid)
         {
-            return _dbContext.GameLists.Include(i => i.UserList).FirstOrDefault(f => f.GameId == gameid && f.UserList.UserId == userid);
+            return _dbContext.GameLists
+                .Include(i => i.UserList)
+                .Where(f => f.GameId == gameid && f.UserList.UserId == userid)
+                .Select(s=>s.HoursPlayed)
+                .FirstOrDefault();
         }
         public new IEnumerable<GameList> GetAll()
         {   
-            return _dbContext.GameLists.Include(i => i.Game).Include(u=>u.UserList);
+            return _dbContext.GameLists
+                .Include(i => i.Game)
+                .Include(i => i.Game.Image)
+                .Include(u=>u.UserList);
         }
 
     }

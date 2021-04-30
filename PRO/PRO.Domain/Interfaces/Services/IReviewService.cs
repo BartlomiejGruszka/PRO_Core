@@ -18,5 +18,8 @@ namespace PRO.Domain.Interfaces.Services
         public IEnumerable<Review> GetRecentReviews();
         public List<Review> GetUserReviews(int? id);
         public List<Review> GetGameReviews(int id);
+        public List<Tuple<Review, int?>> ReviewPlaytimeList(List<Review> reviews);
+        public List<Tuple<Review, int?>> UserPlaytimeList(int userid);
+        public List<Tuple<Review, int?>> GamePlaytimeList(int gameid);
     }
 }

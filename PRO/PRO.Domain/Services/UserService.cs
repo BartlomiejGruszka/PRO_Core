@@ -32,9 +32,9 @@ namespace PRO.Domain.Services
             throw new NotImplementedException();
         }
 
-        public void Delete(ApplicationUser user)
+        public Task<IdentityResult> Delete(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            return  _userManager.DeleteAsync(user);
         }
 
         public ApplicationUser Find(int? id)
@@ -63,9 +63,18 @@ namespace PRO.Domain.Services
             return userId;
         }
 
-        public void Update(ApplicationUser user)
+        public void Update(ApplicationUser editUser)
         {
-            throw new NotImplementedException();
+            var user = Find(editUser.Id);
+            user.Email = editUser.Email;
+            user.UserName = editUser.UserName;
+            user.RegisterDate = editUser.RegisterDate;
+            user.Description = editUser.Description;
+            user.IsActive = editUser.IsActive;
+            user.IsPublic = editUser.IsPublic;
+            user.ImageId = editUser.ImageId;
+            _userRepository.Update(user);
+            _userRepository.Save();
         }
 
         public Task<IdentityResult> ChangePasswordAsync(ApplicationUser user,string oldpassword, string newpassword )

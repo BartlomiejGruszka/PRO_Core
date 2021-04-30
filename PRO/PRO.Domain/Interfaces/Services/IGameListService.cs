@@ -17,5 +17,6 @@ namespace PRO.Domain.Interfaces.Services
         public void Update(GameList gameList);
 
         public int? GetUserReviewPlaytime(Review review);
+        public List<Tuple<GameList, DateTime>> GetRecentUserGameListUpdates(int userid, int? number);
     }
 }

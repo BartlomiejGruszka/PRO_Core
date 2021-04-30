@@ -53,7 +53,7 @@ namespace PRO.UI.Areas.Identity.Pages.Account
 
             [Required]
             [StringLength(25, ErrorMessage = "{0}musi mieć co najmniej {2} znaków.", MinimumLength = 3)]
-            [Display(Name = "Login")]
+            [Display(Name = "Nazwa użytkownika")]
             public string Username { get; set; }
 
             [Required]

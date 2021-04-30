@@ -38,16 +38,38 @@ namespace PRO.Domain.Services
 
         public IEnumerable<GameList> GetAll()
         {
-            return  _gameListRepository.GetAll();
+            return _gameListRepository.GetAll();
+        }
+
+        public List<Tuple<GameList, DateTime>> GetRecentUserGameListUpdates(int userid, int? number)
+        {
+            List<GameList> gameLists = GetAll().Where(u => u.UserList.UserId == userid).ToList();
+            var tuplelist = new List<Tuple<GameList, DateTime>>();
+            foreach (var gamelist in gameLists)
+            {
+
+                if (gamelist.EditedDate.HasValue)
+                {
+                    tuplelist.Add(new Tuple<GameList, DateTime>(gamelist, gamelist.EditedDate.Value));
+                }
+                else
+                {
+                    tuplelist.Add(new Tuple<GameList, DateTime>(gamelist, gamelist.AddedDate));
+                }
+            }
+            if (number.HasValue)
+            {
+                return tuplelist.OrderByDescending(o => o.Item2).Take(number.Value).ToList();
+            }
+
+            return tuplelist.OrderByDescending(o => o.Item2).ToList(); ;
         }
 
         public int? GetUserReviewPlaytime(Review review)
         {
             if (review == null) return null;
-            var gamelist = _gameListRepository.FindByGameReview(review.GameId, review.UserId);
-            int? playtime = null;
-            if (gamelist != null) { playtime = gamelist.HoursPlayed; };
-            return playtime;
+            return _gameListRepository.GetGameListPlaytime(review.GameId, review.UserId);
+
         }
 
         public void Update(GameList gameList)

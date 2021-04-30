@@ -34,8 +34,8 @@
             @{if (Model.Image != null)
                 {
 
-                    <div style="text-align: center;">
-                        <img style="max-height:200px;max-width:100px;width: expression(this.width > 100 ? 100: true);" class=" lazyloaded" src="@Url.Content(Model.Image.ImagePath)">
+                    <div style="text-align: left;">
+                        <img style="max-height:200px;max-width:100px;width: expression(this.width > 100 ? 100: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
                     </div>
                 }
                 else

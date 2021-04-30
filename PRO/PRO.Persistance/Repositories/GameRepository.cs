@@ -36,13 +36,6 @@ namespace PRO.Persistance.Repositories
          .Include(a => a.Reviews)
          .SingleOrDefault(g => g.Id == id.Value);
 
-           /* if (game == null) return null;
-
-            var series = _dbContext.Series.Include(g => g.Games)
-                .SingleOrDefault(s => s.Id == game.SeriesId);
-
-            game.Series = series;*/
-
             return game;
         }
         public new IEnumerable<Game> GetAll()

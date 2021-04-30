@@ -189,7 +189,6 @@ namespace PRO.Controllers
             //get reviews and articles for the game, set pagination
             var reviews = _reviewService.GetGameReviews(game.Id);
             ViewBag.Pagination = new Pagination(null, null, reviews.Count());
-            var articles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3);
 
             //get userlists for logged user for quick add to list form
             var userid = _userService.GetLoggedInUserId();
@@ -199,19 +198,17 @@ namespace PRO.Controllers
             {
                 Game = game,
                 GameList = gamelist,
-                userLists = userLists,
+                UserLists = userLists,
                 Popularity = _gameService.GetGamePopularity(game.Id),
                 Position = _gameService.GetGamePosition(game.Id),
                 Rating = _gameService.GetGameRating(game.Id)
             };
-
-            var reviewGametimes = SetupReviewPlaytime(reviews);
             var viewModel = new GameDetailsViewModel
             {
                 GameGameList = GameGameList,
-                ReviewGametimes = reviewGametimes,
-                RelevantArticles = articles
-            };
+                ReviewGametimes = _reviewService.ReviewPlaytimeList(reviews),
+                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
+        };
             return viewModel;
         }
 
@@ -340,22 +337,6 @@ namespace PRO.Controllers
             return View(model);
         }
 
-        public IEnumerable<ReviewPlaytimeViewModel> SetupReviewPlaytime(IEnumerable<Review> reviews)
-        {
-            var reviewGametimes = new List<ReviewPlaytimeViewModel>();
-            foreach (var rev in reviews)
-            {
-
-                var reviewGametime = new ReviewPlaytimeViewModel
-                {
-                    Review = rev,
-                    Playtime = _gameListService.GetUserReviewPlaytime(rev)
-            };
-                reviewGametimes.Add(reviewGametime);
-            }
-            return reviewGametimes;
-        }
-
         [HttpGet]
         [AllowAnonymous]
         [Route("games/{id}/reviews/{review}")]
@@ -368,9 +349,8 @@ namespace PRO.Controllers
             ViewBag.Pagination = new Pagination(page, items, 1);
             List<Review> Reviews = new List<Review>();
             Reviews.Add(selectedReview);
-            var reviewGametimes = SetupReviewPlaytime(Reviews);
             var model = SetupDetailsPage(id, null);
-            model.ReviewGametimes = reviewGametimes;
+            model.ReviewGametimes = _reviewService.ReviewPlaytimeList(Reviews);
             return View(model);
         }
 

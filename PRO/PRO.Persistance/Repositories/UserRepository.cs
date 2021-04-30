@@ -25,7 +25,7 @@ namespace PRO.Persistance.Repositories
         }
         public ApplicationUser Find(int id)
         {
-            return _dbContext.ApplicationUsers.SingleOrDefault(u => u.Id == id);
+            return _dbContext.ApplicationUsers.Include(i=>i.Image).SingleOrDefault(u => u.Id == id);
         }
 
     }

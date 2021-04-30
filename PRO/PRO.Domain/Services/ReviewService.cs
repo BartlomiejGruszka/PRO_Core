@@ -2,6 +2,7 @@
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,9 +11,11 @@ namespace PRO.Domain.Services
     public class ReviewService : IReviewService
     {
         private readonly IReviewRepository _reviewRepository;
-        public ReviewService(IReviewRepository reviewRepository)
+        private readonly IGameListRepository _gameListRepository;
+        public ReviewService(IReviewRepository reviewRepository, IGameListRepository gameListRepository)
         {
             _reviewRepository = reviewRepository;
+            _gameListRepository = gameListRepository;
         }
 
         public void Add(Review review)
@@ -61,6 +64,29 @@ namespace PRO.Domain.Services
         {
             var reviews = _reviewRepository.GetAll().Where(c => c.GameId == id).ToList();
             return reviews;
+        }
+
+        public List<Tuple<Review, int?>> ReviewPlaytimeList(List<Review> reviews)
+        {
+            var reviewGametimes = new List<Tuple<Review, int?>>();
+            foreach (var rev in reviews)
+            {
+                var playtime = _gameListRepository.GetGameListPlaytime(rev.GameId, rev.UserId);
+                reviewGametimes.Add(new Tuple<Review, int?>(rev, playtime));
+            }
+            return reviewGametimes;
+        }
+
+        public List<Tuple<Review, int?>> UserPlaytimeList(int userid)
+        {
+            var reviews = GetUserReviews(userid);
+            return ReviewPlaytimeList(reviews);
+        }
+
+        public List<Tuple<Review, int?>> GamePlaytimeList(int gameid)
+        {
+            var reviews = GetGameReviews(gameid);
+            return ReviewPlaytimeList(reviews);
         }
     }
 }

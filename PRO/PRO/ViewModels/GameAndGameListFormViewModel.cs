@@ -8,7 +8,7 @@ namespace PRO.UI.ViewModels
     {
         public Game Game { get; set; }
         public GameList GameList { get; set; }
-        public List<UserList> userLists { get; set; }
+        public List<UserList> UserLists { get; set; }
 
         public int Popularity { get; set; }
         public int? Position { get; set; }

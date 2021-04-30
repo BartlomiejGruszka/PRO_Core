@@ -37,31 +37,23 @@ namespace PRO.Controllers
             _reviewService = reviewService;
             _userListService = userListService;
             _gameListService = gameListService;
-            _listTypeService = listTypeService; 
+            _listTypeService = listTypeService;
         }
 
-        //get userprofile
         [Authorize]
         [Route("users/userprofile")]
         public ActionResult UserProfile()
         {
             int? loggeduserid = _userService.GetLoggedInUserId();
-
-            if (loggeduserid == null)
-            {
-                return NotFound();
-            }
+            if (loggeduserid == null) { return NotFound(); }
             return RedirectToAction("Details", new { id = loggeduserid });
         }
 
-        // GET: Users
         [Route("users/manage")]
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Manage(int? page, int? items)
         {
-
             var users = _userService.GetAll().ToList();
-
             ViewBag.Pagination = new Pagination(page, items, users.Count());
             return View(users);
         }
@@ -77,39 +69,19 @@ namespace PRO.Controllers
         public UserProfileViewModel UserProfileSetup(int? id)
         {
             ApplicationUser user = _userService.Find(id);
-
             if (user == null)
             {
                 return null;
             }
-            List<GameList> gameLists = _gameListService.GetAll().Where(u => u.UserList.UserId == id).ToList();
-            List<Review> reviews = _reviewService.GetUserReviews(user.Id);
-
-            var tuplelist = new List<Tuple<GameList, DateTime>>();
-            foreach (var gamelist in gameLists)
-            {
-
-                if (gamelist.EditedDate.HasValue)
-                {
-                    tuplelist.Add(new Tuple<GameList, DateTime>(gamelist, gamelist.EditedDate.Value));
-                }
-                else
-                {
-                    tuplelist.Add(new Tuple<GameList, DateTime>(gamelist, gamelist.AddedDate));
-                }
-            }
-            var recentGames = tuplelist.OrderByDescending(o => o.Item2).Take(3).ToList();
-
-
             UserProfileViewModel model = new UserProfileViewModel
             {
                 ApplicationUser = user,
                 UserLists = _userListService.GetAll().ToList(),
-                GameLists = gameLists,
-                // Reviews = reviewGametimes,
+                GameLists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).ToList(),
+                ReviewsPlaytimes = _reviewService.UserPlaytimeList(user.Id),
                 LoggedUserId = _userService.GetLoggedInUserId(),
                 ListTypes = _listTypeService.GetAll().ToList(),
-                RecentlyUpdatedGames = recentGames
+                RecentlyUpdatedGames = _gameListService.GetRecentUserGameListUpdates(user.Id, 3)
             };
             return model;
         }
@@ -145,27 +117,13 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                var result = await _userService.AddUserAsync(user, model.Password);
+                var result = await _userService.AddUserAsync(model.AppUser, model.Password);
                 if (result.Succeeded)
                 {
-                    //create normal user object
-                    var userModel = new ApplicationUser
-                    {
-                        Id = user.Id,
-                        RegisterDate = model.RegisterDate,
-                        IsActive = model.IsActive,
-                        IsPublic = model.IsPublic,
-                        ImageId = model.ImageId,
-                        Description = model.Description
-                    };
-
                     return RedirectToAction("Manage", "Users");
                 }
                 AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
             model.Images = _imageService.GetAll().ToList();
             return View(model);
         }
@@ -180,11 +138,10 @@ namespace PRO.Controllers
             {
                 return NotFound();
             }
-            
+
             EditUserViewModel viewModel = new EditUserViewModel
             {
-                AppUser = user,        
-                ImageId = user.ImageId,
+                AppUser = user,
                 Images = _imageService.GetAll().ToList()
             };
 
@@ -200,17 +157,7 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _userService.Find(model.AppUser.Id);
-                var appuser = user;
-
-                appuser.Email = model.AppUser.Email;
-                appuser.UserName = model.AppUser.UserName;
-
-                user.RegisterDate = model.AppUser.RegisterDate;
-                user.Description = model.AppUser.Description;
-                user.IsActive = model.AppUser.IsActive;
-                user.IsPublic = model.AppUser.IsPublic;
-                user.ImageId = model.AppUser.ImageId;
+                _userService.Update(model.AppUser);
 
                 return RedirectToAction("Manage", "Users");
 
@@ -237,12 +184,20 @@ namespace PRO.Controllers
         [Route("users/delete/{id}")]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmedAsync(int id)
         {
             ApplicationUser user = _userService.Find(id);
 
             //remove applicationUser
-            return RedirectToAction("DeleteUser", "Manage", new { userId = user.Id });
+            var result = await _userService.Delete(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Manage", "Users");
+            }
+
+
+            //if failed 
+            return View(user);
         }
 
         // GET: /Manage/ChangePassword
@@ -380,7 +335,6 @@ namespace PRO.Controllers
             EditUserViewModel editViewModel = new EditUserViewModel
             {
                 AppUser = user,
-                ImageId = user.ImageId,
                 Images = _imageService.GetAll().ToList()
             };
 
@@ -410,7 +364,7 @@ namespace PRO.Controllers
                 user.Description = model.AppUser.Description;
                 user.IsActive = model.AppUser.IsActive;
                 user.IsPublic = model.AppUser.IsPublic;
-                user.ImageId = model.ImageId;
+                user.ImageId = model.AppUser.ImageId;
 
                 return RedirectToAction("Details", "Users", new { id = model.AppUser.Id });
 
@@ -426,7 +380,7 @@ namespace PRO.Controllers
         {
             var model = UserProfileSetup(id);
             if (model == null) { return NotFound(); }
-            ViewBag.Pagination = new Pagination(page, items, model.Reviews.Count());
+            ViewBag.Pagination = new Pagination(page, items, model.ReviewsPlaytimes.Count());
 
             return View(model);
         }
