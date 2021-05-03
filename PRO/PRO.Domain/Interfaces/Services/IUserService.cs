@@ -22,6 +22,10 @@ namespace PRO.Domain.Interfaces.Services
         public Task<IdentityResult> ResetPasswordAsync(ApplicationUser user, string newpassword);
         public Task<string> ResetTokenAsync(ApplicationUser user);
         public Task<IdentityResult> AddUserAsync(ApplicationUser user, string password);
+        public Task<IdentityResult> AddRoleToUserAsync(ApplicationUser user, string role);
+        public Task<IdentityResult> DeleteRoleFromUserAsync(ApplicationUser user, string role);
+
+        public Task<bool> IsUserInRole(ApplicationUser user, string role);
 
     }
 }

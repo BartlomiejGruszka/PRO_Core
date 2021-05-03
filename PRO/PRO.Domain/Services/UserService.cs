@@ -33,7 +33,7 @@ namespace PRO.Domain.Services
         }
 
         public Task<IdentityResult> Delete(ApplicationUser user)
-        {
+        {      
             return  _userManager.DeleteAsync(user);
         }
 
@@ -93,6 +93,20 @@ namespace PRO.Domain.Services
         public Task<IdentityResult> AddUserAsync(ApplicationUser user, string password)
         {
             return _userManager.CreateAsync(user, password);
+        }
+
+        public Task<IdentityResult> AddRoleToUserAsync(ApplicationUser user, string role)
+        {
+            return _userManager.AddToRoleAsync(user, role);
+        }
+
+        public Task<IdentityResult> DeleteRoleFromUserAsync(ApplicationUser user, string role)
+        {
+            return _userManager.RemoveFromRoleAsync(user, role);
+        }
+        public Task<bool> IsUserInRole(ApplicationUser user, string role)
+        {
+            return  _userManager.IsInRoleAsync(user, role);
         }
     }
 }

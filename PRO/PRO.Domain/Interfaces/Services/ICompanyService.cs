@@ -15,5 +15,6 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Company company);
 
         public void Update(Company company);
+        public List<Tuple<Company, int>> GetPopularCompanies(int? number);
     }
 }

@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 
 namespace PRO.Controllers
-{/* 
+{
     [Authorize]
     public class AuthorsController : Controller
     {
@@ -27,7 +29,7 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
 
-            var authors = db.Authors.Include(a => a.User).Include(a => a.User.ApplicationUser).ToList();
+            var authors = _authorService.GetAll();
 
             ViewBag.Pagination = new Pagination(page, items, authors.Count());
             return View(authors);
@@ -37,7 +39,7 @@ namespace PRO.Controllers
         [Route("authors/details/{id}")]
         public ActionResult Details(int? id)
         {
-            Author author = db.Authors.Include(i => i.User).Include(i => i.User.ApplicationUser).SingleOrDefault(i => i.UserId == id);
+            Author author = _authorService.Find(id);
             if (author == null)
             {
                 return NotFound();
@@ -50,8 +52,8 @@ namespace PRO.Controllers
         public ActionResult Add()
         {
 
-            var users = db.AppUsers.Include(i => i.ApplicationUser).ToList();
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
+            var users = _userService.GetAll();
+            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
 
             return View();
         }
@@ -59,24 +61,24 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("authors/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("UserId,FirstName,LastName,CreatedDate,isActive")] Author author)
+        public async Task<ActionResult> AddAsync([Bind("UserId,FirstName,LastName,CreatedDate,isActive")] Author author)
         {
             if (ModelState.IsValid)
             {
-                var user = db.AppUsers.Include(s => s.ApplicationUser).SingleOrDefault(s => s.Id == author.UserId);
+                var user = _userService.Find(author.UserId);
 
                 if (author.IsActive)
                 {
-                   // UserManager.AddToRole(user.UserId, "Author");
-                }
+                    var result = await _userService.AddRoleToUserAsync(user, "Author");
 
-                db.Authors.Add(author);
-                db.SaveChanges();
+                }
+                _authorService.Add(author);
+
                 return RedirectToAction("Manage");
             }
 
-            var users = db.AppUsers.Include(i => i.ApplicationUser).ToList();
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
+            var users = _userService.GetAll();
+            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
 
             return View(author);
         }
@@ -85,7 +87,7 @@ namespace PRO.Controllers
         [Route("authors/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            Author author = db.Authors.Find(id);
+            Author author = _authorService.Find(id);
             if (author == null)
             {
                 return NotFound();
@@ -96,25 +98,25 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("authors/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("UserId,FirstName,LastName,CreatedDate")] Author author)
+        public async Task<ActionResult> EditAsync([Bind("UserId,FirstName,LastName,CreatedDate")] Author author)
         {
             if (ModelState.IsValid)
             {
-                var user = db.AppUsers.Include(s => s.ApplicationUser).SingleOrDefault(s => s.Id == author.UserId);
-               // var isAuthor = UserManager.IsInRole(user.UserId, "Author");
+                var user = _userService.Find(author.UserId);
+                if (user == null) return NotFound();
+
+                var isAuthor = await _userService.IsUserInRole(user, "Author");
+                IdentityResult result = null;
 
                 if (isAuthor && !author.IsActive)
                 {
-                   // UserManager.RemoveFromRole(user.UserId, "Moderator");
+                    result = await _userService.DeleteRoleFromUserAsync(user, "Author");
                 };
                 if (!isAuthor && author.IsActive)
                 {
-                    //UserManager.AddToRole(user.UserId, "Moderator");
+                    result = await _userService.AddRoleToUserAsync(user, "Author");
                 }
-
-                //db.Entry(author).State = EntityState.Modified;
-
-                db.SaveChanges();
+                _authorService.Update(author);
                 return RedirectToAction("Manage");
             }
             return View(author);
@@ -124,11 +126,7 @@ namespace PRO.Controllers
         [Route("authors/delete/{id}")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            Author author = db.Authors.Include(i => i.User).Include(i => i.User.ApplicationUser).SingleOrDefault(i => i.UserId == id);
+            Author author = _authorService.Find(id);
             if (author == null)
             {
                 return NotFound();
@@ -140,20 +138,19 @@ namespace PRO.Controllers
         [HttpPost, ActionName("Delete")]
         [Route("authors/delete/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmedAsync(int id)
         {
-            Author author = db.Authors.Include(s => s.User).Single(s => s.UserId == id);
+            Author author = _authorService.Find(id);
 
-           // var isAuthor = UserManager.IsInRole(author.UserId, "Author");
+            var isAuthor = await _userService.IsUserInRole(author.User, "Author");
 
             if (isAuthor)
             {
-                //UserManager.RemoveFromRole(author.UserId, "Author");
+                var result = await _userService.DeleteRoleFromUserAsync(author.User, "Author");
             };
-
-            db.Authors.Remove(author);
-            db.SaveChanges();
+            _authorService.Delete(author);
             return RedirectToAction("Manage");
+
         }
-    }*/
+    }
 }

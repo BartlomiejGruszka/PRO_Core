@@ -11,5 +11,6 @@ namespace PRO.Domain.Interfaces.Repositories
     {
 
         public new IEnumerable<Moderator> GetAll();
+        public Moderator Find(int id);
     }
 }

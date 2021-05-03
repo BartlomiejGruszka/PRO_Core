@@ -31,6 +31,7 @@ namespace PRO.Persistance.Repositories
             return _dbContext.GameLists
                 .Include(i => i.Game)
                 .Include(i => i.Game.Image)
+                .Include(i => i.Game.DeveloperCompany)
                 .Include(u=>u.UserList);
         }
 

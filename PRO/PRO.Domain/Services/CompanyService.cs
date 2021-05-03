@@ -1,16 +1,20 @@
 ﻿using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
     public class CompanyService : ICompanyService
     {
         private readonly IRepository<Company> _repository;
-        public CompanyService(IRepository<Company> repository)
+        private readonly IGameListRepository _gameListRepository;
+        public CompanyService(IRepository<Company> repository, IGameListRepository gameListRepository)
         {
             _repository = repository;
+            _gameListRepository = gameListRepository;
         }
 
         public void Add(Company company)
@@ -34,6 +38,19 @@ namespace PRO.Domain.Services
         public IEnumerable<Company> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public List<Tuple<Company, int>> GetPopularCompanies(int? number)
+        {
+            var companies = _gameListRepository.GetAll()
+                .GroupBy(g => g.Game.DeveloperCompany)
+                .Select(g => new { company = g.Key, count = g.Count() })
+                .AsEnumerable()
+                .Select(c => new Tuple<Company, int>(c.company, c.count))
+                .OrderByDescending(o => o.Item2);
+
+            if (number.HasValue) { return companies.Take(number.Value).ToList(); }
+            return companies.ToList();
         }
 
         public void Update(Company company)

@@ -1,62 +1,44 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
-/*
 namespace PRO.Controllers
 {
     public class ModeratorsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
+        private readonly IModeratorService _moderatorService;
+        private readonly IUserService _userService;
+        public ModeratorsController(IUserService userService, IModeratorService moderatorService)
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            _moderatorService = moderatorService;
+            _userService = userService;
         }
 
         // GET: Moderators
         [Route("moderators/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
 
-            var moderators = db.Moderators.Include(m => m.User).Include(a => a.User.ApplicationUser).ToList();
-            ViewBag.Pagination = new Pagination(pageString, itemString, moderators.Count());
+            var moderators = _moderatorService.GetAll();
+            ViewBag.Pagination = new Pagination(page, items, moderators.Count());
             return View(moderators);
-        }
-        // GET: Moderators
-        [Route("moderators/")]
-        public ActionResult Index()
-        {
-            var moderators = db.Moderators.Include(m => m.User);
-            return View(moderators.ToList());
         }
 
         // GET: Moderators/Details/5
         [Route("moderators/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Moderator moderator = db.Moderators
-                .Include(m => m.User)
-                .Include(a => a.User.ApplicationUser)
-                .SingleOrDefault(a => a.UserId == id);
+            Moderator moderator = _moderatorService.Find(id);
             if (moderator == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(moderator);
         }
@@ -65,36 +47,32 @@ namespace PRO.Controllers
         [Route("moderators/add")]
         public ActionResult Add()
         {
-            var users = db.AppUsers.Include(i => i.ApplicationUser).ToList();
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
+            var users = _userService.GetAll();
+            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
 
             return View();
         }
 
         // POST: Moderators/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("moderators/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "UserId,CreatedDate,isActive")] Moderator moderator)
+        public async Task<ActionResult> AddAsync([Bind("UserId,CreatedDate,isActive")] Moderator moderator)
         {
             if (ModelState.IsValid)
             {
-                var user = db.AppUsers.Include(s => s.ApplicationUser).SingleOrDefault(s => s.Id == moderator.UserId);
+                var user = _userService.Find(moderator.UserId);
 
                 if (moderator.IsActive)
                 {
-                    UserManager.AddToRole(user.UserId, "Moderator");
+                    var result = await _userService.AddRoleToUserAsync(user, "Moderator");
                 }
-
-                db.Moderators.Add(moderator);
-                db.SaveChanges();
+                _moderatorService.Add(moderator);
                 return RedirectToAction("Manage");
             }
 
-            var users = db.AppUsers.Include(i => i.ApplicationUser).ToList();
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
+            var users = _userService.GetAll();
+            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
 
             return View(moderator);
         }
@@ -103,44 +81,39 @@ namespace PRO.Controllers
         [Route("moderators/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Moderator moderator = db.Moderators.Find(id);
+            Moderator moderator = _moderatorService.Find(id);
             if (moderator == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(moderator);
         }
 
         // POST: Moderators/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("moderators/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,CreatedDate,LastLoginDate,IsActive")] Moderator moderator)
+        public async Task<ActionResult> EditAsync([Bind("UserId,CreatedDate,LastLoginDate,IsActive")] Moderator moderator)
         {
 
             if (ModelState.IsValid)
             {
-                var user = db.AppUsers.Include(s => s.ApplicationUser).SingleOrDefault(s => s.Id == moderator.UserId);
-                var isModerator = UserManager.IsInRole(user.UserId, "Moderator");
+                var user = _userService.Find(moderator.UserId);
+                var isModerator = await _userService.IsUserInRole(user, "Moderator");
 
+                IdentityResult result = null;
                 if (isModerator && !moderator.IsActive)
                 {
-                    UserManager.RemoveFromRole(user.UserId, "Moderator");
+                    result = await _userService.DeleteRoleFromUserAsync(user, "Moderator");
                 };
                 if (!isModerator && moderator.IsActive)
                 {
-                    UserManager.AddToRole(user.UserId, "Moderator");
+                    result = await _userService.AddRoleToUserAsync(user, "Moderator");
                 }
-                db.Entry(moderator).State = EntityState.Modified;
 
-                db.SaveChanges();
+                _moderatorService.Update(moderator);
                 return RedirectToAction("Manage");
+
             }
             return View(moderator);
         }
@@ -149,14 +122,10 @@ namespace PRO.Controllers
         [Route("moderators/delete/{id}")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Moderator moderator = db.Moderators.Include(i => i.User).Include(i => i.User.ApplicationUser).SingleOrDefault(i => i.UserId == id);
+            Moderator moderator = _moderatorService.Find(id);
             if (moderator == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(moderator);
         }
@@ -165,30 +134,20 @@ namespace PRO.Controllers
         [HttpPost, ActionName("Delete")]
         [Route("moderators/delete/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmedAsync(int id)
         {
-            Moderator moderator = db.Moderators.Include(s=>s.User).Single(s=>s.UserId ==id);
+            Moderator moderator = _moderatorService.Find(id);
 
-            var isModerator = UserManager.IsInRole(moderator.User.UserId, "Author");
+            var isModerator = await _userService.IsUserInRole(moderator.User, "Author");
 
             if (isModerator)
             {
-                UserManager.RemoveFromRole(moderator.User.UserId, "Author");
+                var result = await _userService.DeleteRoleFromUserAsync(moderator.User, "Author");
+
             };
 
-            db.Moderators.Remove(moderator);
-            db.SaveChanges();
+            _moderatorService.Delete(moderator);
             return RedirectToAction("Manage");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
-*/

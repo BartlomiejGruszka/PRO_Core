@@ -8,9 +8,11 @@ namespace PRO.Domain.Services
     public class ModeratorService : IModeratorService
     {
         private readonly IRepository<Moderator> _repository;
-        public ModeratorService(IRepository<Moderator> repository)
+        private readonly IModeratorRepository _moderatorRepository;
+        public ModeratorService(IRepository<Moderator> repository, IModeratorRepository moderatorRepository)
         {
             _repository = repository;
+            _moderatorRepository = moderatorRepository;
         }
 
         public void Add(Moderator moderator)
@@ -28,12 +30,12 @@ namespace PRO.Domain.Services
         public Moderator Find(int? id)
         {
             if (!id.HasValue) { return null; }
-            return _repository.Find(id.Value);
+            return _moderatorRepository.Find(id.Value);
         }
 
         public IEnumerable<Moderator> GetAll()
         {
-            return _repository.GetAll();
+            return _moderatorRepository.GetAll();
         }
 
         public void Update(Moderator moderator)

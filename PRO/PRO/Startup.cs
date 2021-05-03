@@ -45,7 +45,7 @@ namespace PRO
             services.AddScoped(typeof(IRepository<ImageType>), typeof(BaseRepository<ImageType>));
             services.AddScoped(typeof(IRepository<ApplicationUser>), typeof(BaseRepository<ApplicationUser>));
             services.AddScoped(typeof(IRepository<Article>), typeof(BaseRepository<Article>));
-            services.AddScoped(typeof(IRepository<GameList>), typeof(BaseRepository<GameList>));
+            services.AddScoped(typeof(IRepository<GameList>), typeof(GameListRepository));
             services.AddScoped(typeof(IRepository<Review>), typeof(BaseRepository<Review>));
             services.AddScoped(typeof(IRepository<ArticleType>), typeof(BaseRepository<ArticleType>));
             services.AddScoped(typeof(IRepository<Author>), typeof(BaseRepository<Author>));
@@ -68,6 +68,8 @@ namespace PRO
             services.AddScoped<IPlatformRepository, PlatformRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IModeratorRepository, ModeratorRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
             //  services.AddScoped<IRepository<ImageType>, ImageTypeRepository>();
 
             services.AddScoped<IArticleService, ArticleService>();
