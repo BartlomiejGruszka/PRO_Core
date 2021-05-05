@@ -10,6 +10,7 @@ namespace PRO.Domain.Interfaces.Services
     public interface IUserListService
     {
         public IEnumerable<UserList> GetAll();
+        public IEnumerable<UserList> GetUserUserLists(int? userid);
         public UserList Find(int? id);
         public void Add(UserList userList);
         public void Delete(UserList userList);

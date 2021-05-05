@@ -12,5 +12,6 @@ namespace PRO.Domain.Interfaces.Repositories
 
         public new IEnumerable<GameList> GetAll();
         public int? GetGameListPlaytime(int gameid, int userid);
+        public new GameList Find(int? id);
     }
 }

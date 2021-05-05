@@ -1,27 +1,48 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
-/*
+
 namespace PRO.Controllers
 {
     [Authorize]
     public class UserListsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IUserService _userService;
+        private readonly IReviewService _reviewService;
+        private readonly IImageService _imageService;
+        private readonly IUserListService _userListService;
+        private readonly IListTypeService _listTypeService;
+        public UserListsController
+            (
+            IUserService userService,
+            IReviewService reviewService,
+            IImageService imageService,
+            IUserListService userListService,
+            IListTypeService listTypeService
+            )
 
+        {
+            _imageService = imageService;
+            _userService = userService;
+            _reviewService = reviewService;
+            _userListService = userListService;
+            _listTypeService = listTypeService;
+        }
         // GET: UserLists
         [Route("userlists/manage")]
         [Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
 
-            var userlists = db.GetUsersListList();
+            var userlists = _userListService.GetAll();
 
-            ViewBag.Pagination = new Pagination(pageString, itemString, userlists.Count());
+            ViewBag.Pagination = new Pagination(page, items, userlists.Count());
 
             return View(userlists.ToList());
         }
@@ -31,14 +52,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UserList userList = db.GetFullUsersListForm((int)id);
+            UserList userList = _userListService.Find(id);
             if (userList == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(userList);
         }
@@ -48,33 +65,29 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Add()
         {
-            var users = db.AppUsers.Include(s => s.ApplicationUser).ToList();
+            var users = _userService.GetAll().ToList();
 
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
-            ViewBag.typesList = db.ListTypes.ToList();
+            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.typesList = _listTypeService.GetAll().ToList();
             return View();
         }
 
-        // POST: UserLists/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("userlists/add")]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,CreatedDate,Name,IsPublic,UserId,ListTypeId")] UserList userList)
+        public ActionResult Add([Bind("Id,CreatedDate,Name,IsPublic,UserId,ListTypeId")] UserList userList)
         {
             if (ModelState.IsValid)
             {
-                db.UserLists.Add(userList);
-                db.SaveChanges();
+                 _userListService.Add(userList);
                 return RedirectToAction("Manage");
             }
 
-            var users = db.AppUsers.Include(s => s.ApplicationUser).ToList();
+            var users = _userService.GetAll().ToList();
 
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
-            ViewBag.typesList = db.ListTypes.ToList();
+            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.typesList = _listTypeService.GetAll().ToList();
             return View(userList);
         }
 
@@ -83,41 +96,33 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UserList userList = db.GetFullUsersListForm((int)id);
+            UserList userList = _userListService.Find(id);
             if (userList == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            var users = db.AppUsers.Include(s => s.ApplicationUser).ToList();
+            var users = _userService.GetAll().ToList();
 
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
-            ViewBag.typesList = db.ListTypes.ToList();
+            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.typesList = _listTypeService.GetAll().ToList();
             return View(userList);
         }
 
-        // POST: UserLists/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Admin,Moderator")]
         [Route("userlists/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreatedDate,Name,IsPublic,UserId,ListTypeId")] UserList userList)
+        public ActionResult Edit([Bind("Id,CreatedDate,Name,IsPublic,UserId,ListTypeId")] UserList userList)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(userList).State = EntityState.Modified;
-                db.SaveChanges();
+                _userListService.Update(userList);
                 return RedirectToAction("Manage");
             }
-            var users = db.AppUsers.Include(s => s.ApplicationUser).ToList();
+            var users = _userService.GetAll().ToList();
 
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
-            ViewBag.typesList = db.ListTypes.ToList();
+            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.typesList = _listTypeService.GetAll().ToList();
             return View(userList);
         }
 
@@ -126,14 +131,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UserList userList = db.GetFullUsersListForm((int)id);
+            UserList userList = _userListService.Find(id);
             if (userList == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(userList);
         }
@@ -145,20 +146,10 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            UserList userList = db.GetFullUsersListForm((int)id);
-            db.UserLists.Remove(userList);
-            db.SaveChanges();
+            UserList userList = _userListService.Find(id);
+            _userListService.Delete(userList);
             return RedirectToAction("Manage");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }
-*/

@@ -1,25 +1,48 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
-/*
+
 namespace PRO.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class GameListsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IUserService _userService;
+        private readonly IReviewService _reviewService;
+        private readonly IUserListService _userListService;
+        private readonly IGameListService _gameListService;
+        private readonly IGameService _gameService;
+        public GameListsController
+            (
+            IUserService userService,
+            IReviewService reviewService,
+            IUserListService userListService,
+            IGameListService gameListService,
+            IGameService gameService
+            )
+
+        {
+            _userService = userService;
+            _reviewService = reviewService;
+            _userListService = userListService;
+            _gameListService = gameListService;
+            _gameService = gameService;
+        }
 
         // GET: GameLists
         [Route("gamelists/manage")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
-            var gameLists = db.GetFullGameListsList();
+            var gameLists = _gameListService.GetAll();
 
-            ViewBag.Pagination = new Pagination(pageString, itemString, gameLists.Count());
+            ViewBag.Pagination = new Pagination(page, items, gameLists.Count());
 
             return View(gameLists);
         }
@@ -28,15 +51,10 @@ namespace PRO.Controllers
         [Route("gamelists/details/{id}")]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var gameList = db.GetFullGameListById(id);
+            var gameList = _gameListService.Find(id);
             if (gameList == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(gameList);
         }
@@ -45,30 +63,23 @@ namespace PRO.Controllers
         [Route("gamelists/add")]
         public ActionResult Add()
         {
-
-            var users = db.AppUsers.Include(i => i.ApplicationUser).ToList();
-            var usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
-
-            ViewBag.userList = usersList;
-            ViewBag.Games = db.GetGamesList().ToList();
+            ViewBag.userList = _userService.GetAll().Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.Games = _gameService.GetAllActive();
             return View(new GameList());
         }
         [HttpPost]
         [Route("gamelists/getuserlists/{id}")]
         public ActionResult GetUserLists(int id)
         {
-            List<UserList> userLists = db.GetUsersListList().Where(s => s.UserId == id).ToList();
+            List<UserList> userLists = _userListService.GetAll().Where(s => s.UserId == id).ToList();
             SelectList viewLists = new SelectList(userLists, "Id", "Name", 0);
             return Json(viewLists);
         }
 
-        // POST: GameLists/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("gamelists/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Id,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
+        public ActionResult Add([Bind("Id,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
         {
             if (gameList.UserListId <=0)
             {
@@ -78,16 +89,11 @@ namespace PRO.Controllers
 
             if (ModelState.IsValid)
             {
-                db.GameLists.Add(gameList);
-                db.SaveChanges();
+                _gameListService.Add(gameList);
                 return RedirectToAction("Manage");
             }
-
-            var users = db.AppUsers.Include(i => i.ApplicationUser).ToList();
-            var usersList = users.Select(s => new { Id = s.Id, UserName = s.ApplicationUser.UserName }).ToList();
-
-            ViewBag.userList = usersList;
-            ViewBag.Games = db.GetGamesList().ToList();
+            ViewBag.userList = _userService.GetAll().Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.Games = _gameService.GetAllActive();
 
             return View(gameList);
         }
@@ -96,49 +102,34 @@ namespace PRO.Controllers
         [Route("gamelists/edit/{id}")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            ViewBag.Games = db.GetGamesList().ToList();
-
-            var gameList = db.GetFullGameListById(id);
+            var gameList = _gameListService.Find(id);
             if (gameList == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            var userLists = db.UserLists.Where(u => u.UserId == gameList.UserList.UserId).ToList();
-
-            ViewBag.userLists = userLists;
-
-           
-
+            ViewBag.Games = _gameService.GetAllActive();
+            ViewBag.userLists = _userListService.GetAll().Where(u => u.UserId == gameList.UserList.UserId).ToList();
             return View(gameList);
         }
 
-        // POST: GameLists/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("gamelists/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AddedDate,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
+        public ActionResult Edit([Bind("Id,AddedDate,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
         {
             gameList.EditedDate = DateTime.Now;
 
             if (ModelState.IsValid)
             {
-                db.Entry(gameList).State = EntityState.Modified;
-                db.SaveChanges();
+                _gameListService.Update(gameList);
                 return RedirectToAction("Manage");
             }
-            var gameListUser = db.GetFullGameListById(gameList.Id);
+            var gameListUser = _gameListService.Find(gameList.Id);
             gameList.UserList = gameListUser.UserList;
-            var userLists = db.UserLists.Where(u=>u.UserId == gameListUser.UserList.UserId).ToList();
+            var userLists = _userListService.GetAll().Where(u=>u.UserId == gameListUser.UserList.UserId).ToList();
 
             ViewBag.userLists = userLists;
-            ViewBag.Games = db.GetGamesList().ToList();
+            ViewBag.Games = _gameService.GetAllActive();
 
             return View(gameList);
         }
@@ -147,15 +138,11 @@ namespace PRO.Controllers
         [Route("gamelists/delete/{id}")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
-            var gameList = db.GetFullGameListById(id);
+            var gameList = _gameListService.Find(id);
             if (gameList == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(gameList);
         }
@@ -166,21 +153,10 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var gameList = db.GetFullGameListById(id);
-            db.GameLists.Remove(gameList);
-            db.SaveChanges();
+            var gameList = _gameListService.Find(id);
+            _gameListService.Delete(gameList);
             return RedirectToAction("Manage");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
     }
 }
-*/

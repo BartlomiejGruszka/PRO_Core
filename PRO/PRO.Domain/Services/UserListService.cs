@@ -8,9 +8,11 @@ namespace PRO.Domain.Services
     public class UserListService : IUserListService
     {
         private readonly IRepository<UserList> _repository;
-        public UserListService(IRepository<UserList> repository)
+        private readonly IUserListRepository _userListRepository;
+        public UserListService(IRepository<UserList> repository, IUserListRepository userListRepository)
         {
             _repository = repository;
+            _userListRepository = userListRepository;
         }
 
         public void Add(UserList userList)
@@ -25,21 +27,25 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
-        public UserList Find(int? id)
+        public IEnumerable<UserList> GetUserUserLists(int? userid)
         {
-            if (!id.HasValue) { return null; }
-            return _repository.Find(id.Value);
+            return _userListRepository.GetUserUserLists(userid);
         }
 
         public IEnumerable<UserList> GetAll()
         {
-            return _repository.GetAll();
+            return _userListRepository.GetAll();
         }
 
         public void Update(UserList userList)
         {
             _repository.Update(userList);
             _repository.Save();
+        }
+
+        public UserList Find(int? id)
+        {
+            return _userListRepository.Find(id);
         }
     }
 }

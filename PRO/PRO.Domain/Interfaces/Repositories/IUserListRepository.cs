@@ -11,5 +11,7 @@ namespace PRO.Domain.Interfaces.Repositories
     {
 
         public new IEnumerable<UserList> GetAll();
+        public new UserList Find(int? id);
+        public IEnumerable<UserList> GetUserUserLists(int? userId);
     }
 }

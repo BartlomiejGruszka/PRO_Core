@@ -31,8 +31,16 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastLoginDate)
-        </dd>
+            @if (!Model.LastLoginDate.HasValue) 
+            { 
+              <text>brak logowania</text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.LastLoginDate.Value)
+            }
+
+            </dd>
         <dt>
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>

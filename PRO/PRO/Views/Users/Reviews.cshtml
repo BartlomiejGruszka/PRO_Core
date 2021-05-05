@@ -16,7 +16,7 @@
 <div id="content" class="userprofilecontent">
     @if (Model.EditUser.AppUser.IsPublic)
     {
-        <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model" />
+        <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.EditUser.AppUser" />
 
 
         <div valign="top" style="padding-left: 5px;">

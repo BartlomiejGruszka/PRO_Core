@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using PRO.Entities;
+using PRO.Domain.Interfaces.Services;
 
 namespace PRO.UI.Areas.Identity.Pages.Account
 {
@@ -21,11 +22,14 @@ namespace PRO.UI.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IModeratorService _moderatorService;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IModeratorService moderatorService)
         {
+            _moderatorService = moderatorService;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -45,13 +49,15 @@ namespace PRO.UI.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
+
             public string Email { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Hasło")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Zapamiętaj mnie?")]
             public bool RememberMe { get; set; }
         }
 
@@ -93,6 +99,11 @@ namespace PRO.UI.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var moderator = _moderatorService.Find(user.Id);
+                    if(moderator != null) {
+                        moderator.LastLoginDate = DateTime.Now;
+                        _moderatorService.Update(moderator);
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

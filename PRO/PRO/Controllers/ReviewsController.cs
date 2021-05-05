@@ -1,40 +1,38 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using PRO.Domain.Interfaces.Services;
+using PRO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-/*
+
 namespace PRO.Controllers
 {
     //[Authorize]
     public class ReviewsController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly IGameService _gameService;
+        private readonly IReviewService _reviewService;
+        private readonly IUserService _userService;
 
-
-        public ReviewsController()
+        public ReviewsController(
+            IGameService gameService,
+            IReviewService reviewService,
+            IUserService userService
+            )
         {
-            _context = new ApplicationDbContext();
-
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
-
-        [Route("reviews/")]
-        public ActionResult Index()
-        {
-            return View(_context.Reviews.ToList());
+            _gameService = gameService;
+            _reviewService = reviewService;
+            _userService = userService;
         }
 
         [Route("reviews/manage")]
         [Authorize(Roles ="Admin,Moderator")]
-        public ActionResult Manage()
+        public ActionResult Manage(int? page, int? items)
         {
-            var pageString = Request.QueryString["page"];
-            var itemString = Request.QueryString["items"];
-            var reviews = _context.GetReviewsList();
-            ViewBag.Pagination = new Pagination(pageString, itemString, reviews.Count());
+            var reviews = _reviewService.GetAll();
+            ViewBag.Pagination = new Pagination(page, items, reviews.Count());
 
             return View(reviews);
         }
@@ -50,14 +48,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult ManageDetails(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Review review = _context.GetReviewById((int)id);
+            Review review = _reviewService.Find(id);
             if (review == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(review);
         }
@@ -83,12 +77,11 @@ namespace PRO.Controllers
             review.ReviewDate = DateTime.Now;
             review.EditDate = null;
             review.ModeratorId = null;
-            review.UserId = getCurrentUserId();
+            review.UserId = _userService.GetLoggedInUserId().Value;
             if (ModelState.IsValid)
             {
-                _context.Reviews.Add(review);
-                _context.SaveChanges();
-                return RedirectToAction("?");
+                _reviewService.Add(review);
+                return RedirectToAction("?not done yet");
             }
             return View(review);
         }
@@ -99,7 +92,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Add()
         {
-            ViewBag.GameId = new SelectList(_context.Games, "Id", "Title");
+            ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
             return View();
         }
 
@@ -112,17 +105,16 @@ namespace PRO.Controllers
             review.ReviewDate = DateTime.Now;
             review.EditDate = null;
             review.ModeratorId = null;
-            review.UserId = getCurrentUserId();
-            var test = _context.Reviews.SingleOrDefault(i => i.UserId == review.UserId && i.GameId == review.GameId);
+            review.UserId = _userService.GetLoggedInUserId().Value;
+            var test = _reviewService.GetAll().SingleOrDefault(i => i.UserId == review.UserId && i.GameId == review.GameId);
 
             if (test != null) { ModelState.AddModelError(string.Empty, "Można napisać tylko jedną recenzję dla danej gry"); }
             if (ModelState.IsValid)
             {
-                _context.Reviews.Add(review);
-                _context.SaveChanges();
+                _reviewService.Add(review);
                 return RedirectToAction("Manage");
             }
-            ViewBag.GameId = new SelectList(_context.Games, "Id", "Title");
+            ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
             return View(review);
         }
 
@@ -130,14 +122,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Review review = _context.Reviews.Find(id);
+            Review review = _reviewService.Find(id);
             if (review == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(review);
         }
@@ -150,16 +138,15 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _context.AppUsers.Include(u => u.ApplicationUser).SingleOrDefault(s => s.Id == review.UserId);
-
-                if (!user.UserId.Equals(User.Identity.GetUserId()))
+                var user = _userService.Find(review.UserId);
+                var loggeduser = _userService.GetLoggedInUserId();
+                if (user.Id != loggeduser.Value)
                 {
-                    review.ModeratorId = getCurrentUserId();
+                    review.ModeratorId = loggeduser.Value;
                 }
                 review.EditDate = DateTime.Now;
-
-                _context.Entry(review).State = EntityState.Modified;
-                _context.SaveChanges();
+                _reviewService.Update(review);
+               
                 return RedirectToAction("Manage");
             }
             return View(review);
@@ -169,14 +156,10 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Review review = _context.GetReviewById((int)id);
+            Review review = _reviewService.Find(id);
             if (review == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(review);
         }
@@ -188,18 +171,9 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Review review = _context.Reviews.Find(id);
-            _context.Reviews.Remove(review);
-            _context.SaveChanges();
+            Review review = _reviewService.Find(id);
+            _reviewService.Delete(review);
             return RedirectToAction("Manage");
         }
-
-        public int getCurrentUserId()
-        {
-            string currentUserId = User.Identity.GetUserId();
-            var user = _context.AppUsers.Single(s => s.UserId.Equals(currentUserId));
-            var id = user.Id;
-            return id;
-        }
     }
-}*/
+}

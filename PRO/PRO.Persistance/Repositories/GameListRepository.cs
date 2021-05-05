@@ -32,8 +32,19 @@ namespace PRO.Persistance.Repositories
                 .Include(i => i.Game)
                 .Include(i => i.Game.Image)
                 .Include(i => i.Game.DeveloperCompany)
-                .Include(u=>u.UserList);
+                .Include(u=>u.UserList)
+                .Include(u => u.UserList.User);
         }
+        public new GameList Find(int? id)
+        {
+            if (!id.HasValue) { return null; }
+            var gameList = _dbContext.GameLists
+              .Include(g => g.Game)
+              .Include(g => g.UserList)
+              .Include(g => g.UserList.User)
+              .SingleOrDefault(g => g.Id == id.Value);
 
+            return gameList;
+        }
     }
 }
