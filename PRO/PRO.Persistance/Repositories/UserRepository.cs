@@ -20,6 +20,8 @@ namespace PRO.Persistance.Repositories
         {
             var users = _dbContext.ApplicationUsers
                .Include(o => o.Image)
+               .Include(o=>o.Moderator)
+               .Include(o => o.Author)
                .ToList();
             return users;
         }

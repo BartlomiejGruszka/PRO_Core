@@ -34,6 +34,7 @@ namespace PRO.Entities
         public ICollection<UserList> UserLists { get; set; }
         public ICollection<Review> Reviews { get; set; }
 
-
+        public Moderator Moderator{ get; set; }
+        public Author Author { get; set; }
     }
 }

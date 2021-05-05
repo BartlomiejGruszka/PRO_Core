@@ -52,7 +52,7 @@ namespace PRO.Controllers
         public ActionResult Add()
         {
 
-            var users = _userService.GetAll();
+            var users = _userService.GetAll().Where(s => s.Author == null).ToList();
             ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
 
             return View();
@@ -61,7 +61,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("authors/add")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddAsync([Bind("UserId,FirstName,LastName,CreatedDate,isActive")] Author author)
+        public async Task<ActionResult> AddAsync([Bind("UserId,FirstName,LastName,CreatedDate,IsActive")] Author author)
         {
             if (ModelState.IsValid)
             {
@@ -70,14 +70,17 @@ namespace PRO.Controllers
                 if (author.IsActive)
                 {
                     var result = await _userService.AddRoleToUserAsync(user, "Author");
-
+                    if (!result.Succeeded)
+                    {
+                        return RedirectToAction("Add");
+                    }
                 }
                 _authorService.Add(author);
 
                 return RedirectToAction("Manage");
             }
 
-            var users = _userService.GetAll();
+            var users = _userService.GetAll().Where(s => s.Author == null).ToList();
             ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
 
             return View(author);
@@ -142,11 +145,13 @@ namespace PRO.Controllers
         {
             Author author = _authorService.Find(id);
 
-            var isAuthor = await _userService.IsUserInRole(author.User, "Author");
-
-            if (isAuthor)
+            if (author.IsActive)
             {
                 var result = await _userService.DeleteRoleFromUserAsync(author.User, "Author");
+                if (!result.Succeeded)
+                {
+                    return RedirectToAction("Delete", new { Id = author.UserId });
+                }
             };
             _authorService.Delete(author);
             return RedirectToAction("Manage");

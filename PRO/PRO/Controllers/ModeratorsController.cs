@@ -47,7 +47,7 @@ namespace PRO.Controllers
         [Route("moderators/add")]
         public ActionResult Add()
         {
-            var users = _userService.GetAll();
+            var users = _userService.GetAll().Where(s=>s.Moderator==null).ToList();
             ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
 
             return View();
@@ -57,7 +57,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("moderators/add")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddAsync([Bind("UserId,CreatedDate,isActive")] Moderator moderator)
+        public async Task<ActionResult> AddAsync([Bind("UserId,CreatedDate,IsActive")] Moderator moderator)
         {
             if (ModelState.IsValid)
             {
@@ -66,12 +66,16 @@ namespace PRO.Controllers
                 if (moderator.IsActive)
                 {
                     var result = await _userService.AddRoleToUserAsync(user, "Moderator");
+                    if (!result.Succeeded)
+                    {
+                        return RedirectToAction("Add");
+                    }
                 }
                 _moderatorService.Add(moderator);
                 return RedirectToAction("Manage");
             }
 
-            var users = _userService.GetAll();
+            var users = _userService.GetAll().Where(s=>s.Moderator==null).ToList();
             ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
 
             return View(moderator);
@@ -93,15 +97,16 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("moderators/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync([Bind("UserId,CreatedDate,LastLoginDate,IsActive")] Moderator moderator)
+        public async Task<ActionResult> EditAsync([Bind("UserId,CreatedDate,IsActive")] Moderator moderator)
         {
-
             if (ModelState.IsValid)
             {
-                var user = _userService.Find(moderator.UserId);
-                var isModerator = await _userService.IsUserInRole(user, "Moderator");
+                var user = _userService.Find(moderator.UserId); 
+                if (user == null) return NotFound();
 
+                var isModerator = await _userService.IsUserInRole(user, "Moderator");
                 IdentityResult result = null;
+
                 if (isModerator && !moderator.IsActive)
                 {
                     result = await _userService.DeleteRoleFromUserAsync(user, "Moderator");
@@ -110,10 +115,8 @@ namespace PRO.Controllers
                 {
                     result = await _userService.AddRoleToUserAsync(user, "Moderator");
                 }
-
                 _moderatorService.Update(moderator);
                 return RedirectToAction("Manage");
-
             }
             return View(moderator);
         }
@@ -138,12 +141,12 @@ namespace PRO.Controllers
         {
             Moderator moderator = _moderatorService.Find(id);
 
-            var isModerator = await _userService.IsUserInRole(moderator.User, "Author");
-
-            if (isModerator)
+            if (moderator.IsActive)
             {
-                var result = await _userService.DeleteRoleFromUserAsync(moderator.User, "Author");
-
+                var result = await _userService.DeleteRoleFromUserAsync(moderator.User, "Moderator");
+                if (!result.Succeeded) {
+                    return RedirectToAction("Delete", new { Id = moderator.UserId }); 
+                }
             };
 
             _moderatorService.Delete(moderator);
