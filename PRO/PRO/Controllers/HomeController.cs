@@ -86,17 +86,6 @@ namespace PRO.Controllers
             }
         }
 
-        public ActionResult GetFooter()
-        {
-            FooterViewModel footerViewModel = new FooterViewModel
-            {
-                HighestRatedGames = _gameService.GetOrderedGamesRanking(5),
-                PopularCompanies = _companyService.GetPopularCompanies(5),
-                RecentReviews = _reviewService.GetRecentReviews()
-            };
-            return PartialView("_Footer", footerViewModel);
-        }
-
 
         public ActionResult About()
         {
