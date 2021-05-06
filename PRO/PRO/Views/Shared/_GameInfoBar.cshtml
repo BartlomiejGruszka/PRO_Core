@@ -13,7 +13,7 @@
         </div>
         @if (User.Identity.IsAuthenticated && (Model.UserLists?.Any() ?? false))
         {<div class="underlined_h2">Dodaj do listy</div>
-           <text> Html.Action("AddGameToList");</text>
+            @await Component.InvokeAsync("AddGameToUserList", new { gameid = Model.Game.Id})
         }
 
 

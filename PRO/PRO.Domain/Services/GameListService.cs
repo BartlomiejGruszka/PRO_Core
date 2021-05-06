@@ -38,6 +38,40 @@ namespace PRO.Domain.Services
         {
             return _gameListRepository.GetAll().ToList();
         }
+        public GameList AddOrUpdateDates(GameList gameList)
+        {
+            if (gameList.UserListId <= 0)
+            { return null; }
+            var oldGameList = Find(gameList.Id);
+            if (oldGameList == null)
+            {
+                gameList.AddedDate = DateTime.Now;
+            }
+            else
+            {
+                gameList.EditedDate = DateTime.Now;
+                gameList.AddedDate = oldGameList.AddedDate;
+            }
+            return gameList;
+        }
+        public void AddOrUpdate(GameList gameList)
+        {
+            var oldgamelist = Find(gameList.Id);
+            if (oldgamelist == null) {
+                Add(gameList);
+            }
+            else
+            {
+                oldgamelist.PersonalScore = gameList.PersonalScore;
+                oldgamelist.EditedDate = gameList.EditedDate;
+                oldgamelist.AddedDate = gameList.AddedDate;
+                oldgamelist.HoursPlayed = gameList.HoursPlayed;
+                oldgamelist.UserListId = gameList.UserListId;
+                Update(oldgamelist);
+            }
+
+
+        }
 
         public List<Tuple<GameList, DateTime>> GetRecentUserGameListUpdates(int userid, int? number)
         {

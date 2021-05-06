@@ -546,7 +546,6 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\ManageDetails.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Ranking.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\Reviews.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\SingleReview.cshtml.g.cs
-D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\_AddGameToListForm.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_GameInfoBar.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_GameTitleBar.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_SingleReview.cshtml.g.cs
@@ -617,3 +616,4 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Home\About.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Home\Contact.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Home\NewIndex.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\Footer\_Footer.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\AddGameToUserList\_AddGameToListForm.cshtml.g.cs

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PRO.Domain.Extensions;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using PRO.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -97,87 +99,23 @@ namespace PRO.Controllers
         public ActionResult Details(int id)
         {
             var viewModel = SetupDetailsPage(id, null);
-            // Session["CurrentUrl"] = Request.Url.ToString();
             return View(viewModel);
         }
 
-        // [ChildActionOnly] requires rework
-        [HttpGet]
-        public ActionResult AddGameToList(int id)
-        {
-
-            /*  var userid = _userService.GetLoggedInUserId();
-              var userLists = _context.UserLists.Where(u => u.UserId == userid).ToList();
-
-              var gameList = TempData["gameList"] as GameList;
-
-              if (gameList == null) { gameList = _context.GameLists.Include(u => u.UserList).SingleOrDefault(g => g.GameId == id && g.UserList.UserId == userid); }
-              if (gameList == null) { gameList = new GameList(); }
-
-              var errors = TempData["errors"] as List<KeyValuePair<string, ModelState>>;
-              if (errors != null)
-              {
-                  foreach (var error in errors)
-                  {
-                      var keyerror = error.Key;
-                      if (error.Value.Errors.Count() > 0)
-                      {
-                          foreach(var value in error.Value.Errors)
-                          {
-                              ModelState.AddModelError(keyerror, value.ErrorMessage);
-                          }
-                      }
-                  }
-              }
-              ViewBag.userLists = userLists;
-              ViewBag.GameId = id;
-            */
-            return PartialView("_AddGameToListForm", null);
-        }
-
-
-        [HttpPost]//requires rework
+        [Authorize]
+        [HttpPost]//model errors not showing
         public ActionResult AddGameToList(int id, [Bind("Id,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
         {
+            gameList = _gameListService.AddOrUpdateDates(gameList);
+            var previouspage = HttpContext.Request.Headers["Referer"];
+            TempData.Put("gameList", gameList);
 
-            /*var userid = _userService.GetLoggedInUserId();
-            var oldGameList = _context.GameLists.SingleOrDefault(s=>s.Id == gameList.Id);
-            var userLists = _context.UserLists.Where(u => u.UserId == userid).ToList();
-
-            if (gameList.UserListId <= 0)
+            if (ModelState.IsValid)
             {
-                if (Session["CurrentUrl"] == null) { return RedirectToAction("Details"); }
-                return Redirect((string)Session["CurrentUrl"]);
+                _gameListService.AddOrUpdate(gameList);
             }
-            if (oldGameList == null) { gameList.AddedDate = DateTime.Now; } else { gameList.EditedDate = DateTime.Now; gameList.AddedDate = oldGameList.AddedDate; }
-
-            TempData["gameList"] = gameList;
-            TempData["modelstate"] = ModelState;
-
-             if (ModelState.IsValid)
-            {
-
-                if (oldGameList != null)
-                {
-                    _context.Set<GameList>().AddOrUpdate(gameList);
-                }
-                else
-                {
-                    _context.GameLists.Add(gameList);
-                }
-                _context.SaveChanges();
-
-            }
-            List<KeyValuePair<string, ModelState>> errors = new List<KeyValuePair<string, ModelState>>();
-            foreach (var error in ModelState)
-            {
-                errors.Add(error);
-            }
-            TempData["errors"] = errors;
-            ViewBag.userLists = userLists;
-
-            if (Session["CurrentUrl"] == null) { return RedirectToAction("Details"); }*/
-            return Redirect(null); //redirect to current url
+            if (string.IsNullOrEmpty(previouspage)) { return RedirectToAction("Details", new { id=id}); }
+            return Redirect(previouspage);
         }
 
         private GameDetailsViewModel SetupDetailsPage(int id, GameList gamelist)
@@ -208,7 +146,7 @@ namespace PRO.Controllers
                 GameGameList = GameGameList,
                 ReviewGametimes = _reviewService.ReviewPlaytimeList(reviews),
                 RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
-        };
+            };
             return viewModel;
         }
 
@@ -270,8 +208,10 @@ namespace PRO.Controllers
                 _gameService.AddTags(viewModel.Game, viewModel.selectedTagsId);
                 _gameService.AddLanguages(viewModel.Game, viewModel.selectedLanguagesId);
                 _gameService.Update(viewModel.Game);
-                //  if (Session["CurrentUrl"] == null) { return View(viewModel); }
-                return Redirect(null);//return to saved url
+
+                var previouspage = HttpContext.Request.Headers["Referer"];
+                if (string.IsNullOrEmpty(previouspage)) { return RedirectToAction("Details", new { id = viewModel.Game.Id }); }
+                return Redirect(previouspage);
             }
             var gameViewModel = GetFullGameForm(viewModel.Game.Id);
             gameViewModel.Game = viewModel.Game;
@@ -329,7 +269,6 @@ namespace PRO.Controllers
         {
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
-            // Session["CurrentUrl"] = Request.Url.ToString();
             ViewBag.Pagination = new Pagination(page, items, game.Reviews.Count());
 
             var model = SetupDetailsPage(id, null);
@@ -345,7 +284,6 @@ namespace PRO.Controllers
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
             var selectedReview = _reviewService.Find(review);
-            //Session["CurrentUrl"] = Request.Url.ToString();
             ViewBag.Pagination = new Pagination(page, items, 1);
             List<Review> Reviews = new List<Review>();
             Reviews.Add(selectedReview);

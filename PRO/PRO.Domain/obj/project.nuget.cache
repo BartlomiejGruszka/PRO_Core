@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wb7B6xO6DneeqgmxSNNkblp3v+WEePvtmaL1q8cbiBg4mmffQ7qIDvNg4mmzq2LFSMXv6gDyGqa3eBdzcwyTEQ==",
+  "dgSpecHash": "3qORhy4tJl3zI9ZHEKTxr+c+RGZHec5qiDczCDWfNS9P82E18A5q5k8+uAp2HAHfa6PFZxyUC+Io5T4bNAklJg==",
   "success": true,
   "projectFilePath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,7 @@
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
