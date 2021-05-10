@@ -16,7 +16,7 @@ namespace PRO.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
 
-        [Required, DisplayName("Nazwa"), MaxLength(50), MinLength(3)] //add custom is unique constraintUniqueUserListUserIdAndName
+        [Required, DisplayName("Nazwa"), MaxLength(50), MinLength(3)] //add custom is unique constraint UniqueUserListUserIdAndName
         public string Name { get; set; }
 
         [Required, DisplayName("Dostępna publicznie")]

@@ -33,7 +33,7 @@ namespace PRO.Entities
         [ForeignKey("UserListId"), DisplayName("Lista użytkownika")]
         public UserList UserList{ get; set; }
 
-        [Required, DisplayName("Gra")]  //add custom is unique constraint UniqueGameAndUserList
+        [Required, DisplayName("Gra"),]  //add custom is unique constraint UniqueGameAndUserList
         public int GameId { get; set; }
 
         [ForeignKey("GameId"), DisplayName("Gra")]

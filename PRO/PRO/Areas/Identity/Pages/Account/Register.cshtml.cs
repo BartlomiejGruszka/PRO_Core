@@ -46,17 +46,17 @@ namespace PRO.UI.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required (ErrorMessage = "Pole {0} jest wymagane.")]
+            [EmailAddress(ErrorMessage = "{0} jest nieprawidłowy.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(25, ErrorMessage = "{0}musi mieć co najmniej {2} znaków.", MinimumLength = 3)]
+            [Required (ErrorMessage ="Pole {0} jest wymagane.")]
+            [StringLength(25, ErrorMessage = "{0} musi mieć co najmniej {2} znaków.", MinimumLength = 3)]
             [Display(Name = "Nazwa użytkownika")]
             public string Username { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaków.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Hasło")]

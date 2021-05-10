@@ -29,11 +29,9 @@
                 { <a href="#">Nieznana</a>}
                 else
                 {
-                    var date = @Model.Game.ReleaseDate.Value.Day.ToString()
-                     + "." + @Model.Game.ReleaseDate.Value.Month.ToString() + "."
-                     + @Model.Game.ReleaseDate.Value.Year.ToString();
+                    var date = @Model.Game.ReleaseDate.Value.ToShortDateString();
 
-                    <a href="#">@date</a>}
+        <a href="#">@date</a>}
             }
         </div>
         <div class="spaceit"><span class="dark_text">Platforma: </span><a href="#">@Model.Game.Platform.Name</a></div>
@@ -101,7 +99,7 @@
             {
                 foreach (var award in Model.Game.Awards)
                 {
-                    <a href="#">@award.Name</a><br />
+                    <span>@award.Name</span><br />
                 }
             }
             else

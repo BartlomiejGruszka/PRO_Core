@@ -4,11 +4,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
+using PRO.Domain.Extensions;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Domain.Services;
@@ -36,6 +40,7 @@ namespace PRO
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole<int>>()
+                .AddErrorDescriber<CustomIdentityErrorDescriber>() //localized identity errors
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
@@ -102,6 +107,7 @@ namespace PRO
             //identity services
             services.Configure<IdentityOptions>(options =>
             {
+
                 // Password settings.
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;

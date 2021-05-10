@@ -125,7 +125,7 @@
                                                                 @article.Preview<a href="/articles/@article.Id">więcej</a>
                                                             </p>
                                                         </div>
-                                                        <p class="lightLink spaceit">@article.PublishedDate przez <a href="/users/@article.Author.UserId">@article.Author.FirstName @article.Author.LastName</a></p>
+                                                        <p class="lightLink spaceit">@article.PublishedDate.ToShortDateString() przez <a href="/users/@article.Author.UserId">@article.Author.FirstName @article.Author.LastName</a></p>
                                                     </div>
                                                     <div class="borderClass"></div>
                                                     <br>

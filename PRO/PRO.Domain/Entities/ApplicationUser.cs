@@ -11,7 +11,8 @@ namespace PRO.Entities
     public class ApplicationUser : IdentityUser<int>
     {
 
-        [Required, DisplayName("Data rejestracji")]
+        [Required]
+        [DisplayName("Data rejestracji")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime RegisterDate { get; set; }

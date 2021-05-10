@@ -15,7 +15,7 @@
                                 <div class="">
 
                                     @if (Model.Item1.Game.Image != null)
-                                    {<a href="#">
+                                    {<a href="/games/@Model.Item1.GameId">
                                             <img style="max-width: 100%; max-height: 100%;" class=" lazyloaded" src="/images/@Model.Item1.Game.Image.ImagePath">
                                         </a>
                                     }
@@ -34,7 +34,7 @@
                                 <div class="">
 
                                     @if (Model.Item1.User.Image != null)
-                                    {<a href="#">
+                                    {<a href="/users/@Model.Item1.UserId">
                                             <img style="max-width: 100%; max-height: 100%;" class=" lazyloaded" src="/images/@Model.Item1.User.Image.ImagePath">
                                         </a>
                                     }
@@ -51,7 +51,7 @@
         </div>
 
         <div class="mb8" style="float: right; text-align: right;">
-            <div title="">@Model.Item1.ReviewDate</div>
+            <div title="">@Model.Item1.ReviewDate.ToShortDateString()</div>
             <div class="lightLink spaceit">
                 @{int? myInt = Model.Item2 == null ? 0 : Model.Item2; }
                 Rozegrane: @myInt h
@@ -63,9 +63,9 @@
                     { <div class="lightLink spaceit">
                             Średnia ocena: @avg
                         </div>
-                        <div>
-                            Edytowano: @Model.Item1.EditDate
-                        </div>
+                      <div>
+                          Edytowano: @Model.Item1.EditDate.Value.ToShortDateString()
+                      </div>
                     }
                     else
                     {

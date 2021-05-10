@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Toolbelt.ComponentModel.DataAnnotations.Schema.V5;
 
 namespace PRO.Entities
 {
@@ -9,6 +10,8 @@ namespace PRO.Entities
     {
         [Key]
         public int Id { get; set; }
+
+        [IndexColumn(nameof(Name), IsUnique = true)]
         [Required, MaxLength(100), DisplayName("Słowo kluczowe"), MinLength(2)] //add custom is unique constraintUniqueTagName
         public string Name { get; set; }
 

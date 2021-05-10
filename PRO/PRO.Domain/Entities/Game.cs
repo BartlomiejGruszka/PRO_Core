@@ -8,11 +8,6 @@ namespace PRO.Entities
 {
     public class Game
     {
-        public Game()
-        {
-            // this.Languages = new HashSet<Language>();
-            // this.Tags = new HashSet<Tag>();
-        }
 
         [Key]
         public int Id { get; set; }
