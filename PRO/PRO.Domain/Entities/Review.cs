@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Toolbelt.ComponentModel.DataAnnotations.Schema.V5;
 
 namespace PRO.Entities
 {
@@ -24,7 +26,7 @@ namespace PRO.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EditDate { get; set; }
 
-        [Required, Range(1,10), DisplayName("Grafika")]
+        [Required, Range(1, 10), DisplayName("Grafika")]
         public int GraphicsScore { get; set; }
         [Required, Range(1, 10), DisplayName("Fabuła")]
         public int StoryScore { get; set; }
@@ -33,13 +35,15 @@ namespace PRO.Entities
         [Required, Range(1, 10), DisplayName("Grywalność")]
         public int GameplayScore { get; set; }
 
-        [Required]//UniqueReviewUserIdAndGameId
+        [Required]
+        [IndexColumn("UniqueReview_IX", 1, IsUnique = true)]
         public int UserId { get; set; }
 
         [ForeignKey("UserId"), DisplayName("Użytkownik")]
         public ApplicationUser User { get; set; }
 
-        [Required]//UniqueReviewUserIdAndGameId
+        [Required]
+        [IndexColumn("UniqueReview_IX", 2, IsUnique = true)]
         public int GameId { get; set; }
 
         [ForeignKey("GameId"), DisplayName("Gra")]

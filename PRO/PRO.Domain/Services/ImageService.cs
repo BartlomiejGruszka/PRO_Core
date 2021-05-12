@@ -3,7 +3,6 @@ using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 

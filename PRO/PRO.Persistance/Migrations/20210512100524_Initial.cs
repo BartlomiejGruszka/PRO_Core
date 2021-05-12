@@ -668,6 +668,12 @@ namespace PRO.Persistance.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "ArticleTypeName_IX",
+                table: "ArticleTypes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -712,9 +718,21 @@ namespace PRO.Persistance.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "AwardName_IX",
+                table: "Awards",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Awards_GameId",
                 table: "Awards",
                 column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "CompanyName_IX",
+                table: "Companies",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_GameLanguage_LanguageId",
@@ -727,9 +745,10 @@ namespace PRO.Persistance.Migrations
                 column: "GameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameLists_UserListId",
+                name: "UniqueGameList_IX",
                 table: "GameLists",
-                column: "UserListId");
+                columns: new[] { "UserListId", "GameId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_DeveloperId",
@@ -772,13 +791,37 @@ namespace PRO.Persistance.Migrations
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
+                name: "GenreName_IX",
+                table: "Genres",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ImageName_IX",
+                table: "Images",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Images_ImageTypeId",
                 table: "Images",
                 column: "ImageTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "Name",
-                table: "Images",
+                name: "ImageTypeName_IX",
+                table: "ImageTypes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "LanguageName_IX",
+                table: "Languages",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ListTypeName_IX",
+                table: "ListTypes",
                 column: "Name",
                 unique: true);
 
@@ -786,6 +829,12 @@ namespace PRO.Persistance.Migrations
                 name: "IX_Platforms_CompanyId",
                 table: "Platforms",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "PlatformName_IX",
+                table: "Platforms",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_GameId",
@@ -798,9 +847,28 @@ namespace PRO.Persistance.Migrations
                 column: "ModeratorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_UserId",
+                name: "UniqueReview_IX",
                 table: "Reviews",
-                column: "UserId");
+                columns: new[] { "UserId", "GameId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "SeriesName_IX",
+                table: "Series",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "StatusName_IX",
+                table: "Statuses",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "TagName_IX",
+                table: "Tags",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLists_ListTypeId",
@@ -811,6 +879,12 @@ namespace PRO.Persistance.Migrations
                 name: "IX_UserLists_UserId",
                 table: "UserLists",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "UniqueUserList_IX",
+                table: "UserLists",
+                columns: new[] { "Name", "UserId" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

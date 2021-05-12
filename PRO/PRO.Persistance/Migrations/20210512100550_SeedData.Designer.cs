@@ -10,8 +10,8 @@ using PRO.Persistance.Data;
 namespace PRO.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210505102537_UserPropertiesFix")]
-    partial class UserPropertiesFix
+    [Migration("20210512100550_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,21 +53,21 @@ namespace PRO.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "c56e9aaa-8727-4ace-9efd-b9ec02c19f6f",
+                            ConcurrencyStamp = "ce75c262-9010-4ad4-a0a8-2c74806bf8fe",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "a24eabeb-cc60-4090-87e2-ae4135d60718",
+                            ConcurrencyStamp = "f39e0b87-0235-4f1a-9e6e-a7dff96d5aea",
                             Name = "Author",
                             NormalizedName = "AUTHOR"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "151cf799-546e-4c3d-bbd0-1383847fb61e",
+                            ConcurrencyStamp = "6b4c2f5c-c04b-4b6a-a8a3-10580f530bbf",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -614,6 +614,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ArticleTypeName_IX");
+
                     b.ToTable("ArticleTypes");
 
                     b.HasData(
@@ -710,6 +714,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("GameId");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("AwardName_IX");
+
                     b.ToTable("Awards");
 
                     b.HasData(
@@ -769,6 +777,10 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("CompanyName_IX");
 
                     b.ToTable("Companies");
 
@@ -1388,7 +1400,9 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.HasIndex("UserListId");
+                    b.HasIndex("UserListId", "GameId")
+                        .IsUnique()
+                        .HasDatabaseName("UniqueGameList_IX");
 
                     b.ToTable("GameLists");
 
@@ -1854,6 +1868,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("GenreName_IX");
+
                     b.ToTable("Genres");
 
                     b.HasData(
@@ -1913,7 +1931,7 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("Name");
+                        .HasDatabaseName("ImageName_IX");
 
                     b.ToTable("Images");
 
@@ -2123,6 +2141,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ImageTypeName_IX");
+
                     b.ToTable("ImageTypes");
 
                     b.HasData(
@@ -2156,6 +2178,10 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("LanguageName_IX");
 
                     b.ToTable("Languages");
 
@@ -2215,6 +2241,10 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ListTypeName_IX");
 
                     b.ToTable("ListTypes");
 
@@ -2298,6 +2328,10 @@ namespace PRO.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("PlatformName_IX");
 
                     b.ToTable("Platforms");
 
@@ -2421,7 +2455,9 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("ModeratorId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "GameId")
+                        .IsUnique()
+                        .HasDatabaseName("UniqueReview_IX");
 
                     b.ToTable("Reviews");
 
@@ -2642,6 +2678,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("SeriesName_IX");
+
                     b.ToTable("Series");
 
                     b.HasData(
@@ -2696,6 +2736,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("StatusName_IX");
+
                     b.ToTable("Statuses");
 
                     b.HasData(
@@ -2749,6 +2793,10 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("TagName_IX");
 
                     b.ToTable("Tags");
 
@@ -2829,6 +2877,10 @@ namespace PRO.Persistance.Migrations
                     b.HasIndex("ListTypeId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("Name", "UserId")
+                        .IsUnique()
+                        .HasDatabaseName("UniqueUserList_IX");
 
                     b.ToTable("UserLists");
 

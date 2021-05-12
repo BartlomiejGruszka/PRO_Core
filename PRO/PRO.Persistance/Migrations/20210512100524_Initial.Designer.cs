@@ -10,7 +10,7 @@ using PRO.Persistance.Data;
 namespace PRO.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210325144701_Initial")]
+    [Migration("20210512100524_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,6 +307,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ArticleTypeName_IX");
+
                     b.ToTable("ArticleTypes");
                 });
 
@@ -358,6 +362,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("GameId");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("AwardName_IX");
+
                     b.ToTable("Awards");
                 });
 
@@ -380,6 +388,10 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("CompanyName_IX");
 
                     b.ToTable("Companies");
                 });
@@ -491,7 +503,9 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.HasIndex("UserListId");
+                    b.HasIndex("UserListId", "GameId")
+                        .IsUnique()
+                        .HasDatabaseName("UniqueGameList_IX");
 
                     b.ToTable("GameLists");
                 });
@@ -525,6 +539,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("GenreName_IX");
+
                     b.ToTable("Genres");
                 });
 
@@ -552,7 +570,7 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("Name");
+                        .HasDatabaseName("ImageName_IX");
 
                     b.ToTable("Images");
                 });
@@ -571,6 +589,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ImageTypeName_IX");
+
                     b.ToTable("ImageTypes");
                 });
 
@@ -588,6 +610,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("LanguageName_IX");
+
                     b.ToTable("Languages");
                 });
 
@@ -604,6 +630,10 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ListTypeName_IX");
 
                     b.ToTable("ListTypes");
                 });
@@ -651,6 +681,10 @@ namespace PRO.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("PlatformName_IX");
 
                     b.ToTable("Platforms");
                 });
@@ -700,7 +734,9 @@ namespace PRO.Persistance.Migrations
 
                     b.HasIndex("ModeratorId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "GameId")
+                        .IsUnique()
+                        .HasDatabaseName("UniqueReview_IX");
 
                     b.ToTable("Reviews");
                 });
@@ -719,6 +755,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("SeriesName_IX");
+
                     b.ToTable("Series");
                 });
 
@@ -736,6 +776,10 @@ namespace PRO.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("StatusName_IX");
+
                     b.ToTable("Statuses");
                 });
 
@@ -752,6 +796,10 @@ namespace PRO.Persistance.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("TagName_IX");
 
                     b.ToTable("Tags");
                 });
@@ -785,6 +833,10 @@ namespace PRO.Persistance.Migrations
                     b.HasIndex("ListTypeId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("Name", "UserId")
+                        .IsUnique()
+                        .HasDatabaseName("UniqueUserList_IX");
 
                     b.ToTable("UserLists");
                 });
@@ -885,8 +937,8 @@ namespace PRO.Persistance.Migrations
             modelBuilder.Entity("PRO.Entities.Author", b =>
                 {
                     b.HasOne("PRO.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("Author")
+                        .HasForeignKey("PRO.Entities.Author", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1026,8 +1078,8 @@ namespace PRO.Persistance.Migrations
             modelBuilder.Entity("PRO.Entities.Moderator", b =>
                 {
                     b.HasOne("PRO.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("Moderator")
+                        .HasForeignKey("PRO.Entities.Moderator", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1091,6 +1143,10 @@ namespace PRO.Persistance.Migrations
 
             modelBuilder.Entity("PRO.Entities.ApplicationUser", b =>
                 {
+                    b.Navigation("Author");
+
+                    b.Navigation("Moderator");
+
                     b.Navigation("Reviews");
 
                     b.Navigation("UserLists");

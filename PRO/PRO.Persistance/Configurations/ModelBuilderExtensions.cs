@@ -14,7 +14,8 @@ namespace PRO.Persistance.Data
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-
+            modelBuilder.SeedImageTypes();
+            modelBuilder.SeedImages();
             modelBuilder.SeedApplicationUsers();
             modelBuilder.SeedRoles();
             modelBuilder.SeedUserRoles();
@@ -30,8 +31,7 @@ namespace PRO.Persistance.Data
             modelBuilder.SeedLanguages();
             modelBuilder.SeedCompanies();
             modelBuilder.SeedPlatforms();
-            modelBuilder.SeedImageTypes();
-            modelBuilder.SeedImages();
+
             modelBuilder.SeedGames();
             modelBuilder.SeedAwards();
             modelBuilder.SeedGameLanguages();

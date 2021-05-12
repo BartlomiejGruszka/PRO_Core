@@ -11,7 +11,7 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [IndexColumn(nameof(Name), IsUnique = true)]
+        [IndexColumn("ImageTypeName_IX", IsUnique = true)]
         [Required, MaxLength(50), DisplayName("Rodzaj obrazu"), MinLength(3)] //add custom is unique constraint UniqueImageTypeName
         public string Name { get; set; }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Toolbelt.ComponentModel.DataAnnotations.Schema.V5;
 
 namespace PRO.Entities
 {
@@ -27,13 +28,15 @@ namespace PRO.Entities
         [DisplayName("Własna ocena")]//PersonalScoreRange
         public int? PersonalScore { get; set; }
 
-        [Required, DisplayName("Lista użytkownika")]  //add custom is unique constraint UniqueGameAndUserList
+        [Required, DisplayName("Lista użytkownika")]
+        [IndexColumn("UniqueGameList_IX", 1, IsUnique = true)]//add custom is unique constraint UniqueGameAndUserList
         public int UserListId { get; set; }
 
         [ForeignKey("UserListId"), DisplayName("Lista użytkownika")]
         public UserList UserList{ get; set; }
 
-        [Required, DisplayName("Gra"),]  //add custom is unique constraint UniqueGameAndUserList
+        [Required, DisplayName("Gra")]
+        [IndexColumn("UniqueGameList_IX", 2, IsUnique = true)]//add custom is unique constraint UniqueGameAndUserList
         public int GameId { get; set; }
 
         [ForeignKey("GameId"), DisplayName("Gra")]

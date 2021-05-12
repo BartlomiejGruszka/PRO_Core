@@ -11,7 +11,7 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [IndexColumn(nameof(Name), IsUnique = true)]
+        [IndexColumn("SeriesName_IX", IsUnique = true)]
         [Required, MaxLength(100), DisplayName("Tytuł serii"), MinLength(3)] //add custom is unique constraint UniqueSeriesName
         public string Name { get; set; }
 

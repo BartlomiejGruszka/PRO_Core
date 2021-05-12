@@ -13,7 +13,7 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [IndexColumn(nameof(Name), IsUnique = true)]
+        [IndexColumn("ImageName_IX", IsUnique = true)]
         [Required(ErrorMessage = "Nazwa obrazu jest wymagana."), MaxLength(100),DisplayName("Nazwa"),MinLength(3)] //add custom is unique constraint UniqueImageName
         public string Name { get; set; }
 

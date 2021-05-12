@@ -11,7 +11,7 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [IndexColumn(nameof(Name), IsUnique = true)]
+        [IndexColumn("TagName_IX", IsUnique = true)]
         [Required, MaxLength(100), DisplayName("Słowo kluczowe"), MinLength(2)] //add custom is unique constraintUniqueTagName
         public string Name { get; set; }
 

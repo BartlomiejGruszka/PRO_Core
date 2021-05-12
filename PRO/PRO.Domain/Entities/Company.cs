@@ -11,7 +11,7 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required, MaxLength(100), DisplayName("Nazwa firmy"), MinLength(2), IndexColumn(nameof(Name), IsUnique = true)] //add custom is unique constraint UniqueCompanyName
+        [Required, MaxLength(100), DisplayName("Nazwa firmy"), MinLength(2), IndexColumn("CompanyName_IX", IsUnique = true)] //add custom is unique constraint UniqueCompanyName
         public string Name { get; set; }
 
         [Required, DataType(DataType.Date), DisplayName("Data założenia")]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Toolbelt.ComponentModel.DataAnnotations.Schema.V5;
 
 namespace PRO.Entities
 {
@@ -16,13 +17,15 @@ namespace PRO.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
 
-        [Required, DisplayName("Nazwa"), MaxLength(50), MinLength(3)] //add custom is unique constraint UniqueUserListUserIdAndName
+        [Required, DisplayName("Nazwa"), MaxLength(50), MinLength(3)]
+        [IndexColumn("UniqueUserList_IX", 1, IsUnique = true)]//add custom is unique constraint UniqueUserListUserIdAndName
         public string Name { get; set; }
 
         [Required, DisplayName("Dostępna publicznie")]
         public bool IsPublic { get; set; }
 
         [Required, DisplayName("Właściciel listy")]
+        [IndexColumn("UniqueUserList_IX", 2, IsUnique = true)]
         public int UserId { get; set; }
 
         [ForeignKey("UserId"), DisplayName("Właściciel listy")]
