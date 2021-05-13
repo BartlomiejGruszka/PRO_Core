@@ -60,8 +60,15 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _languageService.Add(language);
-                return RedirectToAction("Manage");
+                var errors = _languageService.ValidateLanguage(language);
+                if (!errors.Any())
+                {
+                    _languageService.Add(language);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
+                
             }
 
             return View(language);
@@ -88,8 +95,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _languageService.Update(language);
-                return RedirectToAction("Manage");
+                var errors = _languageService.ValidateLanguage(language);
+                if (!errors.Any())
+                {
+                    _languageService.Update(language);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(language);
         }

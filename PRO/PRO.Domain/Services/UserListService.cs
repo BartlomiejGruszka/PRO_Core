@@ -1,7 +1,9 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -46,6 +48,20 @@ namespace PRO.Domain.Services
         public UserList Find(int? id)
         {
             return _userListRepository.Find(id);
+        }
+        public ModelStateDictionary ValidateUserList(UserList userList)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (userList == null) return errors;
+
+            var userLists = _repository.GetAll().Where(i => i.Name == userList.Name && i.UserId == userList.UserId && i.Id != userList.Id);
+
+            if (userLists.Any())
+            {
+                errors.TryAddModelError("Name", "Posiadasz już listę o takiej nazwie.");
+            }
+            return errors;
+
         }
     }
 }

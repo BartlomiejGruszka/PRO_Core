@@ -61,8 +61,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _companyService.Add(company);
-                return RedirectToAction("Manage");
+                var errors = _companyService.ValidateCompany(company);
+                if (!errors.Any())
+                {
+                    _companyService.Add(company);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
 
             return View(company);
@@ -89,8 +95,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _companyService.Update(company);
-                return RedirectToAction("Manage");
+                var errors = _companyService.ValidateCompany(company);
+                if (!errors.Any())
+                {
+                    _companyService.Update(company);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(company);
         }

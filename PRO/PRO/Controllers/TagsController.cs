@@ -52,8 +52,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _tagService.Add(tag);
-                return RedirectToAction("Manage");
+                var errors = _tagService.ValidateTag(tag);
+                if (!errors.Any())
+                {
+                    _tagService.Add(tag);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
 
             return View(tag);
@@ -79,8 +85,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _tagService.Update(tag);
-                return RedirectToAction("Manage");
+                var errors = _tagService.ValidateTag(tag);
+                if (!errors.Any())
+                {
+                    _tagService.Update(tag);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(tag);
         }

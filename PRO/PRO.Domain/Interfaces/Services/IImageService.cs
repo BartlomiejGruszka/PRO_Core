@@ -1,4 +1,5 @@
-﻿using PRO.Entities;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,5 +19,7 @@ namespace PRO.Domain.Interfaces.Services
         public void RenameImage(Image image);
        // public IEnumerable<ImageType> GetImageTypes();
         public IEnumerable<Image> GetImagesByType(int id);
+
+        public ModelStateDictionary ValidateImage(Image product);
     }
 }

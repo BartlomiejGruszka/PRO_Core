@@ -1,4 +1,5 @@
-﻿using PRO.Entities;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(UserList userList);
 
         public void Update(UserList userList);
+        public ModelStateDictionary ValidateUserList(UserList userList);
     }
 }

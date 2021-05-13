@@ -1,4 +1,5 @@
-﻿using PRO.Entities;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Status status);
 
         public void Update(Status status);
+        public ModelStateDictionary ValidateStatus(Status status);
     }
 }

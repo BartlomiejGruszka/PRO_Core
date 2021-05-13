@@ -57,8 +57,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _genreService.Add(genre);
-                return RedirectToAction("Manage");
+                var errors = _genreService.ValidateGenre(genre);
+                if (!errors.Any())
+                {
+                    _genreService.Add(genre);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
 
             return View(genre);
@@ -85,8 +91,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _genreService.Update(genre);
-                return RedirectToAction("Manage");
+                var errors = _genreService.ValidateGenre(genre);
+                if (!errors.Any())
+                {
+                    _genreService.Update(genre);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(genre);
         }

@@ -1,4 +1,5 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -57,6 +58,20 @@ namespace PRO.Domain.Services
         {
             _repository.Update(company);
             _repository.Save();
+        }
+
+        public ModelStateDictionary ValidateCompany(Company company)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (company == null) return errors;
+
+            var companies = _repository.GetAll().Where(i => i.Name == company.Name && i.Id != company.Id);
+
+            if (companies.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już firma o takiej nazwie.");
+            }
+            return errors;
         }
     }
 }

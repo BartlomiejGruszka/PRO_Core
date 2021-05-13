@@ -1,7 +1,9 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -40,6 +42,20 @@ namespace PRO.Domain.Services
         {
             _repository.Update(award);
             _repository.Save();
+        }
+
+        public ModelStateDictionary ValidateAward(Award award)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (award == null) return errors;
+
+            var awards = _repository.GetAll().Where(i => i.Name == award.Name && i.Id != award.Id);
+
+            if (awards.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już nagroda o takiej nazwie.");
+            }
+            return errors;
         }
     }
 }

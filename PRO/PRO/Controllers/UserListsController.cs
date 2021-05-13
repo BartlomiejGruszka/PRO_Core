@@ -80,8 +80,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                 _userListService.Add(userList);
-                return RedirectToAction("Manage");
+                var errors = _userListService.ValidateUserList(userList);
+                if (!errors.Any())
+                {
+                    _userListService.Add(userList);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
 
             var users = _userService.GetAll().ToList();
@@ -116,8 +122,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _userListService.Update(userList);
-                return RedirectToAction("Manage");
+                var errors = _userListService.ValidateUserList(userList);
+                if (!errors.Any())
+                {
+                    _userListService.Update(userList);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             var users = _userService.GetAll().ToList();
 

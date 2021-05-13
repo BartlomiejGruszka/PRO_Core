@@ -1,7 +1,9 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -39,6 +41,20 @@ namespace PRO.Domain.Services
         {
             _repository.Update(genre);
             _repository.Save();
+        }
+
+        public ModelStateDictionary ValidateGenre(Genre genre)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (genre == null) return errors;
+
+            var genres = _repository.GetAll().Where(i => i.Name == genre.Name && i.Id != genre.Id);
+
+            if (genres.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już gatunek o takiej nazwie.");
+            }
+            return errors;
         }
     }
 }

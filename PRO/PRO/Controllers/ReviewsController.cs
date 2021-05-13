@@ -80,8 +80,14 @@ namespace PRO.Controllers
             review.UserId = _userService.GetLoggedInUserId().Value;
             if (ModelState.IsValid)
             {
-                _reviewService.Add(review);
-                return RedirectToAction("?not done yet");
+                var errors = _reviewService.ValidateReview(review);
+                if (!errors.Any())
+                {
+                    _reviewService.Add(review);
+
+                    return RedirectToAction("?");
+                }
+                ModelState.Merge(errors);
             }
             return View(review);
         }
@@ -106,13 +112,16 @@ namespace PRO.Controllers
             review.EditDate = null;
             review.ModeratorId = null;
             review.UserId = _userService.GetLoggedInUserId().Value;
-            var test = _reviewService.GetAll().SingleOrDefault(i => i.UserId == review.UserId && i.GameId == review.GameId);
-
-            if (test != null) { ModelState.AddModelError(string.Empty, "Można napisać tylko jedną recenzję dla danej gry"); }
             if (ModelState.IsValid)
             {
-                _reviewService.Add(review);
-                return RedirectToAction("Manage");
+                var errors = _reviewService.ValidateReview(review);
+                if (!errors.Any())
+                {
+                    _reviewService.Add(review);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
             return View(review);
@@ -145,9 +154,14 @@ namespace PRO.Controllers
                     review.ModeratorId = loggeduser.Value;
                 }
                 review.EditDate = DateTime.Now;
-                _reviewService.Update(review);
-               
-                return RedirectToAction("Manage");
+                var errors = _reviewService.ValidateReview(review);
+                if (!errors.Any())
+                {
+                    _reviewService.Update(review);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(review);
         }

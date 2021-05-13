@@ -62,8 +62,15 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _platformService.Add(platform);
-                return RedirectToAction("Manage");
+                var errors = _platformService.ValidatePlatform(platform);
+                if (!errors.Any())
+                {
+                    _platformService.Add(platform);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
+
             }
 
             ViewBag.CompanyId = new SelectList(_platformService.GetAll(), "Id", "Name", platform.CompanyId);
@@ -91,8 +98,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _platformService.Update(platform);
-                return RedirectToAction("Manage");
+                var errors = _platformService.ValidatePlatform(platform);
+                if (!errors.Any())
+                {
+                    _platformService.Update(platform);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             ViewBag.CompanyId = new SelectList(_platformService.GetAll(), "Id", "Name", platform.CompanyId);
             return View(platform);

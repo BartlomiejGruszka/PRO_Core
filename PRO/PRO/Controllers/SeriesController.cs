@@ -56,8 +56,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _seriesService.Add(series);
-                return RedirectToAction("Manage");
+                var errors = _seriesService.ValidateSeries(series);
+                if (!errors.Any())
+                {
+                    _seriesService.Add(series);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
 
             return View(series);
@@ -85,9 +91,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _seriesService.Update(series);
+                var errors = _seriesService.ValidateSeries(series);
+                if (!errors.Any())
+                {
+                    _seriesService.Update(series);
 
-                return RedirectToAction("Manage");
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(series);
         }

@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PRO.Entities;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Toolbelt.ComponentModel.DataAnnotations;
 
 namespace PRO.Persistance.Data
@@ -66,7 +69,23 @@ namespace PRO.Persistance.Data
                     x => x.HasOne(x => x.Game)
                    .WithMany().HasForeignKey(x => x.GameId));
         }
+        public override int SaveChanges()
+        {
+            var changedEntities = ChangeTracker
+                .Entries()
+                .Where(_ => _.State == EntityState.Added ||
+                            _.State == EntityState.Modified);
 
+            var errors = new List<ValidationResult>(); // all errors are here
+            foreach (var e in changedEntities)
+            {
+                var vc = new ValidationContext(e.Entity, null, null);
+                Validator.TryValidateObject(
+                    e.Entity, vc, errors, validateAllProperties: true);
+            }
+
+            return base.SaveChanges();
+        }
     }
 
 

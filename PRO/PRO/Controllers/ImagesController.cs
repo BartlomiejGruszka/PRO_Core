@@ -72,10 +72,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                var errors = _imageService.ValidateImage(image);
+                if (!errors.Any()) {
+                    _imageService.Add(image);
 
-                _imageService.Add(image);
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
 
-                return RedirectToAction("Manage");
             }
             ViewBag.ImageTypes = _imageTypeService.GetAll();
 
@@ -117,9 +121,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _imageService.Update(image);
+                var errors = _imageService.ValidateImage(image);
+                if (!errors.Any())
+                {
+                    _imageService.Update(image);
 
-                return RedirectToAction("Manage");
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View(image);
@@ -133,8 +142,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-            
-                _imageService.RenameImage(image);
+                var errors = _imageService.ValidateImage(image);
+                if (!errors.Any())
+                {
+                    _imageService.RenameImage(image);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
                 return RedirectToAction("Manage");
             }
            

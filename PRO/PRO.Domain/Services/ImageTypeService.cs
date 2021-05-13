@@ -1,11 +1,9 @@
 ﻿using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
-using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Hosting;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -44,6 +42,20 @@ namespace PRO.Domain.Services
         {
             _repository.Update(imageType);
             _repository.Save();
+        }
+
+        public ModelStateDictionary ValidateImageType(ImageType imageType)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (imageType == null) return errors;
+
+            var imageTypes = _repository.GetAll().Where(i => i.Name == imageType.Name && i.Id != imageType.Id);
+
+            if (imageTypes.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już rodzaj obrazu o takiej nazwie.");
+            }
+            return errors;
         }
     }
 }

@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace PRO.Domain.Services
 {
@@ -105,6 +107,19 @@ namespace PRO.Domain.Services
             }
         }
 
+        public ModelStateDictionary ValidateImage(Image image)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (image == null) return errors;
+            
+            var images = _imageRepository.GetAll().Where(i => i.Name == image.Name && i.Id != image.Id);
+
+            if(images.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już obraz o takiej nazwie.");
+            }
+            return errors;
+        }
         public void RenameImage(Image image)
         {
             _imageRepository.UpdateName(image);

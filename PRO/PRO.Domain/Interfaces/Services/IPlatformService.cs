@@ -1,8 +1,6 @@
-﻿using PRO.Entities;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PRO.Domain.Interfaces.Services
 {
@@ -14,5 +12,6 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Platform tag);
 
         public void Update(Platform tag);
+        public ModelStateDictionary ValidatePlatform(Platform platform);
     }
 }

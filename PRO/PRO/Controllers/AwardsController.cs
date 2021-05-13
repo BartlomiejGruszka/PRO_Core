@@ -57,8 +57,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _awardService.Add(award);      
-                return RedirectToAction("Manage");
+                var errors = _awardService.ValidateAward(award);
+                if (!errors.Any())
+                {
+                    _awardService.Add(award);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
 
             ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title", award.GameId);
@@ -85,8 +91,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _awardService.Update(award);
-                return RedirectToAction("Manage");
+                var errors = _awardService.ValidateAward(award);
+                if (!errors.Any())
+                {
+                    _awardService.Update(award);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title", award.GameId); ;
             return View(award);

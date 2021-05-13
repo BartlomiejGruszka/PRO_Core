@@ -56,8 +56,15 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _imageTypeService.Add(ImageType);
-                return RedirectToAction("Manage");
+                var errors = _imageTypeService.ValidateImageType(ImageType);
+                if (!errors.Any())
+                {
+                    _imageTypeService.Add(ImageType);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
+               
             }
 
             return View(ImageType);
@@ -82,8 +89,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _imageTypeService.Update(imageType);
-                return RedirectToAction("Manage");
+                var errors = _imageTypeService.ValidateImageType(imageType);
+                if (!errors.Any())
+                {
+                    _imageTypeService.Update(imageType);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(imageType);
         }

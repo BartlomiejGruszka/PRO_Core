@@ -1,7 +1,9 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -53,6 +55,20 @@ namespace PRO.Domain.Services
         {
             _repository.Update(series);
             _repository.Save();
+        }
+
+        public ModelStateDictionary ValidateSeries(Series series)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (series == null) return errors;
+
+            var serieslist = _repository.GetAll().Where(i => i.Name == series.Name && i.Id != series.Id);
+
+            if (serieslist.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już seria o takiej nazwie.");
+            }
+            return errors;
         }
     }
 }

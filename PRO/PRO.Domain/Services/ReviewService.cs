@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
@@ -87,6 +88,20 @@ namespace PRO.Domain.Services
         {
             var reviews = GetGameReviews(gameid);
             return ReviewPlaytimeList(reviews);
+        }
+
+        public ModelStateDictionary ValidateReview(Review review)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (review == null) return errors;
+
+            var platforms = _reviewRepository.GetAll().Where(i => i.GameId == review.GameId && i.UserId == review.UserId && i.Id != review.Id);
+
+            if (platforms.Any())
+            {
+                errors.TryAddModelError("GameId", "Napisałeś już recenzję dla tej gry.");
+            }
+            return errors;
         }
     }
 }

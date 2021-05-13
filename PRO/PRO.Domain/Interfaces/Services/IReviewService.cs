@@ -1,4 +1,5 @@
-﻿using PRO.Entities;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,6 @@ namespace PRO.Domain.Interfaces.Services
         public List<Tuple<Review, int?>> ReviewPlaytimeList(List<Review> reviews);
         public List<Tuple<Review, int?>> UserPlaytimeList(int userid);
         public List<Tuple<Review, int?>> GamePlaytimeList(int gameid);
+        public ModelStateDictionary ValidateReview(Review review);
     }
 }

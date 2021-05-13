@@ -1,4 +1,5 @@
-﻿using PRO.Entities;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Entities;
 
 using System.Collections.Generic;
 
@@ -13,5 +14,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(ArticleType articleType);
 
         public void Update(ArticleType articleType);
+
+        public ModelStateDictionary ValidateArticleType(ArticleType articleType);
     }
 }

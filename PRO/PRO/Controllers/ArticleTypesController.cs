@@ -55,9 +55,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _articleTypeService.Add(articleType);
+                var errors = _articleTypeService.ValidateArticleType(articleType);
+                if (!errors.Any())
+                {
+                    _articleTypeService.Add(articleType);
 
-                return RedirectToAction("Manage");
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(articleType);
         }
@@ -80,8 +85,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _articleTypeService.Update(articleType);
-                return RedirectToAction("Manage");
+                var errors = _articleTypeService.ValidateArticleType(articleType);
+                if (!errors.Any())
+                {
+                    _articleTypeService.Update(articleType);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(articleType);
         }

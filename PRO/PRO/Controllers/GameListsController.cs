@@ -89,8 +89,14 @@ namespace PRO.Controllers
 
             if (ModelState.IsValid)
             {
-                _gameListService.Add(gameList);
-                return RedirectToAction("Manage");
+                var errors = _gameListService. ValidateGameList(gameList);
+                if (!errors.Any())
+                {
+                    _gameListService.Add(gameList);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             ViewBag.userList = _userService.GetAll().Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
             ViewBag.Games = _gameService.GetAllActive();
@@ -121,8 +127,14 @@ namespace PRO.Controllers
 
             if (ModelState.IsValid)
             {
-                _gameListService.Update(gameList);
-                return RedirectToAction("Manage");
+                var errors = _gameListService.ValidateGameList(gameList);
+                if (!errors.Any())
+                {
+                    _gameListService.Update(gameList);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             var gameListUser = _gameListService.Find(gameList.Id);
             gameList.UserList = gameListUser.UserList;

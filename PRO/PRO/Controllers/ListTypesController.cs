@@ -54,8 +54,15 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _listTypeService.Add(listType);
-                return RedirectToAction("Manage");
+                var errors = _listTypeService.ValidateListType(listType);
+                if (!errors.Any())
+                {
+                    _listTypeService.Add(listType);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
+               
             }
 
             return View(listType);
@@ -82,8 +89,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _listTypeService.Update(listType);
-                return RedirectToAction("Manage");
+                var errors = _listTypeService.ValidateListType(listType);
+                if (!errors.Any())
+                {
+                    _listTypeService.Update(listType);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(listType);
         }

@@ -53,8 +53,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _statusService.Add(status);
-                return RedirectToAction("Manage");
+                var errors = _statusService.ValidateStatus(status);
+                if (!errors.Any())
+                {
+                    _statusService.Add(status);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
 
             return View(status);
@@ -80,8 +86,14 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _statusService.Update(status);
-                return RedirectToAction("Manage");
+                var errors = _statusService.ValidateStatus(status);
+                if (!errors.Any())
+                {
+                    _statusService.Update(status);
+
+                    return RedirectToAction("Manage");
+                }
+                ModelState.Merge(errors);
             }
             return View(status);
         }

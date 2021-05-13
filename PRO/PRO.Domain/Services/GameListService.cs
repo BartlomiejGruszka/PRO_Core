@@ -1,4 +1,5 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -108,6 +109,26 @@ namespace PRO.Domain.Services
         {
             _gameListRepository.Update(gameList);
             _gameListRepository.Save();
+        }
+
+        public ModelStateDictionary ValidateGameList(GameList gameList)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (gameList == null) return errors;
+
+            var gameLists = _gameListRepository
+                .GetAll()
+                .Where(
+                    i => i.UserListId == gameList.UserListId &&
+                    i.GameId == gameList.GameId &&
+                    i.Id != gameList.Id);
+
+            if (gameLists.Any())
+            {
+                errors.TryAddModelError("GameId", "Wybrana gra znajduje się już na wskazanej liście.");
+                errors.TryAddModelError("UserListId", "Wybrana gra znajduje się już na wskazanej liście.");
+            }
+            return errors;
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -40,6 +42,19 @@ namespace PRO.Domain.Services
         {
             _repository.Update(status);
             _repository.Save();
+        }
+        public ModelStateDictionary ValidateStatus(Status status)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (status == null) return errors;
+
+            var statuses = _repository.GetAll().Where(i => i.Name == status.Name && i.Id != status.Id);
+
+            if (statuses.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już status o takiej nazwie.");
+            }
+            return errors;
         }
     }
 }

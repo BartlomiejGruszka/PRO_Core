@@ -1,7 +1,9 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -40,6 +42,20 @@ namespace PRO.Domain.Services
         {
             _repository.Update(platform);
             _repository.Save();
+        }
+
+        public ModelStateDictionary ValidatePlatform(Platform platform)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (platform == null) return errors;
+
+            var platforms = _repository.GetAll().Where(i => i.Name == platform.Name && i.Id != platform.Id);
+
+            if (platforms.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już platforma o takiej nazwie.");
+            }
+            return errors;
         }
     }
 }

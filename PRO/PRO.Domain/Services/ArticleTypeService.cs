@@ -1,7 +1,9 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -40,6 +42,20 @@ namespace PRO.Domain.Services
         {
             _repository.Update(imageType);
             _repository.Save();
+        }
+
+        public ModelStateDictionary ValidateArticleType(ArticleType articleType)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (articleType == null) return errors;
+
+            var articleTypes = _repository.GetAll().Where(i => i.Name == articleType.Name && i.Id != articleType.Id);
+
+            if (articleTypes.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już rodzaj artykułu o takiej nazwie.");
+            }
+            return errors;
         }
     }
 }

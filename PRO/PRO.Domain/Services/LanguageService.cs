@@ -1,7 +1,9 @@
-﻿using PRO.Domain.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Services
 {
@@ -39,6 +41,20 @@ namespace PRO.Domain.Services
         {
             _repository.Update(language);
             _repository.Save();
+        }
+
+        public ModelStateDictionary ValidateLanguage(Language language)
+        {
+            ModelStateDictionary errors = new ModelStateDictionary();
+            if (language == null) return errors;
+
+            var languages = _repository.GetAll().Where(i => i.Name == language.Name && i.Id != language.Id);
+
+            if (languages.Any())
+            {
+                errors.TryAddModelError("Name", "Istnieje już taki język.");
+            }
+            return errors;
         }
     }
 }
