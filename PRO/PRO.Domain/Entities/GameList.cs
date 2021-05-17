@@ -25,7 +25,7 @@ namespace PRO.Entities
         [Required, DisplayName("Rozegrane godziny"), Range(0,99999)]
         public int? HoursPlayed { get; set; }
 
-        [DisplayName("Własna ocena")]//PersonalScoreRange
+        [DisplayName("Własna ocena")]
         public int? PersonalScore { get; set; }
 
         [Required, DisplayName("Lista użytkownika")]

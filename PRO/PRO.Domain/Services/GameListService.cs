@@ -121,13 +121,28 @@ namespace PRO.Domain.Services
                 .Where(
                     i => i.UserListId == gameList.UserListId &&
                     i.GameId == gameList.GameId &&
-                    i.Id != gameList.Id);
+                    i.Id != gameList.Id)
+                .ToList();
 
             if (gameLists.Any())
             {
                 errors.TryAddModelError("GameId", "Wybrana gra znajduje się już na wskazanej liście.");
                 errors.TryAddModelError("UserListId", "Wybrana gra znajduje się już na wskazanej liście.");
             }
+
+            if (gameList.PersonalScore <= 0 || gameList.PersonalScore > 10)
+            {
+                errors.TryAddModelError("PersonalScore", "Ocena musi być pusta lub z zakresu 1-10.");
+            }
+            if (gameList.PersonalScore <= 0 || gameList.PersonalScore > 99999)
+            {
+                errors.TryAddModelError("HoursPlayed", "Liczba godzin musi być pusta lub z zakresu 1-99999.");
+            }
+            if (gameList.UserListId <= 0)
+            {
+                errors.TryAddModelError("UserListId", "Wybierz listę.");
+            }
+
             return errors;
         }
     }

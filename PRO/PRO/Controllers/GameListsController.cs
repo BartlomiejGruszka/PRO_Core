@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PRO.Domain.Extensions;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -81,7 +82,7 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add([Bind("Id,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
         {
-            if (gameList.UserListId <=0)
+            if (gameList.UserListId <= 0)
             {
                 ModelState.AddModelError("UserListId", "Wybierz listę użytkownika");
             }
@@ -89,7 +90,7 @@ namespace PRO.Controllers
 
             if (ModelState.IsValid)
             {
-                var errors = _gameListService. ValidateGameList(gameList);
+                var errors = _gameListService.ValidateGameList(gameList);
                 if (!errors.Any())
                 {
                     _gameListService.Add(gameList);
@@ -102,6 +103,30 @@ namespace PRO.Controllers
             ViewBag.Games = _gameService.GetAllActive();
 
             return View(gameList);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddGameToList(GameList model)
+        {
+            model = _gameListService.AddOrUpdateDates(model);
+            var previouspage = HttpContext.Request.Headers["Referer"];
+            TempData.Put("gameList", model);
+
+            if (ModelState.IsValid)
+            {
+                var errors = _gameListService.ValidateGameList(model);
+                var userid = _userService.GetLoggedInUserId();
+                var userlist = _userListService.Find(model.UserListId);
+                if (userid != userlist.UserId) { return NotFound(); }
+                if (!errors.Any())
+                {
+                    _gameListService.AddOrUpdate(model);
+                }
+
+            }
+            if (string.IsNullOrEmpty(previouspage)) { return RedirectToAction("Details", "Games", new { id = model.GameId }); }
+            return Redirect(previouspage);
         }
 
         // GET: GameLists/Edit/5
@@ -138,7 +163,7 @@ namespace PRO.Controllers
             }
             var gameListUser = _gameListService.Find(gameList.Id);
             gameList.UserList = gameListUser.UserList;
-            var userLists = _userListService.GetAll().Where(u=>u.UserId == gameListUser.UserList.UserId).ToList();
+            var userLists = _userListService.GetAll().Where(u => u.UserId == gameListUser.UserList.UserId).ToList();
 
             ViewBag.userLists = userLists;
             ViewBag.Games = _gameService.GetAllActive();

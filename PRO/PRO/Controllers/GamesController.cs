@@ -102,7 +102,7 @@ namespace PRO.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+       /* [Authorize]
         [HttpPost]//model errors not showing
         public ActionResult AddGameToList(int id, [Bind("Id,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
         {
@@ -114,9 +114,10 @@ namespace PRO.Controllers
             {
                 _gameListService.AddOrUpdate(gameList);
             }
+            TempData.Put("modelstate", ModelState); //testing how to pass data validation 
             if (string.IsNullOrEmpty(previouspage)) { return RedirectToAction("Details", new { id=id}); }
             return Redirect(previouspage);
-        }
+        }*/
 
         private GameDetailsViewModel SetupDetailsPage(int id, GameList gamelist)
         {
