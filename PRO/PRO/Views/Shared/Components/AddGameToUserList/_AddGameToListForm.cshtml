@@ -5,7 +5,6 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.AddedDate, new { Value = Model.AddedDate })
-
     <input data-val="true" data-val-required="The Int32 field is required." id="GameId" name="GameId" type="hidden" value="@ViewBag.GameId">
     <input data-val="true" data-val-required="The Int32 field is required." id="Id" name="Id" type="hidden" value="@ViewBag.Id">
 
@@ -16,7 +15,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.HoursPlayed, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: contents " })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HoursPlayed, new { htmlAttributes = new { @class = "form-control", @min = "0", @max = "99999" } })
+                @Html.EditorFor(model => model.HoursPlayed, new { htmlAttributes = new { @class = "form-control", @min = "0", @max = "99999" ,@Value = "0"} })
                 @Html.ValidationMessageFor(model => model.HoursPlayed, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -31,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserListId, "Lista użytkownika", htmlAttributes: new { @class = "control-label col-md-2", @style = "display: contents " })
             <div class="col-md-10">
-                @Html.DropDownList("UserListId", new SelectList(ViewBag.userLists, "Id", "Name"), "Wybierz listę", htmlAttributes: new { @class = "form-control", @value = 0 })
+                @Html.DropDownListFor(model=>model.UserListId,new SelectList(ViewBag.UserListId, "Id", "Name"), "Wybierz listę", htmlAttributes: new { @class = "form-control"})
                 @Html.ValidationMessageFor(model => model.UserListId, "", new { @class = "text-danger" })
             </div>
         </div>

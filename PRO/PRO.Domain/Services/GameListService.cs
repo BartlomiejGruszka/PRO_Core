@@ -121,7 +121,10 @@ namespace PRO.Domain.Services
                 .Where(
                     i => i.UserListId == gameList.UserListId &&
                     i.GameId == gameList.GameId &&
-                    i.Id != gameList.Id)
+                    (
+                    i.Id != gameList.Id ||
+                    gameList.Id == 0
+                    ))
                 .ToList();
 
             if (gameLists.Any())
@@ -134,11 +137,11 @@ namespace PRO.Domain.Services
             {
                 errors.TryAddModelError("PersonalScore", "Ocena musi być pusta lub z zakresu 1-10.");
             }
-            if (gameList.PersonalScore <= 0 || gameList.PersonalScore > 99999)
+            if (gameList.HoursPlayed < 0 || gameList.HoursPlayed > 99999)
             {
-                errors.TryAddModelError("HoursPlayed", "Liczba godzin musi być pusta lub z zakresu 1-99999.");
+                errors.TryAddModelError("HoursPlayed", "Liczba godzin musi być z zakresu 0-99999.");
             }
-            if (gameList.UserListId <= 0)
+            if (gameList.UserListId <= 0 || gameList.UserListId == null)
             {
                 errors.TryAddModelError("UserListId", "Wybierz listę.");
             }

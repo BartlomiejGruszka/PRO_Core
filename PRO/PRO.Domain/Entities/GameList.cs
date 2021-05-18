@@ -23,14 +23,14 @@ namespace PRO.Entities
         public DateTime? EditedDate { get; set; }
 
         [Required, DisplayName("Rozegrane godziny"), Range(0,99999)]
-        public int? HoursPlayed { get; set; }
+        public int HoursPlayed { get; set; }
 
         [DisplayName("Własna ocena")]
         public int? PersonalScore { get; set; }
 
         [Required, DisplayName("Lista użytkownika")]
         [IndexColumn("UniqueGameList_IX", 1, IsUnique = true)]//add custom is unique constraint UniqueGameAndUserList
-        public int UserListId { get; set; }
+        public int? UserListId { get; set; }
 
         [ForeignKey("UserListId"), DisplayName("Lista użytkownika")]
         public UserList UserList{ get; set; }

@@ -116,12 +116,14 @@ namespace PRO.Controllers
             if (ModelState.IsValid)
             {
                 var errors = _gameListService.ValidateGameList(model);
+
                 var userid = _userService.GetLoggedInUserId();
                 var userlist = _userListService.Find(model.UserListId);
                 if (userid != userlist.UserId) { return NotFound(); }
                 if (!errors.Any())
                 {
                     _gameListService.AddOrUpdate(model);
+                    TempData.Add("GameListId", model.Id);
                 }
 
             }
