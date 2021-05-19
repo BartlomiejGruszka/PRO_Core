@@ -32,7 +32,7 @@ namespace PRO.Entities
 
         public int? ImageId { get; set; }
 
-        [ForeignKey("ImageId")]
+        [ForeignKey("ImageId"), DisplayName("Obraz")]
         public Image Image { get; set; }
 
         [Required(ErrorMessage = "Pole \"Gra\" jest wymagane."), DisplayName("Gra")]

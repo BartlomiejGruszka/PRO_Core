@@ -23,6 +23,8 @@ namespace PRO.UI.ViewModels
         [Compare("Password", ErrorMessage = "Hasła nie są takie same.")]
         public string ConfirmPassword { get; set; }
 
+        public IEnumerable<ImageType> ImageTypes { get; set; }
+        public int? SelectedImageTypeId { get; set; }
         public List<Image> Images { get; set; }
     }
 }

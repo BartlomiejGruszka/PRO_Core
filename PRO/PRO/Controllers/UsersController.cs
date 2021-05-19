@@ -17,6 +17,7 @@ namespace PRO.Controllers
         private readonly IUserService _userService;
         private readonly IReviewService _reviewService;
         private readonly IImageService _imageService;
+        private readonly IImageTypeService _imageTypeService;
         private readonly IUserListService _userListService;
         private readonly IGameListService _gameListService;
         private readonly IListTypeService _listTypeService;
@@ -28,7 +29,8 @@ namespace PRO.Controllers
             IImageService imageService,
             IUserListService userListService,
             IGameListService gameListService,
-            IListTypeService listTypeService
+            IListTypeService listTypeService,
+            IImageTypeService imageTypeService
             )
 
         {
@@ -38,6 +40,7 @@ namespace PRO.Controllers
             _userListService = userListService;
             _gameListService = gameListService;
             _listTypeService = listTypeService;
+            _imageTypeService = imageTypeService;
         }
 
         [Authorize]
@@ -109,7 +112,8 @@ namespace PRO.Controllers
         {
             NewUserViewModel viewModel = new NewUserViewModel
             {
-                Images = _imageService.GetAll().ToList()
+                Images = _imageService.GetAll().ToList(),
+                ImageTypes = _imageTypeService.GetAll()
             };
             return View(viewModel);
         }
@@ -130,6 +134,7 @@ namespace PRO.Controllers
                 AddErrors(result);
             }
             model.Images = _imageService.GetAll().ToList();
+            model.ImageTypes = _imageTypeService.GetAll();
             return View(model);
         }
 
@@ -147,7 +152,8 @@ namespace PRO.Controllers
             EditUserViewModel viewModel = new EditUserViewModel
             {
                 AppUser = user,
-                Images = _imageService.GetAll().ToList()
+                Images = _imageService.GetAll().ToList(),
+                ImageTypes = _imageTypeService.GetAll()
             };
 
 
@@ -171,6 +177,7 @@ namespace PRO.Controllers
 
             }
             model.Images = _imageService.GetAll().ToList();
+            model.ImageTypes = _imageTypeService.GetAll();
             return View(model);
         }
 

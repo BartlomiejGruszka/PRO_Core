@@ -91,8 +91,8 @@
         </div>
     </div>
 }
-
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/jquery/jquery-ui.min.js"></script>
 <script language="javascript" type="text/javascript">
     function GetImagesByType(_stateId) {
         var procemessage = "<option value='0'> Please wait...</option>";
@@ -112,7 +112,7 @@
                 }
 
                 for (var x = 0; x < data.length; x++) {
-                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    markup += "<option value=" + data[x].value + ">" + data[x].text + "</option>";
                 }
                 $("#ImageId").html(markup).show();
             },

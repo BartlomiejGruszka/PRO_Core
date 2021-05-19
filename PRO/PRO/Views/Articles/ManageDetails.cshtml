@@ -61,19 +61,23 @@
             @Html.DisplayFor(model => model.PublishedDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Image.Name)
+            @Html.DisplayNameFor(model => model.ImageId)
         </dt>
 
         <dd>
-            @if (Model.Image != null)
-            {
-                <div style="text-align: left;">
-                    <a>
-                        <img style="max-width:500px;width: expression(this.width > 500 ? 500: true);" class=" lazyloaded" src="@Url.Content(Model.Image.ImagePath)">
-                    </a>
 
-                </div>
+            @{if (Model.Image != null)
+                {
+
+                    <div style="text-align: left;">
+                        <img style="max-height:200px;max-width:100px;width: expression(this.width > 100 ? 100: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
+                    </div>
+                }
+                else
+                { <p>Brak obrazu</p>}
             }
+
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Preview)

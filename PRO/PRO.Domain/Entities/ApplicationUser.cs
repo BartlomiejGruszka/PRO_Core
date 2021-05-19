@@ -29,7 +29,7 @@ namespace PRO.Entities
         [DisplayName("Obraz profilu")]
         public int? ImageId { get; set; }
 
-        [/*ForeignKey("ImageId"),*/ DisplayName("Obraz profilu")]
+        [DisplayName("Obraz profilu")]
         public Image Image { get; set; }
 
         public ICollection<UserList> UserLists { get; set; }

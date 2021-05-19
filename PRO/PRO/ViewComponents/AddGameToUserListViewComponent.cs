@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using PRO.Domain.Extensions;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
-
 using System.Linq;
-using System.Web.Http.ModelBinding;
 
 namespace PRO.UI.ViewComponents
 {
@@ -54,7 +51,6 @@ namespace PRO.UI.ViewComponents
             if (gameList == null) { gameList = new GameList(); }
 
             ViewBag.UserListId = userLists;
-            //= new SelectList(userLists, "Id", "Name");
             ViewBag.GameId = gameid;
             ViewBag.Id = gameList.Id;
 
