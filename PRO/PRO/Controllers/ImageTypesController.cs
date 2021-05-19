@@ -52,7 +52,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("ImageTypes/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Id,Name")] ImageType ImageType)
+        public ActionResult Add(ImageType ImageType)
         {
             if (ModelState.IsValid)
             {

@@ -1,5 +1,5 @@
 ﻿@model PRO.Entities.ImageType
-
+@using PRO.Entities
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,7 +23,15 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" asp-for="Type" asp-items="Html.GetEnumSelectList<ImageTypes>()">
+                    <option selected="selected" value="">Wybierz typ</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Zapisz" class="btn btn-primary" />

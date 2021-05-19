@@ -20,7 +20,7 @@ namespace PRO.Entities
         public ICollection<Image> Images { get; set; }
 
         [Required, DisplayName("Typ")]
-        [Column(TypeName = "nvarchar(24)")]
+        [EnumDataType(typeof(ImageTypes))]
         public ImageTypes Type { get; set; }
     }
 }

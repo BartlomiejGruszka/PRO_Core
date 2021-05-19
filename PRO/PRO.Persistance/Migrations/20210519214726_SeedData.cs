@@ -24,9 +24,9 @@ namespace PRO.Persistance.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "4722af99-712d-4362-ab48-66647e97e5d5", "Admin", "ADMIN" },
-                    { 2, "552ceef6-37b0-4807-b8c3-2ea20b64cba5", "Author", "AUTHOR" },
-                    { 3, "c2ceb00d-275f-4a1b-b902-b3238ff60702", "Moderator", "MODERATOR" }
+                    { 1, "5a4d59bf-9d5a-480a-8afd-dbcbb861f722", "Admin", "ADMIN" },
+                    { 2, "9316336e-1ae0-43ee-ad93-8abf4b47b02d", "Author", "AUTHOR" },
+                    { 3, "f4c0db18-8d29-46dc-99ad-5a78424b8386", "Moderator", "MODERATOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -75,9 +75,9 @@ namespace PRO.Persistance.Migrations
                 columns: new[] { "Id", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Gra", "Game" },
-                    { 2, "Artykuł", "Article" },
-                    { 3, "Użytkownik", "User" }
+                    { 1, "Gra", 1 },
+                    { 2, "Artykuł", 0 },
+                    { 3, "Użytkownik", 2 }
                 });
 
             migrationBuilder.InsertData(

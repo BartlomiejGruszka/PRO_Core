@@ -51,21 +51,21 @@ namespace PRO.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "4722af99-712d-4362-ab48-66647e97e5d5",
+                            ConcurrencyStamp = "5a4d59bf-9d5a-480a-8afd-dbcbb861f722",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "552ceef6-37b0-4807-b8c3-2ea20b64cba5",
+                            ConcurrencyStamp = "9316336e-1ae0-43ee-ad93-8abf4b47b02d",
                             Name = "Author",
                             NormalizedName = "AUTHOR"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "c2ceb00d-275f-4a1b-b902-b3238ff60702",
+                            ConcurrencyStamp = "f4c0db18-8d29-46dc-99ad-5a78424b8386",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -2137,9 +2137,8 @@ namespace PRO.Persistance.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(24)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -2154,19 +2153,19 @@ namespace PRO.Persistance.Migrations
                         {
                             Id = 1,
                             Name = "Gra",
-                            Type = "Game"
+                            Type = 1
                         },
                         new
                         {
                             Id = 2,
                             Name = "Artykuł",
-                            Type = "Article"
+                            Type = 0
                         },
                         new
                         {
                             Id = 3,
                             Name = "Użytkownik",
-                            Type = "User"
+                            Type = 2
                         });
                 });
 
