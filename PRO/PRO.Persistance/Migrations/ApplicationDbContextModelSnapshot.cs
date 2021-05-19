@@ -51,21 +51,21 @@ namespace PRO.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "ce75c262-9010-4ad4-a0a8-2c74806bf8fe",
+                            ConcurrencyStamp = "4722af99-712d-4362-ab48-66647e97e5d5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "f39e0b87-0235-4f1a-9e6e-a7dff96d5aea",
+                            ConcurrencyStamp = "552ceef6-37b0-4807-b8c3-2ea20b64cba5",
                             Name = "Author",
                             NormalizedName = "AUTHOR"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "6b4c2f5c-c04b-4b6a-a8a3-10580f530bbf",
+                            ConcurrencyStamp = "c2ceb00d-275f-4a1b-b902-b3238ff60702",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -1384,14 +1384,14 @@ namespace PRO.Persistance.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HoursPlayed")
-                        .IsRequired()
+                    b.Property<int>("HoursPlayed")
                         .HasColumnType("int");
 
                     b.Property<int?>("PersonalScore")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserListId")
+                    b.Property<int?>("UserListId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -2137,6 +2137,10 @@ namespace PRO.Persistance.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(24)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
@@ -2149,17 +2153,20 @@ namespace PRO.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Gra"
+                            Name = "Gra",
+                            Type = "Game"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Artykuł"
+                            Name = "Artykuł",
+                            Type = "Article"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Użytkownik"
+                            Name = "Użytkownik",
+                            Type = "User"
                         });
                 });
 

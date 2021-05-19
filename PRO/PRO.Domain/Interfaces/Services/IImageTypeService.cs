@@ -13,6 +13,7 @@ namespace PRO.Domain.Interfaces.Services
         public ImageType Find(int? id);
         public void Add(ImageType imageType);
         public void Delete(ImageType imageType);
+        public IEnumerable<ImageType> GetByType(ImageTypes type);
 
         public void Update(ImageType imageType);
         public ModelStateDictionary ValidateImageType(ImageType imageType);

@@ -228,12 +228,11 @@ namespace PRO.Controllers
             var article = _articleService.Find(id);
             var viewModel = new ArticleViewModel
             {
-                Images = _imageService.GetAll(),
                 ArticleTypes = _articleTypeService.GetAll(),
                 Games = _gameService.GetAll(),
                 Authors = _authorService.GetAll(),
                 Article = article,
-                ImageTypes = _imageTypeService.GetAll()
+                ImageTypes = _imageTypeService.GetByType(ImageTypes.Article)
 
             };
             return viewModel;

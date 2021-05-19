@@ -91,7 +91,7 @@ namespace PRO.Domain.Services
             RemoveImageFile(image);
         }
 
-        public IEnumerable<Image> GetImagesByType(int id)
+        public IEnumerable<Image> GetImagesByImageType(int id)
         {
             return _imageRepository.Get(i => i.ImageTypeId == id);
         }
@@ -124,6 +124,11 @@ namespace PRO.Domain.Services
         {
             _imageRepository.UpdateName(image);
             _imageRepository.Save();
+        }
+
+        public IEnumerable<Image> GetImagesByEnumType(ImageTypes type)
+        {
+            return _imageRepository.GetAll().Where(i => i.ImageType.Type == type);
         }
     }
 }

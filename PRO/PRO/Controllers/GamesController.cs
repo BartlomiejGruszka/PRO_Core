@@ -102,23 +102,6 @@ namespace PRO.Controllers
             return View(viewModel);
         }
 
-       /* [Authorize]
-        [HttpPost]//model errors not showing
-        public ActionResult AddGameToList(int id, [Bind("Id,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
-        {
-            gameList = _gameListService.AddOrUpdateDates(gameList);
-            var previouspage = HttpContext.Request.Headers["Referer"];
-            TempData.Put("gameList", gameList);
-
-            if (ModelState.IsValid)
-            {
-                _gameListService.AddOrUpdate(gameList);
-            }
-            TempData.Put("modelstate", ModelState); //testing how to pass data validation 
-            if (string.IsNullOrEmpty(previouspage)) { return RedirectToAction("Details", new { id=id}); }
-            return Redirect(previouspage);
-        }*/
-
         private GameDetailsViewModel SetupDetailsPage(int id, GameList gamelist)
         {
             //get game
@@ -330,13 +313,12 @@ namespace PRO.Controllers
                 Series = _seriesService.GetAll(),
                 Publishers = _companyService.GetAll(),
                 Developers = _companyService.GetAll(),
-                Images = _imageService.GetAll(),
                 Languages = _languageService.GetAll(),
                 Tags = _tagService.GetAll(),
                 Game = game,
                 selectedLanguagesId = selectedLanguagesId,
                 selectedTagsId = selectedTagsId,
-                ImageTypes = _imageTypeService.GetAll()
+                ImageTypes = _imageTypeService.GetByType(ImageTypes.Game)
             };
             return gameViewModel;
         }

@@ -113,7 +113,7 @@ namespace PRO.Controllers
             NewUserViewModel viewModel = new NewUserViewModel
             {
                 Images = _imageService.GetAll().ToList(),
-                ImageTypes = _imageTypeService.GetAll()
+                ImageTypes = _imageTypeService.GetByType(ImageTypes.User)
             };
             return View(viewModel);
         }
@@ -134,7 +134,7 @@ namespace PRO.Controllers
                 AddErrors(result);
             }
             model.Images = _imageService.GetAll().ToList();
-            model.ImageTypes = _imageTypeService.GetAll();
+            model.ImageTypes = _imageTypeService.GetByType(ImageTypes.User);
             return View(model);
         }
 
@@ -153,7 +153,7 @@ namespace PRO.Controllers
             {
                 AppUser = user,
                 Images = _imageService.GetAll().ToList(),
-                ImageTypes = _imageTypeService.GetAll()
+                ImageTypes = _imageTypeService.GetByType(ImageTypes.User)
             };
 
 

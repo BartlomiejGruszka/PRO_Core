@@ -10,7 +10,7 @@ using PRO.Persistance.Data;
 namespace PRO.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210512100524_Initial")]
+    [Migration("20210519160142_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -489,14 +489,14 @@ namespace PRO.Persistance.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HoursPlayed")
-                        .IsRequired()
+                    b.Property<int>("HoursPlayed")
                         .HasColumnType("int");
 
                     b.Property<int?>("PersonalScore")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserListId")
+                    b.Property<int?>("UserListId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -586,6 +586,10 @@ namespace PRO.Persistance.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(24)");
 
                     b.HasKey("Id");
 

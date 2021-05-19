@@ -300,9 +300,9 @@ namespace PRO.Persistance.Data
         public static void SeedImageTypes(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ImageType>().HasData(
-                new ImageType { Id = 1, Name = "Gra" },
-                new ImageType { Id = 2, Name = "Artykuł" },
-                new ImageType { Id = 3, Name = "Użytkownik" }
+                new ImageType { Id = 1, Name = "Gra", Type = Entities.ImageTypes.Game },
+                new ImageType { Id = 2, Name = "Artykuł", Type = Entities.ImageTypes.Article },
+                new ImageType { Id = 3, Name = "Użytkownik", Type = Entities.ImageTypes.User }
 
                );
         }

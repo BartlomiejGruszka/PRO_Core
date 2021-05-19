@@ -37,6 +37,10 @@ namespace PRO.Domain.Services
         {
             return _repository.GetAll();
         }
+        public IEnumerable<ImageType> GetByType(ImageTypes Type)
+        {
+            return _repository.GetAll().Where(s => s.Type == Type);
+        }
 
         public void Update(ImageType imageType)
         {

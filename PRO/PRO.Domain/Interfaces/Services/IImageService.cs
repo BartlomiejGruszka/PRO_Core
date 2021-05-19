@@ -18,8 +18,8 @@ namespace PRO.Domain.Interfaces.Services
         public void RemoveImageFile(Image image);
         public void RenameImage(Image image);
        // public IEnumerable<ImageType> GetImageTypes();
-        public IEnumerable<Image> GetImagesByType(int id);
-
+        public IEnumerable<Image> GetImagesByImageType(int id);
+        public IEnumerable<Image> GetImagesByEnumType(ImageTypes type);
         public ModelStateDictionary ValidateImage(Image product);
     }
 }

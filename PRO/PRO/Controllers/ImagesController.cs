@@ -185,7 +185,7 @@ namespace PRO.Controllers
         [Route("images/getimagesbytype/{id?}")]
         public ActionResult GetImagesByType(int id)
         {
-            var ImagesByType = _imageService.GetImagesByType(id);
+            var ImagesByType = _imageService.GetImagesByImageType(id);
             SelectList viewLists = new SelectList(ImagesByType, "Id", "Name", 0);
             return Json(viewLists);
         }

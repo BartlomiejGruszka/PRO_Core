@@ -51,7 +51,7 @@ namespace PRO.Persistance.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.BuildIndexesFromAnnotations();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-             modelBuilder.Seed();
+            modelBuilder.Seed();
 
             modelBuilder.Entity<Game>().HasMany(x => x.Tags)
                 .WithMany(x => x.Games)
