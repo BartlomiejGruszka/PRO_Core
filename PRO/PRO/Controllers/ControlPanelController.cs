@@ -14,6 +14,24 @@ namespace PRO.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
+        [Route("panel/admin/games")]
+        public ActionResult Games()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        [Route("panel/admin/articles")]
+        public ActionResult Articles()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        [Route("panel/admin/users")]
+        public ActionResult Users()
+        {
+            return View();
+        }
 
         // GET: panel/moderator
         [Authorize(Roles = "Moderator")]

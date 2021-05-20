@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PRO.Domain.Interfaces.Services;
@@ -261,7 +262,7 @@ namespace PRO.Controllers
         {
             var userdata = _userService.Find(id);
             if (userdata == null)
-            { return RedirectToAction("Details","Users", new { id=id}); }
+            { return RedirectToAction("Details", "Users", new { id = id }); }
 
             int? loggeduserid = _userService.GetLoggedInUserId();
             if (loggeduserid == null) return NotFound();
@@ -270,7 +271,8 @@ namespace PRO.Controllers
             {
                 id = id
             };
-            var edituser = new EditUserViewModel {
+            var edituser = new EditUserViewModel
+            {
                 AppUser = userdata,
                 Images = _imageService.GetAll().ToList()
             };
@@ -340,6 +342,12 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.ProfileImage != null)
+                {
+                    model.AppUser.ImageId = AddUserImage(model.ProfileImage, model.AppUser);
+                }
+                
+
                 var result = await _userService.Update(model.AppUser);
                 if (result.Succeeded)
                 {
@@ -348,6 +356,23 @@ namespace PRO.Controllers
             }
             model.Images = _imageService.GetAll().ToList();
             return View(model);
+        }
+
+        private int? AddUserImage(IFormFile imagefile, ApplicationUser user)
+        {
+            var image = _imageService.CreateUserImage(imagefile, user.UserName);
+            if (TryValidateModel(image))
+            {
+                _imageService.Add(image);
+                var oldimage = _imageService.Find(user.ImageId);
+                if (oldimage != null)
+                {
+                    _imageService.Delete(oldimage);
+                }
+                return image.Id;
+            }
+            return null;
+            
         }
 
         [HttpGet]

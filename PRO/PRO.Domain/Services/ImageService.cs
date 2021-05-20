@@ -7,6 +7,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Http;
 
 namespace PRO.Domain.Services
 {
@@ -64,7 +65,15 @@ namespace PRO.Domain.Services
             _imageRepository.Save();
 
         }
+        public Image CreateUserImage(IFormFile profileImage, string username)
+        {
+            var userimage = new Image();
+            userimage.Name = username+DateTime.Now.Ticks;
+            userimage.ImageTypeId = 2;
+            userimage.ImageFile = profileImage;
 
+            return userimage;
+        }
         public void Update(Image image)
         {
             if (image.ImageFile != null)

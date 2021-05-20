@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PRO.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,6 @@ namespace PRO.Domain.Interfaces.Services
         public IEnumerable<Image> GetImagesByImageType(int id);
         public IEnumerable<Image> GetImagesByEnumType(ImageTypes type);
         public ModelStateDictionary ValidateImage(Image product);
+        public Image CreateUserImage(IFormFile profileImage, string username);
     }
 }

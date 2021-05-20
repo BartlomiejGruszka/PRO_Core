@@ -1,7 +1,7 @@
 ﻿@model PRO.UI.ViewModels.EditUserViewModel
 
 <div class="">
-    @using (Html.BeginForm("EditProfile", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("EditProfile", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         <hr />
@@ -20,6 +20,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label asp-for="ProfileImage" class="control-label col-md-2"></label>
+            <div class="col-md-12">
+                <input asp-for="ProfileImage" type="file" accept="image/*" data-val="true" data-val-required="Plik obrazu jest wymagany" id="customFile">
+            </div>
+            <span asp-validation-for="ProfileImage" class="text-danger"></span>
+        </div>
+        <div class="form-group">
             @Html.LabelFor(model => model.AppUser.IsPublic, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-12">
                 <div class="checkbox">
@@ -32,11 +39,12 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-12">
                 <input type="submit" class="btn btn-primary" value="Zapisz" />
-                <a href="/users/@Model.AppUser.Id" class="btn btn-secondary" >Powrót</a>
+                <a href="/users/@Model.AppUser.Id" class="btn btn-secondary">Powrót</a>
             </div>
         </div>
     }
 </div>
 @section scripts{
+   
     <partial name="_ValidationScriptsPartial" />
 }

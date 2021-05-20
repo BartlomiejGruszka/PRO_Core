@@ -617,3 +617,7 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Home\Contact.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Home\NewIndex.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\Footer\_Footer.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\AddGameToUserList\_AddGameToListForm.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\Articles.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\Games.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\OldAdmin.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\Users.cshtml.g.cs

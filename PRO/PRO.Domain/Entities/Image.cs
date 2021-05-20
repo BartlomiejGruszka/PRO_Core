@@ -17,6 +17,7 @@ namespace PRO.Entities
         [Required(ErrorMessage = "Nazwa obrazu jest wymagana."), MaxLength(100),DisplayName("Nazwa"),MinLength(3)] //add custom is unique constraint UniqueImageName
         public string Name { get; set; }
 
+        [DisplayName("Ścieżka obrazu")]
         public string ImagePath { get; set; }
 
         [NotMapped, DisplayName("Plik obrazu")]
