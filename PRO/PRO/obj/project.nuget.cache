@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "3N3VgJOVsZQIYTAHEsQ/XAgEkHR65VY71v95g4v+DW3GK3LQKposLbuQnqrw78PyVmDElJHXO/4W5y3+nwYTaw==",
+  "dgSpecHash": "26uQmRZA6r3ckq/uYvOcty2R6IjLU8RQcScOGz+GvqBRHdrBv69L2tnWOQXJtPjNbxctptm3zCnmNdDsAzSIAQ==",
   "success": true,
   "projectFilePath": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Eilinn\\.nuget\\packages\\bootstrap\\3.0.0\\bootstrap.3.0.0.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\bootstrap-select\\1.13.18\\bootstrap-select.1.13.18.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\Eilinn\\.nuget\\packages\\jquery\\1.9.1\\jquery.1.9.1.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.4\\microsoft.aspnetcore.cryptography.internal.5.0.4.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.4\\microsoft.aspnetcore.cryptography.keyderivation.5.0.4.nupkg.sha512",
     "C:\\Users\\Eilinn\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\5.0.4\\microsoft.aspnetcore.diagnostics.entityframeworkcore.5.0.4.nupkg.sha512",
