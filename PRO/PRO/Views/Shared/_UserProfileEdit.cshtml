@@ -20,11 +20,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="ProfileImage" class="control-label col-md-2"></label>
+            <label asp-for="ImageFile" class="control-label col-md-2"></label>
             <div class="col-md-12">
-                <input asp-for="ProfileImage" type="file" accept="image/*" data-val="true" data-val-required="Plik obrazu jest wymagany" id="customFile">
+                <input asp-for="ImageFile" type="file" accept="image/*" data-val="true" data-val-required="Plik obrazu jest wymagany" id="customFile">
             </div>
-            <span asp-validation-for="ProfileImage" class="text-danger"></span>
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.AppUser.IsPublic, htmlAttributes: new { @class = "control-label col-md-2" })

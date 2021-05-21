@@ -14,6 +14,6 @@ namespace PRO.UI.ViewModels
         public IEnumerable<ImageType> ImageTypes { get; set; }
         public int? SelectedImageTypeId { get; set; }
         public List<Image> Images { get; set; }
-        public IFormFile ProfileImage { get; set; }
+        public IFormFile ImageFile { get; set; }
     }
 }

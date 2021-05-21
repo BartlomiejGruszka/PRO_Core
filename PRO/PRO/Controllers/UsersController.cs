@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using PRO.UI.ViewModels;
@@ -342,16 +343,19 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.ProfileImage != null)
+                ModelStateDictionary errors = new ModelStateDictionary();
+                if (model.ImageFile != null)
                 {
-                    model.AppUser.ImageId = AddUserImage(model.ProfileImage, model.AppUser);
+                    model.AppUser.ImageId = AddUserImage(model.ImageFile, model.AppUser);
                 }
-                
 
-                var result = await _userService.Update(model.AppUser);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Details", "Users", new { id = model.AppUser.Id });
+                if (ModelState.IsValid)
+               {
+                    var result = await _userService.Update(model.AppUser);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Details", "Users", new { id = model.AppUser.Id });
+                    }
                 }
             }
             model.Images = _imageService.GetAll().ToList();
@@ -372,7 +376,7 @@ namespace PRO.Controllers
                 return image.Id;
             }
             return null;
-            
+
         }
 
         [HttpGet]
