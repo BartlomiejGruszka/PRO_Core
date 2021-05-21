@@ -98,7 +98,8 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Add()
         {
-            ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
+            //ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
+            ViewBag.GameId = _gameService.GetAllActive().ToList();
             return View();
         }
 
@@ -123,7 +124,8 @@ namespace PRO.Controllers
                 }
                 ModelState.Merge(errors);
             }
-            ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
+            // ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
+            ViewBag.GameId = _gameService.GetAllActive().ToList();
             return View(review);
         }
 

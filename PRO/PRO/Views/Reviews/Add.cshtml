@@ -1,5 +1,5 @@
 ﻿@model PRO.Entities.Review
-
+@using PRO.Entities
 @{
     ViewBag.Title = "Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,12 +13,23 @@
 
     <div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
         <div class="form-group">
-            @Html.LabelFor(model => model.GameId, "Recenzowana gra", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="Content"></label>
             <div class="col-md-10">
-                @Html.DropDownList("GameId", null, "Wybierz recenzowaną grę", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Game, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="selectpicker" id="GameId" name="GameId" data-live-search="true" onchange="SetImageId()">
+                    <option value="0">Wybierz grę</option>
+                    @foreach (Game game in ViewBag.GameId)
+                    {
+                        <option value="@game.Id">@game.Title</option>
+                    }
+
+                </select>
                 @Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,7 +73,6 @@
                 @Html.ValidationMessageFor(model => model.GameplayScore, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Dodaj" class="btn btn-primary" />
@@ -73,4 +83,10 @@
 }
 @section scripts{
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function SetImageId() {
+            var id = $('#GameId').find(":selected").Value;
+            console.log(id);
+        }
+    </script>
 }
