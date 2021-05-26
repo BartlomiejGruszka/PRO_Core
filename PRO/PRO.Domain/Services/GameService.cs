@@ -1,4 +1,5 @@
 ﻿using PRO.Domain.Extensions;
+using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
@@ -103,17 +104,25 @@ namespace PRO.Domain.Services
             return _gameRepository.GetAll().Where(a => a.ReleaseDate > DateTime.Now).OrderBy(a => a.ReleaseDate).Take(3);
         }
 
-        public List<Tuple<Game, double?>> GetOrderedGamesRanking(int? number)
+        public List<GameScore> GetOrderedGamesRanking(int? number)
         {
-            var orderedRanking = GetUnorderedGamesRanking().OrderByDescending(o => o.Item2).ThenByDescending(d => d.Item1.ReleaseDate).ToList();
+            var orderedRanking = GetUnorderedGamesRanking().OrderByDescending(o => o.Score).ThenByDescending(d => d.Game.ReleaseDate).ToList();
             if (number.HasValue)
             {
                 return orderedRanking.Take(number.Value).ToList();
             }
             return orderedRanking;
         }
-
-        public List<Tuple<Game, double?>> GetUnorderedGamesRanking()
+        public List<GameScore> GetFilteredGamesRanking(string query)
+        {
+            var filteredgames = FilterGames(query).Select(s => new GameScore { Game = s, Score = null }).ToList() ;
+            var ranking = GetUnorderedGamesRanking();
+            var result = ranking.Select(r => new GameScore{Game=r.Game, Score = r.Score })
+                .Where(g => ranking.Select(f => f.Game.Id).Intersect(filteredgames.Select(fg => fg.Game.Id)).Contains(g.Game.Id)).ToList();
+    
+            return result;
+        }
+        public List<GameScore> GetUnorderedGamesRanking()
         {
             var images = _imageRepository.GetAll();
 
@@ -121,17 +130,14 @@ namespace PRO.Domain.Services
                 .GroupBy(g => g.Game)
                 .AsEnumerable()
                 .Select(g => new { game = g.Key, average = g.Average(p => p.PersonalScore) })
-                .Select(c => new Tuple<Game, double?>(c.game, c.average))
+                .Select(c => new GameScore { Game = c.game,Score = c.average})
                 .ToList();
 
             var games = GetAllActive().Where(g => !g.GameLists.Any()).ToList();
             foreach (Game game in games)
             {
-                ranking.Add(new Tuple<Game, double?>(game, null));
+                ranking.Add(new GameScore { Game = game, Score = null });
             }
-
-
-
             return ranking;
         }
 
@@ -180,14 +186,14 @@ namespace PRO.Domain.Services
         public int? GetGamePosition(int gameid)
         {
             var gamesRankings = GetOrderedGamesRanking(null);
-            int? position = gamesRankings.IndexOf(gamesRankings.Single(g => g.Item1.Id == gameid)) + 1;
+            int? position = gamesRankings.IndexOf(gamesRankings.Single(g => g.Game.Id == gameid)) + 1;
             return position;
         }
 
         public double? GetGameRating(int gameid)
         {
             var gamesRankings = GetOrderedGamesRanking(null);
-            double? rating = gamesRankings.FirstOrDefault(g => g.Item1.Id == gameid).Item2;
+            double? rating = gamesRankings.FirstOrDefault(g => g.Game.Id == gameid).Score;
             if (rating.HasValue)
             {
                 rating = Math.Round(rating.Value, 1);

@@ -22,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Game, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="selectpicker" id="GameId" name="GameId" data-live-search="true" onchange="SetImageId()">
+                <select class="selectpicker" id="GameId" name="GameId" data-live-search="true">
                     <option value="0">Wybierz grę</option>
                     @foreach (Game game in ViewBag.GameId)
                     {
@@ -83,10 +83,4 @@
 }
 @section scripts{
     <partial name="_ValidationScriptsPartial" />
-    <script>
-        function SetImageId() {
-            var id = $('#GameId').find(":selected").Value;
-            console.log(id);
-        }
-    </script>
 }

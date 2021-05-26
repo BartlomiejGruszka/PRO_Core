@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Extensions;
+using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using PRO.UI.ViewModels;
@@ -72,11 +74,11 @@ namespace PRO.Controllers
 
 
             var games = _gameService.GetAllActive().OrderBy(g => g.Title).ToList();
-            var gamescores = _gameService.GetUnorderedGamesRanking().OrderBy(g => g.Item1.Title);
+            var gamescores = _gameService.GetUnorderedGamesRanking().OrderBy(g => g.Game.Title).AsQueryable();
+            var paginatedgamescores = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
             var viewModel = new GameFilterViewModel
             {
-                Games = games,
-                GameScores = gamescores
+                GamesScores = paginatedgamescores
             };
             ViewBag.Pagination = new Pagination(page, items, games.Count());
             return View(viewModel);
@@ -87,10 +89,9 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
 
-            var games = _gameService.GetAll();
+            var games = _gameService.GetAll().AsQueryable();
 
-            ViewBag.Pagination = new Pagination(page, items, games.Count());
-            return View(games);
+            return View(PaginatedList<Game>.Create(games.AsNoTracking(), page, items));
         }
 
         [AllowAnonymous]
@@ -98,42 +99,9 @@ namespace PRO.Controllers
         [Route("games/{id}")]
         public ActionResult Details(int id)
         {
-            var viewModel = SetupDetailsPage(id, null);
+            var viewModel = SetupDetailsPage(id, null, null, null);
             return View(viewModel);
         }
-
-        private GameDetailsViewModel SetupDetailsPage(int id, GameList gamelist)
-        {
-            //get game
-            var game = _gameService.FindActive(id);
-            if (game == null) return null;
-
-            //get reviews and articles for the game, set pagination
-            var reviews = _reviewService.GetGameReviews(game.Id);
-            ViewBag.Pagination = new Pagination(null, null, reviews.Count());
-
-            //get userlists for logged user for quick add to list form
-            var userid = _userService.GetLoggedInUserId();
-            var userLists = _userListService.GetAll().Where(u => u.UserId == userid).ToList();
-
-            var GameGameList = new GameAndGameListFormViewModel
-            {
-                Game = game,
-                GameList = gamelist,
-                UserLists = userLists,
-                Popularity = _gameService.GetGamePopularity(game.Id),
-                Position = _gameService.GetGamePosition(game.Id),
-                Rating = _gameService.GetGameRating(game.Id)
-            };
-            var viewModel = new GameDetailsViewModel
-            {
-                GameGameList = GameGameList,
-                ReviewGametimes = _reviewService.ReviewPlaytimeList(reviews),
-                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
-            };
-            return viewModel;
-        }
-
 
         [Route("games/details/{id}")]
         public ActionResult ManageDetails(int? id)
@@ -237,11 +205,11 @@ namespace PRO.Controllers
 
 
             var games = _gameService.GetAllActive().OrderBy(s => s.Title);
-            var gamesRankings = _gameService.GetOrderedGamesRanking(null);
+            var gamesRankings = _gameService.GetOrderedGamesRanking(null).AsQueryable();
+            var paginatedgamesrankings = PaginatedList<GameScore>.Create(gamesRankings.AsNoTracking(), page, items);
             var viewModel = new GameFilterViewModel
             {
-                Games = games,
-                GameScores = gamesRankings
+                GamesScores = paginatedgamesrankings
             };
             ViewBag.Pagination = new Pagination(page, items, games.Count());
             return View(viewModel);
@@ -253,9 +221,8 @@ namespace PRO.Controllers
         {
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
-            ViewBag.Pagination = new Pagination(page, items, game.Reviews.Count());
 
-            var model = SetupDetailsPage(id, null);
+            var model = SetupDetailsPage(id, null, page, items);
 
             return View(model);
         }
@@ -267,12 +234,16 @@ namespace PRO.Controllers
         {
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
+
             var selectedReview = _reviewService.Find(review);
-            ViewBag.Pagination = new Pagination(page, items, 1);
             List<Review> Reviews = new List<Review>();
             Reviews.Add(selectedReview);
-            var model = SetupDetailsPage(id, null);
-            model.ReviewGametimes = _reviewService.ReviewPlaytimeList(Reviews);
+
+            var model = SetupDetailsPage(id, null, page, items);
+
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(Reviews).AsQueryable();
+            model.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
+
             return View(model);
         }
 
@@ -281,14 +252,12 @@ namespace PRO.Controllers
         [Route("games/search/{query?}")]
         public ActionResult Search(int? page, int? items, string query)
         {
-            var filteredgames = _gameService.FilterGames(query);
+            var filteredgames = _gameService.GetFilteredGamesRanking(query).OrderBy(g => g.Game.Title).AsQueryable();
 
             var viewModel = new GameFilterViewModel
             {
-                Games = filteredgames,
-                GameScores = _gameService.GetUnorderedGamesRanking().OrderBy(g => g.Item1.Title)
+                GamesScores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items)
             };
-            ViewBag.Pagination = new Pagination(page, items, filteredgames.Count());
             return View("Index", viewModel);
         }
 
@@ -323,5 +292,36 @@ namespace PRO.Controllers
             return gameViewModel;
         }
 
+        private GameDetailsViewModel SetupDetailsPage(int id, GameList gamelist, int? page, int? items)
+        {
+            //get game
+            var game = _gameService.FindActive(id);
+            if (game == null) return null;
+
+            //get reviews and articles for the game, set pagination
+            var reviews = _reviewService.GetGameReviews(game.Id);
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
+
+            //get userlists for logged user for quick add to list form
+            var userid = _userService.GetLoggedInUserId();
+            var userLists = _userListService.GetAll().Where(u => u.UserId == userid).ToList();
+
+            var GameGameList = new GameAndGameListFormViewModel
+            {
+                Game = game,
+                GameList = gamelist,
+                UserLists = userLists,
+                Popularity = _gameService.GetGamePopularity(game.Id),
+                Position = _gameService.GetGamePosition(game.Id),
+                Rating = _gameService.GetGameRating(game.Id)
+            };
+            var viewModel = new GameDetailsViewModel
+            {
+                GameGameList = GameGameList,
+                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items),
+                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
+            };
+            return viewModel;
+        }
     }
 }

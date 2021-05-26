@@ -90,15 +90,17 @@
                                             </span>
                                             <div class="underlined_h2">Recenzje</div>
                                         </div>
-                                        @if (Model.ReviewGametimes.Count() == 0)
+                                        @if (Model.ReviewPlaytimes.Count() == 0)
                                         {<p>Obecnie nie ma recenzji dla tej gry</p>}
-                                        @for (int i = 1; i <= 3; i++)
+                                        else
                                         {
-                                            if (Model.ReviewGametimes.Count() >= i)
+                                            foreach (var item in Model.ReviewPlaytimes)
                                             {
-                                                <partial name="~/Views/Shared/_SingleReview.cshtml" , model=" Model.ReviewGametimes.ToList()[i - 1]" />
-                                            }
 
+                                            <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
+
+
+                                            }
                                         }
                                         @{ if (Model.RelevantArticles.Count() > 0)
                                             {

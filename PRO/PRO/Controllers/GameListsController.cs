@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Extensions;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
@@ -41,11 +42,9 @@ namespace PRO.Controllers
         [Route("gamelists/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var gameLists = _gameListService.GetAll();
+            var gameLists = _gameListService.GetAll().AsQueryable();
 
-            ViewBag.Pagination = new Pagination(page, items, gameLists.Count());
-
-            return View(gameLists);
+            return View(PaginatedList<GameList>.Create(gameLists.AsNoTracking(), page, items));
         }
 
         // GET: GameLists/Details/5

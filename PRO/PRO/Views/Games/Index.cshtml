@@ -23,33 +23,27 @@
                 <td class="status">Status</td>
             </tr>
             @{
-                var start = ViewBag.Pagination.pageIteratorStart;
-                var end = ViewBag.Pagination.pageIteratorEnd;
-                var scores = Model.GameScores.ToArray();
-                var games = Model.Games.ToArray();
-                for (var i = start; i <= end; i++)
+                foreach(var item in Model.GamesScores)
                 {
 
-                    var game = games[i];
-                    var score = scores.Where(g => g.Item1.Id == game.Id).SingleOrDefault();
                     <tr class="ranking-list">
                         <td class="title al va-t word-break">
                             <div class="gameListImageGrid">
                                 <div>
-                                    @if (game.Image != null)
+                                    @if (item.Game.Image != null)
                                     {
-                                        <a class="fl-l ml12 mr8" href="/games/@game.Id" style="position: relative;">
-                                            <img width="70" height="90" class=" lazyloaded" border="0" src="/images/@game.Image.ImagePath">
+                                        <a class="fl-l ml12 mr8" href="/games/@item.Game.Id" style="position: relative;">
+                                            <img width="70" height="90" class=" lazyloaded" border="0" src="/images/@item.Game.Image.ImagePath">
                                         </a>
                                     }
                                 </div>
 
                                 <div class="detail">
                                     <div class="di-flex clearfix">
-                                        <a class="" href="/games/@game.Id">@game.Title</a>
+                                        <a class="" href="/games/@item.Game.Id">@item.Game.Title</a>
                                     </div>
                                     <div class="information di-ib mt4" style="overflow:hidden; text-overflow:clip; max-width:500px; min-width:200px;">
-                                        @Html.Raw(@game.Description.Truncate(140))...<a href="/games/@game.Id">więcej</a>
+                                        @Html.Raw(item.Game.Description.Truncate(140))...<a href="/games/@item.Game.Id">więcej</a>
                                     </div>
                                 </div>
                             </div>
@@ -60,9 +54,9 @@
                                 <i class="icon-score-star mr4 on"></i>
                                 <span class="text on score-label score-9">
                                     @{
-                                        if (score.Item2.HasValue && !Double.IsNaN(score.Item2.Value))
+                                        if (item.Score.HasValue && !Double.IsNaN(item.Score.Value))
                                         {
-                                            @Math.Round((double)score.Item2)
+                                            @Math.Round((double)item.Score.Value)
                                         }
                                         else
                                         {
@@ -82,7 +76,7 @@
                             }}
 
                         <td class="status ac">
-                            <i class="fa fa-plus-square-o mr4"></i>@game.Status.Name
+                            <i class="fa fa-plus-square-o mr4"></i>@item.Game.Status.Name
                         </td>
                     </tr>
 
@@ -93,52 +87,7 @@
 
     </table>
 </div>
-
 <div>
-    <ul class="pagination">
-        @{
-            var first = ViewBag.Pagination.firstPage;
-            var current = ViewBag.Pagination.currentPage;
-            var previous = ViewBag.Pagination.previousPage;
-            var items = ViewBag.Pagination.itemsPerPage;
-            var next = ViewBag.Pagination.nextPage;
-            var last = ViewBag.Pagination.lastPage;
-        }
-
-
-
-
-        @{
-            if (@current >= 3)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/games?page=@first&items=@items">«</a>
-                </li>
-            }
-            if (@current >= 2 && @previous != @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/games?page=@previous&items=@items">@previous</a>
-                </li>
-            }
-
-            <li class="page-item active">
-                <a class="page-link" href="/games?page=@current&items=@items">@current</a>
-            </li>
-
-            if (@last > @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/games?page=@next&items=@items">@next</a>
-                </li>
-            }
-
-            if (@last > @current + 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/games?page=@last&items=@items">&raquo;</a>
-                </li>
-            }
-        }
-    </ul>
+    @{Model.GamesScores.Pagination.Route = "games?";}
+    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.GamesScores.Pagination" />
 </div>

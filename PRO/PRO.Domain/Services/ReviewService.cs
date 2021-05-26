@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
@@ -67,24 +68,24 @@ namespace PRO.Domain.Services
             return reviews;
         }
 
-        public List<Tuple<Review, int?>> ReviewPlaytimeList(List<Review> reviews)
+        public List<ReviewPlaytime> ReviewPlaytimeList(List<Review> reviews)
         {
-            var reviewGametimes = new List<Tuple<Review, int?>>();
+            var reviewGametimes = new List<ReviewPlaytime>();
             foreach (var rev in reviews)
             {
                 var playtime = _gameListRepository.GetGameListPlaytime(rev.GameId, rev.UserId);
-                reviewGametimes.Add(new Tuple<Review, int?>(rev, playtime));
+                reviewGametimes.Add(new ReviewPlaytime { Review = rev, Playtime = playtime });
             }
             return reviewGametimes;
         }
 
-        public List<Tuple<Review, int?>> UserPlaytimeList(int userid)
+        public List<ReviewPlaytime> UserPlaytimeList(int userid)
         {
             var reviews = GetUserReviews(userid);
             return ReviewPlaytimeList(reviews);
         }
 
-        public List<Tuple<Review, int?>> GamePlaytimeList(int gameid)
+        public List<ReviewPlaytime> GamePlaytimeList(int gameid)
         {
             var reviews = GetGameReviews(gameid);
             return ReviewPlaytimeList(reviews);
@@ -102,6 +103,22 @@ namespace PRO.Domain.Services
                 errors.TryAddModelError("GameId", "Napisałeś już recenzję dla tej gry.");
             }
             return errors;
+        }
+
+        public IQueryable<Review> GetAllSorted(string sortOrder)
+        {
+            var reviews = GetAll();
+            reviews = sortOrder switch
+            {
+                "game_desc" => reviews.OrderByDescending(s => s.Game.Title),
+                "game" => reviews.OrderBy(s => s.Game.Title),
+                "user_desc" => reviews.OrderByDescending(s => s.User.UserName),
+                "user" => reviews.OrderBy(s => s.User.UserName),
+                "date_desc" => reviews.OrderByDescending(s => s.ReviewDate),
+                "date" => reviews.OrderBy(s => s.ReviewDate),
+                _ => reviews.OrderBy(s => s.Game.Title),
+            };
+            return reviews.AsQueryable();
         }
     }
 }

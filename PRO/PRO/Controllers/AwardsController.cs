@@ -6,6 +6,7 @@ using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 
@@ -25,9 +26,9 @@ namespace PRO.Controllers
         [Route("awards/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var awards = _awardService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, awards.Count());
-            return View(awards);
+            var awards = _awardService.GetAll().AsQueryable();
+
+            return View(PaginatedList<Award>.Create(awards.AsNoTracking(), page, items));
         }
 
         // GET: Awards/Details/5

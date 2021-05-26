@@ -23,13 +23,13 @@
                                             <text class="">Wybrana recenzja</text>
                                             <a href="#" style="float:right; text-decoration:none; font-weight:normal;" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
                                         </div>
-                                        @{
-
-                                            var reviewGametime = Model.ReviewGametimes.ToArray();
-                                            <partial name="~/Views/Shared/_SingleReview.cshtml" , model="reviewGametime[0]" />
+                                        @foreach (var item in Model.ReviewPlaytimes)
+                                        {
+                                            <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
                                             <div class="underlined_h2"></div>
-
                                         }
+
+
 
                                     </td>
                                 </tr>

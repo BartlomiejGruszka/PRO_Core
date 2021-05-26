@@ -24,10 +24,9 @@ namespace PRO.Controllers
         [Route("articletypes/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var articleTypesList = _articleTypeService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, articleTypesList.Count());
+            var articleTypesList = _articleTypeService.GetAll().AsQueryable();
 
-            return View(articleTypesList);
+            return View(PaginatedList<ArticleType>.Create(articleTypesList.AsNoTracking(), page, items));
         }
 
         [Route("articletypes/details/{id}")]

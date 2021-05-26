@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 
@@ -29,10 +26,8 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
 
-            var authors = _authorService.GetAll();
-
-            ViewBag.Pagination = new Pagination(page, items, authors.Count());
-            return View(authors);
+            var authors = _authorService.GetAll().AsQueryable();
+            return View(PaginatedList<Author>.Create(authors.AsNoTracking(), page, items));
         }
 
         // GET: Authors/Details/5

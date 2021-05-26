@@ -1,4 +1,4 @@
-﻿
+﻿@model PRO.Entities.PaginatedList<PRO.Entities.Article>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,11 +29,9 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active show" id="all">
         <div class="list-group">
-            @{ var start = ViewBag.Pagination.pageIteratorStart;
-                var end = ViewBag.Pagination.pageIteratorEnd;
-                for (var i = start; i <= end; i++)
-                {
-                    var item = Model.ToArray()[i];
+            @{ 
+                foreach(var item in Model) 
+                {                  
                     <div class="news-list mt16 mr8">
                         <div class="news-unit">
                             @if (item.Image != null)
@@ -66,52 +64,8 @@
 
 </div>
 <div>
-    <ul class="pagination">
-        @{
-            var first = ViewBag.Pagination.firstPage;
-            var current = ViewBag.Pagination.currentPage;
-            var previous = ViewBag.Pagination.previousPage;
-            var items = ViewBag.Pagination.itemsPerPage;
-            var next = ViewBag.Pagination.nextPage;
-            var last = ViewBag.Pagination.lastPage;
-        }
-
-
-
-
-        @{
-            if (@current >= 3)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@first&items=@items">«</a>
-                </li>
-            }
-            if (@current >= 2 && @previous != @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@previous&items=@items">@previous</a>
-                </li>
-            }
-
-            <li class="page-item active">
-                <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@current&items=@items">@current</a>
-            </li>
-
-            if (@last > @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@next&items=@items">@next</a>
-                </li>
-            }
-
-            if (@last > @current + 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/articles?platform=@ViewBag.platform&page=@last&items=@items">&raquo;</a>
-                </li>
-            }
-        }
-    </ul>
+    @{Model.Pagination.Route = "articles?platform=" + ViewBag.platform + "&";}
+    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" /> 
 </div>
 
 

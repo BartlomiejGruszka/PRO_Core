@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PRO.Domain.HelperClasses;
 using PRO.Entities;
 namespace PRO.UI.ViewModels
 {
@@ -10,6 +11,6 @@ namespace PRO.UI.ViewModels
         public IEnumerable<Review>RecentReviews { get; set; }
         public IEnumerable<Game> ComingGames { get; set; }
         public List<Tuple<Game, int?>> MostPopularGames { get; set; }
-        public List<Tuple<Game, double?>> BestRatedGames { get; set; }
+        public List<GameScore> BestRatedGames { get; set; }
     }
 }

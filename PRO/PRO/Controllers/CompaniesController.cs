@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -30,9 +31,8 @@ namespace PRO.Controllers
         [Route("companies/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var companies = _companyService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, companies.Count());
-            return View(companies);
+            var companies = _companyService.GetAll().AsQueryable();
+            return View(PaginatedList<Company>.Create(companies.AsNoTracking(), page, items));
         }
 
         // GET: Companies/Details/5

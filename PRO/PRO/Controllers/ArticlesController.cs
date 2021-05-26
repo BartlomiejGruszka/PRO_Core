@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PRO.Entities;
 using PRO.Domain.Interfaces.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace PRO.Controllers
 {
@@ -50,31 +51,29 @@ namespace PRO.Controllers
         public ActionResult Index(int? page, int? items, string platform)
         {
 
-            var articlesList = _articleService.ArticlesByPlatform(platform);
-           
-
-            ViewBag.Pagination = new Pagination(page, items, articlesList.Count());
+            var articlesList = _articleService.ArticlesByPlatform(platform).AsQueryable();
             ViewBag.Platform = platform;
-            return View(articlesList);
+            return View(PaginatedList<Article>.Create(articlesList.AsNoTracking(), page, items));
         }
 
         [Route("articles/manage")]
         [Authorize(Roles = "Admin,Author")]
         public ActionResult Manage(int? page, int? items)
         {
-            IEnumerable<Article> articlesList = null;
+            IQueryable<Article> articlesList = null;
 
             if (!User.IsInRole("Admin"))
             {
-                articlesList = _articleService.GetAll().Where(s => s.Author.UserId == _userService.GetLoggedInUserId());
+                articlesList = _articleService.GetAll()
+                    .Where(s => s.Author.UserId == _userService.GetLoggedInUserId()).AsQueryable();
             }
             else
             {
-                articlesList = _articleService.GetAll();
+                articlesList = _articleService.GetAll().AsQueryable();
             }
 
             ViewBag.Pagination = new Pagination(page, items, articlesList.Count());
-            return View(articlesList);
+            return View(PaginatedList<Article>.Create(articlesList.AsNoTracking(), page, items));
         }
 
         [AllowAnonymous]
@@ -215,12 +214,13 @@ namespace PRO.Controllers
         [Route("articles/search/{query?}")]
         public ActionResult Search(string query, int? page, int? items)
         {
-            var searchList = _articleService.SearchResultArticles(query);
+            var searchList = _articleService.SearchResultArticles(query).AsQueryable();
 
-            ViewBag.Pagination = new Pagination(page, items, searchList.Count());
+           // ViewBag.Pagination = new Pagination(page, items, searchList.Count());
             ViewBag.Query = query;
             ViewBag.platform = "none";
-            return View(searchList);
+           // return View(searchList);
+            return View(PaginatedList<Article>.Create(searchList.AsNoTracking(), page, items));
         }
 
         public ArticleViewModel PopulateArticleViewModel (int? id)

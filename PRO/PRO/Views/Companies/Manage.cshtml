@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PRO.Entities.Company>
+﻿@model PRO.Entities.PaginatedList<PRO.Entities.Company>
 
 @{
     ViewBag.Title = "Manage";
@@ -14,22 +14,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Nazwa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
+           Data dodania
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsActive)
+            Aktywna
         </th>
         <th></th>
     </tr>
 
-    @{ var start = ViewBag.Pagination.pageIteratorStart;
-        var end = ViewBag.Pagination.pageIteratorEnd;
-        for (var i = start; i <= end; i++)
+    @{ foreach (var item in Model)
         {
-            var item = Model.ToArray()[i];
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -59,50 +56,6 @@
     </tr>
 </table>
 <div>
-    <ul class="pagination">
-        @{
-            var first = ViewBag.Pagination.firstPage;
-            var current = ViewBag.Pagination.currentPage;
-            var previous = ViewBag.Pagination.previousPage;
-            var items = ViewBag.Pagination.itemsPerPage;
-            var next = ViewBag.Pagination.nextPage;
-            var last = ViewBag.Pagination.lastPage;
-        }
-
-
-
-
-        @{
-            if (@current >= 3)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/companies/manage?page=@first&items=@items">«</a>
-                </li>
-            }
-            if (@current >= 2 && @previous != @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/companies/manage?page=@previous&items=@items">@previous</a>
-                </li>
-            }
-
-            <li class="page-item active">
-                <a class="page-link" href="/companies/manage?page=@current&items=@items">@current</a>
-            </li>
-
-            if (@last > @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/companies/manage?page=@next&items=@items">@next</a>
-                </li>
-            }
-
-            if (@last > @current + 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/companies/manage?page=@last&items=@items">&raquo;</a>
-                </li>
-            }
-        }
-    </ul>
+    @{Model.Pagination.Route = "companies/manage?";}
+    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
 </div>

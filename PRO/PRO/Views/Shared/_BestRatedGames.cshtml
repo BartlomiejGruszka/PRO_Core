@@ -1,4 +1,4 @@
-﻿@model List<Tuple<PRO.Entities.Game, double?>>
+﻿@model List<PRO.Domain.HelperClasses.GameScore>
 @using PRO.Domain.Extensions
 <div class="">
     <div class="side-list-group">
@@ -7,7 +7,7 @@
 
             foreach (var item in Model)
             {
-                var game = item.Item1;
+                var game = item.Game;
 
                 <a href="/games/@game.Id" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div style="display:flex; flex-direction:row;">

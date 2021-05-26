@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace PRO.Controllers
@@ -29,12 +28,36 @@ namespace PRO.Controllers
 
         [Route("reviews/manage")]
         [Authorize(Roles ="Admin,Moderator")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(
+            int? page,
+            int? items,
+            string sortOrder,
+            string currentFilter,
+            string searchString
+            )
         {
-            var reviews = _reviewService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, reviews.Count());
+            ViewData["GameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "game_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+            ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
 
-            return View(reviews);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewData["CurrentFilter"] = searchString;
+
+            var reviews = _reviewService.GetAllSorted(sortOrder);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                reviews = reviews.Where(s => s.Game.Title.ToUpper().Contains(searchString.ToUpper())
+                                       || s.User.NormalizedUserName.Contains(searchString.ToUpper()));
+            }
+            return View(PaginatedList<Review>.Create(reviews.AsNoTracking(), page, items));
         }
        // [Authorize]
         [Route("reviews/{id}")]
@@ -98,7 +121,6 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Add()
         {
-            //ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
             ViewBag.GameId = _gameService.GetAllActive().ToList();
             return View();
         }
@@ -124,7 +146,6 @@ namespace PRO.Controllers
                 }
                 ModelState.Merge(errors);
             }
-            // ViewBag.GameId = new SelectList(_gameService.GetAllActive(), "Id", "Title");
             ViewBag.GameId = _gameService.GetAllActive().ToList();
             return View(review);
         }

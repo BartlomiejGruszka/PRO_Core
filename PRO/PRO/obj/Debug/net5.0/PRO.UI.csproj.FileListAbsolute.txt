@@ -621,3 +621,4 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\Articles.cshtml.g.
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\Games.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\OldAdmin.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\Users.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_Pagination.cshtml.g.cs

@@ -23,13 +23,9 @@
                                             <text class="">Wszystkie recenzje</text>
                                             <a style="float:right; text-decoration:none; font-weight:normal;" href="/games/@Model.GameGameList.Game.Id">Powrót</a>
                                         </div>
-                                        @{
-                                            var start = ViewBag.Pagination.pageIteratorStart;
-                                            var end = ViewBag.Pagination.pageIteratorEnd;
-                                            var reviewGametime = Model.ReviewGametimes.ToArray();
-                                            for (var i = start; i <= end; i++)
+                                        @{foreach (var item in Model.ReviewPlaytimes)
                                             {
-                                                <partial name="~/Views/Shared/_SingleReview.cshtml" , model="reviewGametime[i]" />
+                                                <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
                                                 <div class="underlined_h2"></div>
                                             }
                                         }
@@ -42,53 +38,11 @@
                         </table>
                     </div>
                     <div>
-                        <ul class="pagination">
-                            @{
-                                var first = ViewBag.Pagination.firstPage;
-                                var current = ViewBag.Pagination.currentPage;
-                                var previous = ViewBag.Pagination.previousPage;
-                                var items = ViewBag.Pagination.itemsPerPage;
-                                var next = ViewBag.Pagination.nextPage;
-                                var last = ViewBag.Pagination.lastPage;
-                            }
-
-
-
-
-                            @{
-                                if (@current >= 3)
-                                {
-                                    <li class="page-item">
-                                        <a class="page-link" href="/games/@Model.GameGameList.Game.Id/reviews?page=@first&items=@items">«</a>
-                                    </li>
-                                }
-                                if (@current >= 2 && @previous != @current)
-                                {
-                                    <li class="page-item">
-                                        <a class="page-link" href="/games/@Model.GameGameList.Game.Id/reviews?page=@previous&items=@items">@previous</a>
-                                    </li>
-                                }
-
-                                <li class="page-item active">
-                                    <a class="page-link" href="/games/@Model.GameGameList.Game.Id/reviews?page=@current&items=@items">@current</a>
-                                </li>
-
-                                if (@last > @current)
-                                {
-                                    <li class="page-item">
-                                        <a class="page-link" href="/games/@Model.GameGameList.Game.Id/reviews?page=@next&items=@items">@next</a>
-                                    </li>
-                                }
-
-                                if (@last > @current + 1)
-                                {
-                                    <li class="page-item">
-                                        <a class="page-link" href="/games/@Model.GameGameList.Game.Id/reviews?page=@last&items=@items">&raquo;</a>
-                                    </li>
-                                }
-                            }
-                        </ul>
+                        @{Model.ReviewPlaytimes.Pagination.Route = "games/"+ @Model.GameGameList.Game.Id + "/reviews?";}
+                        <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.ReviewPlaytimes.Pagination" />
                     </div>
+
+                    
                 </td>
             </tr>
         </tbody>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PRO.Entities.Game>
+﻿@model PRO.Entities.PaginatedList<PRO.Entities.Game>
 
 @{
     ViewBag.Title = "Manage";
@@ -14,40 +14,37 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+           Tytuł
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Platform)
+            Pltforma
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+           Status
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
+            Data wydania
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Genre)
+           Gatunek
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DeveloperCompany)
+            Producent
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PublisherCompany)
+            Wydawca
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Series)
+            Seria
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsActive)
+            Dostępna
         </th>
         <th></th>
     </tr>
 
-    @{ var start = ViewBag.Pagination.pageIteratorStart;
-        var end = ViewBag.Pagination.pageIteratorEnd;
-        for (var i = start; i <= end; i++)
+    @{foreach (var item in Model)
         {
-            var item = Model.ToArray()[i];
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -103,50 +100,6 @@
     </tr>
 </table>
 <div>
-    <ul class="pagination">
-        @{
-            var first = ViewBag.Pagination.firstPage;
-            var current = ViewBag.Pagination.currentPage;
-            var previous = ViewBag.Pagination.previousPage;
-            var items = ViewBag.Pagination.itemsPerPage;
-            var next = ViewBag.Pagination.nextPage;
-            var last = ViewBag.Pagination.lastPage;
-        }
-
-
-
-
-        @{
-            if (@current >= 3)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/games/manage?page=@first&items=@items">«</a>
-                </li>
-            }
-            if (@current >= 2 && @previous != @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/games/manage?page=@previous&items=@items">@previous</a>
-                </li>
-            }
-
-            <li class="page-item active">
-                <a class="page-link" href="/games/manage?page=@current&items=@items">@current</a>
-            </li>
-
-            if (@last > @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/games/manage?page=@next&items=@items">@next</a>
-                </li>
-            }
-
-            if (@last > @current + 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/games/manage?page=@last&items=@items">&raquo;</a>
-                </li>
-            }
-        }
-    </ul>
+    @{Model.Pagination.Route = "games/manage?";}
+    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
 </div>

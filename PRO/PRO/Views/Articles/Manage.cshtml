@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PRO.Entities.Article>
+﻿@model PRO.Entities.PaginatedList<PRO.Entities.Article>
 
 @{
     ViewBag.Title = "Manage";
@@ -14,35 +14,34 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Tytuł
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Game)
+            Gra
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Author.FirstName)
+            Imię
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Author.LastName)
+            Nazwisko
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsActive)
+            Widoczny
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ArticleType.Name)
+            Rodzaj
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PublishedDate)
+            Data publikacji
         </th>
         <th></th>
     </tr>
 
     @{
-        var start = ViewBag.Pagination.pageIteratorStart;
-        var end = ViewBag.Pagination.pageIteratorEnd;
-        for (var i = start; i <= end; i++)
+        
+        foreach(var article in Model)
         {
-            var article = Model.ToArray()[i];
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => article.Title)
@@ -92,50 +91,6 @@
     </tr>
 </table>
 <div>
-    <ul class="pagination">
-        @{
-            var first = ViewBag.Pagination.firstPage;
-            var current = ViewBag.Pagination.currentPage;
-            var previous = ViewBag.Pagination.previousPage;
-            var items = ViewBag.Pagination.itemsPerPage;
-            var next = ViewBag.Pagination.nextPage;
-            var last = ViewBag.Pagination.lastPage;
-        }
-
-
-
-
-        @{
-            if (@current >= 3)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/articles/manage?page=@first&items=@items">«</a>
-                </li>
-            }
-            if (@current >= 2 && @previous != @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/articles/manage?page=@previous&items=@items">@previous</a>
-                </li>
-            }
-
-            <li class="page-item active">
-                <a class="page-link" href="/articles/manage?page=@current&items=@items">@current</a>
-            </li>
-
-            if (@last > @current)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/articles/manage?page=@next&items=@items">@next</a>
-                </li>
-            }
-
-            if (@last > @current + 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/articles/manage?page=@last&items=@items">&raquo;</a>
-                </li>
-            }
-        }
-    </ul>
+    @{Model.Pagination.Route = "articles/manage?";}
+    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />  
 </div>

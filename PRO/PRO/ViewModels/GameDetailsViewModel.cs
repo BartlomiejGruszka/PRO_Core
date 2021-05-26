@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using PRO.Domain.HelperClasses;
 using PRO.Entities;
 namespace PRO.UI.ViewModels
 {
@@ -8,7 +9,7 @@ namespace PRO.UI.ViewModels
     {
         public GameAndGameListFormViewModel GameGameList { get; set; }
         public List<Game> RecommendedGames { get; set; }
-        public List<Tuple<Review,int?>> ReviewGametimes { get; set; }
+        public PaginatedList<ReviewPlaytime> ReviewPlaytimes { get; set; }
         public IEnumerable<Article> RelevantArticles { get; set; }
 
     }
