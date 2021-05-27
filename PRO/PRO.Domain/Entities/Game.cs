@@ -27,7 +27,6 @@ namespace PRO.Entities
         public bool IsActive { get; set; }
 
         [Required, DisplayName("Platforma")]
-
         public int PlatformId { get; set; }
 
         [ForeignKey("PlatformId"), DisplayName("Platforma")]

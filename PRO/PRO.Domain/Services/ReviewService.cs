@@ -110,11 +110,11 @@ namespace PRO.Domain.Services
             var reviews = GetAll();
             reviews = sortOrder switch
             {
-                "game_desc" => reviews.OrderByDescending(s => s.Game.Title),
+                "DESCgame" => reviews.OrderByDescending(s => s.Game.Title),
                 "game" => reviews.OrderBy(s => s.Game.Title),
-                "user_desc" => reviews.OrderByDescending(s => s.User.UserName),
+                "DESCuser" => reviews.OrderByDescending(s => s.User.UserName),
                 "user" => reviews.OrderBy(s => s.User.UserName),
-                "date_desc" => reviews.OrderByDescending(s => s.ReviewDate),
+                "DESCdate" => reviews.OrderByDescending(s => s.ReviewDate),
                 "date" => reviews.OrderBy(s => s.ReviewDate),
                 _ => reviews.OrderBy(s => s.Game.Title),
             };

@@ -36,7 +36,8 @@ namespace PRO.Controllers
             string searchString
             )
         {
-            ViewData["GameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "game_desc" : "";
+            if (String.IsNullOrEmpty(sortOrder)) sortOrder = "";
+                ViewData["GameSortParm"] = sortOrder.ToUpper().Contains("DESC")? "" : "DESC";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
             ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
 
