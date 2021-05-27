@@ -76,6 +76,8 @@ namespace PRO
             services.AddScoped<IUserListRepository, UserListRepository>();
             services.AddScoped<IModeratorRepository, ModeratorRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IAwardRepository, AwardRepository>();
+            services.AddScoped<ISeriesRepository, SeriesRepository>();
             //  services.AddScoped<IRepository<ImageType>, ImageTypeRepository>();
 
             services.AddScoped<IArticleService, ArticleService>();

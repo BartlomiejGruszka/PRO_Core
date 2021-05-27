@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -24,9 +25,8 @@ namespace PRO.Controllers
         [Route("series/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var series = _seriesService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, series.Count());
-            return View(series);
+            var series = _seriesService.GetAll().AsQueryable();
+            return View(PaginatedList<Series>.Create(series.AsNoTracking(), page, items));
         }
 
         // GET: Series/Details/5

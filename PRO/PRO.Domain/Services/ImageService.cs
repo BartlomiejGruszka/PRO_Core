@@ -132,7 +132,7 @@ namespace PRO.Domain.Services
         public void RenameImage(Image image)
         {
             _imageRepository.UpdateName(image);
-            _imageRepository.Save();
+           // _imageRepository.Save();
         }
 
         public IEnumerable<Image> GetImagesByEnumType(ImageTypes type)

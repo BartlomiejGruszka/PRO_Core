@@ -9,8 +9,8 @@ namespace PRO.Domain.Services
 {
     public class PlatformService : IPlatformService
     {
-        private readonly IRepository<Platform> _repository;
-        public PlatformService(IRepository<Platform> repository)
+        private readonly IPlatformRepository _repository;
+        public PlatformService(IPlatformRepository repository)
         {
             _repository = repository;
         }

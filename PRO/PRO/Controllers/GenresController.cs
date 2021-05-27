@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 
@@ -25,10 +26,9 @@ namespace PRO.Controllers
         [Route("genres/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var genres = _genreService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, genres.Count());
+            var genres = _genreService.GetAll().AsQueryable();
 
-            return View(genres);
+            return View(PaginatedList<Genre>.Create(genres.AsNoTracking(), page, items));
         }
 
         // GET: Genres/Details/5

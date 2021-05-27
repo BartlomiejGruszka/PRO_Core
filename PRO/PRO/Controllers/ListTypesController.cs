@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System.Collections.Generic;
@@ -22,9 +23,8 @@ namespace PRO.Controllers
         [Route("listtypes/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var listTypes = _listTypeService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, listTypes.Count());
-            return View(listTypes);
+            var listTypes = _listTypeService.GetAll().AsQueryable();
+            return View(PaginatedList<ListType>.Create(listTypes.AsNoTracking(), page, items));
         }
 
         // GET: ListTypes/Details/5

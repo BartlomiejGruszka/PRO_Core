@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 
@@ -21,9 +22,8 @@ namespace PRO.Controllers
         [Route("status/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var statuses = _statusService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, statuses.Count());
-            return View(statuses);
+            var statuses = _statusService.GetAll().AsQueryable();
+            return View(PaginatedList<Status>.Create(statuses.AsNoTracking(), page, items));
         }
 
         // GET: Status/Details/5

@@ -47,9 +47,9 @@ namespace PRO.Persistance.Repositories
         }
         public void UpdateName(Image image)
         {
-            _dbContext.Images.Attach(image);
-            _dbContext.Entry(image).Property(x => x.Name).IsModified = true;
-            _dbContext.Entry(image).Property(x => x.ImageTypeId).IsModified = true;
+            var oldimage = Find(image.Id);
+            oldimage.Name = image.Name;
+            oldimage.ImageTypeId = image.ImageTypeId;
         }
 
         public void DetachOld(Image image)

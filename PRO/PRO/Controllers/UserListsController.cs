@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -40,11 +41,8 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
 
-            var userlists = _userListService.GetAll();
-
-            ViewBag.Pagination = new Pagination(page, items, userlists.Count());
-
-            return View(userlists.ToList());
+            var userlists = _userListService.GetAll().AsQueryable();
+            return View(PaginatedList<UserList>.Create(userlists.AsNoTracking(), page, items));
         }
 
         // GET: UserLists/Details/5

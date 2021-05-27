@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -26,9 +27,8 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
 
-            var moderators = _moderatorService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, moderators.Count());
-            return View(moderators);
+            var moderators = _moderatorService.GetAll().AsQueryable();
+            return View(PaginatedList<Moderator>.Create(moderators.AsNoTracking(), page, items));
         }
 
         // GET: Moderators/Details/5

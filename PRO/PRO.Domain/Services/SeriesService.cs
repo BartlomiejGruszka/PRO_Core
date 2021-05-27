@@ -9,9 +9,9 @@ namespace PRO.Domain.Services
 {
     public class SeriesService : ISeriesService
     {
-        private readonly IRepository<Series> _repository;
+        private readonly ISeriesRepository _repository;
         private readonly IGameRepository _gameRepository;
-        public SeriesService(IRepository<Series> repository,
+        public SeriesService(ISeriesRepository repository,
             IGameRepository gameRepository)
         {
             _repository = repository;

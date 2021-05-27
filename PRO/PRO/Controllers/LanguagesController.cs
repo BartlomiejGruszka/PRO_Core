@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 
@@ -27,9 +28,9 @@ namespace PRO.Controllers
         [Route("languages/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var languages = _languageService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, languages.Count());
-            return View(languages);
+            var languages = _languageService.GetAll().AsQueryable();
+            return View(PaginatedList<Language>.Create(languages.AsNoTracking(), page, items));
+
         }
 
         // GET: Languages/Details/5

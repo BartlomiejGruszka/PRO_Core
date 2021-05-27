@@ -1,12 +1,9 @@
 ﻿
 using System.Linq;
-using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PRO.Entities;
-using PRO.Persistance.Data;
 using PRO.Domain.Interfaces.Services;
 
 namespace PRO.Controllers
@@ -23,10 +20,9 @@ namespace PRO.Controllers
         [Route("ImageTypes/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var ImageTypes = _imageTypeService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, ImageTypes.Count());
+            var ImageTypes = _imageTypeService.GetAll().AsQueryable();
 
-            return View(ImageTypes);
+            return View(PaginatedList<ImageType>.Create(ImageTypes.AsNoTracking(), page, items));
         }
 
         // GET: ImageTypes/Details/5

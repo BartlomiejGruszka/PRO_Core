@@ -9,39 +9,39 @@ namespace PRO.Domain.Services
 {
     public class AwardService : IAwardService
     {
-        private readonly IRepository<Award> _repository;
-        public AwardService(IRepository<Award> repository)
+        private readonly IAwardRepository _awardRepository;
+        public AwardService(IAwardRepository awardRepository)
         {
-            _repository = repository;
+            _awardRepository = awardRepository;
         }
 
         public void Add(Award award)
         {
-            _repository.Add(award);
-            _repository.Save();
+            _awardRepository.Add(award);
+            _awardRepository.Save();
         }
 
         public void Delete(Award award)
         {
-            _repository.Remove(award);
-            _repository.Save();
+            _awardRepository.Remove(award);
+            _awardRepository.Save();
         }
 
         public Award Find(int? id)
         {
             if (!id.HasValue) { return null; }
-            return _repository.Find(id.Value);
+            return _awardRepository.Find(id.Value);
         }
 
         public IEnumerable<Award> GetAll()
         {
-            return _repository.GetAll();
+            return _awardRepository.GetAll();
         }
 
         public void Update(Award award)
         {
-            _repository.Update(award);
-            _repository.Save();
+            _awardRepository.Update(award);
+            _awardRepository.Save();
         }
 
         public ModelStateDictionary ValidateAward(Award award)
@@ -49,7 +49,7 @@ namespace PRO.Domain.Services
             ModelStateDictionary errors = new ModelStateDictionary();
             if (award == null) return errors;
 
-            var awards = _repository.GetAll().Where(i => i.Name == award.Name && i.Id != award.Id);
+            var awards = _awardRepository.GetAll().Where(i => i.Name == award.Name && i.Id != award.Id);
 
             if (awards.Any())
             {

@@ -5,6 +5,7 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 
@@ -29,9 +30,8 @@ namespace PRO.Controllers
         [Route("platforms/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var platforms = _platformService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, platforms.Count());
-            return View(platforms);
+            var platforms = _platformService.GetAll().AsQueryable();
+            return View(PaginatedList<Platform>.Create(platforms.AsNoTracking(), page, items));
         }
 
         // GET: Platforms/Details/5

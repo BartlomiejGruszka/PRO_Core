@@ -13,7 +13,7 @@ using PRO.Domain.Interfaces.Services;
 
 namespace PRO.Controllers
 {
-    // [Authorize]
+     [Authorize]
     public class ImagesController : Controller
     {
 
@@ -35,16 +35,16 @@ namespace PRO.Controllers
             return View();
         }
         [Route("images/manage")]
-        // [Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         public ActionResult Manage(int? page, int? items)
         {
-            var images = _imageService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, images.Count());
-            return View(images);
+            var images = _imageService.GetAll().AsQueryable();
+            return View(PaginatedList<Image>.Create(images.AsNoTracking(), page, items));
+
         }
 
         [Route("images/details/{id}")]
-        //[Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         public ActionResult Details(int? id)
         {
             Image image = _imageService.Find(id);
@@ -57,7 +57,7 @@ namespace PRO.Controllers
 
         [HttpGet]
         [Route("images/add")]
-        // [Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         public ActionResult Add()
         {
             ViewBag.ImageTypes = _imageTypeService.GetAll();
@@ -66,7 +66,7 @@ namespace PRO.Controllers
 
         [HttpPost]
         [Route("images/add")]
-        //[Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         [ValidateAntiForgeryToken]
         public ActionResult Add(Image image)
         {
@@ -88,7 +88,7 @@ namespace PRO.Controllers
 
         // GET: Companies/Edit/5
         [Route("images/edit/{id}")]
-        //[Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         public ActionResult EditFile(int? id)
         {
             Image image = _imageService.Find(id);
@@ -100,7 +100,7 @@ namespace PRO.Controllers
             return View(image);
         }
         [Route("images/rename/{id}")]
-        //[Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         public ActionResult Edit(int? id)
         {
             Image image = _imageService.Find(id);
@@ -115,7 +115,7 @@ namespace PRO.Controllers
 
         [HttpPost]
         [Route("images/edit/{id}")]
-        // [Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         [ValidateAntiForgeryToken]
         public ActionResult EditFile(Image image)
         {
@@ -136,7 +136,7 @@ namespace PRO.Controllers
 
         [HttpPost]
         [Route("images/rename/{id}")]
-        // [Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Image image)
         {
@@ -158,7 +158,7 @@ namespace PRO.Controllers
         }
 
         [Route("images/delete/{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             Image image = _imageService.Find(id);
@@ -169,7 +169,7 @@ namespace PRO.Controllers
 
         [HttpPost, ActionName("Delete")]
         [Route("images/delete/{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -181,7 +181,7 @@ namespace PRO.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author")]
         [Route("images/getimagesbytype/{id?}")]
         public ActionResult GetImagesByType(int id)
         {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using PRO.UI.ViewModels;
@@ -58,9 +59,8 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Manage(int? page, int? items)
         {
-            var users = _userService.GetAll().ToList();
-            ViewBag.Pagination = new Pagination(page, items, users.Count());
-            return View(users);
+            var users = _userService.GetAll().AsQueryable();
+            return View(PaginatedList<ApplicationUser>.Create(users.AsNoTracking(), page, items));
         }
 
         [Route("users/{id}")]

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 
@@ -20,9 +21,8 @@ namespace PRO.Controllers
         [Route("tags/manage")]
         public ActionResult Manage(int? page, int? items)
         {
-            var tags = _tagService.GetAll();
-            ViewBag.Pagination = new Pagination(page, items, tags.Count());
-            return View(tags);
+            var tags = _tagService.GetAll().AsQueryable();
+            return View(PaginatedList<Tag>.Create(tags.AsNoTracking(), page, items));
         }
 
         // GET: Tags/Details/5
