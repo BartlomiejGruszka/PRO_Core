@@ -72,7 +72,6 @@ namespace PRO.Controllers
         public ActionResult Index(int? page, int? items)
         {
 
-
             var games = _gameService.GetAllActive().OrderBy(g => g.Title).ToList();
             var gamescores = _gameService.GetUnorderedGamesRanking().OrderBy(g => g.Game.Title).AsQueryable();
             var paginatedgamescores = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
@@ -100,6 +99,7 @@ namespace PRO.Controllers
         public ActionResult Details(int id)
         {
             var viewModel = SetupDetailsPage(id, null, null, null);
+            if (viewModel == null) return NotFound();
             return View(viewModel);
         }
 
@@ -107,10 +107,7 @@ namespace PRO.Controllers
         public ActionResult ManageDetails(int? id)
         {
             Game games = _gameService.Find(id);
-            if (games == null)
-            {
-                return NotFound();
-            }
+            if (games == null){ return NotFound();}
             return View(games);
         }
         [HttpGet]
@@ -156,7 +153,6 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 _gameService.AddTags(viewModel.Game, viewModel.selectedTagsId);
                 _gameService.AddLanguages(viewModel.Game, viewModel.selectedLanguagesId);
                 _gameService.Update(viewModel.Game);
@@ -202,28 +198,23 @@ namespace PRO.Controllers
         [Route("games/ranking")]
         public ActionResult Ranking(int? page, int? items)
         {
-
-
             var games = _gameService.GetAllActive().OrderBy(s => s.Title);
-            var gamesRankings = _gameService.GetOrderedGamesRanking(null).AsQueryable();
+            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).AsQueryable();
             var paginatedgamesrankings = PaginatedList<GameScore>.Create(gamesRankings.AsNoTracking(), page, items);
             var viewModel = new GameFilterViewModel
             {
                 GamesScores = paginatedgamesrankings
             };
-            ViewBag.Pagination = new Pagination(page, items, games.Count());
+            ViewBag.UserId = _userService.GetLoggedInUserId();
             return View(viewModel);
         }
         [HttpGet]
         [AllowAnonymous]
         [Route("games/{id}/reviews")]
         public ActionResult Reviews(int id, int? page, int? items)
-        {
-            var game = _gameService.FindActive(id);
-            if (game == null) return NotFound();
-
+        {        
             var model = SetupDetailsPage(id, null, page, items);
-
+            if (model == null) return NotFound();
             return View(model);
         }
 
@@ -232,17 +223,25 @@ namespace PRO.Controllers
         [Route("games/{id}/reviews/{review}")]
         public ActionResult SingleReview(int id, int? page, int? items, int review)
         {
-            var game = _gameService.FindActive(id);
-            if (game == null) return NotFound();
+            var model = SetupDetailsPage(id, null, page, items);
+            if (model == null) return NotFound();
 
             var selectedReview = _reviewService.Find(review);
             List<Review> Reviews = new List<Review>();
             Reviews.Add(selectedReview);
 
-            var model = SetupDetailsPage(id, null, page, items);
-
             var reviewplaytimes = _reviewService.ReviewPlaytimeList(Reviews).AsQueryable();
             model.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
+
+            return View(model);
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("games/{id}/newreview")]
+        public ActionResult NewReview(int id)
+        {
+            var model = SetupDetailsPage(id, null, null, null);
+            if (model == null) return NotFound();
 
             return View(model);
         }

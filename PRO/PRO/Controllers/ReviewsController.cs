@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PRO.Domain.Extensions;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -189,6 +190,29 @@ namespace PRO.Controllers
             }
             return View(review);
         }
+
+        [Authorize]
+        [HttpPost]
+        [Route("reviews/newreview")]
+        public ActionResult NewReview(Review model)
+        {
+            model.UserId = _userService.GetLoggedInUserId().Value;
+            model.ReviewDate = DateTime.Now;
+            TempData.Put("newReview", model);
+
+            if (ModelState.IsValid)
+            {
+                var errors = _reviewService.ValidateReview(model);
+                if (!errors.Any())
+                {
+                    _reviewService.Add(model);
+                    return RedirectToAction("Reviews", "Games", new { id = model.GameId});
+                }
+
+            }
+             return RedirectToAction("NewReview", "Games", new { id = model.GameId }); 
+        }
+
 
         [Route("reviews/delete/{id}")]
         [Authorize(Roles = "Admin")]

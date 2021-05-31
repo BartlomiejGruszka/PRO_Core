@@ -11,5 +11,7 @@ namespace PRO.Domain.HelperClasses
     {
         public Game Game { get; set; }
         public double? Score { get; set; }
+
+        public int? UserScore { get; set; }
     }
 }

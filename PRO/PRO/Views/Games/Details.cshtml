@@ -42,7 +42,7 @@
                                         <div class="underlined_h2">Opis</div>
                                         @if (String.IsNullOrEmpty(Model.GameGameList.Game.Description))
                                         {
-                                            {<p>Obecnie nie ma recenzji dla tej gry</p>}
+                                            {<p>Obecnie nie ma opisu dla tej gry</p>}
                                         }
                                         else
                                         {
@@ -85,7 +85,12 @@
                                                 @{
                                                     if (Model.GameGameList.Game.Reviews?.Any() == true)
                                                     {
-                                                        <a href="/games/@Model.GameGameList.Game.Id/reviews?page=1&items=5">Więcej recenzji</a>}
+                                                        <a href="/games/@Model.GameGameList.Game.Id/reviews">Więcej recenzji</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/games/@Model.GameGameList.Game.Id/newreview">Napisz recenzję</a>
+                                                    }
                                                 }
                                             </span>
                                             <div class="underlined_h2">Recenzje</div>
@@ -97,7 +102,7 @@
                                             foreach (var item in Model.ReviewPlaytimes)
                                             {
 
-                                            <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
+                                                <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
 
 
                                             }

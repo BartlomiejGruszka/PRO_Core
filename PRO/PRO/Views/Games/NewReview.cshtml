@@ -20,17 +20,12 @@
                                     <td class="pb24">
 
                                         <div class="underlined_h2">
-                                            <text class="">Wszystkie recenzje</text>
-                                            <a style="float:right; text-decoration:none; font-weight:normal;" href="/games/@Model.GameGameList.Game.Id">Powrót</a>
-                                            <span> </span>
-                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameGameList.Game.Id/newreview">Napisz recenzję </a>
+                                            <text class="">Napisz recenzję</text>
+                                           
                                         </div>
-                                        @{foreach (var item in Model.ReviewPlaytimes)
-                                            {
-                                                <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
-                                                <div class="underlined_h2"></div>
-                                            }
-                                        }
+                                        @await Component.InvokeAsync("NewReview", new { gameid = Model.GameGameList.Game.Id })
+
+
 
                                     </td>
                                 </tr>
@@ -40,11 +35,7 @@
                         </table>
                     </div>
                     <div>
-                        @{Model.ReviewPlaytimes.Pagination.Route = "games/"+ @Model.GameGameList.Game.Id + "/reviews?";}
-                        <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.ReviewPlaytimes.Pagination" />
                     </div>
-
-                    
                 </td>
             </tr>
         </tbody>

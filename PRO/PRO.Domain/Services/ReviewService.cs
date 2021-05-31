@@ -96,11 +96,34 @@ namespace PRO.Domain.Services
             ModelStateDictionary errors = new ModelStateDictionary();
             if (review == null) return errors;
 
-            var platforms = _reviewRepository.GetAll().Where(i => i.GameId == review.GameId && i.UserId == review.UserId && i.Id != review.Id);
-
-            if (platforms.Any())
+            var reviews = _reviewRepository.GetAll().Where(i => i.GameId == review.GameId && i.UserId == review.UserId && i.Id != review.Id);
+            if (reviews.Any())
             {
                 errors.TryAddModelError("GameId", "Napisałeś już recenzję dla tej gry.");
+            }
+            if(review.Content == null)
+            {
+                errors.TryAddModelError("Content", "Treść recenzji musi mieć między 10 a 5000 znaków.");
+            }
+            else if ( review.Content.Length < 10 && 5000 < review.Content.Length)
+            {
+                errors.TryAddModelError("Content", "Treść recenzji musi mieć między 10 a 5000 znaków.");
+            }
+            if (review.GameplayScore < 1 || review.GameplayScore > 10)
+            {
+                errors.TryAddModelError("GameplayScore", "Ocena grywalności musi mieć wartość od 1 do 10.");
+            }
+            if (review.GraphicsScore < 1 || review.GraphicsScore > 10)
+            {
+                errors.TryAddModelError("GraphicsScore", "Ocena grafiki musi mieć wartość od 1 do 10.");
+            }
+            if (review.MusicScore < 1 || review.MusicScore > 10)
+            {
+                errors.TryAddModelError("MusicScore", "Ocena muzyki musi mieć wartość od 1 do 10.");
+            }
+            if (review.StoryScore < 1 || review.StoryScore > 10)
+            {
+                errors.TryAddModelError("StoryScore", "Ocena fabuły musi mieć wartość od 1 do 10.");
             }
             return errors;
         }

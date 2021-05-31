@@ -74,7 +74,14 @@
                             {
                                 <td class="your-score ac fs14">
                                     <div class="js-top-ranking-your-score-col di-ib al" style="width: 43.4063px;">
-                                        <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">N/A</span>
+                                        @{
+                                            var test = "";
+                                            if (item.UserScore != null)
+                                                test = item.UserScore.ToString();
+                                            else
+                                                test = "Brak";
+                                        }
+                                        <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">@test</span>
                                     </div>
                                 </td>
                             }}

@@ -129,7 +129,7 @@ namespace PRO.Domain.Services
 
             if (gameLists.Any())
             {
-                errors.TryAddModelError("GameId", "Wybrana gra znajduje się już na wskazanej liście.");
+              //  errors.TryAddModelError("GameId", "Wybrana gra znajduje się już na wskazanej liście.");
                 errors.TryAddModelError("UserListId", "Wybrana gra znajduje się już na wskazanej liście.");
             }
 

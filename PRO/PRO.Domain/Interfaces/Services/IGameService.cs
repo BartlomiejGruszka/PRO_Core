@@ -19,7 +19,9 @@ namespace PRO.Domain.Interfaces.Services
         void Add(Game newGame);
         void AddTags(Game newGame, IEnumerable<int> selectedTagsId);
         void AddLanguages(Game newGame, IEnumerable<int> selectedLanguagesId);
-        List<GameScore> GetUnorderedGamesRanking();
+        List<GameScore> GetUnorderedGamesRanking(); 
+        List<GameScore> GetUserUnorderedGamesRanking(int? userid);
+
         List<GameScore> GetOrderedGamesRanking(int? number);
         public List<Tuple<Game, int?>> GetGamesByPopularity();
 

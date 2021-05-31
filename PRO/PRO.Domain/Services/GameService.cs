@@ -125,18 +125,23 @@ namespace PRO.Domain.Services
         public List<GameScore> GetUnorderedGamesRanking()
         {
             var images = _imageRepository.GetAll();
+             var ranking = _gameRepository.GetAll()
+               .Select(c => new GameScore { Game = c, Score = c.GameLists.Average(p=>p.PersonalScore) })
+               .ToList();
+            return ranking;
+        }
+        public List<GameScore> GetUserUnorderedGamesRanking(int? userid)
+        {
+            if (!userid.HasValue) return GetUnorderedGamesRanking();
+            if (userid < 1) return GetUnorderedGamesRanking();
 
-            var ranking = _gameListRepository.GetAll()
-                .GroupBy(g => g.Game)
-                .AsEnumerable()
-                .Select(g => new { game = g.Key, average = g.Average(p => p.PersonalScore) })
-                .Select(c => new GameScore { Game = c.game,Score = c.average})
-                .ToList();
+            var usergamelists = _gameListRepository.GetAll().Where(s => s.UserList.UserId == userid);
+            var ranking = GetUnorderedGamesRanking();
 
-            var games = GetAllActive().Where(g => !g.GameLists.Any()).ToList();
-            foreach (Game game in games)
+            foreach(var item in ranking)
             {
-                ranking.Add(new GameScore { Game = game, Score = null });
+                var gamelist = usergamelists.FirstOrDefault(s => s.GameId == item.Game.Id);
+                if(gamelist != null) { item.UserScore = gamelist.PersonalScore;}
             }
             return ranking;
         }
@@ -210,5 +215,7 @@ namespace PRO.Domain.Services
             var games = GetGamesByPopularity();
             return games.FindIndex(s => s.Item1.Id == gameid) + 1;
         }
+
+
     }
 }
