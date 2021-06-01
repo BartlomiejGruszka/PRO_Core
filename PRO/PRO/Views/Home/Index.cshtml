@@ -43,7 +43,7 @@
                                 <h5 class="mb-1">@article.Title</h5>
                             </div>
                             <p class="mb-1">@article.Preview</p>
-                            <small class="text-muted">@article.PublishedDate przez @article.Author.FirstName @article.Author.LastName</small>
+                            <small class="text-muted">@article.PublishedDate.ToShortDateString() przez @article.Author.FirstName @article.Author.LastName</small>
                         </div>
                     </a>
                 }
@@ -102,7 +102,12 @@
                                 <h5 class="mb-1">@game.Title</h5>
                             </div>
                             <p class="mb-1">
-                                @Html.Raw(@StripHTML(@game.Description, 300))...
+                                @{ var content = StripHTML(@game.Description, 300);
+                                    if (content.Length == 300) {
+                                        content = content + "...";
+                                    }
+                                }
+                                @Html.Raw(content)
                             </p>
 
                         </div>

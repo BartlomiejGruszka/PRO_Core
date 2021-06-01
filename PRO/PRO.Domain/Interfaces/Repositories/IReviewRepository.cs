@@ -11,5 +11,6 @@ namespace PRO.Domain.Interfaces.Repositories
     {
 
         public new IEnumerable<Review> GetAll();
+        public new void Update(Review review);
     }
 }

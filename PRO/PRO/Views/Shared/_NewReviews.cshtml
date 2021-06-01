@@ -1,5 +1,23 @@
 ﻿@model IEnumerable<PRO.Entities.Review>
 @using PRO.Domain.Extensions
+
+@using System.Text.RegularExpressions;
+
+@{string StripHTML(string input, int length)
+    {
+        if (!string.IsNullOrEmpty(input))
+        {
+            input = Regex.Replace(input, "<.*?>", String.Empty);
+            input = Regex.Replace(input, "&nbsp;", " ");
+            input = input.Truncate(length);
+            return input;
+        }
+        else
+        {
+            return "";
+        }
+    }
+}
 <div class="side-list-group">
     <h3 class="sidebar-title">Najnowsze recenzje</h3>
     @{ var reviews = Model.ToList();
@@ -16,16 +34,22 @@
                             </div>
 
                             <p class="mb-1" style="font-weight:400;">
-
-                                @Html.Raw("<div style=\"font-weight:400;\">" + @reviews[i].Content.Truncate(120)+"..." + "</div>")
+                                @{ var content = @StripHTML(reviews[i].Content, 120);
+                                    if (content.Length == 120)
+                                    {
+                                        content = content + "...";
+                                    }
+                                }
+                                @Html.Raw(content)
+                                @*@Html.Raw("<div style=\"font-weight:400;\">" + @reviews[i].Content.Truncate(120) + "..." + "</div>")*@
                             </p>
 
 
 
                             <small class="">@reviews[i].User.UserName</small>
                         </a>
-                    </div> 
-                   }
+                    </div>
+                }
 
             }
         }

@@ -25,6 +25,16 @@ namespace PRO.Persistance.Repositories
                .Include(o => o.User.Image);
             return reviews;
         }
+        public new void Update(Review review)
+        {
+            var old = _dbContext.Reviews.Find(review.Id);
+            old.EditDate = review.EditDate;
+            old.Content = review.Content;
+            old.GameplayScore = review.GameplayScore;
+            old.GraphicsScore = review.GraphicsScore;
+            old.MusicScore = review.MusicScore;
+            old.StoryScore = review.StoryScore;
 
+        }
     }
 }

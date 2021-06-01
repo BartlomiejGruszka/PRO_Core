@@ -84,12 +84,15 @@
                                             <span class="floatRightHeader">
                                                 @{
                                                     if (Model.GameGameList.Game.Reviews?.Any() == true)
-                                                    {
-                                                        <a href="/games/@Model.GameGameList.Game.Id/reviews">Więcej recenzji</a>
+                                                    { <span style="display:flex;">
+                                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameGameList.Game.Id/userreview">Twoja recenzja </a>
+                                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameGameList.Game.Id/reviews">Więcej recenzji</a>
+                                                        </span>
+
                                                     }
                                                     else
                                                     {
-                                                        <a href="/games/@Model.GameGameList.Game.Id/newreview">Napisz recenzję</a>
+                                                        <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameGameList.Game.Id/userreview">Twoja recenzja </a>
                                                     }
                                                 }
                                             </span>

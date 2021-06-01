@@ -621,5 +621,5 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\Games.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\OldAdmin.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\ControlPanel\Users.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\_Pagination.cshtml.g.cs
-D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\NewReview.cshtml.g.cs
-D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\NewReview\_NewReview.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\UserReview.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\UserReview\_UserReview.cshtml.g.cs

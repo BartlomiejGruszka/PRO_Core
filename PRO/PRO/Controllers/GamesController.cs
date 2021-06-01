@@ -232,13 +232,13 @@ namespace PRO.Controllers
 
             var reviewplaytimes = _reviewService.ReviewPlaytimeList(Reviews).AsQueryable();
             model.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
-
+            if (selectedReview.UserId == _userService.GetLoggedInUserId()) { ViewBag.CanEdit = true; } else { ViewBag.CanEdit = false; }
             return View(model);
         }
         [HttpGet]
         [Authorize]
-        [Route("games/{id}/newreview")]
-        public ActionResult NewReview(int id)
+        [Route("games/{id}/userreview")]
+        public ActionResult UserReview(int id)
         {
             var model = SetupDetailsPage(id, null, null, null);
             if (model == null) return NotFound();

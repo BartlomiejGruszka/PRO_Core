@@ -28,7 +28,7 @@ namespace PRO.Controllers
         }
 
         [Route("reviews/manage")]
-        [Authorize(Roles ="Admin,Moderator")]
+        [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Manage(
             int? page,
             int? items,
@@ -38,7 +38,7 @@ namespace PRO.Controllers
             )
         {
             if (String.IsNullOrEmpty(sortOrder)) sortOrder = "";
-                ViewData["GameSortParm"] = sortOrder.ToUpper().Contains("DESC")? "" : "DESC";
+            ViewData["GameSortParm"] = sortOrder.ToUpper().Contains("DESC") ? "" : "DESC";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
             ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
 
@@ -61,7 +61,7 @@ namespace PRO.Controllers
             }
             return View(PaginatedList<Review>.Create(reviews.AsNoTracking(), page, items));
         }
-       // [Authorize]
+        // [Authorize]
         [Route("reviews/{id}")]
         public ActionResult Details(int id)
         {
@@ -80,44 +80,6 @@ namespace PRO.Controllers
             }
             return View(review);
         }
-
-        [Authorize]
-        [Route("reviews/new/{id}")]
-        public ActionResult New(int id)
-        {
-            var review = new Review
-            {
-                GameId = id
-            };
-
-            return View(review);
-        }
-
-        [Authorize]
-        [HttpPost]
-        [Route("reviews/new")]
-        [ValidateAntiForgeryToken]
-        public ActionResult New(Review review)
-        {
-            review.ReviewDate = DateTime.Now;
-            review.EditDate = null;
-            review.ModeratorId = null;
-            review.UserId = _userService.GetLoggedInUserId().Value;
-            if (ModelState.IsValid)
-            {
-                var errors = _reviewService.ValidateReview(review);
-                if (!errors.Any())
-                {
-                    _reviewService.Add(review);
-
-                    return RedirectToAction("?");
-                }
-                ModelState.Merge(errors);
-            }
-            return View(review);
-        }
-
-
 
         [Route("reviews/add")]
         [Authorize(Roles = "Admin,Moderator")]
@@ -193,24 +155,33 @@ namespace PRO.Controllers
 
         [Authorize]
         [HttpPost]
-        [Route("reviews/newreview")]
-        public ActionResult NewReview(Review model)
+        [Route("reviews/userreview")]
+        public ActionResult UserReview(Review model)
         {
             model.UserId = _userService.GetLoggedInUserId().Value;
             model.ReviewDate = DateTime.Now;
-            TempData.Put("newReview", model);
+            TempData.Put("userReview", model);
 
             if (ModelState.IsValid)
             {
                 var errors = _reviewService.ValidateReview(model);
                 if (!errors.Any())
                 {
-                    _reviewService.Add(model);
-                    return RedirectToAction("Reviews", "Games", new { id = model.GameId});
+                    if (model.Id > 0)
+                    {
+                        _reviewService.Update(model);
+                        
+                    }
+                    else
+                    {
+                        _reviewService.Add(model);
+                    }
+                    TempData.Clear();
+                    return RedirectToAction("Reviews", "Games", new { id = model.GameId });
                 }
 
             }
-             return RedirectToAction("NewReview", "Games", new { id = model.GameId }); 
+            return RedirectToAction("UserReview", "Games", new { id = model.GameId });
         }
 
 

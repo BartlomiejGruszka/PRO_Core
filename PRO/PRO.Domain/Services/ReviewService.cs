@@ -22,6 +22,7 @@ namespace PRO.Domain.Services
 
         public void Add(Review review)
         {
+            review.ReviewDate = DateTime.Now;
             _reviewRepository.Add(review);
             _reviewRepository.Save();
         }
@@ -45,6 +46,7 @@ namespace PRO.Domain.Services
 
         public void Update(Review review)
         {
+            review.EditDate = DateTime.Now;
             _reviewRepository.Update(review);
             _reviewRepository.Save();
         }
@@ -59,9 +61,15 @@ namespace PRO.Domain.Services
         public List<Review> GetUserReviews(int? id)
         {
             if (!id.HasValue) { return null; }
-            return _reviewRepository.GetAll().Where(i => i.UserId == id.Value).ToList();
+            var reviews = _reviewRepository.GetAll().Where(i => i.UserId == id.Value).ToList();
+            return reviews;
         }
+        public Review GetUserGameReview(int? userid, int? gameid) {
+            if (!userid.HasValue || !gameid.HasValue) { return null; }
+            var review = _reviewRepository.GetAll().SingleOrDefault(i => i.UserId == userid.Value && i.GameId == gameid.Value);
 
+            return review;
+        }
         public List<Review> GetGameReviews(int id)
         {
             var reviews = _reviewRepository.GetAll().Where(c => c.GameId == id).ToList();

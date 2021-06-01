@@ -1,6 +1,21 @@
 ﻿@model PRO.Domain.HelperClasses.ReviewPlaytime
 @using PRO.Domain.Extensions
-
+@using System.Text.RegularExpressions;
+@{string StripHTML(string input, int length)
+    {
+        if (!string.IsNullOrEmpty(input))
+        {
+            input = Regex.Replace(input, "<.*?>", String.Empty);
+            input = Regex.Replace(input, "&nbsp;", " ");
+            input = input.Truncate(length);
+            return input;
+        }
+        else
+        {
+            return "";
+        }
+    }
+}
 <div class="borderDark" style="padding: 4px 0;">
     <div class="spaceit" style="display: flex; justify-content: space-between;">
 
@@ -59,13 +74,13 @@
             @{
                 {
                     int avg = (Model.Review.GameplayScore + Model.Review.GraphicsScore + Model.Review.MusicScore + Model.Review.StoryScore) / 4;
-                    if (Model.Review.ModeratorId != null)
+                    if (Model.Review.EditDate != null)
                     { <div class="lightLink spaceit">
                             Średnia ocena: @avg
                         </div>
-                      <div>
-                          Edytowano: @Model.Review.EditDate.Value.ToShortDateString()
-                      </div>
+                        <div>
+                            Edytowano: @Model.Review.EditDate.Value.ToShortDateString()
+                        </div>
                     }
                     else
                     {
@@ -96,7 +111,9 @@
 
         @{ if (ViewContext.RouteData.Values["action"].ToString() != "SingleReview")
             {
-                @Html.Raw(@Model.Review.Content.Truncate(200))<text>... </text>
+                var content = StripHTML(Model.Review.Content, 200);
+                if (content.Length == 200) content = content + "...";
+                @Html.Raw(content)
                 <a href="/games/@Model.Review.GameId/reviews/@Model.Review.Id">więcej </a>
             }
             else

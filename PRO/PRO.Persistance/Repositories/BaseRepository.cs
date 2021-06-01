@@ -62,6 +62,9 @@ namespace PRO.Persistance.Repositories
 
         public void Update(T updatedElement)
         {
+          //  var old = _dbContext.Set<T>().Find(updatedElement);
+          //  _dbContext.Entry(old).CurrentValues.SetValues(updatedElement);
+
             _dbContext.Attach(updatedElement);
             _dbContext.Entry(updatedElement).State = EntityState.Modified;
         }

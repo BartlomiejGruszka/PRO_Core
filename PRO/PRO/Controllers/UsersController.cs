@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using PRO.UI.ViewModels;
@@ -67,11 +68,11 @@ namespace PRO.Controllers
         [AllowAnonymous]
         public ActionResult Details(int? id)
         {
-            var model = UserProfileSetup(id);
+            var model = UserProfileSetup(id, null, null);
             if (model == null) { return NotFound(); }
             return View(model);
         }
-        public UserProfileViewModel UserProfileSetup(int? id)
+        public UserProfileViewModel UserProfileSetup(int? id, int? page, int? items)
         {
             ApplicationUser user = _userService.FindActive(id);
             if (user == null)
@@ -83,13 +84,15 @@ namespace PRO.Controllers
                 AppUser = user,
                 Images = _imageService.GetAll().ToList()
             };
+            var playtimes = _reviewService.UserPlaytimeList(user.Id).AsQueryable();
+
             UserProfileViewModel model = new UserProfileViewModel
             {
                 EditUser = edituser,
                 UserLists = _userListService.GetAll().ToList(),
                 GameLists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).ToList(),
-                ReviewsPlaytimes = _reviewService.UserPlaytimeList(user.Id),
-                LoggedUserId = _userService.GetLoggedInUserId(),
+                ReviewsPlaytimes = PaginatedList<ReviewPlaytime>.Create(playtimes.AsNoTracking(), page, items),
+            LoggedUserId = _userService.GetLoggedInUserId(),
                 ListTypes = _listTypeService.GetAll().ToList(),
                 RecentlyUpdatedGames = _gameListService.GetRecentUserGameListUpdates(user.Id, 3)
             };
@@ -308,7 +311,7 @@ namespace PRO.Controllers
                 }
                 AddErrors(result);
             }
-            var userProfile = UserProfileSetup(id);
+            var userProfile = UserProfileSetup(id, null, null);
             if (userProfile == null) return NotFound();
             return View(userProfile);
         }
@@ -328,7 +331,7 @@ namespace PRO.Controllers
         public ActionResult EditProfile(int? id)
         {
 
-            var userprofile = UserProfileSetup(id);
+            var userprofile = UserProfileSetup(id, null, null);
             if (userprofile == null) return NotFound();
 
 
@@ -384,9 +387,8 @@ namespace PRO.Controllers
         [Route("users/{id}/reviews")]
         public ActionResult Reviews(int? id, int? page, int? items)
         {
-            var model = UserProfileSetup(id);
+            var model = UserProfileSetup(id, page, items);
             if (model == null) { return NotFound(); }
-            ViewBag.Pagination = new Pagination(page, items, model.ReviewsPlaytimes.Count());
 
             return View(model);
         }

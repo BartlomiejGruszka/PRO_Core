@@ -22,6 +22,12 @@
                                         <div class="underlined_h2">
                                             <text class="">Wybrana recenzja</text>
                                             <a href="#" style="float:right; text-decoration:none; font-weight:normal;" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
+                                            @if (ViewBag.CanEdit == true && User.Identity.IsAuthenticated)
+                                            {
+                                                <a style="float:right; text-decoration:none; font-weight:normal; margin-right:5px;" href="/games/@Model.GameGameList.Game.Id/userreview">Edytuj recenzję</a>
+                                            }
+
+
                                         </div>
                                         @foreach (var item in Model.ReviewPlaytimes)
                                         {
