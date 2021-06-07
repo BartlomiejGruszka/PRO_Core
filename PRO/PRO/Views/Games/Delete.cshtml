@@ -19,11 +19,24 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.Raw(@Model.Description)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.ReleaseDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
+            @if (Model.ReleaseDate != null)
+            {
+                @Html.DisplayFor(model => model.ReleaseDate)
+
+            }
+            else
+            { <p>Brak daty</p>}
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.IsActive)
@@ -35,7 +48,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.Platform)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Platform.Name)
         </dd>
@@ -58,7 +70,13 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Series.Name)
+            @if (Model.Series != null)
+            {
+                @Html.DisplayFor(model => model.Series.Name)
+
+            }
+            else
+            { <p>Brak serii</p>}
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Image)
@@ -78,14 +96,27 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PublisherCompany.Name)
+            @if (Model.PublisherCompany != null)
+            {
+                @Html.DisplayFor(model => model.PublisherCompany.Name)
+
+            }
+            else
+            { <p>Brak wydawcy</p>}
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DeveloperCompany)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DeveloperCompany.Name)
+            @if (Model.DeveloperCompany != null)
+            {
+                @Html.DisplayFor(model => model.DeveloperCompany.Name)
+
+            }
+            else
+            { <p>Brak producenta</p>}
         </dd>
 
     </dl>

@@ -57,20 +57,43 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    @if (item.ReleaseDate != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+
+                    }
+                    else
+                    { <p>Brak</p>}
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Genre.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DeveloperCompany.Name)
+                    @if (item.DeveloperCompany != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.DeveloperCompany.Name)
+
+                    }
+                    else
+                    { <p>Brak</p>}
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.PublisherCompany.Name)
+                    @if (item.PublisherCompany != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.PublisherCompany.Name)
+
+                    }
+                    else
+                    { <p>Brak</p>}
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Series.Name)
+                    @if (item.Series != null) { 
+                        @Html.DisplayFor(modelItem => item.Series.Name)
+
+                    }
+                    else
+                    { <p>Brak</p>}
                 </td>
 
                 <td>

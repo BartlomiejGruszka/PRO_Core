@@ -29,7 +29,13 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
+            @if (Model.ReleaseDate != null)
+            {
+                @Html.DisplayFor(model => model.ReleaseDate)
+
+            }
+            else
+            { <p>Brak daty</p>}
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.IsActive)
@@ -63,7 +69,13 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Series.Name)
+            @if (Model.Series != null)
+            {
+                @Html.DisplayFor(model => model.Series.Name)
+
+            }
+            else
+            { <p>Brak serii</p>}
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Image)
@@ -71,10 +83,11 @@
 
         <dd>
             @if (Model.Image != null)
-            {<img style="max-width:500px;width: expression(this.width > 500 ? 500: true);" class=" lazyloaded" src="@Url.Content(Model.Image.ImagePath)">
+            {<img style="max-width:500px;width: expression(this.width > 500 ? 500: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
 
             }
-            else { <p>Brak obrazu</p>}
+            else
+            { <p>Brak obrazu</p>}
 
         </dd>
         <dt>
@@ -82,14 +95,72 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PublisherCompany.Name)
+            @if (Model.PublisherCompany != null)
+            {
+                @Html.DisplayFor(model => model.PublisherCompany.Name)
+
+            }
+            else
+            { <p>Brak wydawcy</p>}
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DeveloperCompany)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DeveloperCompany.Name)
+            @if (Model.DeveloperCompany != null)
+            {
+                @Html.DisplayFor(model => model.DeveloperCompany.Name)
+
+            }
+            else
+            { <p>Brak producenta</p>}
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tags)
+        </dt>
+
+        <dd>
+            @if (Model.Tags != null)
+            {
+                for (var x = 0; x < Model.Tags.Count; x++)
+                {
+                    var tags = Model.Tags.ToArray();
+                    var tag = tags[x];
+
+                    if (x + 1 < Model.Tags.Count)
+                    {
+                        tag.Name = tag.Name + ", ";
+                    }
+                    @Html.DisplayFor(model => tag.Name)
+                }
+            }
+            else
+            { <p>Brak tagów</p>}
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Languages)
+        </dt>
+
+        <dd>
+            @if (Model.Languages != null)
+            {
+                for (var x = 0; x < Model.Languages.Count; x++)
+                {
+                    var tags = Model.Languages.ToArray();
+                    var tag = tags[x];
+
+                    if (x + 1 < Model.Languages.Count)
+                    {
+                        tag.Name = tag.Name + ", ";
+                    }
+                    @Html.DisplayFor(model => tag.Name)
+                }
+            }
+            else
+            { <p>Brak języków</p>}
+
         </dd>
 
     </dl>

@@ -14,14 +14,16 @@ select.bs-select-hidden, select.selectpicker {
 }
 
     .bootstrap-select > .dropdown-toggle {
-        width: 100%;
+        min-width: 400px;
+       max-width: 100%;
         padding-right: 25px;
         z-index: 1
     }
 
         .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
             /*color: #999*/
-            max-width: 400px;
+            min-width: 400px;
+            max-width: 100%;
         }
 
     .bootstrap-select > select {
@@ -122,7 +124,7 @@ select.bs-select-hidden, select.selectpicker {
 
 .bootstrap-select.btn-group .dropdown-toggle .filter-option {
     display: inline-block;
-    overflow: hidden;
+    overflow: auto;
     width: 100%;
     text-align: left
 }
@@ -184,7 +186,7 @@ select.bs-select-hidden, select.selectpicker {
             }
 
             .bootstrap-select.btn-group .dropdown-menu li a span.check-mark {
-                display: none
+                /*display: none*/
             }
 
             .bootstrap-select.btn-group .dropdown-menu li a span.text {

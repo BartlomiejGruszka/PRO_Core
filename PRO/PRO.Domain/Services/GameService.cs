@@ -125,7 +125,7 @@ namespace PRO.Domain.Services
         public List<GameScore> GetUnorderedGamesRanking()
         {
             var images = _imageRepository.GetAll();
-             var ranking = _gameRepository.GetAll()
+             var ranking = GetAllActive()
                .Select(c => new GameScore { Game = c, Score = c.GameLists.Average(p=>p.PersonalScore) })
                .ToList();
             return ranking;
@@ -155,11 +155,12 @@ namespace PRO.Domain.Services
                     game = g.Key,
                     count = g.Select(i => i.UserList.UserId).Distinct().Count()
                 })
+                .Where(s=>s.game.IsActive == true)
                 .AsEnumerable()
                 .Select(c => new Tuple<Game, int?>(c.game, c.count))
                 .ToList();
 
-            var games = _gameRepository.GetAll().Where(g => !g.GameLists.Any()).ToList();
+            var games = GetAllActive().Where(g => !g.GameLists.Any()).ToList();
             foreach (Game game in games)
             {
                 popularity.Add(new Tuple<Game, int?>(game, null));
