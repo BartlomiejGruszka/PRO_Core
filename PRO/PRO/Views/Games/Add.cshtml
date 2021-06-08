@@ -50,7 +50,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.PlatformId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="Game.PlatformId" name="Game.PlatformId" data-live-search="true" title="Wybierz platformę">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="Game.PlatformId" name="Game.PlatformId" data-live-search="true" title="Wybierz platformę">
                 @foreach (var item in Model.Platforms)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -63,7 +63,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.StatusId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="Game.StatusId" name="Game.StatusId" data-live-search="true" title="Wybierz status">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="Game.StatusId" name="Game.StatusId" data-live-search="true" title="Wybierz status">
                 @foreach (var item in Model.Statuses)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -76,7 +76,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.GenreId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="Game.GenreId" name="Game.GenreId" data-live-search="true" title="Wybierz gatunek">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="Game.GenreId" name="Game.GenreId" data-live-search="true" title="Wybierz gatunek">
                 @foreach (var item in Model.Genres)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -89,7 +89,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.Series, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="Game.SeriesId" name="Game.SeriesId" data-live-search="true" title="Wybierz serię">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="Game.SeriesId" name="Game.SeriesId" data-live-search="true" title="Wybierz serię">
                 @foreach (var item in Model.Series)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -102,7 +102,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ImageTypes, "Rodzaj obrazka", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" id="SelectedImageTypeId" name="SelectedImageTypeId" data-live-search="true" onchange="javascript:GetImagesByType(this.value);" title="Wybierz rodzaj obrazka">
+            <select class="selectpicker show-tick" id="SelectedImageTypeId" name="SelectedImageTypeId" data-live-search="true" onchange="javascript:GetImagesByType(this.value);" title="Wybierz rodzaj obrazka">
                 @foreach (var item in Model.ImageTypes)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -115,7 +115,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.ImageId, "Obraz", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="ImageId" name="Game.ImageId" data-live-search="true" onchange="SetImageId()" title="Wybierz obraz">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="ImageId" name="Game.ImageId" data-live-search="true" onchange="SetImageId()" title="Wybierz obraz">
             </select>
             @Html.ValidationMessageFor(model => model.Game.ImageId, "", new { @class = "text-danger" })
         </div>
@@ -124,7 +124,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.PublisherId, "Wydawca", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="Game.PublisherId" name="Game.PublisherId" data-live-search="true" title="Wybierz wydawcę">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="Game.PublisherId" name="Game.PublisherId" data-live-search="true" title="Wybierz wydawcę">
                 @foreach (var item in Model.Publishers)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -137,7 +137,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.DeveloperId, "Producent", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="Game.DeveloperId" name="Game.DeveloperId" data-live-search="true" title="Wybierz producenta">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="Game.DeveloperId" name="Game.DeveloperId" data-live-search="true" title="Wybierz producenta">
                 @foreach (var item in Model.Developers)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -150,7 +150,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.Languages, "Języki", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="selectedLanguagesId" name="selectedLanguagesId" data-live-search="true" multiple title="Wybierz języki">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="selectedLanguagesId" name="selectedLanguagesId" data-live-search="true" multiple title="Wybierz języki">
                 @foreach (var item in Model.Languages)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -163,7 +163,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Game.Tags, "Tagi", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker form-control" style="max-width:400px;" id="selectedTagsId" name="selectedTagsId" data-live-search="true" multiple title="Wybierz tagi">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="selectedTagsId" name="selectedTagsId" data-live-search="true" multiple title="Wybierz tagi">
                 @foreach (var item in Model.Tags)
                 {
                     <option value="@item.Id">@item.Name</option>

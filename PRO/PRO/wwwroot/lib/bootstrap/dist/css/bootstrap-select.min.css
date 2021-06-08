@@ -333,3 +333,15 @@ select.bs-select-hidden, select.selectpicker {
     width: 100%;
     float: none
 }
+.bootstrap-select .glyphicon-ok:after {
+    content: '';
+    display: block;
+    width: .5em;
+    height: 1em;
+    border-style: solid;
+    border-width: 0 .26em .26em 0;
+    -webkit-transform: rotate( 45deg );
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate( 45deg );
+}
