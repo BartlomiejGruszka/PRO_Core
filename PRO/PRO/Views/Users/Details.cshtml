@@ -4,14 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    <h1 class="main_h1 edit-info">
-        <span class="h1-title">
-            <span>
-                @Model.EditUser.AppUser.UserName
-            </span>
-
-        </span>
-    </h1>
+    <div>
+        <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.EditUser.AppUser" />
+    </div>
 </div>
 <div id="content" class="userprofilecontent">
     @if (Model.EditUser.AppUser.IsPublic)
@@ -88,8 +83,8 @@
                                                             <a href="/games/@game.Item1.GameId">@game.Item1.Game.Title</a>
                                                             <div class="clearfix graph-content pt8" style="display:flex; flex-direction:column;">
                                                                 <span class="fl-r fn-grey2">Edytowano @game.Item2.ToShortDateString()</span>
-                                                                <span class="text anime completed">@game.Item1.UserList.ListType.Name</span>
-                                                                <span class="text anime completed score-label score-8">Ocena: @game.Item1.PersonalScore</span>
+                                                                <span class="text completed">@game.Item1.UserList.ListType.Name</span>
+                                                                <span class="text completed score-label score-8">Ocena: @game.Item1.PersonalScore</span>
                                                             </div>
 
                                                             <div class="clearfix graph-content pt8">

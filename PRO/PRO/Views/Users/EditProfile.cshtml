@@ -4,14 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    <h1 class="main_h1 edit-info">
-        <span class="h1-title">
-            <span>
-                @Model.AppUser.UserName
-            </span>
-
-        </span>
-    </h1>
+    <div>
+        <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.AppUser" />
+    </div>
 </div>
 <div id="content" class="userprofilecontent">
 
