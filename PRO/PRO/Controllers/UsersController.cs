@@ -186,6 +186,15 @@ namespace PRO.Controllers
             return View(model);
         }
 
+        [Route("users/{id}/lists")]
+        [AllowAnonymous]
+        public ActionResult Lists(int? id)
+        {
+            var model = UserProfileSetup(id, null, null);
+            if (model == null) { return NotFound(); }
+            return View(model);
+        }
+
         // GET: Authors/Delete/5
         [Route("users/delete/{id}")]
         [Authorize(Roles = "Admin")]
@@ -314,15 +323,6 @@ namespace PRO.Controllers
             var userProfile = UserProfileSetup(id, null, null);
             if (userProfile == null) return NotFound();
             return View(userProfile);
-        }
-
-
-        [Route("users/{id}/lists")]
-        [AllowAnonymous]
-        public ActionResult UserGameList(int id)
-        {
-
-            return View();
         }
 
         [HttpGet]
