@@ -73,13 +73,13 @@ namespace PRO.Controllers
         {
 
             var games = _gameService.GetAllActive().OrderBy(g => g.Title).ToList();
-            var gamescores = _gameService.GetUnorderedGamesRanking().OrderBy(g => g.Game.Title).AsQueryable();
+            int? user = _userService.GetLoggedInUserId();
+            var gamescores = _gameService.GetUserUnorderedGamesRanking(user).OrderBy(g => g.Game.Title).AsQueryable();
             var paginatedgamescores = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
             var viewModel = new GameFilterViewModel
             {
                 GamesScores = paginatedgamescores
             };
-            ViewBag.Pagination = new Pagination(page, items, games.Count());
             return View(viewModel);
         }
 

@@ -23,7 +23,7 @@
                 <td class="status">Status</td>
             </tr>
             @{
-                foreach(var item in Model.GamesScores)
+                foreach (var item in Model.GamesScores)
                 {
 
                     <tr class="ranking-list">
@@ -68,9 +68,19 @@
                         </td>
                         @{if (userLoggedIn)
                             {
+
+
                                 <td class="your-score ac fs14">
                                     <div class="js-top-ranking-your-score-col di-ib al" style="width: 43.4063px;">
-                                        <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">N/A</span>
+                                        @if (item.UserScore == null)
+                                        {
+                                            <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">N/A</span>
+                                        }
+                                        else
+                                        {
+                                            <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">@Math.Round((double)item.UserScore.Value,1)</span>
+                                        }
+
                                     </div>
                                 </td>
                             }}
