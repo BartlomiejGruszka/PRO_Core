@@ -257,6 +257,7 @@ namespace PRO.Controllers
             {
                 GamesScores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items)
             };
+            viewModel.GamesScores.Pagination.Route = "games/search/" + query + "?";
             return View("Index", viewModel);
         }
 

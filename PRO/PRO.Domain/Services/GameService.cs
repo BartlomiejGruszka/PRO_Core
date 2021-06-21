@@ -115,19 +115,19 @@ namespace PRO.Domain.Services
         }
         public List<GameScore> GetFilteredGamesRanking(string query)
         {
-            var filteredgames = FilterGames(query).Select(s => new GameScore { Game = s, Score = null }).ToList() ;
+            var filteredgames = FilterGames(query).Select(s => new GameScore { Game = s, Score = null }).ToList();
             var ranking = GetUnorderedGamesRanking();
-            var result = ranking.Select(r => new GameScore{Game=r.Game, Score = r.Score })
+            var result = ranking.Select(r => new GameScore { Game = r.Game, Score = r.Score })
                 .Where(g => ranking.Select(f => f.Game.Id).Intersect(filteredgames.Select(fg => fg.Game.Id)).Contains(g.Game.Id)).ToList();
-    
+
             return result;
         }
         public List<GameScore> GetUnorderedGamesRanking()
         {
             var images = _imageRepository.GetAll();
-             var ranking = GetAllActive()
-               .Select(c => new GameScore { Game = c, Score = c.GameLists.Average(p=>p.PersonalScore) })
-               .ToList();
+            var ranking = GetAllActive()
+              .Select(c => new GameScore { Game = c, Score = c.GameLists.Average(p => p.PersonalScore) })
+              .ToList();
             return ranking;
         }
         public List<GameScore> GetUserUnorderedGamesRanking(int? userid)
@@ -138,10 +138,10 @@ namespace PRO.Domain.Services
             var usergamelists = _gameListRepository.GetAll().Where(s => s.UserList.UserId == userid);
             var ranking = GetUnorderedGamesRanking();
 
-            foreach(var item in ranking)
+            foreach (var item in ranking)
             {
                 var gamelist = usergamelists.FirstOrDefault(s => s.GameId == item.Game.Id);
-                if(gamelist != null) { item.UserScore = gamelist.PersonalScore;}
+                if (gamelist != null) { item.UserScore = gamelist.PersonalScore; }
             }
             return ranking;
         }
@@ -155,7 +155,7 @@ namespace PRO.Domain.Services
                     game = g.Key,
                     count = g.Select(i => i.UserList.UserId).Distinct().Count()
                 })
-                .Where(s=>s.game.IsActive == true)
+                .Where(s => s.game.IsActive == true)
                 .AsEnumerable()
                 .Select(c => new Tuple<Game, int?>(c.game, c.count))
                 .ToList();
@@ -172,15 +172,28 @@ namespace PRO.Domain.Services
 
         public List<Game> FilterGames(string query)
         {
-            var filteredgames = GetAllActive()
-                .Where(g =>
+            var games = GetAllActive();
+
+            List<Game> filteredgames1 = new List<Game>();
+            foreach(var game in games)
+            {
+                if (game.DeveloperCompany != null) {
+                    if (game.DeveloperCompany.Name.CaseInsensitiveContains(query)) { filteredgames1.Add(game); }
+                }
+                if (game.PublisherCompany != null) {
+                    if (game.PublisherCompany.Name.CaseInsensitiveContains(query)) { filteredgames1.Add(game); }
+                }
+            }
+
+            var filteredgames = games.Where(g =>
                 g.Title.CaseInsensitiveContains(query) ||
                 g.Description.CaseInsensitiveContains(query) ||
-                g.DeveloperCompany.Name.CaseInsensitiveContains(query) ||
-                g.PublisherCompany.Name.CaseInsensitiveContains(query) ||
                 g.Status.Name.CaseInsensitiveContains(query)
                 ).ToList();
-            return filteredgames;
+
+            var result = filteredgames.Concat(filteredgames1).Distinct().ToList();
+
+            return result;
         }
 
         public void Update(Game game)

@@ -56,5 +56,25 @@ namespace PRO.Domain.Services
             }
             return errors;
         }
+        public IQueryable<Genre> FilterSearch(string query)
+        {
+            var genres = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                genres = genres.Where(s => s.Name.ToLower().Contains(query.ToLower()));
+            }
+            return genres;
+        }
+
+        public IQueryable<Genre> SortList(string sortOrder, IQueryable<Genre> genres)
+        {
+            genres = sortOrder switch
+            {
+                "DESC" => genres.OrderByDescending(s => s.Name),
+                "" => genres.OrderBy(s => s.Name),               
+                _ => genres.OrderBy(s => s.Name),
+            };
+            return genres.AsQueryable();
+        }
     }
 }

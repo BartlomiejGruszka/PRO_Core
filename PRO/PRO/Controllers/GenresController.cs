@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,14 +22,22 @@ namespace PRO.Controllers
         [Route("genres/")]
         public ActionResult Index()
         {
-            return View(_genreService.GetAll());
+            return View();//
         }
-        [Route("genres/manage")]
-        public ActionResult Manage(int? page, int? items)
-        {
-            var genres = _genreService.GetAll().AsQueryable();
 
-            return View(PaginatedList<Genre>.Create(genres.AsNoTracking(), page, items));
+        [HttpGet]
+        [Route("genres/manage/{query?}")]
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder)
+        {
+            if (String.IsNullOrEmpty(sortOrder)) sortOrder = "";
+            ViewData["NameSortParm"] = sortOrder.ToUpper().Contains("DESC") ? "" : "DESC"; 
+
+            var genres = _genreService.FilterSearch(query);
+            genres = _genreService.SortList(sortOrder,genres);
+            var result = PaginatedList<Genre>.Create(genres.AsNoTracking(), page, items);
+            if (!String.IsNullOrEmpty(query)) { result.Pagination.Route = "genres/manage/" + query + "?"; }
+
+            return View("Manage", result);
         }
 
         // GET: Genres/Details/5

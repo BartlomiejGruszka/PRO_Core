@@ -16,5 +16,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public void Update(Genre genre);
         public ModelStateDictionary ValidateGenre(Genre genre);
+        public IQueryable<Genre> FilterSearch(string query);
+        public IQueryable<Genre> SortList(string sortOrder, IQueryable<Genre> genres);
     }
 }
