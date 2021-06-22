@@ -70,7 +70,7 @@ namespace PRO.Domain.Services
         {
             genres = sortOrder switch
             {
-                "DESC" => genres.OrderByDescending(s => s.Name),
+                "name_desc" => genres.OrderByDescending(s => s.Name),
                 "" => genres.OrderBy(s => s.Name),               
                 _ => genres.OrderBy(s => s.Name),
             };

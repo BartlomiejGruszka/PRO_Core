@@ -31,7 +31,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var platforms = _platformService.GetAll().AsQueryable();
-            return View(PaginatedList<Platform>.Create(platforms.AsNoTracking(), page, items));
+            var result = PaginatedList<Platform>.Create(platforms.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         // GET: Platforms/Details/5
@@ -58,7 +61,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("platforms/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name,ReleaseDate,IsActive,CompanyId")] Platform platform)
+        public ActionResult Add( Platform platform)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +97,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("platforms/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name,ReleaseDate,IsActive,CompanyId")] Platform platform)
+        public ActionResult Edit( Platform platform)
         {
             if (ModelState.IsValid)
             {

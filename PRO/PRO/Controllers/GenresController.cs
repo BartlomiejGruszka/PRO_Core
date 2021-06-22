@@ -27,15 +27,26 @@ namespace PRO.Controllers
 
         [HttpGet]
         [Route("genres/manage/{query?}")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            if (String.IsNullOrEmpty(sortOrder)) sortOrder = "";
-            ViewData["NameSortParm"] = sortOrder.ToUpper().Contains("DESC") ? "" : "DESC"; 
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;             
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
             var genres = _genreService.FilterSearch(query);
             genres = _genreService.SortList(sortOrder,genres);
+
             var result = PaginatedList<Genre>.Create(genres.AsNoTracking(), page, items);
-            if (!String.IsNullOrEmpty(query)) { result.Pagination.Route = "genres/manage/" + query + "?"; }
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
 
             return View("Manage", result);
         }
@@ -96,8 +107,9 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("genres/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name")] Genre genre)
+        public ActionResult Edit(Genre genre, int id)
         {
+            genre.Id = id;
             if (ModelState.IsValid)
             {
                 var errors = _genreService.ValidateGenre(genre);

@@ -1,37 +1,91 @@
 ﻿@model PRO.Entities.Pagination
- 
-<ul class="pagination">
-    @{     
-        if (Model.PageIndex != 1)
-        {
-            if (Model.PageIndex > 2)
+
+<div  style="display: flex; justify-content: space-between;">
+    <ul class="pagination">
+    </ul>
+    <ul class="pagination">
+        @{
+
+            var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+
+
+            if (Model.PageIndex != 1)
             {
+                if (Model.PageIndex > 2)
+                {
+                    <li class="page-item">
+                        <a asp-controller="@controllerName"
+                           asp-action="@Model.Action"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-page="1"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-items="@ViewData["pageItems"]"
+                           class="page-link">
+                            «
+                        </a>
+                    </li>
+                }
                 <li class="page-item">
-                    <a class="page-link" href="/@(Model.Route)page=1&items=@Model.PageItems">«</a>
+                    <a asp-controller="@controllerName"
+                       asp-action="@Model.Action"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-page="@(Model.PageIndex-1)"
+                       asp-route-items="@ViewData["pageItems"]"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="page-link">
+                        @(Model.PageIndex - 1)
+                    </a>
                 </li>
             }
-            <li class="page-item">
-                <a class="page-link" href="/@(Model.Route)page=@(Model.PageIndex-1)&items=@Model.PageItems">@(Model.PageIndex-1)</a>
-            </li>
-        }
 
-        <li class="page-item active">
-            <a class="page-link" href="/@(Model.Route)page=@(Model.PageIndex)&items=@Model.PageItems">@(Model.PageIndex)</a>
-        </li>
-        if (Model.TotalPages > Model.PageIndex)
-        {
-            <li class="page-item">
-                <a class="page-link" href="/@(Model.Route)page=@(Model.PageIndex+1)&items=@Model.PageItems">@(Model.PageIndex + 1)</a>
+            <li class="page-item active">
+                <a asp-controller="@controllerName"
+                   asp-action="@Model.Action"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-page="@(Model.PageIndex)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   asp-route-items="@ViewData["pageItems"]"
+                   class="page-link">
+                    @(Model.PageIndex)
+                </a>
             </li>
-
-            if (Model.TotalPages > Model.PageIndex + 1)
+            if (Model.TotalPages > Model.PageIndex)
             {
                 <li class="page-item">
-                    <a class="page-link" href="/@(Model.Route)page=@Model.TotalPages&items=@Model.PageItems">&raquo;</a>
+                    <a asp-controller="@controllerName"
+                       asp-action="@Model.Action"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-page="@(Model.PageIndex+1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-items="@ViewData["pageItems"]"
+                       class="page-link">
+                        @(Model.PageIndex + 1)
+                    </a>
                 </li>
+
+                if (Model.TotalPages > Model.PageIndex + 1)
+                {
+                    <li class="page-item">
+                        <a asp-controller="@controllerName"
+                           asp-action="@Model.Action"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-page="@(Model.TotalPages)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-items="@ViewData["pageItems"]"
+                           class="page-link">
+                            &raquo;
+                        </a>
+                    </li>
+                }
+
+
             }
-
-
         }
-    }
-</ul>
+    </ul>
+    <select  id="pageItems" name="pageItems" style="margin: 5px; display: flex; align-self: center;">
+        <option value="1">1</option>
+        <option selected value="5">5</option>
+        <option  value="10">10</option>
+        <option  value="20">20</option>
+    </select>
+</div>

@@ -20,26 +20,20 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="window.history.go(-1); return false;">Powrót</a>
+                    <a class="nav-link" href="/panel">Powrót</a>
                 </li>
             </ul>
-
-
-            @using (Html.BeginForm("Manage", "Genres", FormMethod.Get, new { style = "display:flex;" }))
-            {
-                <form class="d-flex" style=" align-items: center;">
-                    <input class="form-control me-sm-2" type="text" placeholder="Szukaj" name="query">
-                    <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
-                </form>
-            }
-
+            <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">                
+                <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="query" value="@ViewData["CurrentFilter"]" />
+                <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
+            </form>     
         </div>
     </div>
 </nav>
 <table class="table">
     <tr style="        background-color: #e9ecef;">
         <th style="width:70%;">
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]">Nazwa</a>
+            <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwa</a>
         </th>
         <th style="width:30%;">
             Opcje
@@ -65,7 +59,6 @@
     }
 </table>
 <div>
-    @if(String.IsNullOrEmpty(Model.Pagination.Route)) {Model.Pagination.Route = "genres/manage?";}
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
 </div>
 <script>

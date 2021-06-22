@@ -53,7 +53,10 @@ namespace PRO.Controllers
 
             var articlesList = _articleService.ArticlesByPlatform(platform).AsQueryable();
             ViewBag.Platform = platform;
-            return View(PaginatedList<Article>.Create(articlesList.AsNoTracking(), page, items));
+            var result = PaginatedList<Article>.Create(articlesList.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+            return View(result);
         }
 
         [Route("articles/manage")]
@@ -71,9 +74,10 @@ namespace PRO.Controllers
             {
                 articlesList = _articleService.GetAll().AsQueryable();
             }
-
-            ViewBag.Pagination = new Pagination(page, items, articlesList.Count());
-            return View(PaginatedList<Article>.Create(articlesList.AsNoTracking(), page, items));
+            var result = PaginatedList<Article>.Create(articlesList.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+            return View(result);
         }
 
         [AllowAnonymous]

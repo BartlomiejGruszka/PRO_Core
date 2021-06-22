@@ -59,7 +59,11 @@ namespace PRO.Controllers
                 reviews = reviews.Where(s => s.Game.Title.ToUpper().Contains(searchString.ToUpper())
                                        || s.User.NormalizedUserName.Contains(searchString.ToUpper()));
             }
-            return View(PaginatedList<Review>.Create(reviews.AsNoTracking(), page, items));
+
+            var result = PaginatedList<Review>.Create(reviews.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
         // [Authorize]
         [Route("reviews/{id}")]

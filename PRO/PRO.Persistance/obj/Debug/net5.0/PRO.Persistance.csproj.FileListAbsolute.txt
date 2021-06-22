@@ -4,7 +4,6 @@ D:\PRO_Core\PRO\PRO.Persistance\bin\Debug\net5.0\ref\PRO.Persistance.dll
 D:\PRO_Core\PRO\PRO.Persistance\bin\Debug\net5.0\PRO.Persistance.pdb
 D:\PRO_Core\PRO\PRO.Persistance\bin\Debug\net5.0\PRO.Domain.dll
 D:\PRO_Core\PRO\PRO.Persistance\bin\Debug\net5.0\PRO.Domain.pdb
-D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.csprojAssemblyReference.cache
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.GeneratedMSBuildEditorConfig.editorconfig
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.AssemblyInfoInputs.cache
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.AssemblyInfo.cs
@@ -13,3 +12,4 @@ D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.csproj.CopyComp
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.dll
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\ref\PRO.Persistance.dll
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.pdb
+D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.csproj.AssemblyReference.cache

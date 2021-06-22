@@ -25,8 +25,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var articleTypesList = _articleTypeService.GetAll().AsQueryable();
-
-            return View(PaginatedList<ArticleType>.Create(articleTypesList.AsNoTracking(), page, items));
+            var result = PaginatedList<ArticleType>.Create(articleTypesList.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+            return View(result);
         }
 
         [Route("articletypes/details/{id}")]
@@ -80,7 +82,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("articletypes/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name")] ArticleType articleType)
+        public ActionResult Edit(ArticleType articleType)
         {
             if (ModelState.IsValid)
             {

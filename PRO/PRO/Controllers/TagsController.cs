@@ -22,7 +22,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var tags = _tagService.GetAll().AsQueryable();
-            return View(PaginatedList<Tag>.Create(tags.AsNoTracking(), page, items));
+            var result = PaginatedList<Tag>.Create(tags.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         // GET: Tags/Details/5
@@ -48,7 +51,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("tags/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name")] Tag tag)
+        public ActionResult Add( Tag tag)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +84,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("tags/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name")] Tag tag)
+        public ActionResult Edit( Tag tag)
         {
             if (ModelState.IsValid)
             {

@@ -21,8 +21,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var ImageTypes = _imageTypeService.GetAll().AsQueryable();
+            var result = PaginatedList<ImageType>.Create(ImageTypes.AsNoTracking(), page, items);
 
-            return View(PaginatedList<ImageType>.Create(ImageTypes.AsNoTracking(), page, items));
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         // GET: ImageTypes/Details/5
@@ -81,7 +83,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("ImageTypes/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Id,Name")] ImageType imageType)
+        public ActionResult Edit( ImageType imageType)
         {
             if (ModelState.IsValid)
             {

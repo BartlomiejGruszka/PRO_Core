@@ -61,7 +61,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var users = _userService.GetAll().AsQueryable();
-            return View(PaginatedList<ApplicationUser>.Create(users.AsNoTracking(), page, items));
+            var result = PaginatedList<ApplicationUser>.Create(users.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         [Route("users/{id}")]
@@ -70,6 +73,7 @@ namespace PRO.Controllers
         {
             var model = UserProfileSetup(id, null, null);
             if (model == null) { return NotFound(); }
+            model.ReviewsPlaytimes.Pagination.Action = "Details";
             return View(model);
         }
         public UserProfileViewModel UserProfileSetup(int? id, int? page, int? items)
@@ -389,7 +393,7 @@ namespace PRO.Controllers
         {
             var model = UserProfileSetup(id, page, items);
             if (model == null) { return NotFound(); }
-
+            model.ReviewsPlaytimes.Pagination.Action = "Reviews";
             return View(model);
         }
 

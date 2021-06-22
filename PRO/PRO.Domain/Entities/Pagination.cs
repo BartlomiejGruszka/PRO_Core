@@ -12,7 +12,7 @@ namespace PRO.Entities
         public int TotalPages { get; private set; }
         public int PageItems { get; set; }
         public string Route { get; set; }
-
+        public string Action { get; set; }
 
         public Pagination(int? page, int? items, int allItems)
         {

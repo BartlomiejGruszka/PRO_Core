@@ -26,7 +26,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var series = _seriesService.GetAll().AsQueryable();
-            return View(PaginatedList<Series>.Create(series.AsNoTracking(), page, items));
+            var result = PaginatedList<Series>.Create(series.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         // GET: Series/Details/5
@@ -52,7 +55,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("series/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name")] Series series)
+        public ActionResult Add(Series series)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +90,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("series/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name")] Series series)
+        public ActionResult Edit(Series series)
         {
             if (ModelState.IsValid)
             {

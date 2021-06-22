@@ -27,8 +27,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var awards = _awardService.GetAll().AsQueryable();
-
-            return View(PaginatedList<Award>.Create(awards.AsNoTracking(), page, items));
+            var result = PaginatedList<Award>.Create(awards.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+            return View(result);
         }
 
         // GET: Awards/Details/5
@@ -54,7 +56,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("awards/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name,AwardDate,GameId")] Award award)
+        public ActionResult Add(Award award)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +90,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("awards/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(",Name,AwardDate,GameId")] Award award)
+        public ActionResult Edit( Award award)
         {
             if (ModelState.IsValid)
             {

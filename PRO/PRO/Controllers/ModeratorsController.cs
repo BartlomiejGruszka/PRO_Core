@@ -28,7 +28,10 @@ namespace PRO.Controllers
         {
 
             var moderators = _moderatorService.GetAll().AsQueryable();
-            return View(PaginatedList<Moderator>.Create(moderators.AsNoTracking(), page, items));
+            var result = PaginatedList<Moderator>.Create(moderators.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         // GET: Moderators/Details/5
@@ -57,7 +60,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("moderators/add")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddAsync([Bind("UserId,CreatedDate,IsActive")] Moderator moderator)
+        public async Task<ActionResult> AddAsync( Moderator moderator)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +100,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("moderators/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync([Bind("UserId,CreatedDate,IsActive")] Moderator moderator)
+        public async Task<ActionResult> EditAsync(Moderator moderator)
         {
             if (ModelState.IsValid)
             {

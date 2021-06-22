@@ -27,7 +27,10 @@ namespace PRO.Controllers
         {
 
             var authors = _authorService.GetAll().AsQueryable();
-            return View(PaginatedList<Author>.Create(authors.AsNoTracking(), page, items));
+            var result = PaginatedList<Author>.Create(authors.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+            return View(result);
         }
 
         // GET: Authors/Details/5
@@ -56,7 +59,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("authors/add")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddAsync([Bind("UserId,FirstName,LastName,CreatedDate,IsActive")] Author author)
+        public async Task<ActionResult> AddAsync( Author author)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +99,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("authors/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync([Bind("UserId,FirstName,LastName,CreatedDate")] Author author)
+        public async Task<ActionResult> EditAsync( Author author)
         {
             if (ModelState.IsValid)
             {

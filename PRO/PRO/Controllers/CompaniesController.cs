@@ -32,7 +32,11 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var companies = _companyService.GetAll().AsQueryable();
-            return View(PaginatedList<Company>.Create(companies.AsNoTracking(), page, items));
+            var result = PaginatedList<Company>.Create(companies.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+
+            return View(result);
         }
 
         // GET: Companies/Details/5
@@ -57,7 +61,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("companies/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name,CreatedDate,IsActive")] Company company)
+        public ActionResult Add(Company company)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +95,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("companies/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name,CreatedDate,IsActive")] Company company)
+        public ActionResult Edit( Company company)
         {
             if (ModelState.IsValid)
             {

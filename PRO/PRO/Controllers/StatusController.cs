@@ -23,7 +23,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var statuses = _statusService.GetAll().AsQueryable();
-            return View(PaginatedList<Status>.Create(statuses.AsNoTracking(), page, items));
+            var result = PaginatedList<Status>.Create(statuses.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         // GET: Status/Details/5
@@ -49,7 +52,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("status/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name")] Status status)
+        public ActionResult Add(Status status)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +85,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("status/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name")] Status status)
+        public ActionResult Edit( Status status)
         {
             if (ModelState.IsValid)
             {

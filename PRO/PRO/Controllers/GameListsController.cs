@@ -79,7 +79,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("gamelists/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Id,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
+        public ActionResult Add( GameList gameList)
         {
             if (gameList.UserListId <= 0)
             {
@@ -147,7 +147,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("gamelists/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Id,AddedDate,HoursPlayed,PersonalScore,UserListId,GameId")] GameList gameList)
+        public ActionResult Edit(GameList gameList)
         {
             gameList.EditedDate = DateTime.Now;
 

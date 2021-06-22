@@ -24,7 +24,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var listTypes = _listTypeService.GetAll().AsQueryable();
-            return View(PaginatedList<ListType>.Create(listTypes.AsNoTracking(), page, items));
+            var result = PaginatedList<ListType>.Create(listTypes.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         // GET: ListTypes/Details/5
@@ -50,7 +53,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("listtypes/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name")] ListType listType)
+        public ActionResult Add(ListType listType)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +88,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("listtypes/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name")] ListType listType)
+        public ActionResult Edit(ListType listType)
         {
             if (ModelState.IsValid)
             {

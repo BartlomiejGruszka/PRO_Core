@@ -2,7 +2,6 @@ D:\PRO_Core\PRO\PRO.Domain\bin\Debug\net5.0\PRO.Domain.deps.json
 D:\PRO_Core\PRO\PRO.Domain\bin\Debug\net5.0\PRO.Domain.dll
 D:\PRO_Core\PRO\PRO.Domain\bin\Debug\net5.0\ref\PRO.Domain.dll
 D:\PRO_Core\PRO\PRO.Domain\bin\Debug\net5.0\PRO.Domain.pdb
-D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.csprojAssemblyReference.cache
 D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.GeneratedMSBuildEditorConfig.editorconfig
 D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.AssemblyInfoInputs.cache
 D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.AssemblyInfo.cs
@@ -10,3 +9,4 @@ D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.csproj.CoreCompileInputs.
 D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.dll
 D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\ref\PRO.Domain.dll
 D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.pdb
+D:\PRO_Core\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.csproj.AssemblyReference.cache

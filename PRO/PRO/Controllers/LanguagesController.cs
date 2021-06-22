@@ -29,7 +29,11 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var languages = _languageService.GetAll().AsQueryable();
-            return View(PaginatedList<Language>.Create(languages.AsNoTracking(), page, items));
+            var result = PaginatedList<Language>.Create(languages.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            var test = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            return View(result);
 
         }
 
@@ -57,7 +61,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("languages/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name")] Language language)
+        public ActionResult Add(Language language)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +96,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("languages/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Name")] Language language)
+        public ActionResult Edit( Language language)
         {
             if (ModelState.IsValid)
             {

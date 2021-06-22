@@ -42,7 +42,10 @@ namespace PRO.Controllers
         {
 
             var userlists = _userListService.GetAll().AsQueryable();
-            return View(PaginatedList<UserList>.Create(userlists.AsNoTracking(), page, items));
+            var result = PaginatedList<UserList>.Create(userlists.AsNoTracking(), page, items);
+
+            result.Pagination.Action = "manage";
+            return View(result);
         }
 
         // GET: UserLists/Details/5
@@ -74,7 +77,7 @@ namespace PRO.Controllers
         [Route("userlists/add")]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Id,CreatedDate,Name,IsPublic,UserId,ListTypeId")] UserList userList)
+        public ActionResult Add(UserList userList)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +119,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         [Route("userlists/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Id,CreatedDate,Name,IsPublic,UserId,ListTypeId")] UserList userList)
+        public ActionResult Edit( UserList userList)
         {
             if (ModelState.IsValid)
             {

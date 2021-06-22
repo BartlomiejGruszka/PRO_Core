@@ -39,7 +39,11 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var images = _imageService.GetAll().AsQueryable();
-            return View(PaginatedList<Image>.Create(images.AsNoTracking(), page, items));
+
+            var result = PaginatedList<Image>.Create(images.AsNoTracking(), page, items);
+            var test = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = test;
+            return View(result);
 
         }
 
