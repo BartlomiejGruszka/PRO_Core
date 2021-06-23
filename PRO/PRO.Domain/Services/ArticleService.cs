@@ -95,9 +95,9 @@ namespace PRO.Domain.Services
 
             var articlesList = GetAllActive();
             searchList = articlesList.Where(a =>
-            a.Title.ToLower().Contains(query) ||
-            a.Preview.ToLower().Contains(query) ||
-            a.Content.ToLower().Contains(query)
+            a.Title.ToLower().Contains(query.ToLower()) ||
+            a.Preview.ToLower().Contains(query.ToLower()) ||
+            a.Content.ToLower().Contains(query.ToLower())
             ).ToList();
             return searchList;
 

@@ -98,6 +98,5 @@
     </table>
 </div>
 <div>
-    @if(String.IsNullOrEmpty(Model.GamesScores.Pagination.Route)){Model.GamesScores.Pagination.Route = "games?";}
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.GamesScores.Pagination" />
 </div>

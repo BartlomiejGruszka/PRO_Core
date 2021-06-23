@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PRO.Entities;
 using PRO.Domain.Interfaces.Services;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace PRO.Controllers
 {
@@ -48,11 +49,19 @@ namespace PRO.Controllers
 
         [AllowAnonymous]
         [Route("articles/")]
-        public ActionResult Index(int? page, int? items, string platform)
+        public ActionResult Index(int? page, int? items, string query, string currentFilter)
         {
-
-            var articlesList = _articleService.ArticlesByPlatform(platform).AsQueryable();
-            ViewBag.Platform = platform;
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var articlesList = _articleService.ArticlesByPlatform(query).AsQueryable();
+            //ViewBag.Platform = platform;
             var result = PaginatedList<Article>.Create(articlesList.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             result.Pagination.Action = action;
@@ -216,15 +225,22 @@ namespace PRO.Controllers
 
         [AllowAnonymous]
         [Route("articles/search/{query?}")]
-        public ActionResult Search(string query, int? page, int? items)
+        public ActionResult Search(string query, int? page, int? items, string currentFilter)
         {
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
             var searchList = _articleService.SearchResultArticles(query).AsQueryable();
-
-           // ViewBag.Pagination = new Pagination(page, items, searchList.Count());
-            ViewBag.Query = query;
-            ViewBag.platform = "none";
-           // return View(searchList);
-            return View(PaginatedList<Article>.Create(searchList.AsNoTracking(), page, items));
+            var result = PaginatedList<Article>.Create(searchList.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+            return View(result);
         }
 
         public ArticleViewModel PopulateArticleViewModel (int? id)

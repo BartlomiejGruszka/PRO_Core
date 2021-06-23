@@ -24,7 +24,10 @@
         <div class="">
             <div class="top-homebar">
                 <div class="navbar">
-                    @Html.ActionLink("Archiwum Gier", "Index", "Home", new { area = "" }, new { @class = "mainbutton" })
+                    <a href="/"
+                       class="mainbutton">
+                        Archiwum Gier
+                    </a>
                 </div>
                 <div class="">
                     <partial name="_LoginPartial" />
@@ -40,7 +43,7 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/articles?platform=all">Artykuły</a>
+                        <a class="nav-link" href="/articles?query=all">Artykuły</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/games">Gry</a>

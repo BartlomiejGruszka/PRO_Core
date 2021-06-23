@@ -6,23 +6,29 @@
 
 <ul class="nav nav-tabs" id="myTab">
     <li class="nav-item">
-        <a class="nav-link @(ViewBag.platform == "all" ? "active" : "")" href="/articles?platform=all">Wszystkie</a>
+        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "all" ? "active" : "")" href="/articles?query=all">Wszystkie</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewBag.platform == "PC" ? "active" : "")" href="/articles?platform=PC">PC</a>
+        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "PC" ? "active" : "")" href="/articles?query=PC">PC</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewBag.platform.Contains("Playstation") ? "active" : "")" href="/articles?platform=Playstation">Playstation</a>
+        <a class="nav-link @(ViewData["CurrentFilter"].ToString().Contains("Playstation") ? "active" : "")" href="/articles?query=Playstation">Playstation</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewBag.platform.Contains("Xbox") ? "active" : "")" href="/articles?platform=Xbox">Xbox</a>
+        <a class="nav-link @(ViewData["CurrentFilter"].ToString().Contains("Xbox") ? "active" : "")" href="/articles?query=Xbox">Xbox</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewBag.platform == "Switch" ? "active" : "")" href="/articles?platform=Switch">Switch</a>
+        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "Switch" ? "active" : "")" href="/articles?query=Switch">Switch</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @((ViewBag.platform != "all" && ViewBag.platform != "PC" && !ViewBag.platform.Contains("Playstation") && !ViewBag.platform.Contains("Xbox") && ViewBag.platform != "Switch") || ViewBag.platform == "other" ? "active" : "")" href="/articles?platform=other">Inne</a>
+        <a class="nav-link @((ViewData["CurrentFilter"].ToString() != "all" &&
+ViewData["CurrentFilter"].ToString() != "PC" &&
+!ViewData["CurrentFilter"].ToString().Contains("Playstation") &&
+!ViewData["CurrentFilter"].ToString().Contains("Xbox") &&
+ViewData["CurrentFilter"].ToString() != "Switch") 
+|| ViewData["CurrentFilter"].ToString() == "other" ? "active" : "")" href="/articles?query=other">Inne</a>
     </li>
+
 
 </ul>
 
@@ -30,8 +36,8 @@
     <div class="tab-pane fade active show" id="all">
         <div class="list-group">
             @{ 
-                foreach(var item in Model) 
-                {                  
+                foreach (var item in Model)
+                {
                     <div class="news-list mt16 mr8">
                         <div class="news-unit">
                             @if (item.Image != null)
@@ -49,7 +55,7 @@
                                 </div>
                                 <div class="information">
                                     <p class="info di-ib">
-                                        @item.PublishedDate <text>przez</text> <a href="/users/@item.Author.UserId">@item.Author.FirstName @item.Author.LastName</a> <a href="/articles?platform=@item.Game.Platform.Name" class="nav-item">@item.Game.Platform.Name</a>
+                                        @item.PublishedDate.ToShortDateString() <text>przez</text> <a href="/users/@item.Author.UserId">@item.Author.FirstName @item.Author.LastName</a> dla <a href="/articles?platform=@item.Game.Platform.Name" class="nav-item">@item.Game.Platform.Name</a>
                                     </p>
                                 </div>
                             </div>
@@ -64,7 +70,6 @@
 
 </div>
 <div>
-    @{Model.Pagination.Route = "articles?platform=" + ViewBag.platform + "&";}
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" /> 
 </div>
 
