@@ -43,8 +43,10 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items)
         {
             var gameLists = _gameListService.GetAll().AsQueryable();
-
-            return View(PaginatedList<GameList>.Create(gameLists.AsNoTracking(), page, items));
+            var result = PaginatedList<GameList>.Create(gameLists.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+            return View(result);
         }
 
         // GET: GameLists/Details/5

@@ -94,7 +94,7 @@ namespace PRO.Controllers
             var result = PaginatedList<Game>.Create(games.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             result.Pagination.Action = action;
-            return View();
+            return View(result);
         }
 
         [AllowAnonymous]
@@ -216,13 +216,14 @@ namespace PRO.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        [Route("games/{id}/reviews")]
+        [Route("games/reviews/{id}")]
         public ActionResult Reviews(int id, int? page, int? items)
         {        
             var model = SetupDetailsPage(id, null, page, items);
-            model.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-
+            
             if (model == null) return NotFound();
+            model.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            model.ReviewPlaytimes.Pagination.RouteId = id;
             return View(model);
         }
 

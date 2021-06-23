@@ -190,7 +190,7 @@ namespace PRO.Controllers
             return View(model);
         }
 
-        [Route("users/{id}/lists")]
+        [Route("users/lists/{id}")]
         [AllowAnonymous]
         public ActionResult Lists(int? id)
         {
@@ -388,12 +388,13 @@ namespace PRO.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("users/{id}/reviews")]
+        [Route("users/reviews/{id}")]
         public ActionResult Reviews(int? id, int? page, int? items)
         {
             var model = UserProfileSetup(id, page, items);
             if (model == null) { return NotFound(); }
             model.ReviewsPlaytimes.Pagination.Action = "Reviews";
+            model.ReviewsPlaytimes.Pagination.RouteId = id;
             return View(model);
         }
 

@@ -624,4 +624,4 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\UserReview.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\UserReview\_UserReview.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Users\Lists.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Users\_TopUserBar.cshtml.g.cs
-D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.csproj.AssemblyReference.cache
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.csprojAssemblyReference.cache

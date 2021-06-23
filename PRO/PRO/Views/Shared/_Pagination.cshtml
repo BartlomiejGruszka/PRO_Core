@@ -28,7 +28,7 @@
                 }
                 <li class="page-item">
                     <a asp-controller="@controllerName"
-                      asp-route-id="@Model.RouteId"
+                       asp-route-id="@Model.RouteId"
                        asp-action="@Model.Action"
                        asp-route-sortOrder="@ViewData["CurrentSort"]"
                        asp-route-currentFilter="@ViewData["CurrentFilter"]"
@@ -56,6 +56,7 @@
             {
                 <li class="page-item">
                     <a asp-controller="@controllerName"
+                       asp-route-id="@Model.RouteId"
                        asp-action="@Model.Action"
                        asp-route-sortOrder="@ViewData["CurrentSort"]"
                        asp-route-currentFilter="@ViewData["CurrentFilter"]"
