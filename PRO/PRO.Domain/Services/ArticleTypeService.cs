@@ -27,6 +27,16 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<ArticleType> FilterSearch(string query)
+        {
+            var articleTypes = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                articleTypes = articleTypes.Where(s => s.Name.ToLower().Contains(query.ToLower()));
+            }
+            return articleTypes;
+        }
+
         public ArticleType Find(int? id)
         {
             if (id.HasValue) return null;
@@ -36,6 +46,17 @@ namespace PRO.Domain.Services
         public IEnumerable<ArticleType> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public IQueryable<ArticleType> SortList(string sortOrder, IQueryable<ArticleType> articleTypes)
+        {
+            articleTypes = sortOrder switch
+            {
+                "name_desc" => articleTypes.OrderByDescending(s => s.Name),
+                "" => articleTypes.OrderBy(s => s.Name),
+                _ => articleTypes.OrderBy(s => s.Name),
+            };
+            return articleTypes.AsQueryable();
         }
 
         public void Update(ArticleType imageType)

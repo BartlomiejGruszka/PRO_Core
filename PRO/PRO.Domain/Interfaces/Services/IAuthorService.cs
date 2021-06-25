@@ -15,5 +15,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Author author);
 
         public void Update(Author author);
+        public IQueryable<Author> SortList(string sortOrder, IQueryable<Author> authors);
+        public IQueryable<Author> FilterSearch(string query);
     }
 }

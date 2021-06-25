@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PRO.Entities;
 using PRO.Persistance.Data;
 using PRO.Domain.Interfaces.Services;
+using System;
 
 namespace PRO.Controllers
 {
@@ -22,9 +23,23 @@ namespace PRO.Controllers
 
 
         [Route("articletypes/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var articleTypesList = _articleTypeService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var articleTypesList = _articleTypeService.FilterSearch(query);
+            articleTypesList = _articleTypeService.SortList(sortOrder, articleTypesList);
+
             var result = PaginatedList<ArticleType>.Create(articleTypesList.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             result.Pagination.Action = action;

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -23,10 +24,24 @@ namespace PRO.Controllers
 
         // GET: Authors
         [Route("authors/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-
-            var authors = _authorService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
+            ViewData["SurnameSortParm"] = sortOrder == "Surname" ? "Surname_desc" : "Surname";
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var authors = _authorService.FilterSearch(query);
+            authors = _authorService.SortList(sortOrder, authors);
             var result = PaginatedList<Author>.Create(authors.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             result.Pagination.Action = action;
