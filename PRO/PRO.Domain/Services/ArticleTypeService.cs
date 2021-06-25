@@ -39,7 +39,7 @@ namespace PRO.Domain.Services
 
         public ArticleType Find(int? id)
         {
-            if (id.HasValue) return null;
+            if (!id.HasValue) return null;
             return _repository.Find(id.Value);
         }
 
