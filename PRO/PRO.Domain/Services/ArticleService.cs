@@ -89,18 +89,50 @@ namespace PRO.Domain.Services
             return articlesList.ToList();
         }
 
-        public IEnumerable<Article> SearchResultArticles(string query)
+        public IEnumerable<Article> SearchResultArticles(IEnumerable<Article> list, string query)
         {
             IEnumerable<Article> searchList = new List<Article>();
-
-            var articlesList = GetAllActive();
-            searchList = articlesList.Where(a =>
+            if(list == null ) list = GetAllActive();
+            searchList = list.Where(a =>
             a.Title.ToLower().Contains(query.ToLower()) ||
             a.Preview.ToLower().Contains(query.ToLower()) ||
-            a.Content.ToLower().Contains(query.ToLower())
+            a.Content.ToLower().Contains(query.ToLower()) ||
+            a.Game.Title.ToLower().Contains(query.ToLower())
             ).ToList();
             return searchList;
 
+        }
+
+        public IEnumerable<Article> GetAllForAuthor(string query, int? id)
+        {
+            var articlesList = GetAll()
+                    .Where(s => s.Author.UserId == id.Value);
+
+            if (string.IsNullOrEmpty(query)) return articlesList;
+            return SearchResultArticles(articlesList, query);
+        }
+
+
+        public IEnumerable<Article> GetAllForAdmin(string query)
+        {
+            var articlesList = GetAll();
+            if (string.IsNullOrEmpty(query)) return articlesList;
+            return SearchResultArticles(articlesList, query);
+        }
+
+        public IQueryable<Article> SortList(string sortOrder, IQueryable<Article> articlesList)
+        {
+            articlesList = sortOrder switch
+            {
+                "title_desc" => articlesList.OrderByDescending(s => s.Title),
+                "" => articlesList.OrderBy(s => s.Title),
+                "date_desc" => articlesList.OrderByDescending(s => s.PublishedDate),
+                "Date" => articlesList.OrderBy(s => s.PublishedDate),
+                "game_desc" => articlesList.OrderByDescending(s => s.Game.Title),
+                "Game" => articlesList.OrderBy(s => s.Game.Title),
+                _ => articlesList.OrderByDescending(s => s.PublishedDate),
+            };
+            return articlesList.AsQueryable();
         }
     }
 }
