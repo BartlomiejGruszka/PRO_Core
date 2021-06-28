@@ -148,5 +148,42 @@ namespace PRO.Domain.Services
 
             return errors;
         }
+
+        public IQueryable<GameList> FilterSearch(string query)
+        {
+            var gameLists = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                gameLists = gameLists.Where(s => 
+                s.Game.Title.ToLower().Contains(query.ToLower()) ||
+                s.UserList.Name.ToLower().Contains(query.ToLower()) ||
+                s.UserList.User.UserName.ToLower().Contains(query.ToLower())
+                );
+            }
+            return gameLists;
+        }
+
+        public IQueryable<GameList> SortList(string sortOrder, IQueryable<GameList> gameLists)
+        {
+            gameLists = sortOrder switch
+            {
+                "user_desc" => gameLists.OrderByDescending(s => s.UserList.User.UserName),
+                "" => gameLists.OrderBy(s => s.UserList.User.UserName),
+                "list_desc" => gameLists.OrderByDescending(s => s.UserList.Name),
+                "list" => gameLists.OrderBy(s => s.UserList.Name),
+                "adddate_desc" => gameLists.OrderByDescending(s => s.AddedDate),
+                "adddate" => gameLists.OrderBy(s => s.AddedDate),
+                "editdate_desc" => gameLists.OrderByDescending(s => s.EditedDate),
+                "editdate" => gameLists.OrderBy(s => s.EditedDate),
+                "game_desc" => gameLists.OrderByDescending(s => s.Game.Title),
+                "game" => gameLists.OrderBy(s => s.Game.Title),
+                "hours_desc" => gameLists.OrderByDescending(s => s.HoursPlayed),
+                "hours" => gameLists.OrderBy(s => s.HoursPlayed),
+                "score_desc" => gameLists.OrderByDescending(s => s.PersonalScore),
+                "score" => gameLists.OrderBy(s => s.PersonalScore),
+                _ => gameLists.OrderBy(s => s.UserList.User.UserName),
+            };
+            return gameLists.AsQueryable();
+        }
     }
 }

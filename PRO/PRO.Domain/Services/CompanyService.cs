@@ -30,6 +30,16 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<Company> FilterSearch(string query)
+        {
+            var companies = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                companies = companies.Where(s => s.Name.ToLower().Contains(query.ToLower()));
+            }
+            return companies;
+        }
+
         public Company Find(int? id)
         {
             if (!id.HasValue) { return null; }
@@ -52,6 +62,19 @@ namespace PRO.Domain.Services
 
             if (number.HasValue) { return companies.Take(number.Value).ToList(); }
             return companies.ToList();
+        }
+
+        public IQueryable<Company> SortList(string sortOrder, IQueryable<Company> companies)
+        {
+            companies = sortOrder switch
+            {
+                "name_desc" => companies.OrderByDescending(s => s.Name),
+                "" => companies.OrderBy(s => s.Name),
+                "date_desc" => companies.OrderByDescending(s => s.CreatedDate),
+                "date" => companies.OrderBy(s => s.CreatedDate),
+                _ => companies.OrderBy(s => s.Name),
+            };
+            return companies.AsQueryable();
         }
 
         public void Update(Company company)

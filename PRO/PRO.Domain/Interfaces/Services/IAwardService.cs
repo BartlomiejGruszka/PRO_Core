@@ -18,5 +18,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Update(Award award);
 
         public ModelStateDictionary ValidateAward(Award award);
+        IQueryable<Award> FilterSearch(string query);
+        IQueryable<Award> SortList(string sortOrder, IQueryable<Award> awards);
     }
 }

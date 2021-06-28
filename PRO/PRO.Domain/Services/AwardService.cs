@@ -27,6 +27,18 @@ namespace PRO.Domain.Services
             _awardRepository.Save();
         }
 
+        public IQueryable<Award> FilterSearch(string query)
+        {
+            var awards = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                awards = awards.Where(s => s.Name.ToLower().Contains(query.ToLower()) ||
+                s.Game.Title.ToLower().Contains(query.ToLower())
+                );
+            }
+            return awards;
+        }
+
         public Award Find(int? id)
         {
             if (!id.HasValue) { return null; }
@@ -36,6 +48,21 @@ namespace PRO.Domain.Services
         public IEnumerable<Award> GetAll()
         {
             return _awardRepository.GetAll();
+        }
+
+        public IQueryable<Award> SortList(string sortOrder, IQueryable<Award> awards)
+        {
+            awards = sortOrder switch
+            {
+                "name_desc" => awards.OrderByDescending(s => s.Name),
+                "" => awards.OrderBy(s => s.Name),
+                "game_desc" => awards.OrderByDescending(s => s.Game.Title),
+                "game" => awards.OrderBy(s => s.Game.Title),
+                "date_desc" => awards.OrderByDescending(s => s.AwardDate),
+                "date" => awards.OrderBy(s => s.AwardDate),
+                _ => awards.OrderByDescending(s => s.AwardDate),
+            };
+            return awards.AsQueryable();
         }
 
         public void Update(Award award)

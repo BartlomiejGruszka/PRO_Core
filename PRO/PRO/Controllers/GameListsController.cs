@@ -40,9 +40,28 @@ namespace PRO.Controllers
 
         // GET: GameLists
         [Route("gamelists/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var gameLists = _gameListService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "user_desc" : "";
+            ViewData["GameSortParm"] = sortOrder == "game" ? "game_desc" : "game";
+            ViewData["AddDateSortParm"] = sortOrder == "adddate" ? "adddate_desc" : "adddate";
+            ViewData["EditDateSortParm"] = sortOrder == "editdate" ? "editdate_desc" : "editdate";
+            ViewData["ScoreSortParm"] = sortOrder == "score" ? "score_desc" : "score";
+            ViewData["HoursSortParm"] = sortOrder == "hours" ? "hours_desc" : "hours";
+            ViewData["ListSortParm"] = sortOrder == "list" ? "list_desc" : "list";
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var gameLists = _gameListService.FilterSearch(query);
+            gameLists = _gameListService.SortList(sortOrder, gameLists);
+
             var result = PaginatedList<GameList>.Create(gameLists.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             result.Pagination.Action = action;

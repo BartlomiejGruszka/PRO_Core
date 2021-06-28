@@ -18,9 +18,9 @@ namespace PRO.Persistance.Repositories
 
         public new IEnumerable<Award> GetAll()
         {
-            var platforms = _dbContext.Awards
+            var awards = _dbContext.Awards
                 .Include(i => i.Game);
-            return platforms;
+            return awards;
         }
         public new Award Find(int? id)
         {

@@ -29,9 +29,23 @@ namespace PRO.Controllers
 
         // GET: Companies
         [Route("companies/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var companies = _companyService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var companies = _companyService.FilterSearch(query);
+            companies = _companyService.SortList(sortOrder, companies);
+
             var result = PaginatedList<Company>.Create(companies.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             result.Pagination.Action = action;

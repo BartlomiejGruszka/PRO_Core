@@ -18,5 +18,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Update(Company company);
         public List<Tuple<Company, int>> GetPopularCompanies(int? number);
         public ModelStateDictionary ValidateCompany(Company company);
+        IQueryable<Company> FilterSearch(string query);
+        IQueryable<Company> SortList(string sortOrder, IQueryable<Company> companies);
     }
 }

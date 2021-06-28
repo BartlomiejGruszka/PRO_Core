@@ -23,5 +23,7 @@ namespace PRO.Domain.Interfaces.Services
         public List<Tuple<GameList, DateTime>> GetRecentUserGameListUpdates(int userid, int? number);
 
         public ModelStateDictionary ValidateGameList (GameList gameList);
+        IQueryable<GameList> FilterSearch(string query);
+        IQueryable<GameList> SortList(string sortOrder, IQueryable<GameList> gameLists);
     }
 }
