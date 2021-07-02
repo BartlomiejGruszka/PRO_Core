@@ -17,6 +17,10 @@ namespace PRO.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime RegisterDate { get; set; }
 
+        [DisplayName("Zaktualizowano")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? EditDate { get; set; }
+
         [MaxLength(5000), DisplayName("Opis")]
         public string Description { get; set; } //nullable
 

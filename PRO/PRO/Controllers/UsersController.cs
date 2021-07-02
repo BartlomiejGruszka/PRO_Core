@@ -58,12 +58,29 @@ namespace PRO.Controllers
 
         [Route("users/manage")]
         [Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var users = _userService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "user_desc" : "";
+            ViewData["EmailSortParm"] = sortOrder == "email" ? "email_desc" : "email";
+            ViewData["AddDateSortParm"] = sortOrder == "adddate" ? "adddate_desc" : "adddate";
+            ViewData["EditDateSortParm"] = sortOrder == "editdate" ? "editdate_desc" : "editdate";
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var users = _userService.FilterSearch(query);
+            users = _userService.SortList(sortOrder, users);
             var result = PaginatedList<ApplicationUser>.Create(users.AsNoTracking(), page, items);
 
-            result.Pagination.Action = "manage";
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
             return View(result);
         }
 
@@ -96,7 +113,7 @@ namespace PRO.Controllers
                 UserLists = _userListService.GetAll().ToList(),
                 GameLists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).ToList(),
                 ReviewsPlaytimes = PaginatedList<ReviewPlaytime>.Create(playtimes.AsNoTracking(), page, items),
-            LoggedUserId = _userService.GetLoggedInUserId(),
+                LoggedUserId = _userService.GetLoggedInUserId(),
                 ListTypes = _listTypeService.GetAll().ToList(),
                 RecentlyUpdatedGames = _gameListService.GetRecentUserGameListUpdates(user.Id, 3)
             };
@@ -357,7 +374,7 @@ namespace PRO.Controllers
                 }
 
                 if (ModelState.IsValid)
-               {
+                {
                     var result = await _userService.Update(model.AppUser);
                     if (result.Succeeded)
                     {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
@@ -26,13 +27,26 @@ namespace PRO.Controllers
         }
 
         [Route("languages/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var languages = _languageService.GetAll().AsQueryable();
-            var result = PaginatedList<Language>.Create(languages.AsNoTracking(), page, items);
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var languages = _languageService.FilterSearch(query);
+            languages = _languageService.SortList(sortOrder, languages);
 
-            result.Pagination.Action = "manage";
-            var test = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            var result = PaginatedList<Language>.Create(languages.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
+            
             return View(result);
 
         }

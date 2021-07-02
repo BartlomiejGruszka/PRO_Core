@@ -2,6 +2,7 @@
 using PRO.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,5 +33,7 @@ namespace PRO.Domain.Interfaces.Services
 
         List<Game> FilterGames(string query);
         void Update(Game game);
+        IQueryable<Game> FilterSearch(string query);
+        IQueryable<Game> SortList(string sortOrder, IQueryable<Game> games);
     }
 }

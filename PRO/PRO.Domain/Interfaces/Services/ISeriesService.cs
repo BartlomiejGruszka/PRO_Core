@@ -17,5 +17,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Update(Series series);
         public void RemoveFromGames(int id);
         public ModelStateDictionary ValidateSeries(Series series);
+        IQueryable<Series> FilterSearch(string query);
+        IQueryable<Series> SortList(string sortOrder, IQueryable<Series> series);
     }
 }

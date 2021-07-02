@@ -25,6 +25,16 @@ namespace PRO.Persistance.Repositories
                .Include(o => o.User.Image);
             return reviews;
         }
+        public new Review Find(int? id)
+        {
+            if (!id.HasValue) { return null; }
+            return _dbContext.Reviews
+                .Include(s => s.Game)
+                .Include(s=>s.User)
+                .Include(s=>s.Moderator)
+                .SingleOrDefault(s => s.Id == id);
+
+        }
         public new void Update(Review review)
         {
             var old = _dbContext.Reviews.Find(review.Id);

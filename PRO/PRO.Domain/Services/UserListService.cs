@@ -63,5 +63,36 @@ namespace PRO.Domain.Services
             return errors;
 
         }
+
+        public IQueryable<UserList> FilterSearch(string query)
+        {
+            var userLists = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                userLists = userLists.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower()) ||
+                s.User.UserName.ToLower().Contains(query.ToLower())||
+                s.ListType.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return userLists;
+        }
+
+        public IQueryable<UserList> SortList(string sortOrder, IQueryable<UserList> userlists)
+        {
+            userlists = sortOrder switch
+            {
+                "adddate_desc" => userlists.OrderByDescending(s => s.CreatedDate),
+                "" => userlists.OrderBy(s => s.CreatedDate),
+                "name_desc" => userlists.OrderByDescending(s => s.Name),
+                "name" => userlists.OrderBy(s => s.Name),
+                "user_desc" => userlists.OrderByDescending(s => s.User.UserName),
+                "user" => userlists.OrderBy(s => s.User.UserName),
+                "type_desc" => userlists.OrderByDescending(s => s.ListType.Name),
+                "type" => userlists.OrderBy(s => s.ListType.Name),
+                _ => userlists.OrderBy(s => s.CreatedDate),
+            };
+            return userlists.AsQueryable();
+        }
     }
 }

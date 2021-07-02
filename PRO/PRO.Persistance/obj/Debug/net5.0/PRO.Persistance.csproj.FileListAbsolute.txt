@@ -12,4 +12,4 @@ D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.csproj.CopyComp
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.dll
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\ref\PRO.Persistance.dll
 D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.pdb
-D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.csproj.AssemblyReference.cache
+D:\PRO_Core\PRO\PRO.Persistance\obj\Debug\net5.0\PRO.Persistance.csprojAssemblyReference.cache

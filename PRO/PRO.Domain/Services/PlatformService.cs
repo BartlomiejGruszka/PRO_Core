@@ -27,6 +27,19 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<Platform> FilterSearch(string query)
+        {
+            var platforms = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                platforms = platforms.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower()) ||
+                s.Company.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return platforms;
+        }
+
         public Platform Find(int? id)
         {
             if (!id.HasValue) { return null; }
@@ -36,6 +49,21 @@ namespace PRO.Domain.Services
         public IEnumerable<Platform> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public IQueryable<Platform> SortList(string sortOrder, IQueryable<Platform> platforms)
+        {
+            platforms = sortOrder switch
+            {
+                "name_desc" => platforms.OrderByDescending(s => s.Name),
+                "" => platforms.OrderBy(s => s.Name),
+                "company_desc" => platforms.OrderByDescending(s => s.Company.Name),
+                "company" => platforms.OrderBy(s => s.Company.Name),
+                "date_desc" => platforms.OrderByDescending(s => s.ReleaseDate),
+                "date" => platforms.OrderBy(s => s.ReleaseDate),
+                _ => platforms.OrderBy(s => s.Name),
+            };
+            return platforms.AsQueryable();
         }
 
         public void Update(Platform platform)

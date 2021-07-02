@@ -26,6 +26,7 @@ namespace PRO.Domain.Interfaces.Services
         public Task<IdentityResult> DeleteRoleFromUserAsync(ApplicationUser user, string role);
 
         public Task<bool> IsUserInRole(ApplicationUser user, string role);
-
+        IQueryable<ApplicationUser> FilterSearch(string query);
+        IQueryable<ApplicationUser> SortList(string sortOrder, IQueryable<ApplicationUser> users);
     }
 }

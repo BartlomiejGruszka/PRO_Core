@@ -15,5 +15,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Moderator moderator);
 
         public void Update(Moderator moderator);
+        IQueryable<Moderator> FilterSearch(string query);
+        IQueryable<Moderator> SortList(string sortOrder, IQueryable<Moderator> moderators);
     }
 }

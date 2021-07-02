@@ -6,6 +6,7 @@ using PRO.Entities;
 using PRO.Persistance.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -69,6 +70,7 @@ namespace PRO.Domain.Services
             user.Email = editUser.Email;
             user.UserName = editUser.UserName;
             user.RegisterDate = editUser.RegisterDate;
+            user.EditDate = DateTime.Now;
             user.Description = editUser.Description;
             user.IsActive = editUser.IsActive;
             user.IsPublic = editUser.IsPublic;
@@ -107,6 +109,36 @@ namespace PRO.Domain.Services
         public Task<bool> IsUserInRole(ApplicationUser user, string role)
         {
             return  _userManager.IsInRoleAsync(user, role);
+        }
+
+        public IQueryable<ApplicationUser> FilterSearch(string query)
+        {
+            var users = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                users = users.Where(s =>
+                s.UserName.ToLower().Contains(query.ToLower()) ||
+                s.Email.ToLower().Contains(query.ToLower())
+                );
+            }
+            return users;
+        }
+
+        public IQueryable<ApplicationUser> SortList(string sortOrder, IQueryable<ApplicationUser> users)
+        {
+            users = sortOrder switch
+            {
+                "name_desc" => users.OrderByDescending(s => s.UserName),
+                "" => users.OrderBy(s => s.UserName),
+                "email_desc" => users.OrderByDescending(s => s.Email),
+                "email" => users.OrderBy(s => s.Email),
+                "adddate_desc" => users.OrderByDescending(s => s.RegisterDate),
+                "adddate" => users.OrderBy(s => s.RegisterDate),
+                "editdate_desc" => users.OrderByDescending(s => s.EditDate),
+                "editdate" => users.OrderBy(s => s.EditDate),
+                _ => users.OrderBy(s => s.UserName),
+            };
+            return users.AsQueryable();
         }
     }
 }

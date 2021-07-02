@@ -29,40 +29,28 @@ namespace PRO.Controllers
 
         [Route("reviews/manage")]
         [Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Manage(
-            int? page,
-            int? items,
-            string sortOrder,
-            string currentFilter,
-            string searchString
-            )
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            if (String.IsNullOrEmpty(sortOrder)) sortOrder = "";
-            ViewData["GameSortParm"] = sortOrder.ToUpper().Contains("DESC") ? "" : "DESC";
-            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["DateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewData["GameSortParm"] = sortOrder == "game" ? "game_desc" : "game";
             ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
-
-            if (searchString != null)
+            ViewData["EditDateSortParm"] = sortOrder == "editdate" ? "editdate_desc" : "editdate";
+            if (!String.IsNullOrEmpty(query))
             {
                 page = 1;
             }
             else
             {
-                searchString = currentFilter;
+                query = currentFilter;
             }
-            ViewData["CurrentFilter"] = searchString;
-
-            var reviews = _reviewService.GetAllSorted(sortOrder);
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                reviews = reviews.Where(s => s.Game.Title.ToUpper().Contains(searchString.ToUpper())
-                                       || s.User.NormalizedUserName.Contains(searchString.ToUpper()));
-            }
+            ViewData["CurrentFilter"] = query;
+            var reviews = _reviewService.FilterSearch(query);
+            reviews = _reviewService.SortList(sortOrder, reviews);
 
             var result = PaginatedList<Review>.Create(reviews.AsNoTracking(), page, items);
-
-            result.Pagination.Action = "manage";
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            result.Pagination.Action = action;
             return View(result);
         }
         // [Authorize]

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PRO.Entities;
 using PRO.Domain.Interfaces.Services;
+using System;
 
 namespace PRO.Controllers
 {
@@ -18,9 +19,23 @@ namespace PRO.Controllers
         }
 
         [Route("ImageTypes/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var ImageTypes = _imageTypeService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var ImageTypes = _imageTypeService.FilterSearch(query);
+            ImageTypes = _imageTypeService.SortList(sortOrder, ImageTypes);
             var result = PaginatedList<ImageType>.Create(ImageTypes.AsNoTracking(), page, items);
 
             result.Pagination.Action = "manage";

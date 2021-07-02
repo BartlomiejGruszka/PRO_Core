@@ -27,6 +27,18 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<Tag> FilterSearch(string query)
+        {
+            var tags = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                tags = tags.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return tags;
+        }
+
         public Tag Find(int? id)
         {
             if (!id.HasValue) { return null; }
@@ -36,6 +48,17 @@ namespace PRO.Domain.Services
         public IEnumerable<Tag> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public IQueryable<Tag> SortList(string sortOrder, IQueryable<Tag> tags)
+        {
+            tags = sortOrder switch
+            {
+                "name_desc" => tags.OrderByDescending(s => s.Name),
+                "" => tags.OrderBy(s => s.Name),
+                _ => tags.OrderBy(s => s.Name),
+            };
+            return tags.AsQueryable();
         }
 
         public void Update(Tag tag)

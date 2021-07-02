@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,21 @@ namespace PRO.Controllers
 
         // GET: Tags
         [Route("tags/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var tags = _tagService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var tags = _tagService.FilterSearch(query);
+            tags = _tagService.SortList(sortOrder, tags);
             var result = PaginatedList<Tag>.Create(tags.AsNoTracking(), page, items);
 
             result.Pagination.Action = "manage";

@@ -27,6 +27,18 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<Status> FilterSearch(string query)
+        {
+            var statuses = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                statuses = statuses.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return statuses;
+        }
+
         public Status Find(int? id)
         {
             if (!id.HasValue) { return null; }
@@ -36,6 +48,17 @@ namespace PRO.Domain.Services
         public IEnumerable<Status> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public IQueryable<Status> SortList(string sortOrder, IQueryable<Status> statuses)
+        {
+            statuses = sortOrder switch
+            {
+                "name_desc" => statuses.OrderByDescending(s => s.Name),
+                "" => statuses.OrderBy(s => s.Name),
+                _ => statuses.OrderBy(s => s.Name),
+            };
+            return statuses.AsQueryable();
         }
 
         public void Update(Status status)

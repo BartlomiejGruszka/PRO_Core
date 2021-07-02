@@ -3,13 +3,31 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/reviews/manage">Zarządzaj recenzjami</a>
+        <button onclick="openButton2()" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<h2>Zarządzaj recenzjami</h2>
-
-<p>
-    <div class="btn btn-primary"><a class="actionLinkManage" href="/reviews/add">Dodaj nową</a></div>
-    <div class="btn btn-secondary"><a class="actionLinkManage" href="/panel">Powrót</a></div>
-</p>
+        <div class="collapse navbar-collapse" id="navbarColor02" style=" align-items: start; justify-content: flex-end;">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/reviews/add">
+                        Dodaj
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/panel">Powrót</a>
+                </li>
+            </ul>
+            <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">
+                <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="query" value="@ViewData["CurrentFilter"]" />
+                <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
+            </form>
+        </div>
+    </div>
+</nav>
 <table class="table">
     <tr>
         <th>
@@ -22,11 +40,12 @@
             <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]">Data recenzji</a>
         </th>
         <th>
-            Moderator
+            <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]">Data edycji</a> 
         </th>
         <th>
-            Data edycji
+            Moderator
         </th>
+
         <th>
             Ocena grafiki
         </th>
@@ -44,59 +63,63 @@
 
     @{ foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Game.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReviewDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Moderator.User.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EditDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GraphicsScore)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StoryScore)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MusicScore)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GameplayScore)
-                </td>
-                <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
-                    @if (@User.IsInRole("Admin"))
-                    {<text>|</text>
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                    }
+        <tr class="tablerow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Game.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewDate)
+            </td>
+            <td>
+                @if (item.EditDate.HasValue)
+                {
+                    @Html.DisplayFor(modelItem => item.EditDate)}
+                else
+                { <p>Brak</p>}
+            </td>
+            <td>
+                @if (item.Moderator != null)
+                {
+                    @Html.DisplayFor(modelItem => item.Moderator.User.UserName)}
+                else
+                { <p>Brak</p>}
+            </td>
 
-                </td>
-            </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GraphicsScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoryScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MusicScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameplayScore)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
+                @if (@User.IsInRole("Admin"))
+                {<text>|</text>
+                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+            }
+
+            </td>
+        </tr>
         }
     }
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
 </table>
 <div>
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
 </div>
+<script>
+    function openButton2() {
+        var element = document.getElementById("navbarColor02");
+        element.classList.toggle("collapse");
+    }
+
+</script>

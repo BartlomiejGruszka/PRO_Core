@@ -87,10 +87,30 @@ namespace PRO.Controllers
 
         [HttpGet]
         [Route("games/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
+            ViewData["PlatformSortParm"] = sortOrder == "Platform" ? "Platform_desc" : "Platform";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
+            ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
+            ViewData["GenreSortParm"] = sortOrder == "Genre" ? "Genre_desc" : "Genre";
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
 
-            var games = _gameService.GetAll().AsQueryable();
+            var games = _gameService.FilterSearch(query);
+            var test = games.ToList();
+            games = _gameService.SortList(sortOrder, games);
+
+             test = games.ToList();
+ 
             var result = PaginatedList<Game>.Create(games.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             result.Pagination.Action = action;

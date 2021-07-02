@@ -16,6 +16,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.Game.Title)
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.User)
@@ -36,14 +37,21 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Moderator.User.UserName)
+            @if (Model.Moderator == null)
+            {<p>Brak</p> }
+            else
+            { @Html.DisplayFor(model => model.Moderator.User.UserName)}
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.EditDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EditDate)
+            @if (Model.EditDate == null)
+            {<p>Brak</p> }
+            else
+            { @Html.DisplayFor(model => model.EditDate)}
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Content)

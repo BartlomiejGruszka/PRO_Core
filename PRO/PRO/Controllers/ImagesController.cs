@@ -36,9 +36,22 @@ namespace PRO.Controllers
         }
         [Route("images/manage")]
         [Authorize(Roles = "Admin,Author")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var images = _imageService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var images = _imageService.FilterSearch(query);
+            images = _imageService.SortList(sortOrder, images);
 
             var result = PaginatedList<Image>.Create(images.AsNoTracking(), page, items);
             var test = this.ControllerContext.ActionDescriptor.ActionName.ToString();

@@ -26,6 +26,18 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<Language> FilterSearch(string query)
+        {
+            var languages = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                languages = languages.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return languages;
+        }
+
         public Language Find(int? id)
         {
             if (!id.HasValue) { return null; }
@@ -35,6 +47,17 @@ namespace PRO.Domain.Services
         public IEnumerable<Language> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public IQueryable<Language> SortList(string sortOrder, IQueryable<Language> languages)
+        {
+            languages = sortOrder switch
+            {
+                "name_desc" => languages.OrderByDescending(s => s.Name),
+                "" => languages.OrderBy(s => s.Name),
+                _ => languages.OrderBy(s => s.Name),
+            };
+            return languages.AsQueryable();
         }
 
         public void Update(Language language)

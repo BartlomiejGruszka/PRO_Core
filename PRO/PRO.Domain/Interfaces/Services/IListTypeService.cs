@@ -16,5 +16,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public void Update(ListType listType);
         public ModelStateDictionary ValidateListType(ListType listType);
+        IQueryable<ListType> FilterSearch(string query);
+        IQueryable<ListType> SortList(string sortOrder, IQueryable<ListType> listTypes);
     }
 }

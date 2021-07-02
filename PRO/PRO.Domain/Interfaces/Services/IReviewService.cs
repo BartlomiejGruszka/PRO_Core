@@ -12,7 +12,6 @@ namespace PRO.Domain.Interfaces.Services
     public interface IReviewService
     {
         public IEnumerable<Review> GetAll();
-        public IQueryable<Review> GetAllSorted(string sortOrder);
         public Review Find(int? id);
         public void Add(Review review);
         public void Delete(Review review);
@@ -26,5 +25,7 @@ namespace PRO.Domain.Interfaces.Services
         public List<ReviewPlaytime> UserPlaytimeList(int userid);
         public List<ReviewPlaytime> GamePlaytimeList(int gameid);
         public ModelStateDictionary ValidateReview(Review review);
+        IQueryable<Review> FilterSearch(string query);
+        IQueryable<Review> SortList(string sortOrder, IQueryable<Review> reviews);
     }
 }

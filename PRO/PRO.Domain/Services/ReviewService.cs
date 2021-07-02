@@ -136,18 +136,32 @@ namespace PRO.Domain.Services
             return errors;
         }
 
-        public IQueryable<Review> GetAllSorted(string sortOrder)
+        public IQueryable<Review> FilterSearch(string query)
         {
-            var reviews = GetAll();
+            var reviews = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                reviews = reviews.Where(s =>
+                s.User.UserName.ToLower().Contains(query.ToLower()) ||
+                s.Game.Title.ToLower().Contains(query.ToLower())
+                );
+            }
+            return reviews;
+        }
+
+        public IQueryable<Review> SortList(string sortOrder, IQueryable<Review> reviews)
+        {
             reviews = sortOrder switch
             {
-                "DESCgame" => reviews.OrderByDescending(s => s.Game.Title),
+                "date_desc" => reviews.OrderByDescending(s => s.ReviewDate),
+                "" => reviews.OrderBy(s => s.ReviewDate),
+                "game_desc" => reviews.OrderByDescending(s => s.Game.Title),
                 "game" => reviews.OrderBy(s => s.Game.Title),
-                "DESCuser" => reviews.OrderByDescending(s => s.User.UserName),
+                "user_desc" => reviews.OrderByDescending(s => s.User.UserName),
                 "user" => reviews.OrderBy(s => s.User.UserName),
-                "DESCdate" => reviews.OrderByDescending(s => s.ReviewDate),
-                "date" => reviews.OrderBy(s => s.ReviewDate),
-                _ => reviews.OrderBy(s => s.Game.Title),
+                "editdate_desc" => reviews.OrderByDescending(s => s.EditDate),
+                "editdate" => reviews.OrderBy(s => s.EditDate),
+                _ => reviews.OrderBy(s => s.ReviewDate),
             };
             return reviews.AsQueryable();
         }

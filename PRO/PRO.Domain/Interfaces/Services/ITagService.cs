@@ -16,5 +16,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public void Update(Tag tag);
         public ModelStateDictionary ValidateTag(Tag tag);
+        IQueryable<Tag> SortList(string sortOrder, IQueryable<Tag> tags);
+        IQueryable<Tag> FilterSearch(string query);
     }
 }

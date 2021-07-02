@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PRO.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PRO.Domain.Interfaces.Services
 {
@@ -13,5 +14,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public void Update(Platform tag);
         public ModelStateDictionary ValidatePlatform(Platform platform);
+        IQueryable<Platform> FilterSearch(string query);
+        IQueryable<Platform> SortList(string sortOrder, IQueryable<Platform> platforms);
     }
 }

@@ -139,5 +139,31 @@ namespace PRO.Domain.Services
         {
             return _imageRepository.GetAll().Where(i => i.ImageType.Type == type);
         }
+
+        public IQueryable<Image> FilterSearch(string query)
+        {
+            var images = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                images = images.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower()) ||
+                s.ImageType.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return images;
+        }
+
+        public IQueryable<Image> SortList(string sortOrder, IQueryable<Image> images)
+        {
+            images = sortOrder switch
+            {
+                "name_desc" => images.OrderByDescending(s => s.Name),
+                "" => images.OrderBy(s => s.Name),
+                "type_desc" => images.OrderByDescending(s => s.ImageType.Name),
+                "type" => images.OrderBy(s => s.ImageType.Name),            
+                _ => images.OrderBy(s => s.Name),
+            };
+            return images.AsQueryable();
+        }
     }
 }

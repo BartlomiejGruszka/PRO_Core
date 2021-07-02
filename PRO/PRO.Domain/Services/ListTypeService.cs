@@ -27,6 +27,18 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<ListType> FilterSearch(string query)
+        {
+            var listTypes = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                listTypes = listTypes.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return listTypes;
+        }
+
         public ListType Find(int? id)
         {
             if (!id.HasValue) { return null; }
@@ -36,6 +48,17 @@ namespace PRO.Domain.Services
         public IEnumerable<ListType> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public IQueryable<ListType> SortList(string sortOrder, IQueryable<ListType> listTypes)
+        {
+            listTypes = sortOrder switch
+            {
+                "name_desc" => listTypes.OrderByDescending(s => s.Name),
+                "" => listTypes.OrderBy(s => s.Name),
+                _ => listTypes.OrderBy(s => s.Name),
+            };
+            return listTypes.AsQueryable();
         }
 
         public void Update(ListType listType)

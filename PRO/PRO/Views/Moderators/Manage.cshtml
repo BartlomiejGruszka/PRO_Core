@@ -5,22 +5,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Zarządzaj moderatorami</h2>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/moderators/manage">Zarządzaj moderatorami</a>
+        <button onclick="openButton2()" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<p>
-    <div class="btn btn-primary"><a class="actionLinkManage" href="/moderators/add">Dodaj nowego</a></div>
-    <div class="btn btn-secondary"><a class="actionLinkManage" href="/panel">Powrót</a></div>
-</p>
+        <div class="collapse navbar-collapse" id="navbarColor02" style=" align-items: start; justify-content: flex-end;">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/moderators/add">
+                        Dodaj
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/panel">Powrót</a>
+                </li>
+            </ul>
+            <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">
+                <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="query" value="@ViewData["CurrentFilter"]" />
+                <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
+            </form>
+        </div>
+    </div>
+</nav>
 <table class="table">
     <tr>
         <th>
-            Użytkownik
+            <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Użytkownik</a>
         </th>
         <th>
-            Data dodania
+
+            <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data dodania</a>
         </th>
         <th>
-            Data ostatniego logowania
+
+            <a asp-action="Manage" asp-route-sortOrder="@ViewData["LoginDateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data logowania</a>
         </th>
         <th>
             Aktywny
@@ -32,7 +53,7 @@
         foreach (var item in Model)
         {
 
-            <tr>
+            <tr class="tablerow">
                 <td>
                     @Html.DisplayFor(modelItem => item.User.UserName)
                 </td>
@@ -42,7 +63,7 @@
                 <td>
                     @if (!item.LastLoginDate.HasValue)
                     {
-                        <text>brak logowania</text>
+                        <text>Brak</text>
                     }
                     else
                     {
@@ -61,14 +82,13 @@
         }
 
     }
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
 </table>
 <div>
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
-</div>
+</div><script>
+    function openButton2() {
+        var element = document.getElementById("navbarColor02");
+        element.classList.toggle("collapse");
+    }
+
+</script>

@@ -175,12 +175,14 @@ namespace PRO.Domain.Services
             var games = GetAllActive();
 
             List<Game> filteredgames1 = new List<Game>();
-            foreach(var game in games)
+            foreach (var game in games)
             {
-                if (game.DeveloperCompany != null) {
+                if (game.DeveloperCompany != null)
+                {
                     if (game.DeveloperCompany.Name.CaseInsensitiveContains(query)) { filteredgames1.Add(game); }
                 }
-                if (game.PublisherCompany != null) {
+                if (game.PublisherCompany != null)
+                {
                     if (game.PublisherCompany.Name.CaseInsensitiveContains(query)) { filteredgames1.Add(game); }
                 }
             }
@@ -230,6 +232,47 @@ namespace PRO.Domain.Services
             return games.FindIndex(s => s.Item1.Id == gameid) + 1;
         }
 
+        public IQueryable<Game> FilterSearch(string query)
+        {
+            var games = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                games = games.Where(s =>
+                s.Title.ToLower().Contains(query.ToLower()) ||
+                (s.DeveloperCompany != null &&
+                s.DeveloperCompany.Name.ToLower().Contains(query.ToLower())
+                ) ||
+                 (s.PublisherCompany != null &&
+                s.PublisherCompany.Name.ToLower().Contains(query.ToLower())
+                ) ||
+                 (s.Series != null &&
+                s.Series.Name.ToLower().Contains(query.ToLower())
+                ) ||
+                s.Genre.Name.ToLower().Contains(query.ToLower()) ||
+                s.Platform.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return games;
+        }
 
+        public IQueryable<Game> SortList(string sortOrder, IQueryable<Game> games)
+        {
+            games = sortOrder switch
+            {
+                "Title_desc" => games.OrderByDescending(s => s.Title),
+                "" => games.OrderBy(s => s.Title),
+                "Platform_desc" => games.OrderByDescending(s => s.Platform.Name),
+                "Platform" => games.OrderBy(s => s.Platform.Name),
+                "Date_desc" => games.OrderByDescending(s => s.ReleaseDate),
+                "Date" => games.OrderBy(s => s.ReleaseDate),
+                "Status_desc" => games.OrderByDescending(s => s.Status.Name),
+                "Status" => games.OrderBy(s => s.Status.Name),
+                "Genre_desc" => games.OrderByDescending(s => s.Genre.Name),
+                "Genre" => games.OrderBy(s => s.Genre.Name),
+
+                _ => games.OrderBy(s => s.Title),
+            };
+            return games.AsQueryable();
+        }
     }
 }

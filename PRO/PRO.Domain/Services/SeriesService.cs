@@ -30,6 +30,18 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<Series> FilterSearch(string query)
+        {
+            var series = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                series = series.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return series;
+        }
+
         public Series Find(int? id)
         {
             if (!id.HasValue) { return null; }
@@ -49,6 +61,17 @@ namespace PRO.Domain.Services
                 game.SeriesId = null;
             }
             _gameRepository.Save();
+        }
+
+        public IQueryable<Series> SortList(string sortOrder, IQueryable<Series> series)
+        {
+            series = sortOrder switch
+            {
+                "name_desc" => series.OrderByDescending(s => s.Name),
+                "" => series.OrderBy(s => s.Name),
+                _ => series.OrderBy(s => s.Name),
+            };
+            return series.AsQueryable();
         }
 
         public void Update(Series series)

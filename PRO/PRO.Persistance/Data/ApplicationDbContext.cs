@@ -76,7 +76,7 @@ namespace PRO.Persistance.Data
                 .Where(_ => _.State == EntityState.Added ||
                             _.State == EntityState.Modified);
 
-            var errors = new List<ValidationResult>(); // all errors are here
+            var errors = new List<ValidationResult>(); 
             foreach (var e in changedEntities)
             {
                 var vc = new ValidationContext(e.Entity, null, null);

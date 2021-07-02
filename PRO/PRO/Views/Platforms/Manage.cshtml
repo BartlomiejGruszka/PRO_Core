@@ -4,24 +4,42 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/platforms/manage">Zarządzaj platformami</a>
+        <button onclick="openButton2()" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<h2>Zarządzaj platformami</h2>
-
-<p>
-    <div class="btn btn-primary"><a class="actionLinkManage" href="/platforms/add">Dodaj nową</a></div>
-    <div class="btn btn-secondary"><a class="actionLinkManage" href="/panel">Powrót</a></div>
-</p>
+        <div class="collapse navbar-collapse" id="navbarColor02" style=" align-items: start; justify-content: flex-end;">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/platforms/add">
+                        Dodaj
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/panel">Powrót</a>
+                </li>
+            </ul>
+            <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">
+                <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="query" value="@ViewData["CurrentFilter"]" />
+                <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
+            </form>
+        </div>
+    </div>
+</nav>
 <table class="table">
     <tr>
 
         <th>
-            Nazwa
+            <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwa</a>
         </th>
         <th>
-            Wydawca
+            <a asp-action="Manage" asp-route-sortOrder="@ViewData["CompanySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Wydawca</a>
         </th>
         <th>
-            Data premiery
+            <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data premiery</a>
         </th>
         <th>
             Aktywna
@@ -31,7 +49,7 @@
 
     @{ foreach (var item in Model)
         {
-            <tr>
+            <tr class="tablerow">
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -47,7 +65,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }) 
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
                     @if (@User.IsInRole("Admin"))
                     {<text>|</text>
                     @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
@@ -56,14 +74,14 @@
             </tr>
         }
     }
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
 </table>
 <div>
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
 </div>
+<script>
+    function openButton2() {
+        var element = document.getElementById("navbarColor02");
+        element.classList.toggle("collapse");
+    }
+
+</script>

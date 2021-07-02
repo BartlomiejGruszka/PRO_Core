@@ -16,5 +16,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public void Update(Status status);
         public ModelStateDictionary ValidateStatus(Status status);
+        IQueryable<Status> FilterSearch(string query);
+        IQueryable<Status> SortList(string sortOrder, IQueryable<Status> statuses);
     }
 }

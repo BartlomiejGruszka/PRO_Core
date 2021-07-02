@@ -94,6 +94,12 @@ namespace PRO.UI.Areas.Identity.Pages.Account
                     return Page();
 
                 }
+                if (user.IsActive == false)
+                {
+                    ModelState.AddModelError("message", "To konto jest niaktywne.");
+                    return Page();
+
+                }
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)

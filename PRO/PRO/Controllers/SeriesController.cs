@@ -23,9 +23,22 @@ namespace PRO.Controllers
 
         // GET: Series
         [Route("series/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var series = _seriesService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var series = _seriesService.FilterSearch(query);
+            series = _seriesService.SortList(sortOrder, series);
             var result = PaginatedList<Series>.Create(series.AsNoTracking(), page, items);
 
             result.Pagination.Action = "manage";

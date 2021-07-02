@@ -2,6 +2,7 @@
 using PRO.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,5 +18,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public void Update(ImageType imageType);
         public ModelStateDictionary ValidateImageType(ImageType imageType);
+        IQueryable<ImageType> FilterSearch(string query);
+        IQueryable<ImageType> SortList(string sortOrder, IQueryable<ImageType> imageTypes);
     }
 }

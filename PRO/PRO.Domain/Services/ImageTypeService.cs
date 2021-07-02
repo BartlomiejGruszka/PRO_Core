@@ -27,6 +27,18 @@ namespace PRO.Domain.Services
             _repository.Save();
         }
 
+        public IQueryable<ImageType> FilterSearch(string query)
+        {
+            var imageTypes = GetAll().AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+            {
+                imageTypes = imageTypes.Where(s =>
+                s.Name.ToLower().Contains(query.ToLower())
+                );
+            }
+            return imageTypes;
+        }
+
         public ImageType Find(int? id)
         {
             if (!id.HasValue) return null;
@@ -40,6 +52,19 @@ namespace PRO.Domain.Services
         public IEnumerable<ImageType> GetByType(ImageTypes Type)
         {
             return _repository.GetAll().Where(s => s.Type == Type);
+        }
+
+        public IQueryable<ImageType> SortList(string sortOrder, IQueryable<ImageType> imageTypes)
+        {
+            imageTypes = sortOrder switch
+            {
+                "name_desc" => imageTypes.OrderByDescending(s => s.Name),
+                "" => imageTypes.OrderBy(s => s.Name),
+                "type_desc" => imageTypes.OrderByDescending(s => s.Type),
+                "type" => imageTypes.OrderBy(s => s.Type),
+                _ => imageTypes.OrderBy(s => s.Name),
+            };
+            return imageTypes.AsQueryable();
         }
 
         public void Update(ImageType imageType)

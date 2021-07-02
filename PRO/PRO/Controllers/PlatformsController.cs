@@ -15,9 +15,11 @@ namespace PRO.Controllers
     public class PlatformsController : Controller
     {
         private readonly IPlatformService _platformService;
-        public PlatformsController(IPlatformService platformService)
+        private readonly ICompanyService _companyService;
+        public PlatformsController(IPlatformService platformService, ICompanyService companyService)
         {
             _platformService = platformService;
+            _companyService = companyService;
         }
 
         // GET: Platforms
@@ -28,9 +30,24 @@ namespace PRO.Controllers
         }
         // GET: Platforms
         [Route("platforms/manage")]
-        public ActionResult Manage(int? page, int? items)
+        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
-            var platforms = _platformService.GetAll().AsQueryable();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CompanySortParm"] = sortOrder == "company" ? "company_desc" : "company";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+            if (!String.IsNullOrEmpty(query))
+            {
+                page = 1;
+            }
+            else
+            {
+                query = currentFilter;
+            }
+            ViewData["CurrentFilter"] = query;
+            var platforms = _platformService.FilterSearch(query);
+            platforms = _platformService.SortList(sortOrder, platforms);
+
             var result = PaginatedList<Platform>.Create(platforms.AsNoTracking(), page, items);
 
             result.Pagination.Action = "manage";
@@ -53,7 +70,7 @@ namespace PRO.Controllers
         [Route("platforms/add")]
         public ActionResult Add()
         {
-            ViewBag.CompanyId = new SelectList(_platformService.GetAll(), "Id", "Name");
+            ViewBag.CompanyId = new SelectList(_companyService.GetAll(), "Id", "Name");
             return View();
         }
 
@@ -76,7 +93,7 @@ namespace PRO.Controllers
 
             }
 
-            ViewBag.CompanyId = new SelectList(_platformService.GetAll(), "Id", "Name", platform.CompanyId);
+            ViewBag.CompanyId = new SelectList(_companyService.GetAll(), "Id", "Name", platform.CompanyId);
             return View(platform);
         }
 
@@ -89,7 +106,7 @@ namespace PRO.Controllers
             {
                 return NotFound();
             }
-            ViewBag.CompanyId = new SelectList(_platformService.GetAll(), "Id", "Name", platform.CompanyId);
+            ViewBag.CompanyId = new SelectList(_companyService.GetAll(), "Id", "Name", platform.CompanyId);
             return View(platform);
         }
 
@@ -110,7 +127,7 @@ namespace PRO.Controllers
                 }
                 ModelState.Merge(errors);
             }
-            ViewBag.CompanyId = new SelectList(_platformService.GetAll(), "Id", "Name", platform.CompanyId);
+            ViewBag.CompanyId = new SelectList(_companyService.GetAll(), "Id", "Name", platform.CompanyId);
             return View(platform);
         }
 

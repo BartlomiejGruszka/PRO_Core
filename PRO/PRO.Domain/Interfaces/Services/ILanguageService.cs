@@ -16,5 +16,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public void Update(Language language);
         public ModelStateDictionary ValidateLanguage(Language language);
+        IQueryable<Language> FilterSearch(string query);
+        IQueryable<Language> SortList(string sortOrder, IQueryable<Language> languages);
     }
 }
