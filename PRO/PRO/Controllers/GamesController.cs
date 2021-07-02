@@ -181,9 +181,7 @@ namespace PRO.Controllers
                 _gameService.AddLanguages(viewModel.Game, viewModel.selectedLanguagesId);
                 _gameService.Update(viewModel.Game);
 
-                var previouspage = HttpContext.Request.Headers["Referer"];
-                if (string.IsNullOrEmpty(previouspage)) { return RedirectToAction("Details", new { id = viewModel.Game.Id }); }
-                return Redirect(previouspage);
+                return RedirectToAction("Manage");
             }
             var gameViewModel = GetFullGameForm(viewModel.Game.Id);
             gameViewModel.Game = viewModel.Game;
@@ -254,13 +252,6 @@ namespace PRO.Controllers
         {
             var model = SetupDetailsPage(id, null, page, items, review);
             if (model == null) return NotFound();
-
-           // var selectedReview = _reviewService.Find(review);
-           // List<Review> Reviews = new List<Review>();
-           // Reviews.Add(selectedReview);
-
-           // var reviewplaytimes = _reviewService.ReviewPlaytimeList(Reviews).AsQueryable();
-          //  model.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             model.ReviewPlaytimes.Pagination.Action = action;
 
