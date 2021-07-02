@@ -122,7 +122,7 @@ namespace PRO.Controllers
         [Route("games/{id}")]
         public ActionResult Details(int id)
         {
-            var viewModel = SetupDetailsPage(id, null, null, null);
+            var viewModel = SetupDetailsPage(id, null, null, null, null);
             if (viewModel == null) return NotFound();
             return View(viewModel);
         }
@@ -239,7 +239,7 @@ namespace PRO.Controllers
         [Route("games/reviews/{id}")]
         public ActionResult Reviews(int id, int? page, int? items)
         {        
-            var model = SetupDetailsPage(id, null, page, items);
+            var model = SetupDetailsPage(id, null, page, items, null);
             
             if (model == null) return NotFound();
             model.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
@@ -252,27 +252,31 @@ namespace PRO.Controllers
         [Route("games/{id}/reviews/{review}")]
         public ActionResult SingleReview(int id, int? page, int? items, int review)
         {
-            var model = SetupDetailsPage(id, null, page, items);
+            var model = SetupDetailsPage(id, null, page, items, review);
             if (model == null) return NotFound();
 
-            var selectedReview = _reviewService.Find(review);
-            List<Review> Reviews = new List<Review>();
-            Reviews.Add(selectedReview);
+           // var selectedReview = _reviewService.Find(review);
+           // List<Review> Reviews = new List<Review>();
+           // Reviews.Add(selectedReview);
 
-            var reviewplaytimes = _reviewService.ReviewPlaytimeList(Reviews).AsQueryable();
-            model.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
+           // var reviewplaytimes = _reviewService.ReviewPlaytimeList(Reviews).AsQueryable();
+          //  model.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             model.ReviewPlaytimes.Pagination.Action = action;
 
-            if (selectedReview.UserId == _userService.GetLoggedInUserId()) { ViewBag.CanEdit = true; } else { ViewBag.CanEdit = false; }
+            if (model.ReviewPlaytimes[0].Review.UserId == _userService.GetLoggedInUserId()) { ViewBag.CanEdit = true; } else { ViewBag.CanEdit = false; }
             return View(model);
         }
         [HttpGet]
         [Authorize]
-        [Route("games/{id}/userreview")]
-        public ActionResult UserReview(int id)
+        [Route("games/{id}/userreview/{reviewid?}")]
+        public ActionResult UserReview(int id, int? reviewid)
         {
-            var model = SetupDetailsPage(id, null, null, null);
+            var userreview = _reviewService.GetUserGameReview(_userService.GetLoggedInUserId(), id);
+            if (!reviewid.HasValue && userreview != null) { 
+                reviewid = userreview.Id;
+            }
+            var model = SetupDetailsPage(id, null, null, null, reviewid);
             model.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             if (model == null) return NotFound();
 
@@ -325,7 +329,7 @@ namespace PRO.Controllers
             return gameViewModel;
         }
 
-        private GameDetailsViewModel SetupDetailsPage(int id, GameList gamelist, int? page, int? items)
+        private GameDetailsViewModel SetupDetailsPage(int id, GameList gamelist, int? page, int? items, int? reviewid)
         {
             //get game
             var game = _gameService.FindActive(id);
@@ -333,9 +337,27 @@ namespace PRO.Controllers
 
             //get reviews and articles for the game, set pagination
             var reviews = _reviewService.GetGameReviews(game.Id);
+            if (reviewid.HasValue)
+            {
+                reviews = new List<Review>();
+                reviews.Add(_reviewService.Find(reviewid));
+            }
             var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
 
             //get userlists for logged user for quick add to list form
+           
+
+            var GameGameList = GetGameAndGameListForm(game, gamelist);
+            var viewModel = new GameDetailsViewModel
+            {
+                GameGameList = GameGameList,
+                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items),
+                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
+            };
+            return viewModel;
+        }
+        private GameAndGameListFormViewModel GetGameAndGameListForm(Game game, GameList gamelist)
+        {
             var userid = _userService.GetLoggedInUserId();
             var userLists = _userListService.GetAll().Where(u => u.UserId == userid).ToList();
 
@@ -348,13 +370,10 @@ namespace PRO.Controllers
                 Position = _gameService.GetGamePosition(game.Id),
                 Rating = _gameService.GetGameRating(game.Id)
             };
-            var viewModel = new GameDetailsViewModel
-            {
-                GameGameList = GameGameList,
-                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items),
-                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
-            };
-            return viewModel;
+            return GameGameList;
         }
+
+
+
     }
 }

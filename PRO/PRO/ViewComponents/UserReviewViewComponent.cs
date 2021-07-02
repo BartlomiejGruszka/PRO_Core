@@ -22,7 +22,7 @@ namespace PRO.UI.ViewComponents
             _reviewService = reviewService;
             _gameListService = gameListService;
         }
-        public IViewComponentResult Invoke(int gameid)
+        public IViewComponentResult Invoke(int gameid, int reviewid)
         {
 
 
@@ -32,10 +32,15 @@ namespace PRO.UI.ViewComponents
                 var errors = _reviewService.ValidateReview(review);
                 ModelState.Merge(errors);
             }
-            if (review == null)
+            if (review == null && reviewid <= 0)
             {
                 review = _reviewService.GetUserGameReview(_userService.GetLoggedInUserId(), gameid);
               
+            }
+            if (review == null && reviewid > 0)
+            {
+                review = _reviewService.Find(reviewid);
+
             }
             if (review != null)
             {

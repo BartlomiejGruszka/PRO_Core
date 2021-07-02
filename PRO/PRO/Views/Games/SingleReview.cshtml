@@ -22,9 +22,10 @@
                                         <div class="underlined_h2">
                                             <text class="">Wybrana recenzja</text>
                                             <a href="#" style="float:right; text-decoration:none; font-weight:normal;" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
-                                            @if (ViewBag.CanEdit == true && User.Identity.IsAuthenticated)
+                                            @if ((ViewBag.CanEdit == true && User.Identity.IsAuthenticated) || User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                             {
-                                                <a style="float:right; text-decoration:none; font-weight:normal; margin-right:5px;" href="/games/@Model.GameGameList.Game.Id/userreview">Edytuj recenzję</a>
+                                              
+                                                <a style="float:right; text-decoration:none; font-weight:normal; margin-right:5px;" href="/games/@Model.GameGameList.Game.Id/userreview/@Model.ReviewPlaytimes[0].Review.Id">Edytuj recenzję</a>
                                             }
 
 

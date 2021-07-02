@@ -22,8 +22,11 @@
                                         <div class="underlined_h2">
                                             <text class="">Napisz recenzję</text>
                                            
-                                        </div>
-                                        @await Component.InvokeAsync("UserReview", new { gameid = Model.GameGameList.Game.Id })
+                                        </div>@{
+
+                                            var test = Model.ReviewPlaytimes.Select(s=>s.Review?.Id).FirstOrDefault();
+                                         }
+                                        @await Component.InvokeAsync("UserReview", new { gameid = Model.GameGameList.Game.Id, reviewid = test})
 
 
 
