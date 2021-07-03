@@ -16,6 +16,7 @@ namespace PRO.Domain.Interfaces.Services
         IEnumerable<Game> GetComingGames();
         List<Game> GetAll();
         List<Game> GetAllActive();
+        IQueryable<GameScore> FilterByProperty(string property, string value, IQueryable<GameScore> list);
         void Delete(Game game);
         void Add(Game newGame);
         void AddTags(Game newGame, IEnumerable<int> selectedTagsId);

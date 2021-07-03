@@ -13,7 +13,7 @@
         </div>
         @if (User.Identity.IsAuthenticated && (Model.UserLists?.Any() ?? false))
         {<div class="underlined_h2">Dodaj do listy</div>
-            @await Component.InvokeAsync("AddGameToUserList", new { gameid = Model.Game.Id})
+            @await Component.InvokeAsync("AddGameToUserList", new { gameid = Model.Game.Id })
         }
 
 
@@ -24,36 +24,46 @@
             @{
 
                 if (Model.Game.ReleaseDate == null)
-                { <a href="#">Nieznana</a>}
+                { <span>Nieznana</span>}
                 else if (Model.Game.ReleaseDate.Value.Year < 1900)
-                { <a href="#">Nieznana</a>}
+                { <span>Nieznana</span>}
                 else
                 {
                     var date = @Model.Game.ReleaseDate.Value.ToShortDateString();
 
-        <a href="#">@date</a>}
+                    <span>@date</span>}
             }
         </div>
-        <div class="spaceit"><span class="dark_text">Platforma: </span><a href="#">@Model.Game.Platform.Name</a></div>
-        <div class="spaceit"><span class="dark_text">Gatunek: </span>@Model.Game.Genre.Name</div>
+        <div class="spaceit">
+            <span class="dark_text">Platforma: </span><a asp-action="Filter" asp-route-currentFilter="platform" asp-route-value="@Model.Game.Platform.Name">@Model.Game.Platform.Name</a>
+        </div>
+        <div class="spaceit"><span class="dark_text">Gatunek: </span><a asp-action="Filter" asp-route-currentFilter="genre" asp-route-value="@Model.Game.Genre.Name">@Model.Game.Genre.Name</a></div>
         <div class="spaceit">
             <span class="dark_text">Wydawca: </span>@if (Model.Game.PublisherCompany == null)
-            {<a>Brak</a> }
+            {
+                <a>Brak</a>
+            }
             else
-            { <a>@Model.Game.PublisherCompany.Name</a>}
+            {
+                <a asp-action="Filter" asp-route-currentFilter="publisher" asp-route-value="@Model.Game.PublisherCompany.Name">@Model.Game.PublisherCompany.Name</a>
+            }
         </div>
         <div class="spaceit">
             <span class="dark_text">Producent: </span>@if (Model.Game.DeveloperCompany == null)
-            {<a>Brak</a> }
+            {
+                <a>Brak</a>
+            }
             else
-            { <a>@Model.Game.DeveloperCompany.Name</a>}
+            {
+                <a asp-action="Filter" asp-route-currentFilter="developer" asp-route-value="@Model.Game.DeveloperCompany.Name">@Model.Game.DeveloperCompany.Name</a>
+            }
         </div>
-        <div class="spaceit"><span class="dark_text">Status: </span> <a>@Model.Game.Status.Name</a> </div>
+        <div class="spaceit"><span class="dark_text">Status: </span> <a asp-action="Filter" asp-route-currentFilter="status" asp-route-value="@Model.Game.Status.Name">@Model.Game.Status.Name</a></div>
         <div class="spaceit">
             <span class="dark_text">Seria: </span>@if (Model.Game.SeriesId == null)
             {<a>Brak</a> }
             else
-            { <a>@Model.Game.Series.Name</a>}
+            { <a asp-action="Filter" asp-route-currentFilter="series" asp-route-value="@Model.Game.Series.Name">@Model.Game.Series.Name</a>}
         </div>
 
         <div>
@@ -62,7 +72,7 @@
 
             @foreach (var language in Model.Game.Languages)
             {
-                <a href="#">@language.Name</a>
+                <a asp-action="Filter" asp-route-currentFilter="language" asp-route-value="@language.Name">@language.Name</a>
             }
 
         </div>
@@ -70,7 +80,7 @@
             <span class="dark_text">Tagi:</span>
             @foreach (var tag in Model.Game.Tags)
             {
-                <a href="#">@tag.Name</a>
+                <a asp-action="Filter" asp-route-currentFilter="tag" asp-route-value="@tag.Name">@tag.Name</a>
             }
 
         </div>

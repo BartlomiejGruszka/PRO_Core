@@ -274,5 +274,24 @@ namespace PRO.Domain.Services
             };
             return games.AsQueryable();
         }
+
+        public IQueryable<GameScore> FilterByProperty(string property, string value, IQueryable<GameScore> list)
+        {
+
+            list = property switch
+            {
+                "" => list.OrderBy(s => s.Game.Title),
+                "platform" => list.Where(s => s.Game.Platform.Name == value),
+                "status" => list.Where(s => s.Game.Status.Name == value),
+                "series" => list.Where(s => s.Game.Series != null && s.Game.Series.Name == value),
+                "genre" => list.Where(s => s.Game.Genre.Name == value),
+                "publisher" => list.Where(s => s.Game.PublisherCompany != null && s.Game.DeveloperCompany.Name == value),
+                "developer" => list.Where(s => s.Game.DeveloperCompany != null && s.Game.DeveloperCompany.Name == value),
+                "language" => list.Where(s => s.Game.Languages.Any(i=>i.Name == value)),
+                "tag" => list.Where(s => s.Game.Tags.Any(i => i.Name == value)),
+                _ => list.OrderBy(s => s.Game.Title),
+            };
+            return list.OrderBy(s => s.Game.Title).AsQueryable();
+        }
     }
 }

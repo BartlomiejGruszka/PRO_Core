@@ -84,7 +84,26 @@ namespace PRO.Controllers
             };
             return View(viewModel);
         }
+        [AllowAnonymous]
+        [Route("games/Filter")]
+        public ActionResult Filter(string currentFilter, string value , int? page, int? items)
+        {
 
+            
+            int? user = _userService.GetLoggedInUserId();
+            var gamescores = _gameService.GetUserUnorderedGamesRanking(user).OrderBy(g => g.Game.Title).AsQueryable();
+            var games = _gameService.FilterByProperty(currentFilter, value, gamescores);
+            var paginatedgamescores = PaginatedList<GameScore>.Create(games.AsNoTracking(), page, items);
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            paginatedgamescores.Pagination.Action = action;
+            var viewModel = new GameFilterViewModel
+            {
+                GamesScores = paginatedgamescores
+            };
+            ViewData["CurrentFilter"] = currentFilter;
+            ViewData["FilterValue"] = value;
+            return View("Index",viewModel);
+        }
         [HttpGet]
         [Route("games/manage")]
         public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)

@@ -21,6 +21,7 @@
                            asp-route-currentFilter="@ViewData["CurrentFilter"]"
                            asp-route-page="1"                    
                            asp-route-items="@Model.PageItems"
+                           asp-route-value="@ViewData["FilterValue"]"
                            class="page-link">
                             «
                         </a>
@@ -34,6 +35,7 @@
                        asp-route-currentFilter="@ViewData["CurrentFilter"]"
                        asp-route-page="@(Model.PageIndex-1)"
                        asp-route-items="@Model.PageItems"
+                       asp-route-value="@ViewData["FilterValue"]"
                        class="page-link">
                         @(Model.PageIndex - 1)
                     </a>
@@ -48,6 +50,7 @@
                    asp-route-currentFilter="@ViewData["CurrentFilter"]"
                    asp-route-page="@(Model.PageIndex)"
                    asp-route-items="@Model.PageItems"
+                   asp-route-value="@ViewData["FilterValue"]"
                    class="page-link">
                     @(Model.PageIndex)
                 </a>
@@ -62,6 +65,7 @@
                        asp-route-currentFilter="@ViewData["CurrentFilter"]"
                        asp-route-page="@(Model.PageIndex+1)"
                        asp-route-items="@Model.PageItems"
+                       asp-route-value="@ViewData["FilterValue"]"
                        class="page-link">
                         @(Model.PageIndex + 1)
                     </a>
@@ -77,6 +81,7 @@
                            asp-route-currentFilter="@ViewData["CurrentFilter"]"
                            asp-route-page="@(Model.TotalPages)"
                            asp-route-items="@Model.PageItems"
+                           asp-route-value="@ViewData["FilterValue"]"
                            class="page-link">
                             &raquo;
                         </a>
