@@ -84,7 +84,7 @@ namespace PRO.Controllers
         [Route("gamelists/add")]
         public ActionResult Add()
         {
-            ViewBag.userList = _userService.GetAll().Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.userList = _userService.GetUserIdNamesList(null);
             ViewBag.Games = _gameService.GetAllActive();
             return View(new GameList());
         }
@@ -100,12 +100,10 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("gamelists/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add( GameList gameList)
+        public ActionResult Add([Bind("HoursPlayed, PersonalScore,GameId,UserListId")] GameList gameList)
         {
-            if (gameList.UserListId <= 0)
-            {
-                ModelState.AddModelError("UserListId", "Wybierz listę użytkownika");
-            }
+            var validate = _gameListService.ValidateGameList(gameList);
+            ModelState.Merge(validate);
             gameList.AddedDate = DateTime.Now;
 
             if (ModelState.IsValid)
@@ -119,7 +117,7 @@ namespace PRO.Controllers
                 }
                 ModelState.Merge(errors);
             }
-            ViewBag.userList = _userService.GetAll().Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.userList = _userService.GetUserIdNamesList(null);
             ViewBag.Games = _gameService.GetAllActive();
 
             return View(gameList);
@@ -168,8 +166,10 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("gamelists/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(GameList gameList)
+        public ActionResult Edit([Bind("Id, HoursPlayed, PersonalScore,GameId,UserListId")] GameList gameList)
         {
+            var validate = _gameListService.ValidateGameList(gameList);
+            ModelState.Merge(validate);
             gameList.EditedDate = DateTime.Now;
 
             if (ModelState.IsValid)

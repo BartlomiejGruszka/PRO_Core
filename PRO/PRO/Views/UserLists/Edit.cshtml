@@ -28,9 +28,20 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ListType, null, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="ListTypeId" name="ListTypeId" data-live-search="true" title="Wybierz rodzaj listy">
+                    @foreach (var item in ViewBag.typesList)
+                    {
+                        if (Model.ListTypeId == item.Id)
+                        {
+                            <option selected value="@item.Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
 
-                @Html.DropDownListFor(m => m.ListTypeId, new SelectList(ViewBag.typesList, "Id", "Name"), "Wybierz rodzaj listy", htmlAttributes: new { @class = "form-control" })
-
+                </select>
                 @Html.ValidationMessageFor(model => model.ListTypeId, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using PRO.Domain.HelperClasses;
 using PRO.Entities;
 using System;
 using System.Collections.Generic;
@@ -28,5 +29,6 @@ namespace PRO.Domain.Interfaces.Services
         public Task<bool> IsUserInRole(ApplicationUser user, string role);
         IQueryable<ApplicationUser> FilterSearch(string query);
         IQueryable<ApplicationUser> SortList(string sortOrder, IQueryable<ApplicationUser> users);
+        List<UserIdNames> GetUserIdNamesList(IEnumerable<ApplicationUser> list);
     }
 }

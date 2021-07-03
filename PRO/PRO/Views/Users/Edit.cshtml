@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.AppUser.UserName,"Nazwa użytkownika", new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => m.AppUser.UserName, "Nazwa użytkownika", new { @class = "col-md-2 control-label" })
             <div class="col-md-12">
                 @Html.TextBoxFor(m => m.AppUser.UserName, new { @class = "form-control" })
             </div>
@@ -40,9 +40,28 @@
             </div>
         </div>
         <div class="form-group">
+            @Html.LabelFor(model => model.ImageTypes, "Rodzaj obrazka", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="SelectedImageTypeId" name="SelectedImageTypeId" data-live-search="true" onchange="javascript:GetImagesByType(this.value);" title="Wybierz rodzaj obrazka">
+                    @foreach (var item in Model.ImageTypes)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
             @Html.LabelFor(model => model.AppUser.ImageId, "Obraz", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.AppUser.ImageId, new SelectList(Model.Images, "Id", "Name"), "Wybierz obraz", htmlAttributes: new { @class = "form-control" })
+                <select class="selectpicker show-tick" style="max-width:400px;" id="ImageId" name="AppUser.ImageId" data-live-search="true" onchange="SetImageId()" title="Wybierz obraz">
+                    <option value="0">Brak</option>
+                    @if (Model.AppUser.Image != null)
+                    {
+                        <option selected value="@Model.AppUser.ImageId">@Model.AppUser.Image.Name</option>
+                    }
+
+                </select>
                 @Html.ValidationMessageFor(model => model.AppUser.ImageId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,6 +92,49 @@
         </div>
     }
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script language="javascript" type="text/javascript">
+
+    function GetImagesByType(_stateId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ImageId").html(procemessage).show();
+        var url = "/images/getimagesbytype/" + _stateId;
+
+        $.ajax({
+            url: url,
+            data: { id: _stateId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                if (data.length > 0) {
+                    var markup = "<option value=\"0\">Wybierz obrazek</option>";
+                } else {
+                    var markup = "<option value=\"0\">Brak obrazków wybranego typu</option>";
+                }
+
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].value + ">" + data[x].text + "</option>";
+                }
+                $("#ImageId").html(markup).show();
+                $('#ImageId').selectpicker("refresh");
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+
+
+</script>
+
+<script>
+    function SetImageId() {
+        var id = $('#ImageId').find(":selected").Value;
+        console.log(id);
+    }
+</script>
 @section scripts{
     <partial name="_ValidationScriptsPartial" />
 }

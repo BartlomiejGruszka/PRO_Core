@@ -66,7 +66,7 @@ namespace PRO.Controllers
         {
 
             var users = _userService.GetAll().Where(s => s.Author == null).ToList();
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.usersList = _userService.GetUserIdNamesList(users);
 
             return View();
         }
@@ -94,7 +94,7 @@ namespace PRO.Controllers
             }
 
             var users = _userService.GetAll().Where(s => s.Author == null).ToList();
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.usersList = _userService.GetUserIdNamesList(users);
 
             return View(author);
         }

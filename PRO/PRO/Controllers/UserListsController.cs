@@ -82,9 +82,8 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Add()
         {
-            var users = _userService.GetAll().ToList();
 
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.usersList = _userService.GetUserIdNamesList(null);
             ViewBag.typesList = _listTypeService.GetAll().ToList();
             return View();
         }
@@ -107,9 +106,7 @@ namespace PRO.Controllers
                 ModelState.Merge(errors);
             }
 
-            var users = _userService.GetAll().ToList();
-
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.usersList = _userService.GetUserIdNamesList(null);
             ViewBag.typesList = _listTypeService.GetAll().ToList();
             return View(userList);
         }
@@ -124,9 +121,8 @@ namespace PRO.Controllers
             {
                 return NotFound();
             }
-            var users = _userService.GetAll().ToList();
 
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.usersList = _userService.GetUserIdNamesList(null);
             ViewBag.typesList = _listTypeService.GetAll().ToList();
             return View(userList);
         }
@@ -148,9 +144,7 @@ namespace PRO.Controllers
                 }
                 ModelState.Merge(errors);
             }
-            var users = _userService.GetAll().ToList();
-
-            ViewBag.usersList = users.Select(s => new { Id = s.Id, UserName = s.UserName }).ToList();
+            ViewBag.usersList = _userService.GetUserIdNamesList(null);
             ViewBag.typesList = _listTypeService.GetAll().ToList();
             return View(userList);
         }

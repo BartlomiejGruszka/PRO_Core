@@ -65,7 +65,7 @@ namespace PRO.Controllers
         [Route("awards/add")]
         public ActionResult Add()
         {
-            ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title");
+            ViewBag.Games = _gameService.GetAll();
             return View();
         }
 
@@ -86,7 +86,7 @@ namespace PRO.Controllers
                 ModelState.Merge(errors);
             }
 
-            ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title", award.GameId);
+            ViewBag.Games = _gameService.GetAll();
             return View(award);
         }
 
@@ -99,7 +99,7 @@ namespace PRO.Controllers
             {
                 return BadRequest();
             }
-            ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title", award.GameId);
+            ViewBag.Games = _gameService.GetAll();
             return View(award);
         }
 
@@ -119,7 +119,7 @@ namespace PRO.Controllers
                 }
                 ModelState.Merge(errors);
             }
-            ViewBag.GameId = new SelectList(_gameService.GetAll(), "Id", "Title", award.GameId); ;
+            ViewBag.Games = _gameService.GetAll();
             return View(award);
         }
 

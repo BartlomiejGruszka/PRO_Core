@@ -70,7 +70,7 @@ namespace PRO.Controllers
         [Route("platforms/add")]
         public ActionResult Add()
         {
-            ViewBag.CompanyId = new SelectList(_companyService.GetAll(), "Id", "Name");
+            ViewBag.Companies = _companyService.GetAll();
             return View();
         }
 
@@ -93,7 +93,7 @@ namespace PRO.Controllers
 
             }
 
-            ViewBag.CompanyId = new SelectList(_companyService.GetAll(), "Id", "Name", platform.CompanyId);
+            ViewBag.Companies = _companyService.GetAll();
             return View(platform);
         }
 
@@ -106,7 +106,7 @@ namespace PRO.Controllers
             {
                 return NotFound();
             }
-            ViewBag.CompanyId = new SelectList(_companyService.GetAll(), "Id", "Name", platform.CompanyId);
+            ViewBag.Companies = _companyService.GetAll();
             return View(platform);
         }
 
@@ -127,7 +127,7 @@ namespace PRO.Controllers
                 }
                 ModelState.Merge(errors);
             }
-            ViewBag.CompanyId = new SelectList(_companyService.GetAll(), "Id", "Name", platform.CompanyId);
+            ViewBag.Companies = _companyService.GetAll();
             return View(platform);
         }
 

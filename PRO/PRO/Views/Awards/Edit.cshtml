@@ -25,9 +25,23 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GameId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GameId, "Gra", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("GameId", null, htmlAttributes: new { @class = "form-control" })
+                <select class="selectpicker show-tick" style="max-width:400px;" id="GameId" name="GameId" data-live-search="true" title="Wybierz nagrodzoną grę">
+                    @foreach (var item in ViewBag.Games)
+                    {
+                        if (Model.GameId == item.Id)
+                        {
+                            <option selected value="@item.Id">@item.Title</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Title</option>
+                        }
+
+                    }
+
+                </select>
                 @Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })
             </div>
         </div>

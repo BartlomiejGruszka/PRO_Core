@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
@@ -34,8 +35,8 @@ namespace PRO.Domain.Services
         }
 
         public Task<IdentityResult> Delete(ApplicationUser user)
-        {      
-            return  _userManager.DeleteAsync(user);
+        {
+            return _userManager.DeleteAsync(user);
         }
 
         public ApplicationUser Find(int? id)
@@ -78,9 +79,9 @@ namespace PRO.Domain.Services
             return _userManager.UpdateAsync(user);
         }
 
-        public Task<IdentityResult> ChangePasswordAsync(ApplicationUser user,string oldpassword, string newpassword )
+        public Task<IdentityResult> ChangePasswordAsync(ApplicationUser user, string oldpassword, string newpassword)
         {
-            return  _userManager.ChangePasswordAsync(user, oldpassword,newpassword);
+            return _userManager.ChangePasswordAsync(user, oldpassword, newpassword);
         }
         public Task<string> ResetTokenAsync(ApplicationUser user)
         {
@@ -88,7 +89,7 @@ namespace PRO.Domain.Services
         }
         public Task<IdentityResult> ResetPasswordAsync(ApplicationUser user, string newpassword)
         {
-            string token =  ResetTokenAsync(user).Result;
+            string token = ResetTokenAsync(user).Result;
             return _userManager.ResetPasswordAsync(user, token, newpassword);
         }
 
@@ -108,7 +109,7 @@ namespace PRO.Domain.Services
         }
         public Task<bool> IsUserInRole(ApplicationUser user, string role)
         {
-            return  _userManager.IsInRoleAsync(user, role);
+            return _userManager.IsInRoleAsync(user, role);
         }
 
         public IQueryable<ApplicationUser> FilterSearch(string query)
@@ -139,6 +140,19 @@ namespace PRO.Domain.Services
                 _ => users.OrderBy(s => s.UserName),
             };
             return users.AsQueryable();
+        }
+
+        public List<UserIdNames> GetUserIdNamesList(IEnumerable<ApplicationUser> list)
+        {
+            if (list == null) { list = GetAll(); }
+            List<UserIdNames> users = new List<UserIdNames>();
+            foreach (var item in list)
+            {
+                var user = new UserIdNames { Id = item.Id, UserName = item.UserName };
+                users.Add(user);
+
+            }
+            return users;
         }
     }
 }

@@ -13,7 +13,7 @@
 
     <div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
 
         <div class="form-group">
@@ -31,30 +31,40 @@
                 @Html.ValidationMessageFor(model => model.PersonalScore, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.UserList.UserId, "Użytkownik", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.UserList.UserId, new SelectList(ViewBag.userList, "Id", "UserName"), "Wybierz użytkownika", new { @class = "form-control", @id = "ddlstate", @onchange = "javascript:GetUserLists(this.value);" })
+                <select class="selectpicker show-tick" style="max-width:400px;" id="UserList.UserId" name="UserList.UserId" data-live-search="true" title="Wybierz użytkownika" onchange="javascript:GetUserLists(this.value);">
+                    @foreach (var item in ViewBag.userList)
+                    {
+                        <option value="@item.Id">@item.UserName</option>
+                    }
+
+                </select>
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.UserListId, "Lista użytkownika", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="UserListId" name="UserListId" class="form-control" onchange="SetListId()"></select>
+                <select class="selectpicker show-tick" style="max-width:400px;" id="UserListId" name="UserListId" data-live-search="true" onchange="SetListId()" title="Wybierz listę">
+                    <option value="0">Brak</option>
+                </select>
                 @Html.ValidationMessageFor(model => model.UserListId, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.GameId, "Gra", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.GameId, new SelectList(ViewBag.Games, "Id", "Title"), "Wybierz grę", htmlAttributes: new { @class = "form-control" })
+                <select class="selectpicker show-tick" style="max-width:400px;" id="GameId" name="GameId" data-live-search="true" title="Wybierz grę">
+                    @foreach (var item in ViewBag.Games)
+                    {
+                        <option value="@item.Id">@item.Title</option>
+                    }
+
+                </select>
                 @Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Dodaj" class="btn btn-primary" />
@@ -77,15 +87,16 @@
             type: "POST",
             success: function (data) {
                 if (data.length > 0) {
-                    var markup = "<option value='0'>Wybierz listę użytkownika</option>";
+                    var markup = "<option value=\"0\">Wybierz listę użytkownika</option>";
                 } else {
-                    var markup = "<option value='0'>Użytkownik nie ma list</option>";
+                    var markup = "<option value=\"0\">Użytkownik nie ma list</option>";
                 }
 
                 for (var x = 0; x < data.length; x++) {
                     markup += "<option value=" + data[x].value + ">" + data[x].text + "</option>";
                 }
                 $("#UserListId").html(markup).show();
+                $('#UserListId').selectpicker("refresh");
             },
             error: function (reponse) {
                 alert("error : " + reponse);

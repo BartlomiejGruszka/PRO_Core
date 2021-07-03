@@ -72,6 +72,10 @@
             <div class="col-md-10">
                 <select class="selectpicker show-tick" style="max-width:400px;" id="ImageId" name="Article.ImageId" data-live-search="true" onchange="SetImageId()" title="Wybierz obraz">
                     <option value="0">Brak</option>
+                    @if (Model.Article.Image != null)
+                    {
+                        <option selected value="@Model.Article.ImageId">@Model.Article.Image.Name</option>
+                    }
                 </select>
                 @Html.ValidationMessageFor(model => model.Article.ImageId, "", new { @class = "text-danger" })
             </div>
