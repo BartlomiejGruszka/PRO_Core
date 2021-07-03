@@ -221,7 +221,7 @@ namespace PRO.Controllers
         public ActionResult Ranking(int? page, int? items)
         {
             var games = _gameService.GetAllActive().OrderBy(s => s.Title);
-            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).AsQueryable();
+            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).OrderByDescending(s=>s.Score).AsQueryable();
             var paginatedgamesrankings = PaginatedList<GameScore>.Create(gamesRankings.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             paginatedgamesrankings.Pagination.Action = action;
@@ -277,8 +277,9 @@ namespace PRO.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("games/search/{query?}")]
-        public ActionResult Search(int? page, int? items, string query)
+        public ActionResult Search(int? page, int? items, string query, string CurrentFilter)
         {
+            if (query == null && CurrentFilter != null) query = CurrentFilter;
             var filteredgames = _gameService.GetFilteredGamesRanking(query).OrderBy(g => g.Game.Title).AsQueryable();
 
             var viewModel = new GameFilterViewModel
@@ -286,6 +287,7 @@ namespace PRO.Controllers
                 GamesScores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items)
             };
             viewModel.GamesScores.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            ViewData["CurrentFilter"] = query;
             return View("Index", viewModel);
         }
 
