@@ -5,6 +5,11 @@ using PRO.Domain.Interfaces.Services;
 using PRO.Persistance.Data;
 using PRO.UI.ViewModels;
 using System.Linq;
+using Microsoft.AspNetCore.Http.Headers;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Specialized;
+using System.Web;
 
 namespace PRO.Controllers
 {
@@ -93,7 +98,18 @@ namespace PRO.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult Pages(int pageItems)
+        {
+            Uri uriReferer = Request.GetTypedHeaders().Referer;
+            UriBuilder uriBuilder = new UriBuilder(uriReferer);
+            NameValueCollection query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query.Remove("items");
+            query.Add("items", pageItems.ToString());
+            uriBuilder.Query = query.ToString();
 
+            return Redirect(uriBuilder.Uri.ToString());
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

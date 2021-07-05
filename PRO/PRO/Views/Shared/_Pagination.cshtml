@@ -1,9 +1,9 @@
 ﻿@model PRO.Entities.Pagination
 
-<div  style="display: flex; justify-content: space-between;">
-    <ul class="pagination">
-    </ul>
-    <ul class="pagination">
+<div style="display: flex; justify-content: space-between;">
+    <div class="pagination">
+    </div>
+    <div class="pagination">
         @{
 
             var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
@@ -19,7 +19,7 @@
                            asp-action="@Model.Action"
                            asp-route-sortOrder="@ViewData["CurrentSort"]"
                            asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                           asp-route-page="1"                    
+                           asp-route-page="1"
                            asp-route-items="@Model.PageItems"
                            asp-route-value="@ViewData["FilterValue"]"
                            class="page-link">
@@ -45,7 +45,7 @@
             <li class="page-item active">
                 <a asp-controller="@controllerName"
                    asp-route-id="@Model.RouteId"
-                   asp-action="@Model.Action"     
+                   asp-action="@Model.Action"
                    asp-route-sortOrder="@ViewData["CurrentSort"]"
                    asp-route-currentFilter="@ViewData["CurrentFilter"]"
                    asp-route-page="@(Model.PageIndex)"
@@ -91,11 +91,22 @@
 
             }
         }
-    </ul>
-    <select  id="pageItems" name="pageItems" style="margin: 5px; display: flex; align-self: center;">
-        <option value="1">1</option>
-        <option selected value="5">5</option>
-        <option  value="10">10</option>
-        <option  value="20">20</option>
-    </select>
+    </div>
+    <div class="pagination">
+
+        @using (Html.BeginForm("Pages", "Home", FormMethod.Post, new { style = "display:flex;" }))
+        {
+            <select class="page-link" id="pageItems" name="pageItems" style="margin-right: 5px; display: flex; align-self: center;">
+                <option value="1">1</option>
+                <option selected value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>           
+            <input class="page-link" type="submit" value="Wybierz">
+        }
+
+
+
+
+    </div>
 </div>
