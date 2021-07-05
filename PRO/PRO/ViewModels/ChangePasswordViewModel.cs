@@ -4,7 +4,7 @@ namespace PRO.UI.ViewModels
 {
     public class ChangePasswordViewModel
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

@@ -110,7 +110,7 @@ namespace PRO.Controllers
             UserProfileViewModel model = new UserProfileViewModel
             {
                 EditUser = edituser,
-                UserLists = _userListService.GetAll().ToList(),
+                UserLists = _userListService.GetUserUserLists(user.Id).ToList(),
                 GameLists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).ToList(),
                 ReviewsPlaytimes = PaginatedList<ReviewPlaytime>.Create(playtimes.AsNoTracking(), page, items),
                 LoggedUserId = _userService.GetLoggedInUserId(),
@@ -257,7 +257,7 @@ namespace PRO.Controllers
         {
             ChangePasswordViewModel viewModel = new ChangePasswordViewModel
             {
-                id = id
+                Id = id
             };
             return View(viewModel);
         }
@@ -303,7 +303,7 @@ namespace PRO.Controllers
             if (loggeduserid != id) return NotFound();
             ChangePasswordViewModel changePassword = new ChangePasswordViewModel
             {
-                id = id
+                Id = id
             };
             var edituser = new EditUserViewModel
             {
@@ -342,6 +342,11 @@ namespace PRO.Controllers
                 AddErrors(result);
             }
             var userProfile = UserProfileSetup(id, null, null);
+            ChangePasswordViewModel changePassword = new ChangePasswordViewModel
+            {
+                Id = id
+            };
+            userProfile.ChangePassword = changePassword;
             if (userProfile == null) return NotFound();
             return View(userProfile);
         }
@@ -407,6 +412,18 @@ namespace PRO.Controllers
         [AllowAnonymous]
         [Route("users/reviews/{id}")]
         public ActionResult Reviews(int? id, int? page, int? items)
+        {
+            var model = UserProfileSetup(id, page, items);
+            if (model == null) { return NotFound(); }
+            model.ReviewsPlaytimes.Pagination.Action = "Reviews";
+            model.ReviewsPlaytimes.Pagination.RouteId = id;
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("users/{id}/lists")]
+        public ActionResult UserLists(int? id, int? page, int? items)
         {
             var model = UserProfileSetup(id, page, items);
             if (model == null) { return NotFound(); }

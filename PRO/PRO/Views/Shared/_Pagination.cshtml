@@ -3,7 +3,7 @@
 <div style="display: flex; justify-content: space-between;">
     <div class="pagination">
     </div>
-    <div class="pagination">
+    <ul class="pagination">
         @{
 
             var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
@@ -91,7 +91,7 @@
 
             }
         }
-    </div>
+    </ul>
     <div class="pagination">
 
         @using (Html.BeginForm("Pages", "Home", FormMethod.Post, new { style = "display:flex;" }))
