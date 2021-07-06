@@ -14,7 +14,10 @@
         <tbody>
             <tr>
                 <td valign="top" style="padding-left: 5px;">
-                    tu będą listy użytkownika
+                    @foreach (var item in Model.GameLists)
+            {
+                        <span>@item.Game.Title grano @item.HoursPlayed ocena @item.PersonalScore</span><br />
+            }
 
                 </td>
 
