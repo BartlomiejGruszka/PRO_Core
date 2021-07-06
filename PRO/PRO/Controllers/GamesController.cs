@@ -71,7 +71,6 @@ namespace PRO.Controllers
         [Route("games/")]
         public ActionResult Index(int? page, int? items)
         {
-
             var games = _gameService.GetAllActive().OrderBy(g => g.Title).ToList();
             int? user = _userService.GetLoggedInUserId();
             var gamescores = _gameService.GetUserUnorderedGamesRanking(user).OrderBy(g => g.Game.Title).AsQueryable();
@@ -141,7 +140,7 @@ namespace PRO.Controllers
         [Route("games/{id}")]
         public ActionResult Details(int id)
         {
-            var viewModel = SetupDetailsPage(id, null, null, null, null);
+            var viewModel = SetupDetailsPage(id, null, null, null);
             if (viewModel == null) return NotFound();
             return View(viewModel);
         }
@@ -256,7 +255,7 @@ namespace PRO.Controllers
         [Route("games/reviews/{id}")]
         public ActionResult Reviews(int id, int? page, int? items)
         {        
-            var model = SetupDetailsPage(id, null, page, items, null);
+            var model = SetupDetailsPage(id, page, items, null);
             
             if (model == null) return NotFound();
             model.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
@@ -269,7 +268,7 @@ namespace PRO.Controllers
         [Route("games/{id}/reviews/{review}")]
         public ActionResult SingleReview(int id, int? page, int? items, int review)
         {
-            var model = SetupDetailsPage(id, null, page, items, review);
+            var model = SetupDetailsPage(id, page, items, review);
             if (model == null) return NotFound();
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             model.ReviewPlaytimes.Pagination.Action = action;
@@ -286,7 +285,7 @@ namespace PRO.Controllers
             if (!reviewid.HasValue && userreview != null) { 
                 reviewid = userreview.Id;
             }
-            var model = SetupDetailsPage(id, null, null, null, reviewid);
+            var model = SetupDetailsPage(id, null, null, reviewid);
             model.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             if (model == null) return NotFound();
 
@@ -341,7 +340,7 @@ namespace PRO.Controllers
             return gameViewModel;
         }
 
-        private GameDetailsViewModel SetupDetailsPage(int id, GameList gamelist, int? page, int? items, int? reviewid)
+        private GameDetailsViewModel SetupDetailsPage(int id, int? page, int? items, int? reviewid)
         {
             //get game
             var game = _gameService.FindActive(id);
@@ -356,33 +355,28 @@ namespace PRO.Controllers
             }
             var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
 
-            //get userlists for logged user for quick add to list form
-           
-
-            var GameGameList = GetGameAndGameListForm(game, gamelist);
             var viewModel = new GameDetailsViewModel
             {
-                GameGameList = GameGameList,
+                GameInfo = SetupGameInfo(game),
                 ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items),
                 RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
             };
             return viewModel;
         }
-        private GameAndGameListFormViewModel GetGameAndGameListForm(Game game, GameList gamelist)
+        private GameInfoViewModel SetupGameInfo(Game game)
         {
             var userid = _userService.GetLoggedInUserId();
             var userLists = _userListService.GetAll().Where(u => u.UserId == userid).ToList();
 
-            var GameGameList = new GameAndGameListFormViewModel
+            var GameInfo = new GameInfoViewModel
             {
                 Game = game,
-                GameList = gamelist,
                 UserLists = userLists,
                 Popularity = _gameService.GetGamePopularity(game.Id),
                 Position = _gameService.GetGamePosition(game.Id),
                 Rating = _gameService.GetGameRating(game.Id)
             };
-            return GameGameList;
+            return GameInfo;
         }
 
 
