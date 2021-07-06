@@ -5,13 +5,13 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<partial name="~/Views/Shared/_GameTitleBar.cshtml" , model="Model.GameGameList.Game" />
+<partial name="~/Views/Shared/_GameTitleBar.cshtml" , model="Model.GameInfo.Game" />
 <div id="content">
 
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tbody>
             <tr>
-                <partial name="~/Views/Shared/_GameInfoBar.cshtml" , model="Model.GameGameList" />
+                <partial name="~/Views/Shared/_GameInfoBar.cshtml" , model="Model.GameInfo" />
                 <td valign="top" style="padding-left: 5px;">
                     <div class="js-scrollfix-bottom-rel">
                         <div style=" margin:0 auto"></div><a name="lower"></a>
@@ -25,11 +25,11 @@
                                                 <div class="game-detail-header-stats di-tc va-t ">
                                                     <div class="stats-block po-r clearfix">
                                                         <div class="fl-l score" data-title="ocena">
-                                                            <div class="score-label score-7">@Model.GameGameList.Rating</div>
+                                                            <div class="score-label score-7">@Model.GameInfo.Rating</div>
                                                         </div>
                                                         <div class="di-ib ml12 pl20 pt8">
-                                                            <span class="numbers ranked">Ranking<strong>#@Model.GameGameList.Position</strong></span>
-                                                            <span class="numbers popularity">Popularność<strong>#@Model.GameGameList.Popularity</strong></span>
+                                                            <span class="numbers ranked">Ranking<strong>#@Model.GameInfo.Position</strong></span>
+                                                            <span class="numbers popularity">Popularność<strong>#@Model.GameInfo.Popularity</strong></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -40,13 +40,13 @@
                                 <tr>
                                     <td class="pb24">
                                         <div class="underlined_h2">Opis</div>
-                                        @if (String.IsNullOrEmpty(Model.GameGameList.Game.Description))
+                                        @if (String.IsNullOrEmpty(Model.GameInfo.Game.Description))
                                         {
                                             {<p>Obecnie nie ma opisu dla tej gry</p>}
                                         }
                                         else
                                         {
-                                            <p>@Html.Raw(Model.GameGameList.Game.Description)</p>
+                                            <p>@Html.Raw(Model.GameInfo.Game.Description)</p>
                                         }
 
                                     </td>
@@ -54,19 +54,19 @@
                                 <tr>
                                     <td class="pb24">
 
-                                        @if (Model.GameGameList.Game.Series != null)
+                                        @if (Model.GameInfo.Game.Series != null)
                                         {
-                                            if (Model.GameGameList.Game.Series.Games.Count() > 1)
+                                            if (Model.GameInfo.Game.Series.Games.Count() > 1)
                                             {
-                                                <div class="underlined_h2">Gry z serii @Model.GameGameList.Game.Series.Name</div>
+                                                <div class="underlined_h2">Gry z serii @Model.GameInfo.Game.Series.Name</div>
                                                 <table class="" style="border-spacing:0px;">
                                                     <tbody>
                                                         <tr>
                                                             <td width="100%" style=" display: flex; flex-direction: column;" class="">
                                                                 @{
-                                                                    foreach (var game in Model.GameGameList.Game.Series.Games)
+                                                                    foreach (var game in Model.GameInfo.Game.Series.Games)
                                                                     {
-                                                                        if (game.Id != Model.GameGameList.Game.Id)
+                                                                        if (game.Id != Model.GameInfo.Game.Id)
                                                                         {
                                                                             <a href="/games/@game.Id">@game.Title</a>
                                                                         }
@@ -83,16 +83,16 @@
                                         <div>
                                             <span class="floatRightHeader">
                                                 @{
-                                                    if (Model.GameGameList.Game.Reviews?.Any() == true)
+                                                    if (Model.GameInfo.Game.Reviews?.Any() == true)
                                                     { <span style="display:flex;">
-                                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameGameList.Game.Id/userreview">Twoja recenzja </a>
-                                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/reviews/@Model.GameGameList.Game.Id">Więcej recenzji</a>
+                                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameInfo.Game.Id/userreview">Twoja recenzja </a>
+                                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/reviews/@Model.GameInfo.Game.Id">Więcej recenzji</a>
                                                         </span>
 
                                                     }
                                                     else
                                                     {
-                                                        <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameGameList.Game.Id/userreview">Twoja recenzja </a>
+                                                        <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameInfo.Game.Id/userreview">Twoja recenzja </a>
                                                     }
                                                 }
                                             </span>
