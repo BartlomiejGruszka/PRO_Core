@@ -103,6 +103,8 @@ namespace PRO.Controllers
                 ListTypes = _listTypeService.GetAll().ToList()
             };
             model.ReviewsPlaytimes.Pagination.Action = "Details";
+            ViewBag.IsOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
+
             return View(model);
         }
 
@@ -265,19 +267,17 @@ namespace PRO.Controllers
             return View(model);
         }
 
-        // 
+        
         [HttpGet]
         [Authorize]
         [Route("users/{id}/password")]
         public ActionResult UserChangePassword(int id)
         {
+            if (_userService.IsOwner(_userService.GetLoggedInUserId(), id) == false) return NotFound();
             var userdata = _userService.Find(id);
             if (userdata == null)
             { return RedirectToAction("Details", "Users", new { id = id }); }
-
-            int? loggeduserid = _userService.GetLoggedInUserId();
-            if (loggeduserid == null) return NotFound();
-            if (loggeduserid != id) return NotFound();
+          
             ChangePasswordViewModel changePassword = new ChangePasswordViewModel
             {
                 Id = id

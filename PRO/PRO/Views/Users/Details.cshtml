@@ -9,7 +9,7 @@
     </div>
 </div>
 <div id="content" class="userprofilecontent">
-    @if (Model.AppUser.IsPublic)
+    @if (Model.AppUser.IsPublic || ViewBag.IsOwner)
     {
 
         <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.AppUser" />

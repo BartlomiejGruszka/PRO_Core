@@ -154,5 +154,11 @@ namespace PRO.Domain.Services
             }
             return users;
         }
+        public bool IsOwner(int? loggeduserid, int? userid)
+        {
+            if (!loggeduserid.HasValue || !userid.HasValue) return false;
+            if (loggeduserid.Value != userid.Value) return false;
+            return true;
+        }
     }
 }

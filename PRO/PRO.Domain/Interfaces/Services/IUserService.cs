@@ -30,5 +30,7 @@ namespace PRO.Domain.Interfaces.Services
         IQueryable<ApplicationUser> FilterSearch(string query);
         IQueryable<ApplicationUser> SortList(string sortOrder, IQueryable<ApplicationUser> users);
         List<UserIdNames> GetUserIdNamesList(IEnumerable<ApplicationUser> list);
+
+        public bool IsOwner(int? loggeduserid, int? userid);
     }
 }
