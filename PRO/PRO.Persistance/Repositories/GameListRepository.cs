@@ -33,7 +33,8 @@ namespace PRO.Persistance.Repositories
                 .Include(i => i.Game.Image)
                 .Include(i => i.Game.DeveloperCompany)
                 .Include(u=>u.UserList)
-                .Include(u => u.UserList.User);
+                .Include(u => u.UserList.User)
+                .Include(u => u.UserList.ListType);
         }
         public new GameList Find(int? id)
         {
@@ -42,6 +43,7 @@ namespace PRO.Persistance.Repositories
               .Include(g => g.Game)
               .Include(g => g.UserList)
               .Include(g => g.UserList.User)
+              .Include(u => u.UserList.ListType)
               .SingleOrDefault(g => g.Id == id.Value);
 
             return gameList;

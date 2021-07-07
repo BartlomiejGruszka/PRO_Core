@@ -414,7 +414,7 @@ namespace PRO.Controllers
             var user = _userService.Find(id);
             if (user == null) { return NotFound(); }
             var gamelists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).AsQueryable();
-
+            gamelists = _gameListService.FilterByList(currentFilter, gamelists);
             var model = new UserGameListsViewModel
             {
                 AppUser = user,

@@ -185,5 +185,12 @@ namespace PRO.Domain.Services
             };
             return gameLists.AsQueryable();
         }
+
+        public IQueryable<GameList> FilterByList(string currentFilter, IQueryable<GameList> gamelists)
+        {
+            if (currentFilter == null) return gamelists;
+            if (currentFilter.Equals("all")) return gamelists;
+            return gamelists.Where(s => s.UserList.ListType.Name.Equals(currentFilter));
+        }
     }
 }
