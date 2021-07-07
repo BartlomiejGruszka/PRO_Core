@@ -1,64 +1,64 @@
-﻿@model PRO.UI.ViewModels.UserProfileViewModel
+﻿@model PRO.UI.ViewModels.UserReviewsViewModel
 @{
     ViewBag.Title = "Profil użytkownika";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
     <div>
-        <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.EditUser.AppUser" />
+        <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.AppUser" />
     </div>
 </div>
 <div id="content" class="userprofilecontent">
-    @if (Model.EditUser.AppUser.IsPublic)
+    @if (Model.AppUser.IsPublic)
     {
-        <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.EditUser.AppUser" />
+        <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.AppUser" />
 
 
 
 
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td valign="top" style="padding-left: 5px;">
-                                <div class="js-scrollfix-bottom-rel">
-                                    <div style=" margin:0 auto"></div><a name="lower"></a>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td valign="top" style="padding-left: 5px;">
+                        <div class="js-scrollfix-bottom-rel">
+                            <div style=" margin:0 auto"></div><a name="lower"></a>
 
-                                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                                        <tbody>
-                                            <tr>
-                                                <td class="pb24">
+                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td class="pb24">
 
-                                                    <div class="underlined_h2">
-                                                        <text class="">Wszystkie recenzje</text>
-                                                        <a style="float:right; text-decoration:none; font-weight:normal;" href="/users/@Model.EditUser.AppUser.Id">Powrót</a>
-                                                    </div>
-                                                    @{
-                                                        foreach (var item in Model.ReviewsPlaytimes)
-                                                        {
+                                            <div class="underlined_h2">
+                                                <text class="">Wszystkie recenzje</text>
+                                                <a style="float:right; text-decoration:none; font-weight:normal;" href="/users/@Model.AppUser.Id">Powrót</a>
+                                            </div>
+                                            @{
+                                                foreach (var item in Model.ReviewsPlaytimes)
+                                                {
 
-                                                            <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
+                                                    <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
 
-                                                            <div class="underlined_h2"></div>
-                                                        }
-                                                    }
+                                                    <div class="underlined_h2"></div>
+                                                }
+                                            }
 
-                                                </td>
-                                            </tr>
+                                        </td>
+                                    </tr>
 
-                                        </tbody>
+                                </tbody>
 
-                                    </table>
-                                </div>
-                                <div>
-                                   
-                                    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.ReviewsPlaytimes.Pagination" />
+                            </table>
+                        </div>
+                        <div>
 
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                            <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.ReviewsPlaytimes.Pagination" />
 
-                </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
 
 
     }

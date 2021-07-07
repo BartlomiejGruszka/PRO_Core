@@ -7,14 +7,11 @@ namespace PRO.UI.ViewModels
 {
     public class UserProfileViewModel
     {
-        public List<UserList> UserLists { get; set; }
         public List<Tuple<GameList, DateTime>> RecentlyUpdatedGames { get; set; }
         public PaginatedList<GameList> GameLists { get; set; }
         public PaginatedList<ReviewPlaytime> ReviewsPlaytimes { get; set; }
         public List<ListType> ListTypes { get; set; }
-        public int? LoggedUserId { get; set; }
-        public EditUserViewModel EditUser { get; set; }
-        public ChangePasswordViewModel ChangePassword { get; set; }
+        public ApplicationUser AppUser { get; set; }
 
     }
 }

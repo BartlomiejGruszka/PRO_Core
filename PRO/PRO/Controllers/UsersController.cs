@@ -88,36 +88,22 @@ namespace PRO.Controllers
         [AllowAnonymous]
         public ActionResult Details(int? id)
         {
-            var model = UserProfileSetup(id, null, null);
-            if (model == null) { return NotFound(); }
-            model.ReviewsPlaytimes.Pagination.Action = "Details";
-            return View(model);
-        }
-        public UserProfileViewModel UserProfileSetup(int? id, int? page, int? items)
-        {
             ApplicationUser user = _userService.FindActive(id);
-            if (user == null)
-            {
-                return null;
-            }
-            var edituser = new EditUserViewModel
-            {
-                AppUser = user,
-                Images = _imageService.GetAll().ToList()
-            };
+            if (user == null) { return NotFound(); }
+
             var playtimes = _reviewService.UserPlaytimeList(user.Id).AsQueryable();
             var gamelists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).AsQueryable();
+
             UserProfileViewModel model = new UserProfileViewModel
             {
-                EditUser = edituser,
-                UserLists = _userListService.GetUserUserLists(user.Id).ToList(),
-                GameLists = PaginatedList<GameList>.Create(gamelists.AsNoTracking(), page, items),
-                ReviewsPlaytimes = PaginatedList<ReviewPlaytime>.Create(playtimes.AsNoTracking(), page, items),
-                LoggedUserId = _userService.GetLoggedInUserId(),
-                ListTypes = _listTypeService.GetAll().ToList(),
-                RecentlyUpdatedGames = _gameListService.GetRecentUserGameListUpdates(user.Id, 3)
+                AppUser = user,
+                GameLists = PaginatedList<GameList>.Create(gamelists.AsNoTracking(), null, null),
+                ReviewsPlaytimes = PaginatedList<ReviewPlaytime>.Create(playtimes.AsNoTracking(), null, null),
+                RecentlyUpdatedGames = _gameListService.GetRecentUserGameListUpdates(user.Id, 3),
+                ListTypes = _listTypeService.GetAll().ToList()
             };
-            return model;
+            model.ReviewsPlaytimes.Pagination.Action = "Details";
+            return View(model);
         }
 
         [Route("users/details/{id}")]
@@ -204,15 +190,6 @@ namespace PRO.Controllers
             }
             model.Images = _imageService.GetAll().ToList();
             model.ImageTypes = _imageTypeService.GetAll();
-            return View(model);
-        }
-
-        [Route("users/lists/{id}")]
-        [AllowAnonymous]
-        public ActionResult Lists(int? id)
-        {
-            var model = UserProfileSetup(id, null, null);
-            if (model == null) { return NotFound(); }
             return View(model);
         }
 
@@ -305,19 +282,8 @@ namespace PRO.Controllers
             {
                 Id = id
             };
-            var edituser = new EditUserViewModel
-            {
-                AppUser = userdata,
-                Images = _imageService.GetAll().ToList()
-            };
-            UserProfileViewModel model = new UserProfileViewModel
-            {
-                EditUser = edituser,
-                LoggedUserId = loggeduserid,
-                ChangePassword = changePassword
-            };
-
-            return View(model);
+            ViewBag.AppUser = userdata;
+            return View(changePassword);
         }
 
 
@@ -341,14 +307,12 @@ namespace PRO.Controllers
                 }
                 AddErrors(result);
             }
-            var userProfile = UserProfileSetup(id, null, null);
             ChangePasswordViewModel changePassword = new ChangePasswordViewModel
             {
                 Id = id
             };
-            userProfile.ChangePassword = changePassword;
-            if (userProfile == null) return NotFound();
-            return View(userProfile);
+            ViewBag.AppUser = userdata;
+            return View(changePassword);
         }
 
         [HttpGet]
@@ -356,12 +320,15 @@ namespace PRO.Controllers
         [Route("users/{id}/profile")]
         public ActionResult EditProfile(int? id)
         {
+            var user = _userService.Find(id);
+            if (user == null) return NotFound();
+            var model = new EditUserViewModel
+            {
+                AppUser = user,
+                Images = _imageService.GetAll().ToList()
+            };
 
-            var userprofile = UserProfileSetup(id, null, null);
-            if (userprofile == null) return NotFound();
-
-
-            return View(userprofile.EditUser);
+            return View(model);
         }
 
         [HttpPost]
@@ -413,8 +380,15 @@ namespace PRO.Controllers
         [Route("users/reviews/{id}")]
         public ActionResult Reviews(int? id, int? page, int? items)
         {
-            var model = UserProfileSetup(id, page, items);
-            if (model == null) { return NotFound(); }
+            var user = _userService.Find(id);
+            if (user == null) { return NotFound(); }
+            var playtimes = _reviewService.UserPlaytimeList(user.Id).AsQueryable();
+
+            var model = new UserReviewsViewModel
+            {
+                AppUser = user,
+                ReviewsPlaytimes = PaginatedList<ReviewPlaytime>.Create(playtimes.AsNoTracking(), page, items)
+            };
             model.ReviewsPlaytimes.Pagination.Action = "Reviews";
             model.ReviewsPlaytimes.Pagination.RouteId = id;
             return View(model);
@@ -425,11 +399,20 @@ namespace PRO.Controllers
         [Route("users/lists/{id}")]
         public ActionResult UserLists(int? id, int? page, int? items, string currentFilter)
         {
-            var model = UserProfileSetup(id, page, items);
-            if (model == null) { return NotFound(); }
+            var user = _userService.Find(id);
+            if (user == null) { return NotFound(); }
+            var gamelists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).AsQueryable();
+
+            var model = new UserGameListsViewModel
+            {
+                AppUser = user,
+                ListTypes = _listTypeService.GetAll().ToList(),
+                GameLists = PaginatedList<GameList>.Create(gamelists.AsNoTracking(), page, items),
+                LoggedUserId = user.Id
+            };
+
             model.GameLists.Pagination.Action = "lists";
             model.GameLists.Pagination.RouteId = id;
-            ViewBag.ListTypes = _listTypeService.GetAll();
             ViewData["CurrentFilter"] = currentFilter;
             return View(model);
         }

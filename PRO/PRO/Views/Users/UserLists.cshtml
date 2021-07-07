@@ -1,24 +1,24 @@
-﻿@model PRO.UI.ViewModels.UserProfileViewModel
+﻿@model PRO.UI.ViewModels.UserGameListsViewModel
 @using PRO.Entities
 @{
     ViewBag.Title = "Profil użytkownika";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.EditUser.AppUser" />
+    <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.AppUser" />
 </div>
 <div id="content" class="userprofilecontent">
-    <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.EditUser.AppUser" />
+    <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.AppUser" />
     <div style=" width: 100%;">
 
         <div id="status-menu" class="status-menu-container">
             <div class="status-menu">
                 @{ var selectedlist = "Wszystkie gry";
                     if (ViewData["CurrentFilter"] != null) { selectedlist = ViewData["CurrentFilter"].ToString(); } }
-                <a href="/users/lists/@Model.LoggedUserId?currentFilter=Wszystkie gry" class="status-button on">Wszystkie gry</a>
-                @{foreach (ListType list in ViewBag.ListTypes)
+                <a href="/users/lists/@Model.LoggedUserId?currentFilter=Wszystkie gry" class="status-button @(selectedlist.Equals("Wszystkie gry") ? "on" : "")">Wszystkie gry</a>
+                @{foreach (ListType list in Model.ListTypes)
                     {
-                        <a href="/users/lists/@Model.LoggedUserId?currentFilter=@list.Name" class="status-button ">@list.Name</a>
+                        <a href="/users/lists/@Model.LoggedUserId?currentFilter=@list.Name" class="status-button @(selectedlist.Equals(list.Name) ? "on" : "")">@list.Name</a>
                     }
                 }
             </div>
