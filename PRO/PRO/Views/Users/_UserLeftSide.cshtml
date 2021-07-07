@@ -18,7 +18,7 @@
         <div class="underlined_h2">Dołączył: </div><p>@Model.RegisterDate.ToShortDateString()</p>
 
         <div class="underlined_h2"></div>
-        <a style="margin: 20px; display:block;" href="/users/@Model.Id/lists" class="btn btn-secondary">Listy użytkownika</a>
+        <a style="margin: 20px; display:block;" href="/users/lists/@Model.Id" class="btn btn-secondary">Listy użytkownika</a>
         @if (SignInManager.IsSignedIn(User))
         {
             <a style="margin: 20px; display:block;" href="/users/@Model.Id/profile" class="btn btn-primary">Edytuj profil</a>
