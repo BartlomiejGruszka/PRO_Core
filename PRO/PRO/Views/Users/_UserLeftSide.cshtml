@@ -1,7 +1,5 @@
 ﻿@model PRO.Entities.ApplicationUser
 @using PRO.Entities
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
 
 <div class="borderClass userprofile" style="border-width: 0 1px 0 0;" valign="top">
     <div class="userprofilebuttons">
@@ -19,7 +17,7 @@
 
         <div class="underlined_h2"></div>
         <a style="margin: 20px; display:block;" href="/users/lists/@Model.Id" class="btn btn-secondary">Listy użytkownika</a>
-        @if (SignInManager.IsSignedIn(User))
+        @if (ViewBag.IsOwner != null && ViewBag.IsOwner == true)
         {
             <a style="margin: 20px; display:block;" href="/users/@Model.Id/profile" class="btn btn-primary">Edytuj profil</a>
             <a style="margin: 20px; display:block;" href="/users/@Model.Id/password" class="btn btn-primary">Zmień hasło</a>

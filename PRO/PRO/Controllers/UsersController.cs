@@ -273,7 +273,9 @@ namespace PRO.Controllers
         [Route("users/{id}/password")]
         public ActionResult UserChangePassword(int id)
         {
-            if (_userService.IsOwner(_userService.GetLoggedInUserId(), id) == false) return NotFound();
+            var isOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
+            if (!isOwner) { return NotFound(); };
+
             var userdata = _userService.Find(id);
             if (userdata == null)
             { return RedirectToAction("Details", "Users", new { id = id }); }
@@ -283,6 +285,7 @@ namespace PRO.Controllers
                 Id = id
             };
             ViewBag.AppUser = userdata;
+            ViewBag.IsOwner = isOwner;
             return View(changePassword);
         }
 
@@ -294,6 +297,9 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UserChangePassword(ChangePasswordViewModel model, int id)
         {
+            var isOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
+            if (!isOwner) { return NotFound(); };
+
             var userdata = _userService.Find(id);
             if (userdata == null)
             { return RedirectToAction("Details", "Users", new { id = id }); }
@@ -312,6 +318,7 @@ namespace PRO.Controllers
                 Id = id
             };
             ViewBag.AppUser = userdata;
+            ViewBag.IsOwner = isOwner;
             return View(changePassword);
         }
 
@@ -320,14 +327,15 @@ namespace PRO.Controllers
         [Route("users/{id}/profile")]
         public ActionResult EditProfile(int? id)
         {
+            var isOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
+            if (!isOwner) { return NotFound(); };
             var user = _userService.Find(id);
             if (user == null) return NotFound();
             var model = new EditUserViewModel
             {
-                AppUser = user,
-                Images = _imageService.GetAll().ToList()
+                AppUser = user
             };
-
+            ViewBag.IsOwner = isOwner;
             return View(model);
         }
 
@@ -337,6 +345,8 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditProfileAsync(EditUserViewModel model)
         {
+            var isOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), model.AppUser.Id);
+            if (!isOwner) { return NotFound(); };
             if (ModelState.IsValid)
             {
                 ModelStateDictionary errors = new ModelStateDictionary();
@@ -355,6 +365,7 @@ namespace PRO.Controllers
                 }
             }
             model.Images = _imageService.GetAll().ToList();
+            ViewBag.IsOwner = isOwner;
             return View(model);
         }
 
@@ -391,6 +402,7 @@ namespace PRO.Controllers
             };
             model.ReviewsPlaytimes.Pagination.Action = "Reviews";
             model.ReviewsPlaytimes.Pagination.RouteId = id;
+            ViewBag.IsOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
             return View(model);
         }
 
@@ -414,6 +426,7 @@ namespace PRO.Controllers
             model.GameLists.Pagination.Action = "lists";
             model.GameLists.Pagination.RouteId = id;
             ViewData["CurrentFilter"] = currentFilter;
+            ViewBag.IsOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
             return View(model);
         }
 
