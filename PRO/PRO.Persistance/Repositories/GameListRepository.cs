@@ -41,6 +41,7 @@ namespace PRO.Persistance.Repositories
             if (!id.HasValue) { return null; }
             var gameList = _dbContext.GameLists
               .Include(g => g.Game)
+              .Include(i => i.Game.Image)
               .Include(g => g.UserList)
               .Include(g => g.UserList.User)
               .Include(u => u.UserList.ListType)

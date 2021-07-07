@@ -27,7 +27,10 @@
 
             <div class="list-unit">
                 <div class="list-status-title">
-                    <span class="text">@selectedlist</span>
+                    <span class="text">@if (selectedlist == "all")
+                    {<span>Wszystkie gry</span>}
+                    else
+                    { <span>@selectedlist</span>}</span>
                 </div>
 
                 <table class="list-table">
@@ -68,7 +71,7 @@
                             <tbody class="list-item">
                                 <tr class="list-table-data">
                                     <td class="data number">@index</td>
-                                    <td class="data image"><a href="/games/@item.GameId" class="link sort"><img src="https://cdn.myanimelist.net/r/96x136/images/anime/1911/113611.webp?s=f8758b74721c1e185dacdc92d8dd1fc7" class="hover-info image"></a></td>
+                                    <td class="data image"><a href="/games/@item.GameId" class="link sort"><img src="~/images/@item.Game.Image.ImagePath" class="hover-info image"></a></td>
                                     <td class="data title clearfix">
                                         <a href="/games/@item.GameId" class="link sort">@item.Game.Title</a>
                                     </td>

@@ -190,7 +190,7 @@ namespace PRO.Domain.Services
         {
             if (currentFilter == null) return gamelists;
             if (currentFilter.Equals("all")) return gamelists;
-            return gamelists.Where(s => s.UserList.ListType.Name.Equals(currentFilter));
+            return gamelists.Where(s => s.UserList.ListType.Name.ToLower().Contains(currentFilter.ToLower()));
         }
     }
 }
