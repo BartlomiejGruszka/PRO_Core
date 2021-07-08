@@ -27,10 +27,12 @@
 
             <div class="list-unit">
                 <div class="list-status-title">
-                    <span class="text">@if (selectedlist == "all")
-                    {<span>Wszystkie gry</span>}
-                    else
-                    { <span>@selectedlist</span>}</span>
+                    <span class="text">
+                        @if (selectedlist == "all")
+                        {<span>Wszystkie gry</span>}
+                        else
+                        { <span>@selectedlist</span>}
+                    </span>
                 </div>
 
                 <table class="list-table">
@@ -62,6 +64,14 @@
                                     Rozegrane godziny
                                 </a>
                             </th>
+                            @if (ViewBag.IsOwner)
+                            {
+                                <th class="header-title">
+                                    <a href="" class="link sort">
+                                        Edycja
+                                    </a>
+                                </th>
+                            }
                         </tr>
                     </tbody>
                     @{ int index = ((Model.GameLists.Pagination.PageIndex - 1) * Model.GameLists.Pagination.PageItems);
@@ -70,29 +80,37 @@
                             index++;
                             <tbody class="list-item">
                                 <tr class="list-table-data">
-                                    <td class="data number">@index</td>
+                                    <td class="data" style="padding-left:10px; padding-right:5px;">@index</td>
                                     <td class="data image"><a href="/games/@item.GameId" class="link sort"><img src="~/images/@item.Game.Image.ImagePath" class="hover-info image"></a></td>
                                     <td class="data title clearfix">
                                         <a href="/games/@item.GameId" class="link sort">@item.Game.Title</a>
                                     </td>
-                                    <td class="data score">
-                                        <a href="#" class="link edit-disabled">
+                                    <td class="data score">                                     
                                             <span class="score-label score-na">
                                                 @if (item.PersonalScore == null)
                                                 {<span>-</span> }
                                                 else
                                                 { @item.PersonalScore}
-                                            </span>
-                                        </a> <!---->
+                                            </span>                                   
                                     </td>
                                     <td class="data type">
                                         @item.UserList.Name
                                     </td>
-                                    <td class="data progress">
-                                        <div class="progress-41587">
-                                            <span>@item.HoursPlayed</span> <!---->
+                                    <td class="data">
+                                        <div class="">
+                                            <span>@item.HoursPlayed</span>
                                         </div>
                                     </td>
+                                    @if (ViewBag.IsOwner)
+                                    {
+                                        <td class="data">
+                                            <div class="">
+                                                <a href="" class="link sort">
+                                                    Edytuj
+                                                </a>
+                                            </div>
+                                        </td>
+                                    }
                                 </tr>
                             </tbody>
                         }

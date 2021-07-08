@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PRO.Domain.Extensions;
 using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
@@ -9,7 +8,8 @@ using PRO.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using PRO.Domain.ExternalAPI.SteamAPI;
+using System.Threading.Tasks;
 
 namespace PRO.Controllers
 {
@@ -31,6 +31,8 @@ namespace PRO.Controllers
         private readonly IReviewService _reviewService;
         private readonly IGameListService _gameListService;
         private readonly IUserListService _userListService;
+        private readonly ISteamApi _steamApi;
+
         public GamesController(
             IGameService gameService,
             IUserService userService,
@@ -46,7 +48,8 @@ namespace PRO.Controllers
             IArticleService articleService,
             IReviewService reviewService,
             IGameListService gameListService,
-            IUserListService userListService
+            IUserListService userListService,
+            ISteamApi steamApi
             )
         {
             _gameService = gameService;
@@ -64,6 +67,7 @@ namespace PRO.Controllers
             _reviewService = reviewService;
             _gameListService = gameListService;
             _userListService = userListService;
+            _steamApi = steamApi;
         }
 
 

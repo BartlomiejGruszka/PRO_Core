@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using PRO.Domain.Extensions;
+using PRO.Domain.ExternalAPI.SteamAPI;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Domain.Services;
@@ -95,7 +96,9 @@ namespace PRO
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IUserListService, UserListService>();
             services.AddScoped<IUserService, UserService>();
-                 
+
+            services.AddScoped<ISteamApi, SteamApi>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
