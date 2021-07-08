@@ -4,7 +4,7 @@
     @using (Html.BeginForm("EditProfile", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        <hr />
+        
         @Html.ValidationSummary("", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.AppUser.Id)
         @Html.HiddenFor(model => model.AppUser.RegisterDate)

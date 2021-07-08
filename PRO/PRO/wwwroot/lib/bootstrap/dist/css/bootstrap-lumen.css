@@ -1284,7 +1284,7 @@ pre {
         max-width: 75%;
     }
 
-    .col-md-10 {
+   /**/ .col-md-10 {
         -ms-flex: 0 0 83.333333%;
         flex: 0 0 83.333333%;
         max-width: 83.333333%;
@@ -11529,7 +11529,7 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #ebebeb;
     border-style: solid;
     border-width: 0 1px 1px;
-    padding: 5px 10px 10px;
+   /* padding: 5px 10px 10px;*/
     position: relative;
 }
 
@@ -11537,7 +11537,8 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #ebebeb;
     border-style: solid;
     border-width: 0 0 1px;
-    padding: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .underlined_h2 {
@@ -12435,6 +12436,6 @@ input, select, textarea {
     text-align: center;
 }
 
-@media (max-width: 576px) {
-}
+.js-scrollfix-bottom-rel{
+    padding:10px;
 }

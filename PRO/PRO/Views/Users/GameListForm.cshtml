@@ -1,0 +1,27 @@
+﻿@model PRO.UI.ViewModels.UserGameListFormViewModel
+@using PRO.Entities
+@{
+    ViewBag.Title = "Profil użytkownika";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.AppUser" />
+</div>
+<div id="content" class="userprofilecontent">
+    <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.AppUser" />
+    <div style=" width: 100%;">
+        <div class="col-md-offset-2 col-md-10">
+
+
+            <div class="underlined_h2">@Model.GameList.Game.Title </div>
+            <div class="">
+                @await Component.InvokeAsync("AddGameToUserList", new { gameid = Model.GameList.GameId })
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="#" style="padding-left:10px;" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

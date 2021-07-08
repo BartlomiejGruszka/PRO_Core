@@ -429,6 +429,23 @@ namespace PRO.Controllers
             ViewBag.IsOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
             return View(model);
         }
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("users/gamelist/{id}")]
+        public ActionResult GameListForm(int? id)
+        {
+            var userid = _userService.GetLoggedInUserId();
+            var user = _userService.Find(userid);
+            if (user == null) { return NotFound(); }
+            var gamelist = _gameListService.Find(id);
+            var model = new UserGameListFormViewModel
+            {
+                AppUser = user,
+                GameList = gamelist
+            };
+            ViewBag.IsOwner = true;
+            return View(model);
+        }
 
         private void AddErrors(IdentityResult result)
         {

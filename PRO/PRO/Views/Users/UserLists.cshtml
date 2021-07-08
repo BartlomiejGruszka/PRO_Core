@@ -9,7 +9,7 @@
 </div>
 <div id="content" class="userprofilecontent">
     <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.AppUser" />
-    <div style=" width: 100%;">
+    <div style=" width: 100%; padding:10px;">
 
         <div id="status-menu" class="status-menu-container">
             <div class="status-menu">
@@ -105,7 +105,7 @@
                                     {
                                         <td class="data">
                                             <div class="">
-                                                <a href="" class="link sort">
+                                                <a href="/users/gamelist/@item.Id" class="link sort">
                                                     Edytuj
                                                 </a>
                                             </div>

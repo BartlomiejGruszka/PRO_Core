@@ -22,10 +22,10 @@ namespace PRO.UI.ViewComponents
             _reviewService = reviewService;
             _gameListService = gameListService;
         }
-        public IViewComponentResult Invoke(int gameid, int reviewid)
+        public IViewComponentResult Invoke(int gameid, int? reviewid)
         {
 
-
+            if (reviewid == null) reviewid = -1;
             var review = TempData.Get<Review>("userReview");
             if (review != null)
             {
