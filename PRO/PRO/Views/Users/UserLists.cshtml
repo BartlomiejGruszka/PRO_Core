@@ -81,17 +81,27 @@
                             <tbody class="list-item">
                                 <tr class="list-table-data">
                                     <td class="data" style="padding-left:10px; padding-right:5px;">@index</td>
-                                    <td class="data image"><a href="/games/@item.GameId" class="link sort"><img src="~/images/@item.Game.Image.ImagePath" class="hover-info image"></a></td>
+                                    @{ if (item.Game.Image != null)
+                                        {
+                                            <td class="data image"><a href="/games/@item.GameId" class="link sort"><img src="~/images/@item.Game.Image.ImagePath" class="hover-info image"></a></td>
+
+                                        }
+                                        else
+                                        {
+                                            <td class="data image"><a href="/games/@item.GameId" class="link sort"></a></td>
+
+                                        }
+                                    }
                                     <td class="data title clearfix">
                                         <a href="/games/@item.GameId" class="link sort">@item.Game.Title</a>
                                     </td>
-                                    <td class="data score">                                     
-                                            <span class="score-label score-na">
-                                                @if (item.PersonalScore == null)
-                                                {<span>-</span> }
-                                                else
-                                                { @item.PersonalScore}
-                                            </span>                                   
+                                    <td class="data score">
+                                        <span class="score-label score-na">
+                                            @if (item.PersonalScore == null)
+                                            {<span>-</span> }
+                                            else
+                                            { @item.PersonalScore}
+                                        </span>
                                     </td>
                                     <td class="data type">
                                         @item.UserList.Name

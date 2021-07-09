@@ -75,7 +75,14 @@ namespace PRO.Domain.Services
             user.Description = editUser.Description;
             user.IsActive = editUser.IsActive;
             user.IsPublic = editUser.IsPublic;
-            user.ImageId = editUser.ImageId;
+            if (editUser.ImageId == null || editUser.ImageId <= 0)
+            {
+                user.ImageId = null;
+            }
+            else
+            {
+                user.ImageId = editUser.ImageId;
+            }
             return _userManager.UpdateAsync(user);
         }
 

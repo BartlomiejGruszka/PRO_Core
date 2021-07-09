@@ -1,4 +1,4 @@
-﻿
+﻿@using PRO.Domain.Extensions
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,40 +36,57 @@
         </div>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <button  onclick="openButton()"  id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <button onclick="openButton()" id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
+                    <li class="nav-item @Html.IsSelected(actions: "Index,Details,Search", controllers: "Articles")">
                         <a class="nav-link" href="/articles?query=all">Artykuły</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.IsSelected(actions: "Index,Details,Search,Filter,Reviews,SingleReview,UserReview", controllers: "Games")">
                         <a class="nav-link" href="/games">Gry</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.IsSelected(actions: "Ranking", controllers: "Games")">
                         <a class="nav-link" href="/games/ranking">Rankingi</a>
                     </li>
-                    @{
+                    @{ string activeAdmin = @Html.IsSelected(actions: "Panel,Add,Edit,Manage,Delete,ManageDetails,Admin,Games,Articles,Users", controllers: null);
                         if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
+                            <li class="nav-item @activeAdmin">
                                 <a class="nav-link" href="/panel/admin">Panel admina</a>
+                            </li>
+                        }
+                        string activeAuthor = String.Empty;
+                        if (User.IsInRole("Author"))
+                        {
+
+                            if (String.IsNullOrEmpty(activeAdmin) ||
+                                !User.IsInRole("Admin"))
+                            {
+                                activeAuthor = @Html.IsSelected(actions: "Panel,Add,Edit,Manage,Delete,ManageDetails,Author", controllers: null);
+                            }
+
+                            <li class="nav-item @activeAuthor">
+                                <a class="nav-link" href="/panel/author">Panel autora</a>
                             </li>
                         }
                         if (User.IsInRole("Moderator"))
                         {
-                            <li class="nav-item">
+                            string activeMod = String.Empty;
+                            if ((String.IsNullOrEmpty(activeAuthor) && String.IsNullOrEmpty(activeAdmin))
+                                ||
+                                (!User.IsInRole("Admin") && !User.IsInRole("Author"))
+                                )
+                            {
+                                activeMod = @Html.IsSelected(actions: "Panel,Add,Edit,Manage,Delete,ManageDetails,Moderator", controllers: null);
+                            }
+                            <li class="nav-item @activeMod">
                                 <a class="nav-link" href="/panel/moderator">Panel moderatora</a>
                             </li>
                         }
-                        if (User.IsInRole("Author"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" href="/panel/author">Panel autora</a>
-                            </li>
-                        }
+
 
                     }
 

@@ -198,7 +198,7 @@ namespace PRO.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Author")]
+        [Authorize(Roles = "Admin,Author,Moderator")]
         [Route("images/getimagesbytype/{id?}")]
         public ActionResult GetImagesByType(int id)
         {
