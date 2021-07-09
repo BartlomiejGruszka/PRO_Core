@@ -17,7 +17,7 @@
             <div class="">
                 @await Component.InvokeAsync("AddGameToUserList", new { gameid = Model.GameList.GameId })
                 <div class="col-md-offset-2 col-md-10">
-                    <a href="#" style="padding-left:10px;" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
+                    <a href="/users/lists/@Model.AppUser.Id" style="padding-left:10px;" class="btn btn-secondary">Powrót</a>
                 </div>
             </div>
         </div>

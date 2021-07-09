@@ -50,7 +50,7 @@ namespace PRO.UI.ViewComponents
             if (review == null) review = new Review();
 
             ViewBag.GameId = gameid;
-
+            ViewBag.UserId = review.UserId;
             return View("_UserReview", review);
         }
 

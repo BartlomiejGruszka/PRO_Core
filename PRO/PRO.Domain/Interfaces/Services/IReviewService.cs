@@ -18,6 +18,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Review review);
 
         public void Update(Review review);
+        public Review Moderate(Review review, int userid);
         public IEnumerable<Review> GetRecentReviews();
         public List<Review> GetUserReviews(int? id);
         public Review GetUserGameReview(int? userid, int? gameid);

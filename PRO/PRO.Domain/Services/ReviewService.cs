@@ -52,6 +52,11 @@ namespace PRO.Domain.Services
             _reviewRepository.Update(review);
             _reviewRepository.Save();
         }
+        public Review Moderate(Review review, int userid)
+        {
+            review.ModeratorId = userid;
+            return review;
+        }
         public IEnumerable<Review> GetRecentReviews()
         {
             var recentReviews = _reviewRepository.GetAll()

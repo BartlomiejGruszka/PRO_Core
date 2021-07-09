@@ -89,10 +89,10 @@ namespace PRO.Controllers
         }
         [AllowAnonymous]
         [Route("games/Filter")]
-        public ActionResult Filter(string currentFilter, string value , int? page, int? items)
+        public ActionResult Filter(string currentFilter, string value, int? page, int? items)
         {
 
-            
+
             int? user = _userService.GetLoggedInUserId();
             var gamescores = _gameService.GetUserUnorderedGamesRanking(user).OrderBy(g => g.Game.Title).AsQueryable();
             var games = _gameService.FilterByProperty(currentFilter, value, gamescores);
@@ -105,7 +105,7 @@ namespace PRO.Controllers
             };
             ViewData["CurrentFilter"] = currentFilter;
             ViewData["FilterValue"] = value;
-            return View("Index",viewModel);
+            return View("Index", viewModel);
         }
         [HttpGet]
         [Route("games/manage")]
@@ -131,8 +131,8 @@ namespace PRO.Controllers
             var test = games.ToList();
             games = _gameService.SortList(sortOrder, games);
 
-             test = games.ToList();
- 
+            test = games.ToList();
+
             var result = PaginatedList<Game>.Create(games.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             result.Pagination.Action = action;
@@ -144,16 +144,21 @@ namespace PRO.Controllers
         [Route("games/{id}")]
         public ActionResult Details(int id)
         {
-            var viewModel = SetupDetailsPage(id, null, null, null);
-            if (viewModel == null) return NotFound();
-            return View(viewModel);
+            var game = _gameService.FindActive(id);
+            if (game == null) return NotFound();
+
+            var DetailsModel = SetupDetails(id, null, null);
+            var GameInfoModel = SetupGameInfo(game);
+            DetailsModel.GameInfo = GameInfoModel;
+
+            return View(DetailsModel);
         }
 
         [Route("games/details/{id}")]
         public ActionResult ManageDetails(int? id)
         {
             Game games = _gameService.Find(id);
-            if (games == null){ return NotFound();}
+            if (games == null) { return NotFound(); }
             return View(games);
         }
         [HttpGet]
@@ -243,7 +248,7 @@ namespace PRO.Controllers
         public ActionResult Ranking(int? page, int? items)
         {
             var games = _gameService.GetAllActive().OrderBy(s => s.Title);
-            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).OrderByDescending(s=>s.Score).AsQueryable();
+            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).OrderByDescending(s => s.Score).AsQueryable();
             var paginatedgamesrankings = PaginatedList<GameScore>.Create(gamesRankings.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             paginatedgamesrankings.Pagination.Action = action;
@@ -258,42 +263,88 @@ namespace PRO.Controllers
         [AllowAnonymous]
         [Route("games/reviews/{id}")]
         public ActionResult Reviews(int id, int? page, int? items)
-        {        
-            var model = SetupDetailsPage(id, page, items, null);
-            
-            if (model == null) return NotFound();
-            model.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            model.ReviewPlaytimes.Pagination.RouteId = id;
-            return View(model);
+        {
+            var game = _gameService.FindActive(id);
+            if (game == null) return NotFound();
+            var DetailsModel = SetupDetails(id, page, items);
+            var GameInfoModel = SetupGameInfo(game);
+            DetailsModel.GameInfo = GameInfoModel;
+
+            DetailsModel.ReviewPlaytimes.Pagination.Action = ControllerContext.ActionDescriptor.ActionName.ToString();
+            DetailsModel.ReviewPlaytimes.Pagination.RouteId = id;
+            return View(DetailsModel);
         }
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("games/{id}/reviews/{review}")]
-        public ActionResult SingleReview(int id, int? page, int? items, int review)
+        [Route("games/{id}/reviews/{reviewid}")]
+        public ActionResult SingleReview(int id, int? page, int? items, int reviewid)
         {
-            var model = SetupDetailsPage(id, page, items, review);
-            if (model == null) return NotFound();
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            model.ReviewPlaytimes.Pagination.Action = action;
+            var game = _gameService.FindActive(id);
+            if (game == null) return NotFound();
+            var DetailsModel = SetupDetails(id, page, items);
+            var GameInfoModel = SetupGameInfo(game);
+            DetailsModel.GameInfo = GameInfoModel;
 
-            if (model.ReviewPlaytimes[0].Review.UserId == _userService.GetLoggedInUserId()) { ViewBag.CanEdit = true; } else { ViewBag.CanEdit = false; }
-            return View(model);
+            var reviews = new List<Review> { _reviewService.Find(reviewid) };
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
+
+            DetailsModel.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
+
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            DetailsModel.ReviewPlaytimes.Pagination.Action = action;
+
+            if (DetailsModel.ReviewPlaytimes[0].Review.UserId == _userService.GetLoggedInUserId()) { ViewBag.CanEdit = true; } else { ViewBag.CanEdit = false; }
+
+            return View(DetailsModel);
         }
         [HttpGet]
         [Authorize]
-        [Route("games/{id}/userreview/{reviewid?}")]
-        public ActionResult UserReview(int id, int? reviewid)
+        [Route("games/{id}/userreview/")]
+        public ActionResult UserReview(int id)
         {
-            var userreview = _reviewService.GetUserGameReview(_userService.GetLoggedInUserId(), id);
-            if (!reviewid.HasValue && userreview != null) { 
-                reviewid = userreview.Id;
-            }
-            var model = SetupDetailsPage(id, null, null, reviewid);
-            model.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            if (model == null) return NotFound();
+            Review review = _reviewService.GetUserGameReview(_userService.GetLoggedInUserId(), id);
+            if (review == null) review = new Review();
+            var game = _gameService.FindActive(id);
+            if (game == null) return NotFound();
+            var DetailsModel = SetupDetails(id, null, null);
+            var GameInfoModel = SetupGameInfo(game);
+            DetailsModel.GameInfo = GameInfoModel;
 
-            return View(model);
+            var reviews = new List<Review> { review };
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
+
+            DetailsModel.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), null, null);
+
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            DetailsModel.ReviewPlaytimes.Pagination.Action = action;
+
+            return View(DetailsModel);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("games/{id}/userreview/{reviewid}")]
+        public ActionResult UserReview(int id, int reviewid)
+        {
+            Review review = _reviewService.Find(reviewid);
+            var game = _gameService.FindActive(id);
+            if (game == null || review == null) return NotFound();
+            var DetailsModel = SetupDetails(id, null, null);
+            var GameInfoModel = SetupGameInfo(game);
+            DetailsModel.GameInfo = GameInfoModel;
+
+            var reviews = new List<Review> { review };
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
+
+            DetailsModel.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), null, null);
+
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            DetailsModel.ReviewPlaytimes.Pagination.Action = action;
+
+            var userid = _userService.GetLoggedInUserId();
+            if (review.UserId == userid) { ViewBag.CanEdit = true; } else { ViewBag.CanEdit = false; }
+            return View(DetailsModel);
         }
 
         [HttpGet]
@@ -344,24 +395,13 @@ namespace PRO.Controllers
             return gameViewModel;
         }
 
-        private GameDetailsViewModel SetupDetailsPage(int id, int? page, int? items, int? reviewid)
+        private GameDetailsViewModel SetupDetails(int id, int? page, int? items)
         {
-            //get game
-            var game = _gameService.FindActive(id);
-            if (game == null) return null;
-
-            //get reviews and articles for the game, set pagination
-            var reviews = _reviewService.GetGameReviews(game.Id);
-            if (reviewid.HasValue)
-            {
-                reviews = new List<Review>();
-                reviews.Add(_reviewService.Find(reviewid));
-            }
+            var reviews = _reviewService.GetGameReviews(id);
             var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
 
             var viewModel = new GameDetailsViewModel
             {
-                GameInfo = SetupGameInfo(game),
                 ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items),
                 RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
             };
@@ -369,13 +409,10 @@ namespace PRO.Controllers
         }
         private GameInfoViewModel SetupGameInfo(Game game)
         {
-            var userid = _userService.GetLoggedInUserId();
-            var userLists = _userListService.GetAll().Where(u => u.UserId == userid).ToList();
-
             var GameInfo = new GameInfoViewModel
             {
                 Game = game,
-                UserLists = userLists,
+                UserLists = _userListService.GetUserUserLists(_userService.GetLoggedInUserId()).ToList(),
                 Popularity = _gameService.GetGamePopularity(game.Id),
                 Position = _gameService.GetGamePosition(game.Id),
                 Rating = _gameService.GetGameRating(game.Id)

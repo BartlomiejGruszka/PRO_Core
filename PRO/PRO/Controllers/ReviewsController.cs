@@ -127,9 +127,8 @@ namespace PRO.Controllers
                 var loggeduser = _userService.GetLoggedInUserId();
                 if (user.Id != loggeduser.Value)
                 {
-                    review.ModeratorId = loggeduser.Value;
+                    review = _reviewService.Moderate(review, loggeduser.Value);
                 }
-                review.EditDate = DateTime.Now;
                 var errors = _reviewService.ValidateReview(review);
                 if (!errors.Any())
                 {
@@ -147,8 +146,11 @@ namespace PRO.Controllers
         [Route("reviews/userreview")]
         public ActionResult UserReview(Review model)
         {
-            model.UserId = _userService.GetLoggedInUserId().Value;
-            model.ReviewDate = DateTime.Now;
+            var userid = _userService.GetLoggedInUserId().Value;
+            if (model.UserId <= 0)
+            {
+                model.UserId = userid;
+            }
             TempData.Put("userReview", model);
 
             if (ModelState.IsValid)
@@ -158,8 +160,12 @@ namespace PRO.Controllers
                 {
                     if (model.Id > 0)
                     {
+                        if(User.IsInRole("Moderator") || User.IsInRole("Admin"))
+                        {
+                            model = _reviewService.Moderate(model, userid);
+                        }
                         _reviewService.Update(model);
-                        
+
                     }
                     else
                     {

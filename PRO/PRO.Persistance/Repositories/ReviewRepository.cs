@@ -21,6 +21,8 @@ namespace PRO.Persistance.Repositories
             var reviews = _dbContext.Reviews
                .Include(o => o.Game)
                .Include(o => o.User)
+               .Include(s => s.Moderator)
+               .Include(s => s.Moderator.User)
                .Include(o => o.Game.Image)
                .Include(o => o.User.Image);
             return reviews;
@@ -32,18 +34,8 @@ namespace PRO.Persistance.Repositories
                 .Include(s => s.Game)
                 .Include(s=>s.User)
                 .Include(s=>s.Moderator)
+                .Include(s => s.Moderator.User)
                 .SingleOrDefault(s => s.Id == id);
-
-        }
-        public new void Update(Review review)
-        {
-            var old = _dbContext.Reviews.Find(review.Id);
-            old.EditDate = review.EditDate;
-            old.Content = review.Content;
-            old.GameplayScore = review.GameplayScore;
-            old.GraphicsScore = review.GraphicsScore;
-            old.MusicScore = review.MusicScore;
-            old.StoryScore = review.StoryScore;
 
         }
     }
