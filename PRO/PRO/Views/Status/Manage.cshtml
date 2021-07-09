@@ -35,6 +35,9 @@
         <th>
             <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwa</a>
         </th>
+        <th>
+            Umożliwia recenzowanie
+        </th>
         <th></th>
     </tr>
 
@@ -43,6 +46,9 @@
             <tr class="tablerow">
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AllowReviews)
                 </td>
                 <td>
                     @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |

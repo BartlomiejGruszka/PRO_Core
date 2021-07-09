@@ -87,10 +87,7 @@ namespace PRO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(Review review)
         {
-            review.ReviewDate = DateTime.Now;
-            review.EditDate = null;
-            review.ModeratorId = null;
-            review.UserId = _userService.GetLoggedInUserId().Value;
+            review = _reviewService.SetValues(review, _userService.GetLoggedInUserId().Value);
             if (ModelState.IsValid)
             {
                 var errors = _reviewService.ValidateReview(review);

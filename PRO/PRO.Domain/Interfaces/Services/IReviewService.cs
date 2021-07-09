@@ -14,6 +14,7 @@ namespace PRO.Domain.Interfaces.Services
         public IEnumerable<Review> GetAll();
         public Review Find(int? id);
         public void Add(Review review);
+        public Review SetValues(Review review, int? userid);
         public void Delete(Review review);
 
         public void Update(Review review);

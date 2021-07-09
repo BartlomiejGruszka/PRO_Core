@@ -181,13 +181,13 @@ namespace PRO.Persistance.Data
         public static void SeedStatuses(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Status>().HasData(
-                new Status { Id = 1, Name = "Zapowiedziana" },
-                new Status { Id = 2, Name = "Wczesny dostęp" },
-                new Status { Id = 3, Name = "Alfa" },
-                new Status { Id = 4, Name = "Beta" },
-                new Status { Id = 5, Name = "Dostępna" },
-                new Status { Id = 6, Name = "Anulowana" },
-                new Status { Id = 7, Name = "Niedostępna" }
+                new Status { Id = 1, Name = "Zapowiedziana", AllowReviews = false },
+                new Status { Id = 2, Name = "Wczesny dostęp", AllowReviews = true },
+                new Status { Id = 3, Name = "Alfa", AllowReviews = false },
+                new Status { Id = 4, Name = "Beta", AllowReviews = true },
+                new Status { Id = 5, Name = "Dostępna", AllowReviews = true },
+                new Status { Id = 6, Name = "Anulowana", AllowReviews = false },
+                new Status { Id = 7, Name = "Niedostępna", AllowReviews = false }
                );
         }
 

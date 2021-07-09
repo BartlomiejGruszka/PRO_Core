@@ -14,10 +14,12 @@ namespace PRO.Domain.Services
     {
         private readonly IReviewRepository _reviewRepository;
         private readonly IGameListRepository _gameListRepository;
-        public ReviewService(IReviewRepository reviewRepository, IGameListRepository gameListRepository)
+        private readonly IGameRepository _gameRepository;
+        public ReviewService(IReviewRepository reviewRepository, IGameListRepository gameListRepository, IGameRepository gameRepository)
         {
             _reviewRepository = reviewRepository;
             _gameListRepository = gameListRepository;
+            _gameRepository = gameRepository;
         }
 
         public void Add(Review review)
@@ -133,6 +135,12 @@ namespace PRO.Domain.Services
             {
                 errors.TryAddModelError("StoryScore", "Ocena fabuły musi mieć wartość od 1 do 10.");
             }
+
+            var game = _gameRepository.Find(review.GameId);
+            if(game != null && game.Status.AllowReviews == false)
+            {
+                errors.TryAddModelError("", "Status tej gry nie pozwala na napisanie recenzji");
+            }
             return errors;
         }
 
@@ -165,5 +173,17 @@ namespace PRO.Domain.Services
             };
             return reviews.AsQueryable();
         }
+
+        public Review SetValues(Review review, int? userid)
+        {
+            review.ReviewDate = DateTime.Now;
+            review.EditDate = null;
+            review.ModeratorId = null;
+            if (userid.HasValue)
+                review.UserId = userid.Value;
+            return review;
+        }
+
+       
     }
 }
