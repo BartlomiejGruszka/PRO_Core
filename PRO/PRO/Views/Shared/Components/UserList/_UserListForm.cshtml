@@ -1,0 +1,44 @@
+﻿@model PRO.Entities.UserList
+
+
+@using (Html.BeginForm("UserEdit", "UserLists", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <input data-val="true" data-val-required="The Int32 field is required." id="GameId" name="GameId" type="hidden" value="@ViewBag.UserId">
+    <input data-val="true" data-val-required="The Int32 field is required." id="Id" name="Id" type="hidden" value="@ViewBag.Id">
+
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ListTypeId, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: inline; " })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.IsPublic, new SelectList(ViewBag.listTypes, "Id", "Name"), "Wybierz typ", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ListTypeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsPublic, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.IsPublic)
+                @Html.ValidationMessageFor(model => model.IsPublic, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz" class="btn btn-primary" />
+        </div>
+    </div>
+
+}

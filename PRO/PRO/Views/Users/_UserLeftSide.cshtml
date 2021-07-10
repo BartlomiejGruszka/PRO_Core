@@ -16,7 +16,8 @@
         <div class="underlined_h2">Dołączył: </div><p>@Model.RegisterDate.ToShortDateString()</p>
 
         <div class="underlined_h2"></div>
-        <a style="margin: 20px; display:block;" href="/users/lists/@Model.Id" class="btn btn-secondary">Listy użytkownika</a>
+        <a style="margin: 20px; display:block;" href="/users/gamelists/@Model.Id" class="btn btn-secondary">Gry użytkownika</a>
+        <a style="margin: 20px; display:block;" href="/users/userlists/@Model.Id" class="btn btn-secondary">Listy użytkownika</a>
         @if (ViewBag.IsOwner != null && ViewBag.IsOwner == true)
         {
             <a style="margin: 20px; display:block;" href="/users/@Model.Id/profile" class="btn btn-primary">Edytuj profil</a>

@@ -1,4 +1,4 @@
-﻿@model PRO.UI.ViewModels.UserUserListsViewModel
+﻿@model PRO.UI.ViewModels.UserGameListsViewModel
 @using PRO.Entities
 @{
     ViewBag.Title = "Profil użytkownika";
@@ -15,10 +15,10 @@
             <div class="status-menu">
                 @{ var selectedlist = "all";
                     if (ViewData["CurrentFilter"] != null) { selectedlist = ViewData["CurrentFilter"].ToString(); } }
-                <a href="/users/userlists/@Model.LoggedUserId?currentFilter=all" class="status-button @(selectedlist.Equals("all") ? "on" : "")">Wszystkie listy</a>
+                <a href="/users/gamelists/@Model.LoggedUserId?currentFilter=all" class="status-button @(selectedlist.Equals("all") ? "on" : "")">Wszystkie gry</a>
                 @{foreach (ListType list in Model.ListTypes)
                     {
-                        <a href="/users/userlists/@Model.LoggedUserId?currentFilter=@list.Name" class="status-button @(selectedlist.Equals(list.Name) ? "on" : "")">@list.Name</a>
+                        <a href="/users/gamelists/@Model.LoggedUserId?currentFilter=@list.Name" class="status-button @(selectedlist.Equals(list.Name) ? "on" : "")">@list.Name</a>
                     }
                 }
             </div>
@@ -29,7 +29,7 @@
                 <div class="list-status-title">
                     <span class="text">
                         @if (selectedlist == "all")
-                        {<span>Wszystkie listy</span>}
+                        {<span>Wszystkie gry</span>}
                         else
                         { <span>@selectedlist</span>}
                     </span>
@@ -38,19 +38,30 @@
                 <table class="list-table">
                     <tbody>
                         <tr class="list-table-header">
+                            <th class="header-title">#</th>
                             <th class="header-title">
                                 <a href="" class="link sort">
-                                    Nazwa listy
+                                    Obraz
                                 </a>
                             </th>
                             <th class="header-title">
                                 <a href="" class="link sort">
-                                    Typ listy
+                                    Tytuł gry
                                 </a>
                             </th>
                             <th class="header-title">
                                 <a href="" class="link sort">
-                                    Gier na liście
+                                    Ocena użytkownika
+                                </a>
+                            </th>
+                            <th class="header-title">
+                                <a href="" class="link sort">
+                                    Lista
+                                </a>
+                            </th>
+                            <th class="header-title">
+                                <a href="" class="link sort">
+                                    Rozegrane godziny
                                 </a>
                             </th>
                             @if (ViewBag.IsOwner)
@@ -63,33 +74,48 @@
                             }
                         </tr>
                     </tbody>
-                    @{ int index = ((Model.UserLists.Pagination.PageIndex - 1) * Model.UserLists.Pagination.PageItems);
-                        foreach (var item in Model.UserLists)
+                    @{ int index = ((Model.GameLists.Pagination.PageIndex - 1) * Model.GameLists.Pagination.PageItems);
+                        foreach (var item in Model.GameLists)
                         {
                             index++;
                             <tbody class="list-item">
                                 <tr class="list-table-data">
+                                    <td class="data" style="padding-left:10px; padding-right:5px;">@index</td>
+                                    @{ if (item.Game.Image != null)
+                                        {
+                                            <td class="data image"><a href="/games/@item.GameId" class="link sort"><img src="~/images/@item.Game.Image.ImagePath" class="hover-info image"></a></td>
+
+                                        }
+                                        else
+                                        {
+                                            <td class="data image"><a href="/games/@item.GameId" class="link sort"></a></td>
+
+                                        }
+                                    }
                                     <td class="data title clearfix">
-                                        <a href="" class="link sort">@item.Name</a>
+                                        <a href="/games/@item.GameId" class="link sort">@item.Game.Title</a>
                                     </td>
                                     <td class="data score">
                                         <span class="score-label score-na">
-                                            @item.ListType.Name
-                                        </span>
-                                    </td>
-                                    <td class="data score">
-                                        <span class="score-label score-na">
-                                            @if (item.GameLists?.Count() == null)
+                                            @if (item.PersonalScore == null)
                                             {<span>-</span> }
                                             else
-                                            { @item.GameLists.Count()}
+                                            { @item.PersonalScore}
                                         </span>
+                                    </td>
+                                    <td class="data type">
+                                        @item.UserList.Name
+                                    </td>
+                                    <td class="data">
+                                        <div class="">
+                                            <span>@item.HoursPlayed</span>
+                                        </div>
                                     </td>
                                     @if (ViewBag.IsOwner)
                                     {
                                         <td class="data">
                                             <div class="">
-                                                <a href="/users/userlist/@item.Id" class="link sort">
+                                                <a href="/users/gamelist/@item.Id" class="link sort">
                                                     Edytuj
                                                 </a>
                                             </div>
@@ -101,7 +127,7 @@
                     }
                 </table>
                 <div>
-                    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.UserLists.Pagination" />
+                    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.GameLists.Pagination" />
                 </div>
             </div>
         </div>

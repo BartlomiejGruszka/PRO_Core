@@ -42,6 +42,7 @@ namespace PRO.Persistance.Repositories
             var userlists = _dbContext.UserLists
             .Include(m => m.User)
             .Include(a => a.ListType)
+            .Include(a => a.GameLists)
             .ToList();
             return userlists;
         }

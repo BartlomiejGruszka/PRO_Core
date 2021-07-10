@@ -408,13 +408,15 @@ namespace PRO.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("users/lists/{id}")]
-        public ActionResult UserLists(int? id, int? page, int? items, string currentFilter)
+        [Route("users/gamelists/{id}")]
+        public ActionResult GameLists(int? id, int? page, int? items, string currentFilter)
         {
             var user = _userService.Find(id);
             if (user == null) { return NotFound(); }
-            var gamelists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).AsQueryable();
+
+            IQueryable<GameList> gamelists = _gameListService.GetAllIfOwner(_userService.GetLoggedInUserId(), id.Value);
             gamelists = _gameListService.FilterByList(currentFilter, gamelists);
+
             var model = new UserGameListsViewModel
             {
                 AppUser = user,
@@ -423,27 +425,64 @@ namespace PRO.Controllers
                 LoggedUserId = user.Id
             };
 
-            model.GameLists.Pagination.Action = "lists";
+            model.GameLists.Pagination.Action = "gamelists";
             model.GameLists.Pagination.RouteId = id;
             ViewData["CurrentFilter"] = currentFilter;
             ViewBag.IsOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
             return View(model);
         }
+
         [HttpGet]
         [AllowAnonymous]
+        [Route("users/userlists/{id}")]
+        public ActionResult UserLists(int? id, int? page, int? items, string currentFilter)
+        {
+            var user = _userService.Find(id);
+            if (user == null) { return NotFound(); }
+            var IsOwner = _userService.IsOwner(_userService.GetLoggedInUserId(), id);
+            IQueryable<UserList> userlists = null;
+            if (IsOwner) {
+                userlists = _userListService.GetAll().Where(u => u.UserId == user.Id).AsQueryable();
+            }
+            else
+            {
+                userlists = _userListService.GetAll().Where(u => u.UserId == user.Id && u.IsPublic == true).AsQueryable();
+            }
+            
+            userlists = _userListService.FilterByList(currentFilter, userlists);
+            var model = new UserUserListsViewModel
+            {
+                AppUser = user,
+                ListTypes = _listTypeService.GetAll().ToList(),
+                UserLists = PaginatedList<UserList>.Create(userlists.AsNoTracking(), page, items),
+                LoggedUserId = user.Id
+            };
+
+            model.UserLists.Pagination.Action = "userlists";
+            model.UserLists.Pagination.RouteId = id;
+            ViewData["CurrentFilter"] = currentFilter;
+            ViewBag.IsOwner = IsOwner;
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
         [Route("users/gamelist/{id}")]
         public ActionResult GameListForm(int? id)
         {
+
             var userid = _userService.GetLoggedInUserId();
             var user = _userService.Find(userid);
             if (user == null) { return NotFound(); }
             var gamelist = _gameListService.Find(id);
+            var IsOwner = _userService.IsOwner(userid, gamelist.UserList.UserId);
+            if (!IsOwner) { return NotFound(); }
             var model = new UserGameListFormViewModel
             {
                 AppUser = user,
                 GameList = gamelist
             };
-            ViewBag.IsOwner = true;
+            ViewBag.IsOwner = IsOwner;
             return View(model);
         }
 
@@ -453,6 +492,27 @@ namespace PRO.Controllers
             {
                 ModelState.AddModelError("", error.Description);
             }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("users/userlist/{id}")]
+        public ActionResult UserListForm(int? id)
+        {
+
+            var userid = _userService.GetLoggedInUserId();
+            var user = _userService.Find(userid);
+            if (user == null) { return NotFound(); }
+            var userlist = _userListService.Find(id);
+            var IsOwner = _userService.IsOwner(userid, userlist.UserId);
+            if (!IsOwner) { return NotFound(); }
+            var model = new UserUserListFormViewModel
+            {
+                AppUser = user,
+                UserList = userlist
+            };
+            ViewBag.IsOwner = IsOwner;
+            return View(model);
         }
     }
 }

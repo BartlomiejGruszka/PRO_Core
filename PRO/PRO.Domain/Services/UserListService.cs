@@ -94,5 +94,30 @@ namespace PRO.Domain.Services
             };
             return userlists.AsQueryable();
         }
+
+        public IQueryable<UserList> FilterByList(string currentFilter, IQueryable<UserList> userlists)
+        {
+            if (currentFilter == null) return userlists;
+            if (currentFilter.Equals("all")) return userlists;
+            return userlists.Where(s => s.ListType.Name.ToLower().Contains(currentFilter.ToLower()));
+        }
+
+        public void AddOrUpdate(UserList model)
+        {
+            var oldlist = Find(model.Id);
+            if (oldlist == null)
+            {
+                Add(model);
+            }
+            else
+            {
+                oldlist.IsPublic = model.IsPublic;
+                oldlist.Name = model.Name;
+                oldlist.ListTypeId = model.ListTypeId;
+                Update(oldlist);
+            }
+
+
+        }
     }
 }

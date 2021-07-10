@@ -1,4 +1,4 @@
-﻿@model PRO.UI.ViewModels.UserGameListFormViewModel
+﻿@model PRO.UI.ViewModels.UserUserListFormViewModel
 @using PRO.Entities
 @{
     ViewBag.Title = "Profil użytkownika";
@@ -11,20 +11,19 @@
     <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.AppUser" />
     <div style=" width: 100%;">
         <div class="col-md-offset-2 col-md-10">
-
-            @if (Model.GameList == null)
+            @if (Model.UserList == null)
             {
-                <div class="underlined_h2">Dodaj grę do listy</div>
+                <div class="underlined_h2">Dodaj listę</div>
             }
             else
             {
-                <div class="underlined_h2">@Model.GameList.Game.Title</div>
+                <div class="underlined_h2">@Model.UserList.Name </div>
             }
 
             <div class="">
-                @await Component.InvokeAsync("AddGameToUserList", new { gameid = Model.GameList.GameId })
+                @await Component.InvokeAsync("UserList", new { userid = Model.AppUser.Id, listid = Model.UserList.Id })
                 <div class="col-md-offset-2 col-md-10">
-                    <a href="/users/gamelists/@Model.AppUser.Id" style="padding-left:10px;" class="btn btn-secondary">Powrót</a>
+                    <a href="/users/userlists/@Model.AppUser.Id" style="padding-left:10px;" class="btn btn-secondary">Powrót</a>
                 </div>
             </div>
         </div>

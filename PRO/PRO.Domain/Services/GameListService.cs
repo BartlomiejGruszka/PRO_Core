@@ -12,7 +12,7 @@ namespace PRO.Domain.Services
     {
         private readonly IGameListRepository _gameListRepository;
 
-        public GameListService( IGameListRepository gameListRepository)
+        public GameListService(IGameListRepository gameListRepository)
         {
             _gameListRepository = gameListRepository;
         }
@@ -58,7 +58,8 @@ namespace PRO.Domain.Services
         public void AddOrUpdate(GameList gameList)
         {
             var oldgamelist = Find(gameList.Id);
-            if (oldgamelist == null) {
+            if (oldgamelist == null)
+            {
                 Add(gameList);
             }
             else
@@ -129,7 +130,7 @@ namespace PRO.Domain.Services
 
             if (gameLists.Any())
             {
-              //  errors.TryAddModelError("GameId", "Wybrana gra znajduje się już na wskazanej liście.");
+                //  errors.TryAddModelError("GameId", "Wybrana gra znajduje się już na wskazanej liście.");
                 errors.TryAddModelError("UserListId", "Wybrana gra znajduje się już na wskazanej liście.");
             }
 
@@ -154,7 +155,7 @@ namespace PRO.Domain.Services
             var gameLists = GetAll().AsQueryable();
             if (!string.IsNullOrEmpty(query))
             {
-                gameLists = gameLists.Where(s => 
+                gameLists = gameLists.Where(s =>
                 s.Game.Title.ToLower().Contains(query.ToLower()) ||
                 s.UserList.Name.ToLower().Contains(query.ToLower()) ||
                 s.UserList.User.UserName.ToLower().Contains(query.ToLower())
@@ -189,8 +190,22 @@ namespace PRO.Domain.Services
         public IQueryable<GameList> FilterByList(string currentFilter, IQueryable<GameList> gamelists)
         {
             if (currentFilter == null) return gamelists;
+            if (gamelists == null) return null;
             if (currentFilter.Equals("all")) return gamelists;
             return gamelists.Where(s => s.UserList.ListType.Name.ToLower().Contains(currentFilter.ToLower()));
+        }
+
+        public IQueryable<GameList> GetAllIfOwner(int? loggeduserid, int userid)
+        {
+            if (!loggeduserid.HasValue) return null;
+            if (loggeduserid.Value == userid)
+            {
+                return GetAll().Where(u => u.UserList.UserId == userid).AsQueryable();
+            }
+            else
+            {
+                return GetAll().Where(u => u.UserList.UserId == userid && u.UserList.IsPublic == true).AsQueryable();
+            }
         }
     }
 }

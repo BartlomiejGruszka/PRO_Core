@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PRO.Domain.Extensions;
 using PRO.Domain.Interfaces.Services;
 using PRO.Entities;
 using System;
@@ -172,6 +173,31 @@ namespace PRO.Controllers
             UserList userList = _userListService.Find(id);
             _userListService.Delete(userList);
             return RedirectToAction("Manage");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UserEdit(UserList model)
+        {
+
+            var previouspage = HttpContext.Request.Headers["Referer"];
+            TempData.Put("userList", model);
+
+            if (ModelState.IsValid)
+            {
+                var errors = _userListService.ValidateUserList(model);
+                var userid = _userService.GetLoggedInUserId();
+                var userlist = _userListService.Find(model.Id);
+                if (userid != userlist.UserId) { return NotFound(); }
+                if (!errors.Any())
+                {
+                    _userListService.AddOrUpdate(model);
+                    TempData.Add("UserListId", model.Id);
+                }
+
+            }
+            if (string.IsNullOrEmpty(previouspage)) { return RedirectToAction("Details", "Users", new { id = model.UserId }); }
+            return Redirect(previouspage);
         }
 
     }

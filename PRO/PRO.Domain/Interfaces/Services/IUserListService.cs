@@ -20,5 +20,7 @@ namespace PRO.Domain.Interfaces.Services
         public ModelStateDictionary ValidateUserList(UserList userList);
         IQueryable<UserList> FilterSearch(string query);
         IQueryable<UserList> SortList(string sortOrder, IQueryable<UserList> userlists);
+        IQueryable<UserList> FilterByList(string currentFilter, IQueryable<UserList> userlists);
+        void AddOrUpdate(UserList model);
     }
 }

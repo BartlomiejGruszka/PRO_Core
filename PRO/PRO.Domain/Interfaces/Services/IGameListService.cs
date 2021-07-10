@@ -24,6 +24,7 @@ namespace PRO.Domain.Interfaces.Services
 
         public ModelStateDictionary ValidateGameList (GameList gameList);
         IQueryable<GameList> FilterSearch(string query);
+        IQueryable<GameList> GetAllIfOwner(int? loggeduserid, int userid);
         IQueryable<GameList> SortList(string sortOrder, IQueryable<GameList> gameLists);
         IQueryable<GameList> FilterByList(string currentFilter, IQueryable<GameList> gamelists);
     }

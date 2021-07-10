@@ -44,7 +44,7 @@
                                     <div class="userprofile-statistics mt16">
                                         <div class="stats userprofile-cell">
                                             <div class="underlined_h2" style="font-weight: 400;">Listy</div>
-                                            <div class="spaceit user-list-stats font-weight-bold"><span class="dark_text">Wszystkich gier: </span><a href="#">@Model.GameLists.Count()</a></div>
+                                            <div class="spaceit user-list-stats font-weight-bold"><span class="dark_text">Wszystkich gier: </span><a href="/users/gamelists/@Model.AppUser.Id">@Model.GameLists.Count()</a></div>
                                             <div class="spaceit user-list-stats font-weight-bold">
                                                 <span class="dark_text">Średnia ocen: </span>
                                                 @{
@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="clearfix mauto mt16" style="width:160px;padding-right:10px"></div>
                                             @foreach (var type in Model.ListTypes)
-                                            {<div class="spaceit user-list-stats"><span class="dark_text">@type.Name </span><a href="#">@Model.GameLists.Where(t => t.UserList.ListTypeId == type.Id).Count()</a></div>
+                                            {<div class="spaceit user-list-stats"><span class="dark_text">@type.Name </span><a href="/users/gamelists/@Model.AppUser.Id?currentFilter=@type.Name">@Model.GameLists.Where(t => t.UserList.ListTypeId == type.Id).Count()</a></div>
                                         }
 
                                         </div>
