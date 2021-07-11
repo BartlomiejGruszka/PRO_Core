@@ -61,13 +61,12 @@ namespace PRO.Domain.Services
             var oldgamelist = Find(gameList.Id);
             if (oldgamelist == null)
             {
+                gameList.AddedDate = DateTime.Now;
                 Add(gameList);
             }
-            else
+            else if(_userService.IsOwner(oldgamelist.UserList.UserId))
             {
                 oldgamelist.PersonalScore = gameList.PersonalScore;
-                oldgamelist.EditedDate = gameList.EditedDate;
-                oldgamelist.AddedDate = gameList.AddedDate;
                 oldgamelist.HoursPlayed = gameList.HoursPlayed;
                 oldgamelist.UserListId = gameList.UserListId;
                 Update(oldgamelist);
@@ -109,6 +108,7 @@ namespace PRO.Domain.Services
 
         public void Update(GameList gameList)
         {
+            gameList.EditedDate = DateTime.Now;
             _gameListRepository.Update(gameList);
             _gameListRepository.Save();
         }
@@ -131,7 +131,6 @@ namespace PRO.Domain.Services
 
             if (gameLists.Any())
             {
-                //  errors.TryAddModelError("GameId", "Wybrana gra znajduje się już na wskazanej liście.");
                 errors.TryAddModelError("UserListId", "Wybrana gra znajduje się już na wskazanej liście.");
             }
 
@@ -197,7 +196,14 @@ namespace PRO.Domain.Services
             if (currentFilter.Equals("all")) return gamelists;
             return gamelists.Where(s => s.UserList.ListType.Name.ToLower().Contains(currentFilter.ToLower()));
         }
-
+        public bool UserDelete(int id)
+        {
+            GameList gameList = Find(id);
+            var IsOwner = _userService.IsOwner(gameList?.UserList?.UserId);
+            if (!IsOwner || gameList == null) return false;
+            Delete(gameList);
+            return true;
+        }
         public IQueryable<GameList> OwnerGameLists(int? id)
         {
             var IsOwner = _userService.IsOwner(id);

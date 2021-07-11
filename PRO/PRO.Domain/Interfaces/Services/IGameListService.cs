@@ -27,5 +27,6 @@ namespace PRO.Domain.Interfaces.Services
         IQueryable<GameList> OwnerGameLists( int? id);
         IQueryable<GameList> SortList(string sortOrder, IQueryable<GameList> gameLists);
         IQueryable<GameList> FilterByList(string currentFilter, IQueryable<GameList> gamelists);
+        bool UserDelete(int id);
     }
 }

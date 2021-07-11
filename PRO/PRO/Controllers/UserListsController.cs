@@ -189,7 +189,7 @@ namespace PRO.Controllers
             if (ModelState.IsValid)
             {
                 _userListService.AddOrUpdate(model);
-                TempData.Add("UserListId", model.Id);
+                TempData.Clear();
                 return RedirectToAction("UserLists", "Users");
             }
  

@@ -170,24 +170,17 @@ namespace PRO.Controllers
         {
             var validate = _gameListService.ValidateGameList(gameList);
             ModelState.Merge(validate);
-            gameList.EditedDate = DateTime.Now;
 
             if (ModelState.IsValid)
             {
-                var errors = _gameListService.ValidateGameList(gameList);
-                if (!errors.Any())
-                {
-                    _gameListService.Update(gameList);
+                _gameListService.Update(gameList);
 
-                    return RedirectToAction("Manage");
-                }
-                ModelState.Merge(errors);
+                return RedirectToAction("Manage");
             }
             var gameListUser = _gameListService.Find(gameList.Id);
             gameList.UserList = gameListUser.UserList;
-            var userLists = _userListService.GetAll().Where(u => u.UserId == gameListUser.UserList.UserId).ToList();
 
-            ViewBag.userLists = userLists;
+            ViewBag.userLists = _userListService.GetAll().Where(u => u.UserId == gameListUser.UserList.UserId).ToList();
             ViewBag.Games = _gameService.GetAllActive();
 
             return View(gameList);
@@ -216,6 +209,38 @@ namespace PRO.Controllers
             _gameListService.Delete(gameList);
             return RedirectToAction("Manage");
         }
+        [Authorize]
+        [HttpPost]
+        [Route("gamelists/useredit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserEdit(GameList model)
+        {
+            var previouspage = HttpContext.Request.Headers["Referer"];
+            TempData.Put("gameList", model);
 
+            var errors = _gameListService.ValidateGameList(model);
+            ModelState.Merge(errors);
+            if (ModelState.IsValid)
+            {
+                _gameListService.AddOrUpdate(model);
+                TempData.Clear();
+                return RedirectToAction("GameLists", "Users");
+            }
+
+            return Redirect(previouspage);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [Route("gamelists/userdelete/{id}")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserDelete(int id)
+        {
+            if (!_gameListService.UserDelete(id))
+            {
+                return NotFound();
+            }
+            return RedirectToAction("GameLists", "Users");
+        }
     }
 }

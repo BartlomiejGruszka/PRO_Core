@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace PRO.UI.ViewComponents
 {
-    public class AddGameToUserListViewComponent : ViewComponent
+    public class UserGameListViewComponent : ViewComponent
     {
         private readonly IUserService _userService;
         private readonly IUserListService _userListService;
         private readonly IGameListService _gameListService;
         private readonly IGameService _gameService;
-        public AddGameToUserListViewComponent(
+        public UserGameListViewComponent(
             IUserService userService,
             IGameListService gameListService,
             IUserListService userListService,
@@ -24,19 +24,16 @@ namespace PRO.UI.ViewComponents
             _gameListService = gameListService;
             _gameService = gameService;
         }
-        public IViewComponentResult Invoke(int? gameid)
+        public IViewComponentResult Invoke(int userid, int? gamelistid)
         {
-            if (!gameid.HasValue) gameid = 0;
-            var userid = _userService.GetLoggedInUserId();
             var userLists = _userListService.GetUserUserLists(userid).ToList();
 
             var gameList = TempData.Get<GameList>("gameList");
-            if (TempData["GameListId"] != null)
+           if (gameList != null && gamelistid.HasValue)
             {
-                var gamelistid = TempData["GameListId"] as int?;
-                if (gamelistid.HasValue)
+                if (gameList.Id != gamelistid)
                 {
-                    gameList.Id = gamelistid.Value;
+                    gameList = null;
                 }
             }
 
@@ -49,18 +46,17 @@ namespace PRO.UI.ViewComponents
 
             if (gameList == null)
             {
-                gameList = _gameListService.GetAll().SingleOrDefault(g => g.GameId == gameid && g.UserList.UserId == userid);
+                gameList = _gameListService.GetAll().SingleOrDefault(g => g.Id == gamelistid);
             }
-            if (gameList == null)
-            {
+            if (gameList == null) { 
                 gameList = new GameList();
             }
 
             ViewBag.UserListId = userLists;
-            ViewBag.GameId = gameid;
             ViewBag.Id = gameList.Id;
+            ViewBag.Games = _gameService.GetAllActive();
 
-            return View("_AddGameToUserList", gameList);
+            return View("_UserGameListForm", gameList);
         }
 
     }

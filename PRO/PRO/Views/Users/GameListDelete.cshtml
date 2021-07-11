@@ -1,0 +1,42 @@
+﻿@model PRO.UI.ViewModels.UserGameListFormViewModel
+@using PRO.Entities
+@{
+    ViewBag.Title = "Profil użytkownika";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.AppUser" />
+</div>
+<div id="content" class="userprofilecontent">
+    <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.AppUser" />
+    <div style=" width: 100%;">
+        <div class="col-md-offset-2 col-md-10">
+
+            <div class="underlined_h2">@Model.GameList.Game.Title</div>
+
+
+            <div class="">
+
+                <div class="col-md-offset-2 col-md-10">
+                    <div>
+                        <h2>Czy na pewno chcesz usunąć <b>@Model.GameList.Game.Title</b> z listy <b>@Model.GameList.UserList.Name</b>?</h2>
+
+                        <br />
+                    </div>
+                    @using (Html.BeginForm("UserDelete", "GameLists", new { id = Model.GameList.Id }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Usuń" class="btn btn-primary" />
+                            <a href="/users/gamelists/@Model.AppUser.Id" style="padding-left:10px;" class="btn btn-secondary">Powrót</a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

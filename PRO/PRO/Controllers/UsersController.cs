@@ -408,7 +408,7 @@ namespace PRO.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("users/gamelists/{id}")]
+        [Route("users/gamelists/{id?}")]
         public ActionResult GameLists(int? id, int? page, int? items, string sortOrder, string currentFilter)
         {
             ViewData["CurrentSort"] = sortOrder;
