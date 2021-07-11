@@ -1,0 +1,43 @@
+﻿@model PRO.UI.ViewModels.UserUserListFormViewModel
+@using PRO.Entities
+@{
+    ViewBag.Title = "Profil użytkownika";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.AppUser" />
+</div>
+<div id="content" class="userprofilecontent">
+    <partial name="~/Views/Users/_UserLeftSide.cshtml" , model="Model.AppUser" />
+    <div style=" width: 100%;">
+        <div class="col-md-offset-2 col-md-10">
+
+            <div class="underlined_h2">@Model.UserList.Name </div>
+
+
+            <div class="">
+              
+                <div class="col-md-offset-2 col-md-10">
+                    <div>
+                        <h2>Czy na pewno chcesz usunąć listę o nazwie <b>@Model.UserList.Name</b>?</h2>
+
+                        <p>Spowoduje to usunięcie listy oraz całej jej zawartości.</p>
+                        <br />
+                    </div>
+                    @using (Html.BeginForm("UserDelete","UserLists",new { id = Model.UserList.Id }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Usuń" class="btn btn-primary" />
+                            <a href="/users/userlists/@Model.AppUser.Id" style="padding-left:10px;" class="btn btn-secondary">Powrót</a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

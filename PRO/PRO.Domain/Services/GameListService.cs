@@ -11,10 +11,11 @@ namespace PRO.Domain.Services
     public class GameListService : IGameListService
     {
         private readonly IGameListRepository _gameListRepository;
-
-        public GameListService(IGameListRepository gameListRepository)
+        private readonly IUserService _userService;
+        public GameListService(IGameListRepository gameListRepository, IUserService userService)
         {
             _gameListRepository = gameListRepository;
+            _userService = userService;
         }
 
         public void Add(GameList gameList)
@@ -182,7 +183,9 @@ namespace PRO.Domain.Services
                 "hours" => gameLists.OrderBy(s => s.HoursPlayed),
                 "score_desc" => gameLists.OrderByDescending(s => s.PersonalScore),
                 "score" => gameLists.OrderBy(s => s.PersonalScore),
-                _ => gameLists.OrderBy(s => s.UserList.User.UserName),
+                "Name_desc" => gameLists.OrderByDescending(s => s.UserList.Name),
+                "Name" => gameLists.OrderBy(s => s.UserList.Name),
+                _ => gameLists.OrderBy(s => s.Game.Title),
             };
             return gameLists.AsQueryable();
         }
@@ -195,17 +198,19 @@ namespace PRO.Domain.Services
             return gamelists.Where(s => s.UserList.ListType.Name.ToLower().Contains(currentFilter.ToLower()));
         }
 
-        public IQueryable<GameList> GetAllIfOwner(int? loggeduserid, int userid)
+        public IQueryable<GameList> OwnerGameLists(int? id)
         {
-            if (!loggeduserid.HasValue) return null;
-            if (loggeduserid.Value == userid)
+            var IsOwner = _userService.IsOwner(id);
+            IQueryable<GameList> gameLists = null;
+            if (IsOwner)
             {
-                return GetAll().Where(u => u.UserList.UserId == userid).AsQueryable();
+                gameLists =  GetAll().Where(u => u.UserList.UserId == id).AsQueryable();
             }
             else
             {
-                return GetAll().Where(u => u.UserList.UserId == userid && u.UserList.IsPublic == true).AsQueryable();
+                gameLists = GetAll().Where(u => u.UserList.UserId == id && u.UserList.IsPublic == true).AsQueryable();
             }
+            return gameLists;
         }
     }
 }

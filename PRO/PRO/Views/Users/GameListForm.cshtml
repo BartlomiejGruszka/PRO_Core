@@ -22,7 +22,7 @@
             }
 
             <div class="">
-                @await Component.InvokeAsync("AddGameToUserList", new { gameid = Model.GameList.GameId })
+                @await Component.InvokeAsync("AddGameToUserList", new { userid = Model.AppUser.Id, gameid = Model.GameList?.GameId })
                 <div class="col-md-offset-2 col-md-10">
                     <a href="/users/gamelists/@Model.AppUser.Id" style="padding-left:10px;" class="btn btn-secondary">Powrót</a>
                 </div>

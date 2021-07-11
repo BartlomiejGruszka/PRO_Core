@@ -11,20 +11,22 @@ namespace PRO.UI.ViewComponents
         private readonly IUserService _userService;
         private readonly IUserListService _userListService;
         private readonly IGameListService _gameListService;
-
+        private readonly IGameService _gameService;
         public AddGameToUserListViewComponent(
             IUserService userService,
             IGameListService gameListService,
-            IUserListService userListService
+            IUserListService userListService,
+            IGameService gameService
             )
         {
             _userService = userService;
             _userListService = userListService;
             _gameListService = gameListService;
+            _gameService = gameService;
         }
-        public IViewComponentResult Invoke(int gameid)
+        public IViewComponentResult Invoke(int userid, int? gameid)
         {
-            var userid = _userService.GetLoggedInUserId();
+            if (!gameid.HasValue) gameid = 0;
             var userLists = _userListService.GetUserUserLists(userid).ToList();
 
             var gameList = TempData.Get<GameList>("gameList");
@@ -48,11 +50,15 @@ namespace PRO.UI.ViewComponents
             {
                 gameList = _gameListService.GetAll().SingleOrDefault(g => g.GameId == gameid && g.UserList.UserId == userid);
             }
-            if (gameList == null) { gameList = new GameList(); }
+            if (gameList == null) { 
+                gameList = new GameList();
+                ViewBag.NewForm = true;
+            }
 
             ViewBag.UserListId = userLists;
             ViewBag.GameId = gameid;
             ViewBag.Id = gameList.Id;
+            ViewBag.Games = _gameService.GetAllActive();
 
             return View("_AddGameToListForm", gameList);
         }

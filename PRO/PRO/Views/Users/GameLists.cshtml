@@ -33,6 +33,9 @@
                         else
                         { <span>@selectedlist</span>}
                     </span>
+                    <a style="margin:10px;" href="/users/gamelist" class="btn btn-secondary">
+                        Dodaj
+                    </a>
                 </div>
 
                 <table class="list-table">
@@ -40,36 +43,37 @@
                         <tr class="list-table-header">
                             <th class="header-title">#</th>
                             <th class="header-title">
-                                <a href="" class="link sort">
+                                <span class="link sort">
                                     Obraz
-                                </a>
+                                </span>
                             </th>
                             <th class="header-title">
-                                <a href="" class="link sort">
-                                    Tytuł gry
-                                </a>
+                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Tytuł gry</a>
+
                             </th>
                             <th class="header-title">
-                                <a href="" class="link sort">
-                                    Ocena użytkownika
-                                </a>
+                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["ScoreSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Ocena użytkownika</a>
+
                             </th>
                             <th class="header-title">
-                                <a href="" class="link sort">
-                                    Lista
-                                </a>
+                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Lista</a>
+
                             </th>
                             <th class="header-title">
-                                <a href="" class="link sort">
-                                    Rozegrane godziny
-                                </a>
+                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["HoursSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Rozegrane godziny</a>
+
                             </th>
                             @if (ViewBag.IsOwner)
                             {
                                 <th class="header-title">
-                                    <a href="" class="link sort">
-                                        Edycja
-                                    </a>
+                                    <span class="link sort">
+
+                                    </span>
+                                </th>
+                                <th class="header-title">
+                                    <span class="link sort">
+
+                                    </span>
                                 </th>
                             }
                         </tr>
@@ -117,6 +121,13 @@
                                             <div class="">
                                                 <a href="/users/gamelist/@item.Id" class="link sort">
                                                     Edytuj
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="data">
+                                            <div class="">
+                                                <a href="/users/gamelist/delete/@item.Id" class="link sort">
+                                                    Usuń
                                                 </a>
                                             </div>
                                         </td>

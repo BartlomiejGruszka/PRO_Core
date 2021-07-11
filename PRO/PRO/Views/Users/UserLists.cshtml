@@ -33,32 +33,43 @@
                         else
                         { <span>@selectedlist</span>}
                     </span>
+
+                        <a  style="margin:10px;" href="/users/userlist" class="btn btn-secondary">
+                            Dodaj
+                        </a>
+
                 </div>
 
                 <table class="list-table">
                     <tbody>
                         <tr class="list-table-header">
                             <th class="header-title">
-                                <a href="" class="link sort">
-                                    Nazwa listy
-                                </a>
+                                <a class="link sort" asp-action="UserLists" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwa</a>
                             </th>
                             <th class="header-title">
-                                <a href="" class="link sort">
+                                <span class="link sort">
                                     Typ listy
-                                </a>
+                                </span>
                             </th>
                             <th class="header-title">
-                                <a href="" class="link sort">
-                                    Gier na liście
-                                </a>
+                                <a class="link sort" asp-action="UserLists" asp-route-sortOrder="@ViewData["CountSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Gier na liście</a>
                             </th>
                             @if (ViewBag.IsOwner)
                             {
                                 <th class="header-title">
-                                    <a href="" class="link sort">
-                                        Edycja
-                                    </a>
+                                    <span class="link sort">
+                                        Publiczna
+                                    </span>
+                                </th>
+                                <th class="header-title">
+                                    <span class="link sort">
+                                        
+                                    </span>
+                                </th>
+                                <th class="header-title">
+                                    <span class="link sort">
+                                        
+                                    </span>
                                 </th>
                             }
                         </tr>
@@ -89,8 +100,20 @@
                                     {
                                         <td class="data">
                                             <div class="">
+                                                @Html.CheckBoxFor(model => item.IsPublic, new { @disabled = "disabled", @class = "link sort" })
+                                            </div>
+                                        </td>
+                                        <td class="data">
+                                            <div class="">
                                                 <a href="/users/userlist/@item.Id" class="link sort">
                                                     Edytuj
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="data">
+                                            <div class="">
+                                                <a href="/users/userlist/delete/@item.Id" class="link sort">
+                                                    Usuń
                                                 </a>
                                             </div>
                                         </td>

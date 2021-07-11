@@ -4,7 +4,7 @@
 @using (Html.BeginForm("UserEdit", "UserLists", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <input data-val="true" data-val-required="The Int32 field is required." id="GameId" name="GameId" type="hidden" value="@ViewBag.UserId">
+    <input data-val="true" data-val-required="The Int32 field is required." id="UserId" name="UserId" type="hidden" value="@ViewBag.UserId">
     <input data-val="true" data-val-required="The Int32 field is required." id="Id" name="Id" type="hidden" value="@ViewBag.Id">
 
 
@@ -20,10 +20,24 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.ListTypeId, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: inline; " })
+        @Html.LabelFor(model => model.ListType, null, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.IsPublic, new SelectList(ViewBag.listTypes, "Id", "Name"), "Wybierz typ", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ListTypeId, "", new { @class = "text-danger" })
+            <select class="selectpicker show-tick" style="max-width:400px;" id="ListTypeId" name="ListTypeId" data-live-search="true" title="Wybierz rodzaj listy">
+                @foreach (var item in ViewBag.listTypes)
+                {
+                    if (Model.ListTypeId == item.Id)
+                    {
+                        <option selected value="@item.Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+
+            </select>
+            <p>   @Html.ValidationMessageFor(model => model.ListTypeId, "", new { @class = "text-danger" })</p>
+         
         </div>
     </div>
     <div class="form-group">

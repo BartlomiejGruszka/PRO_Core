@@ -132,7 +132,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         [Route("userlists/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( UserList userList)
+        public ActionResult Edit(UserList userList)
         {
             if (ModelState.IsValid)
             {
@@ -177,27 +177,36 @@ namespace PRO.Controllers
 
         [Authorize]
         [HttpPost]
+        [Route("userlists/useredit")]
+        [ValidateAntiForgeryToken]
         public ActionResult UserEdit(UserList model)
         {
-
             var previouspage = HttpContext.Request.Headers["Referer"];
             TempData.Put("userList", model);
 
+            var errors = _userListService.ValidateUserList(model);
+            ModelState.Merge(errors);
             if (ModelState.IsValid)
             {
-                var errors = _userListService.ValidateUserList(model);
-                var userid = _userService.GetLoggedInUserId();
-                var userlist = _userListService.Find(model.Id);
-                if (userid != userlist.UserId) { return NotFound(); }
-                if (!errors.Any())
-                {
-                    _userListService.AddOrUpdate(model);
-                    TempData.Add("UserListId", model.Id);
-                }
-
+                _userListService.AddOrUpdate(model);
+                TempData.Add("UserListId", model.Id);
+                return RedirectToAction("UserLists", "Users");
             }
-            if (string.IsNullOrEmpty(previouspage)) { return RedirectToAction("Details", "Users", new { id = model.UserId }); }
+ 
             return Redirect(previouspage);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [Route("userlists/userdelete/{id}")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserDelete(int id)
+        {
+            if (!_userListService.UserDelete(id))
+            {
+                return NotFound();
+            }
+            return RedirectToAction("UserLists", "Users");
         }
 
     }

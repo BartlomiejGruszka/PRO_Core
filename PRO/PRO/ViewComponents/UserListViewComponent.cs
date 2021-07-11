@@ -22,8 +22,9 @@ namespace PRO.UI.ViewComponents
             _userListService = userListService;
             _listTypeService = listTypeService;
         }
-        public IViewComponentResult Invoke(int userid, int listid)
+        public IViewComponentResult Invoke(int userid, int? listid)
         {
+            if (!listid.HasValue) listid = 0;
             var userlist = TempData.Get<UserList>("userList");
             if (TempData["UserListId"] != null)
             {

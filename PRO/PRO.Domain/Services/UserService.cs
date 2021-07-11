@@ -161,8 +161,9 @@ namespace PRO.Domain.Services
             }
             return users;
         }
-        public bool IsOwner(int? loggeduserid, int? userid)
+        public bool IsOwner(int? userid)
         {
+            var loggeduserid = GetLoggedInUserId();
             if (!loggeduserid.HasValue || !userid.HasValue) return false;
             if (loggeduserid.Value != userid.Value) return false;
             return true;

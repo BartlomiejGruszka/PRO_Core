@@ -15,12 +15,14 @@ namespace PRO.Domain.Interfaces.Services
         public UserList Find(int? id);
         public void Add(UserList userList);
         public void Delete(UserList userList);
-
+        public bool UserDelete(int id);
         public void Update(UserList userList);
         public ModelStateDictionary ValidateUserList(UserList userList);
         IQueryable<UserList> FilterSearch(string query);
         IQueryable<UserList> SortList(string sortOrder, IQueryable<UserList> userlists);
         IQueryable<UserList> FilterByList(string currentFilter, IQueryable<UserList> userlists);
         void AddOrUpdate(UserList model);
+        IQueryable<UserList> OwnerUserLists(int? userid);
+
     }
 }
