@@ -92,12 +92,11 @@ namespace PRO.Controllers
             if (user == null) { return NotFound(); }
 
             var playtimes = _reviewService.UserPlaytimeList(user.Id).AsQueryable();
-            var gamelists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).AsQueryable();
-
+            var gamelists = _gameListService.GetAll().Where(u => u.UserList.UserId == user.Id).ToList();
             UserProfileViewModel model = new UserProfileViewModel
             {
                 AppUser = user,
-                GameLists = PaginatedList<GameList>.Create(gamelists.AsNoTracking(), null, null),
+                GameLists = gamelists.ToList(),
                 ReviewsPlaytimes = PaginatedList<ReviewPlaytime>.Create(playtimes.AsNoTracking(), null, null),
                 RecentlyUpdatedGames = _gameListService.GetRecentUserGameListUpdates(user.Id, 3),
                 ListTypes = _listTypeService.GetAll().ToList()

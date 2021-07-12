@@ -49,7 +49,7 @@ namespace PRO.UI.ViewComponents
 
             if (gameList == null)
             {
-                gameList = _gameListService.GetAll().SingleOrDefault(g => g.GameId == gameid && g.UserList.UserId == userid);
+                gameList = _gameListService.GetAll().FirstOrDefault(g => g.GameId == gameid && g.UserList.UserId == userid);
             }
             if (gameList == null)
             {

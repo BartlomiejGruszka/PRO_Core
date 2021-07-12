@@ -9,8 +9,11 @@
     <hr />
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     @{ var revid = 0;
-        if (ViewBag.ReviewId != null) revid = ViewBag.ReviewId;}
-    <input data-val="true" data-val-required="The Int32 field is required." id="GameId" name="GameId" type="hidden" value="@ViewBag.GameId">
+        var revdate = ViewBag.ReviewDate;
+        if (ViewBag.ReviewId != null) revid = ViewBag.ReviewId;
+        }
+    <input data-val="true" data-val-required="The Int32 field is required." id="ReviewDate" name="ReviewDate" type="hidden" value="@ViewBag.ReviewDate">
+    <input data-val="true" data-val-required="The Int32 field is required." id="AddedDate" name="GameId" type="hidden" value="@ViewBag.GameId">
     <input data-val="true" data-val-required="The Int32 field is required." id="UserId" name="UserId" type="hidden" value="@ViewBag.UserId">
     <input data-val="true" data-val-required="The Int32 field is required." id="Id" name="Id" type="hidden" value="@revid">
     <div class="form-group">

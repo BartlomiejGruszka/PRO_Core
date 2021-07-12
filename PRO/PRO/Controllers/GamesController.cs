@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace PRO.Controllers
 {
-    [Authorize(Roles = "Admin,Author")]
     public class GamesController : Controller
     {
         private readonly IGameService _gameService;
@@ -107,7 +106,9 @@ namespace PRO.Controllers
             ViewData["FilterValue"] = value;
             return View("Index", viewModel);
         }
+
         [HttpGet]
+        [Authorize(Roles = "Admin,Author")]
         [Route("games/manage")]
         public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
@@ -154,6 +155,7 @@ namespace PRO.Controllers
             return View(DetailsModel);
         }
 
+        [Authorize(Roles = "Admin,Author")]
         [Route("games/details/{id}")]
         public ActionResult ManageDetails(int? id)
         {
@@ -161,7 +163,9 @@ namespace PRO.Controllers
             if (games == null) { return NotFound(); }
             return View(games);
         }
+
         [HttpGet]
+        [Authorize(Roles = "Admin,Author")]
         [Route("games/add")]
         public ActionResult Add()
         {
@@ -169,6 +173,7 @@ namespace PRO.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Author")]
         [Route("games/add")]
         public ActionResult Add(GameViewModel viewModel)
         {
@@ -186,6 +191,7 @@ namespace PRO.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Author")]
         [Route("games/edit/{id}")]
         public ActionResult Edit(int? id)
         {
@@ -198,6 +204,7 @@ namespace PRO.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Author")]
         [Route("games/edit/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(GameViewModel viewModel)

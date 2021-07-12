@@ -13,7 +13,6 @@ using System.Net;
 
 namespace PRO.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class GameListsController : Controller
     {
         private readonly IUserService _userService;
@@ -39,6 +38,7 @@ namespace PRO.Controllers
         }
 
         // GET: GameLists
+        [Authorize(Roles = "Admin")]
         [Route("gamelists/manage")]
         public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
         {
@@ -69,6 +69,7 @@ namespace PRO.Controllers
         }
 
         // GET: GameLists/Details/5
+        [Authorize(Roles = "Admin")]
         [Route("gamelists/details/{id}")]
         public ActionResult Details(int? id)
         {
@@ -81,6 +82,7 @@ namespace PRO.Controllers
         }
 
         // GET: GameLists/Create
+        [Authorize(Roles = "Admin")]
         [Route("gamelists/add")]
         public ActionResult Add()
         {
@@ -89,6 +91,7 @@ namespace PRO.Controllers
             return View(new GameList());
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("gamelists/getuserlists/{id}")]
         public ActionResult GetUserLists(int id)
         {
@@ -98,6 +101,7 @@ namespace PRO.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("gamelists/add")]
         [ValidateAntiForgeryToken]
         public ActionResult Add([Bind("HoursPlayed, PersonalScore,GameId,UserListId")] GameList gameList)
@@ -149,7 +153,7 @@ namespace PRO.Controllers
             return Redirect(previouspage);
         }
 
-        // GET: GameLists/Edit/5
+        [Authorize(Roles = "Admin")]
         [Route("gamelists/edit/{id}")]
         public ActionResult Edit(int? id)
         {
@@ -164,6 +168,7 @@ namespace PRO.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("gamelists/edit/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind("Id, HoursPlayed, PersonalScore,GameId,UserListId")] GameList gameList)
@@ -186,7 +191,7 @@ namespace PRO.Controllers
             return View(gameList);
         }
 
-        // GET: GameLists/Delete/5
+        [Authorize(Roles = "Admin")]
         [Route("gamelists/delete/{id}")]
         public ActionResult Delete(int? id)
         {
@@ -199,7 +204,7 @@ namespace PRO.Controllers
             return View(gameList);
         }
 
-        // POST: GameLists/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [Route("gamelists/delete/{id}")]
         [ValidateAntiForgeryToken]
@@ -209,6 +214,7 @@ namespace PRO.Controllers
             _gameListService.Delete(gameList);
             return RedirectToAction("Manage");
         }
+
         [Authorize]
         [HttpPost]
         [Route("gamelists/useredit")]

@@ -51,6 +51,7 @@ namespace PRO.UI.ViewComponents
 
             ViewBag.GameId = gameid;
             ViewBag.UserId = review.UserId;
+            ViewBag.ReviewDate = review.ReviewDate;
             return View("_UserReview", review);
         }
 
