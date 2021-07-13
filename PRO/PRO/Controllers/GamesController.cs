@@ -370,7 +370,26 @@ namespace PRO.Controllers
             ViewData["CurrentFilter"] = query;
             return View("Index", viewModel);
         }
+        [HttpGet]
+        [Authorize]
+        [Route("games/userdelete")]
+        public ActionResult UserDeleteReview(int? gameid, int? reviewid)
+        {
+            Review review = _reviewService.Find(reviewid);
+            var game = _gameService.FindActive(gameid);
+            if (game == null || review == null) return NotFound();
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(new List<Review> { review }).AsQueryable();
+            var DetailsModel = new GameDetailsViewModel
+            {
+                GameInfo = SetupGameInfo(game),
+                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), null, null)
+            };
 
+            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+            DetailsModel.ReviewPlaytimes.Pagination.Action = action;
+
+            return View("UserDeleteReview", DetailsModel);
+        }
 
         public GameViewModel GetFullGameForm(int? id)
         {

@@ -18,27 +18,32 @@
                             <tbody>
                                 <tr>
                                     <td class="pb24">
-                                        @{
 
-                                            var revid = Model.ReviewPlaytimes.Select(s => s.Review?.Id).FirstOrDefault();
-                                            if (revid.HasValue && revid.Value > 0)
+                                        <div class="underlined_h2">Usuń recenzję</div>
+                                        <div class="col-md-offset-2 col-md-10">
+
+
+
+
+
+                                            <div>
+                                                <h2>Czy na pewno chcesz usunąć recenzję gry <b>@Model.GameInfo.Game.Title</b>?</h2>
+
+                                                <br />
+                                            </div>
+                                            @using (Html.BeginForm("UserDelete", "Reviews", new { id = Model.ReviewPlaytimes[0].Review.Id, gameid = Model.GameInfo.Game.Id }, FormMethod.Post))
                                             {
-                                                <div class="underlined_h2">
-                                                    <text class="">Edytuj recenzję</text>
+                                                @Html.AntiForgeryToken()
 
+                                                <div class="form-actions no-color">
+                                                    <input type="submit" value="Usuń" class="btn btn-primary" />
+                                                    <a href="/games/@Model.GameInfo.Game.Id/reviews/@Model.ReviewPlaytimes[0].Review.Id" style="padding-left:10px;" class="btn btn-secondary">Powrót</a>
                                                 </div>
                                             }
-                                            else
-                                            {
-                                                <div class="underlined_h2">
-                                                    <text class="">Napisz recenzję</text>
 
-                                                </div>
-                                            }
-                                        }
 
-                                        @await Component.InvokeAsync("UserReview", new { gameid = Model.GameInfo.Game.Id, reviewid = revid })
 
+                                        </div>
 
 
                                     </td>

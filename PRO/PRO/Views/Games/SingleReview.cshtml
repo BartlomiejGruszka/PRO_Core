@@ -24,8 +24,14 @@
                                             <a href="#" style="float:right; text-decoration:none; font-weight:normal;" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
                                             @if ((ViewBag.CanEdit == true && User.Identity.IsAuthenticated) || User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                             {
-                                              
-                                                <a style="float:right; text-decoration:none; font-weight:normal; margin-right:5px;" href="/games/@Model.GameInfo.Game.Id/userreview/@Model.ReviewPlaytimes[0].Review.Id">Edytuj recenzję</a>
+                                                <a asp-controller="Games"
+                                                   asp-action="UserDelete"
+                                                   asp-route-gameid="@Model.GameInfo.Game.Id"
+                                                   asp-route-reviewid="@Model.ReviewPlaytimes[0].Review.Id"
+                                                   style="float:right; text-decoration:none; font-weight:normal; margin-right:5px;">
+                                                    Usuń
+                                                </a>
+                                                <a style="float:right; text-decoration:none; font-weight:normal; margin-right:5px;" href="/reviews/@Model.GameInfo.Game.Id/userreview/@Model.ReviewPlaytimes[0].Review.Id">Edytuj recenzję</a>
                                             }
 
 

@@ -203,5 +203,20 @@ namespace PRO.Controllers
             _reviewService.Delete(review);
             return RedirectToAction("Manage");
         }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [Route("reviews/userdelete/{id}")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserDelete(int id, int gameid)
+        {
+            if (!_reviewService.UserDelete(id))
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Reviews", "Games", new {id = gameid });
+        }
+       
+
     }
 }

@@ -29,5 +29,6 @@ namespace PRO.Domain.Interfaces.Services
         public ModelStateDictionary ValidateReview(Review review);
         IQueryable<Review> FilterSearch(string query);
         IQueryable<Review> SortList(string sortOrder, IQueryable<Review> reviews);
+        bool UserDelete(int id);
     }
 }

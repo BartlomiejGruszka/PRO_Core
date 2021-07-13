@@ -15,11 +15,19 @@ namespace PRO.Domain.Services
         private readonly IReviewRepository _reviewRepository;
         private readonly IGameListRepository _gameListRepository;
         private readonly IGameRepository _gameRepository;
-        public ReviewService(IReviewRepository reviewRepository, IGameListRepository gameListRepository, IGameRepository gameRepository)
+        private readonly IUserService _userService;
+        public ReviewService(
+            IReviewRepository reviewRepository, 
+            IGameListRepository gameListRepository, 
+            IGameRepository gameRepository,
+            IUserService userService
+            )
         {
             _reviewRepository = reviewRepository;
             _gameListRepository = gameListRepository;
             _gameRepository = gameRepository;
+            _gameRepository = gameRepository;
+            _userService = userService;
         }
 
         public void Add(Review review)
@@ -189,6 +197,13 @@ namespace PRO.Domain.Services
             return review;
         }
 
-       
+        public bool UserDelete(int id)
+        {
+            Review review = Find(id);
+            var IsOwner = _userService.IsOwner(review?.UserId);
+            if (!IsOwner || review == null) return false;
+            Delete(review);
+            return true;
+        }
     }
 }
