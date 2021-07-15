@@ -1,4 +1,4 @@
-﻿@model PRO.UI.ViewModels.GameViewModel
+﻿@model PRO.UI.ViewModels.GameFormViewModel
 
 @{
     ViewBag.Title = "Add";
@@ -108,7 +108,7 @@
                     <option value="@item.Id">@item.Name</option>
                 }
 
-            </select>        
+            </select>
         </div>
     </div>
     <div class="form-group">
@@ -173,7 +173,28 @@
             @Html.ValidationMessageFor(model => model.Game.Tags, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Game.SteamAppId, "Filtruj aplikacje Steam", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="SelectedCharacter" name="SelectedCharacter" data-live-search="true" title="Pierwszy znak nazwy gry" onchange="javascript:GetSteamGamesByLetter(this.value);">
+                @foreach (var item in Model.FilterLetters)
+                {
+                    <option value="@item">@item</option>
+                }
 
+            </select>
+            @Html.ValidationMessageFor(model => model.Game.SteamAppId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Game.SteamAppId, "Obraz", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="SteamAppId" name="Game.SteamAppId" data-live-search="true" title="Wybierz grę Steam">
+                <option value="0">Brak</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Game.SteamAppId, "", new { @class = "text-danger" })
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <button type="submit" class="btn btn-primary">Dodaj</button>
@@ -218,6 +239,42 @@
 
 
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script language="javascript" type="text/javascript">
+
+    function GetSteamGamesByLetter(_stateId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#SteamAppId").html(procemessage).show();
+        var url = "/games/getsteamgames/" + _stateId;
+
+        $.ajax({
+            url: url,
+            data: { id: _stateId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                if (data.length > 0) {
+                    var markup = "<option value=\"0\">Wybierz obrazek</option>";
+                } else {
+                    var markup = "<option value=\"0\">Brak obrazków wybranego typu</option>";
+                }
+
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].value + ">" + data[x].text + "</option>";
+                }
+                $("#SteamAppId").html(markup).show();
+                $('#SteamAppId').selectpicker("refresh");
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+
+
+</script>
+
 <script>
     function SetImageId() {
         var id = $('#ImageId').find(":selected").Value;

@@ -64,6 +64,9 @@ namespace PRO.Entities
         [ForeignKey("DeveloperId"), InverseProperty("DevelopedGames"), DisplayName("Producent")]
         public Company DeveloperCompany { get; set; }
 
+        [DisplayName("Identyfikator Steam")]
+        public int? SteamAppId { get; set; }
+
         public ICollection<Language> Languages { get; set; }
 
         public ICollection<Tag> Tags { get; set; }

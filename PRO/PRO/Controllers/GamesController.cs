@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PRO.Domain.ExternalAPI.SteamAPI;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PRO.Controllers
 {
@@ -181,7 +182,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin,Author")]
         [Route("games/add")]
-        public ActionResult Add(GameViewModel viewModel)
+        public ActionResult Add(GameFormViewModel viewModel)
         {
             _gameService.AddTags(viewModel.Game, viewModel.selectedTagsId);
             _gameService.AddLanguages(viewModel.Game, viewModel.selectedLanguagesId);
@@ -213,7 +214,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Author")]
         [Route("games/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(GameViewModel viewModel)
+        public ActionResult Edit(GameFormViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -402,7 +403,16 @@ namespace PRO.Controllers
             return View("UserDeleteReview", DetailsModel);
         }
 
-        public GameViewModel GetFullGameForm(int? id)
+        [HttpPost]
+        [Authorize(Roles = "Admin,Author")]
+        [Route("games/getsteamgames/{letter?}")]
+        public ActionResult GetSteamGames(string letter)
+        {
+            var steamgames = _steamApi.GetAllByLetter(letter);
+            SelectList steamGamesList = new SelectList(steamgames, "appid", "name", 0);
+            return Json(steamGamesList);
+        }
+        public GameFormViewModel GetFullGameForm(int? id)
         {
             List<int> selectedLanguagesId = null;
             List<int> selectedTagsId = null;
@@ -414,7 +424,7 @@ namespace PRO.Controllers
                 selectedTagsId = game.Tags.Select(l => l.Id).ToList();
             }
 
-            var gameViewModel = new GameViewModel
+            var gameViewModel = new GameFormViewModel
             {
                 Platforms = _platformService.GetAll(),
                 Statuses = _statusService.GetAll(),
@@ -427,7 +437,8 @@ namespace PRO.Controllers
                 Game = game,
                 selectedLanguagesId = selectedLanguagesId,
                 selectedTagsId = selectedTagsId,
-                ImageTypes = _imageTypeService.GetByType(ImageTypes.Game)
+                ImageTypes = _imageTypeService.GetByType(ImageTypes.Game),
+                FilterLetters = _steamApi.GetFilterLetters()
             };
             return gameViewModel;
         }
