@@ -147,12 +147,18 @@ namespace PRO.Controllers
         {
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
+            var reviews = _reviewService.GetGameReviews(id);
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
 
-            var DetailsModel = SetupDetails(id, null, null);
-            var GameInfoModel = SetupGameInfo(game);
-            DetailsModel.GameInfo = GameInfoModel;
+            var viewModel = new GameDetailsViewModel
+            {
+                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), null, null),
+                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
+                GameInfo = SetupGameInfo(game)
+            };
 
-            return View(DetailsModel);
+
+            return View(viewModel);
         }
 
         [Authorize(Roles = "Admin,Author")]
@@ -273,9 +279,14 @@ namespace PRO.Controllers
         {
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
-            var DetailsModel = SetupDetails(id, page, items);
-            var GameInfoModel = SetupGameInfo(game);
-            DetailsModel.GameInfo = GameInfoModel;
+            var reviews = _reviewService.GetGameReviews(id);
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
+            var DetailsModel = new GameDetailsViewModel
+            {
+                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items),
+                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
+                GameInfo = SetupGameInfo(game)
+            };
 
             DetailsModel.ReviewPlaytimes.Pagination.Action = ControllerContext.ActionDescriptor.ActionName.ToString();
             DetailsModel.ReviewPlaytimes.Pagination.RouteId = id;
@@ -289,14 +300,14 @@ namespace PRO.Controllers
         {
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
-            var DetailsModel = SetupDetails(id, page, items);
-            var GameInfoModel = SetupGameInfo(game);
-            DetailsModel.GameInfo = GameInfoModel;
-
             var reviews = new List<Review> { _reviewService.Find(reviewid) };
             var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
-
-            DetailsModel.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
+            var DetailsModel = new GameDetailsViewModel
+            {
+                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items),
+                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
+                GameInfo = SetupGameInfo(game)
+            };
 
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             DetailsModel.ReviewPlaytimes.Pagination.Action = action;
@@ -314,14 +325,14 @@ namespace PRO.Controllers
             if (review == null) review = new Review();
             var game = _gameService.FindActive(id);
             if (game == null) return NotFound();
-            var DetailsModel = SetupDetails(id, null, null);
-            var GameInfoModel = SetupGameInfo(game);
-            DetailsModel.GameInfo = GameInfoModel;
 
-            var reviews = new List<Review> { review };
-            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
-
-            DetailsModel.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), null, null);
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(new List<Review> { review }).AsQueryable();
+            var DetailsModel = new GameDetailsViewModel
+            {
+                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), null, null),
+                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
+                GameInfo = SetupGameInfo(game)
+            };
 
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             DetailsModel.ReviewPlaytimes.Pagination.Action = action;
@@ -337,14 +348,14 @@ namespace PRO.Controllers
             Review review = _reviewService.Find(reviewid);
             var game = _gameService.FindActive(id);
             if (game == null || review == null) return NotFound();
-            var DetailsModel = SetupDetails(id, null, null);
-            var GameInfoModel = SetupGameInfo(game);
-            DetailsModel.GameInfo = GameInfoModel;
 
-            var reviews = new List<Review> { review };
-            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
-
-            DetailsModel.ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), null, null);
+            var reviewplaytimes = _reviewService.ReviewPlaytimeList(new List<Review> { review }).AsQueryable();
+            var DetailsModel = new GameDetailsViewModel
+            {
+                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), null, null),
+                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
+                GameInfo = SetupGameInfo(game)
+            };
 
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             DetailsModel.ReviewPlaytimes.Pagination.Action = action;
@@ -419,19 +430,6 @@ namespace PRO.Controllers
                 ImageTypes = _imageTypeService.GetByType(ImageTypes.Game)
             };
             return gameViewModel;
-        }
-
-        private GameDetailsViewModel SetupDetails(int id, int? page, int? items)
-        {
-            var reviews = _reviewService.GetGameReviews(id);
-            var reviewplaytimes = _reviewService.ReviewPlaytimeList(reviews).AsQueryable();
-
-            var viewModel = new GameDetailsViewModel
-            {
-                ReviewPlaytimes = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items),
-                RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3)
-            };
-            return viewModel;
         }
         private GameInfoViewModel SetupGameInfo(Game game)
         {
