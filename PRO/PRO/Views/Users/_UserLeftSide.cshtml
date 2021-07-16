@@ -1,6 +1,11 @@
 ﻿@model PRO.Entities.ApplicationUser
+@using Microsoft.AspNetCore.Identity
 @using PRO.Entities
-
+@using PRO.UI.Areas.Identity.Pages.Account.Manage
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
 <div class="borderClass userprofile" style="border-width: 0 1px 0 0;" valign="top">
     <div class="userprofilebuttons">
 
@@ -22,6 +27,10 @@
         {
             <a style="margin: 20px; display:block;" href="/users/@Model.Id/profile" class="btn btn-primary">Edytuj profil</a>
             <a style="margin: 20px; display:block;" href="/users/@Model.Id/password" class="btn btn-primary">Zmień hasło</a>
+            @if (hasExternalLogins)
+            {
+                <a style="margin: 20px; display:block;" class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/ExternalLogins">External logins</a>
+            }
         }
 
         <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">

@@ -80,7 +80,7 @@ namespace PRO.UI.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Username, Email = Input.Email, RegisterDate = DateTime.Now };
+                var user = new ApplicationUser { UserName = Input.Username, Email = Input.Email, RegisterDate = DateTime.Now, IsActive = true };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

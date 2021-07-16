@@ -41,6 +41,9 @@ namespace PRO
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
 
+            services.AddAuthentication(options => { /* Authentication options */ })
+           .AddSteam();
+
             services.AddScoped(typeof(IRepository<Game>), typeof(GameRepository));
             services.AddScoped(typeof(IRepository<Image>), typeof(ImageRepository));
             services.AddScoped(typeof(IRepository<ImageType>), typeof(BaseRepository<ImageType>));

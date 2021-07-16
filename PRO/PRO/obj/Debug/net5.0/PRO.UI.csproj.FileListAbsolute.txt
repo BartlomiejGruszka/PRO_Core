@@ -631,5 +631,8 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Users\UserListDelete.cshtml.g.c
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\UserGameList\_UserGameListForm.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Users\GameListDelete.cshtml.g.cs
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Shared\Components\AddGameToUserList\_AddGameToUserList.cshtml.g.cs
-D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.csproj.AssemblyReference.cache
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\Razor\Views\Games\UserDeleteReview.cshtml.g.cs
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.csprojAssemblyReference.cache
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\AngleSharp.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\AspNet.Security.OpenId.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\AspNet.Security.OpenId.Steam.dll
