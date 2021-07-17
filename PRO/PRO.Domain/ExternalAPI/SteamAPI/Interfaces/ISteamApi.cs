@@ -14,8 +14,9 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public List<string> GetFilterLetters();
         public UInt64 GetSteamUserId(string provider);
-        public Task<UserSteamGames> CheckAppOwnership(int appid, UInt64 userid);
-
+        public Task<UserSteamGames> GetUserSteamGames(UInt64 userid, int? appid);
+        public string UserSteamGamesUrl( UInt64 userid, int? appid);
+        public Task<bool> CheckAppOwnershipAsync( int? userid, int? appid);
     }
 }
 

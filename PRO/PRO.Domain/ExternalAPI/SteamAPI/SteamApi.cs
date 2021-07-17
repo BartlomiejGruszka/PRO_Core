@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PRO.Domain.ExternalAPI.SteamAPI.Entities;
+using PRO.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,11 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
     public class SteamApi : ISteamApi
     {
         private readonly IConfiguration _config;
-        public SteamApi(IConfiguration config)
+        private readonly IUserService _userService;
+        public SteamApi(IConfiguration config, IUserService userService)
         {
             _config = config;
+            _userService = userService;
         }
 
 
@@ -74,6 +77,7 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public UInt64 GetSteamUserId(string provider)
         {
+            if (string.IsNullOrEmpty(provider)) return 0;
             string[] substrings = provider.Split("/");
             string useridstring = substrings.Last();
             UInt64 steamuserid = UInt64.Parse(useridstring);
@@ -83,18 +87,16 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
         public string GetUserSteamProvider(List<UserLoginInfo> logins)
         {
             UserLoginInfo steamlogin = logins.Where(s => s.ProviderDisplayName.Equals("Steam")).SingleOrDefault();
-            return steamlogin.LoginProvider;
+            return steamlogin?.ProviderKey;
         }
 
-        public async Task<UserSteamGames> CheckAppOwnership(int appid, UInt64 userid)
+        public async Task<UserSteamGames> GetUserSteamGames(UInt64 userid, int? appid)
         {
-            userid = 76561198000072715;
-            appid = 4580;
-            var apikey = _config["SteamApiKey"];
-
+            
+            
             using (var client = new HttpClient())
             {
-                var url = new Uri("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1?key="+ apikey + "&steamid="+userid+"&include_appinfo=false&include_played_free_games=false&appids_filter="+appid);
+                var url = new Uri(UserSteamGamesUrl(userid,appid));
                 var response = await client.GetAsync(url);
                 string json;
                 using (var content = response.Content)
@@ -104,6 +106,36 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
                 var result = JsonConvert.DeserializeObject<UserSteamGames>(json);
                 return result;
             }
+        }
+
+        public string UserSteamGamesUrl(UInt64 userid, int? appid)
+        {
+            var apikey = _config["SteamApiKey"];
+            var sb = new StringBuilder();
+            sb.Append("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1?key=");
+            sb.Append(apikey);
+            sb.Append("&steamid=");
+            sb.Append(userid);
+            sb.Append("&include_appinfo=0&include_played_free_games=1");
+            sb.Append("&appids_filter[0]=");
+            sb.Append(appid);
+
+            return sb.ToString();
+        }
+
+
+        public async Task<bool> CheckAppOwnershipAsync(int? userid, int? appid)
+        {
+            var logins = _userService.GetUserLoginsAsync(userid);
+
+            var provider = GetUserSteamProvider(logins.Result);
+            var steamid = GetSteamUserId(provider);
+            if (steamid == 0) return false;
+            var games = await GetUserSteamGames(steamid, appid);
+            var result = games.SteamGames.SteamAppPlaytimes.Any(s => s.AppId == appid) ? true : false;
+            return result;
+
+
         }
     }
 }

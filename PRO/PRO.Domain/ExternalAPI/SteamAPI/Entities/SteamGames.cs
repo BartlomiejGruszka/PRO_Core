@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace PRO.Domain.ExternalAPI.SteamAPI.Entities
 {
-    class SteamGames
+    public class SteamGames
     {
         [JsonProperty(PropertyName = "games")]
-        List<SteamAppPlaytimes> SteamAppPlaytimes { get; set; }
+        public List<SteamAppPlaytimes> SteamAppPlaytimes { get; set; }
 
         [JsonProperty(PropertyName = "game_count")]
         public int Count { get; set; }

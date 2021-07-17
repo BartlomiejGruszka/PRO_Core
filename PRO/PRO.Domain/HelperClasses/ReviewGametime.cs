@@ -12,5 +12,7 @@ namespace PRO.Domain.HelperClasses
         public Review Review { get; set; }
 
         public int? Playtime { get; set; }
+
+        public bool VerifiedOwner { get; set; }
     }
 }

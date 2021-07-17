@@ -66,6 +66,10 @@
         </div>
 
         <div class="mb8" style="float: right; text-align: right;">
+            @if (Model.VerifiedOwner == true)
+            {
+                <div style="margin-bottom:5px; color:green; font-weight:500;">Potwierdzony posiadacz</div>
+            }
             <div title="">@Model.Review.ReviewDate.ToShortDateString()</div>
             <div class="lightLink spaceit">
                 @{int? myInt = Model.Playtime == null ? 0 : Model.Playtime; }

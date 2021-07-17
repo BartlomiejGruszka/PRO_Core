@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PRO.Domain.ExternalAPI.SteamAPI.Entities
 {
-    class SteamAppPlaytimes
+    public class SteamAppPlaytimes
     {
         [JsonProperty(PropertyName = "appid")]
         public int AppId { get; set; }

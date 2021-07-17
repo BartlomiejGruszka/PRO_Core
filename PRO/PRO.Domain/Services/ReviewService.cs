@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using PRO.Domain.ExternalAPI.SteamAPI;
 using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
@@ -16,11 +17,13 @@ namespace PRO.Domain.Services
         private readonly IGameListRepository _gameListRepository;
         private readonly IGameRepository _gameRepository;
         private readonly IUserService _userService;
+        private readonly ISteamApi _steamApi;
         public ReviewService(
             IReviewRepository reviewRepository, 
             IGameListRepository gameListRepository, 
             IGameRepository gameRepository,
-            IUserService userService
+            IUserService userService,
+            ISteamApi steamApi
             )
         {
             _reviewRepository = reviewRepository;
@@ -28,6 +31,7 @@ namespace PRO.Domain.Services
             _gameRepository = gameRepository;
             _gameRepository = gameRepository;
             _userService = userService;
+            _steamApi = steamApi;
         }
 
         public void Add(Review review)
@@ -93,13 +97,13 @@ namespace PRO.Domain.Services
 
         public List<ReviewPlaytime> ReviewPlaytimeList(List<Review> reviews)
         {
-            var reviewGametimes = new List<ReviewPlaytime>();
+            var reviewPlaytimes = new List<ReviewPlaytime>();
             foreach (var rev in reviews)
             {
                 var playtime = _gameListRepository.GetGameListPlaytime(rev.GameId, rev.UserId);
-                reviewGametimes.Add(new ReviewPlaytime { Review = rev, Playtime = playtime });
+                reviewPlaytimes.Add(new ReviewPlaytime { Review = rev, Playtime = playtime });
             }
-            return reviewGametimes;
+            return reviewPlaytimes;
         }
 
         public List<ReviewPlaytime> UserPlaytimeList(int userid)
@@ -206,6 +210,22 @@ namespace PRO.Domain.Services
             return true;
         }
 
+        public PaginatedList<ReviewPlaytime> VerifyGameOwnership(PaginatedList<ReviewPlaytime> paginatedreviews)
+        {
+            foreach (var paginatedreview in paginatedreviews)
+            {
+                paginatedreview.VerifiedOwner = _steamApi.CheckAppOwnershipAsync(paginatedreview.Review.UserId, paginatedreview.Review.Game.SteamAppId).Result;
+            }
+            return paginatedreviews;
+        }
 
+        public PaginatedList<ReviewPlaytime> PrepareReviews(List<Review> reviews, int? page, int? items)
+        {
+            var reviewplaytimes = ReviewPlaytimeList(reviews).AsQueryable();
+            var paginatedreviews = PaginatedList<ReviewPlaytime>.Create(reviewplaytimes.AsNoTracking(), page, items);
+            var verifiedreviews = VerifyGameOwnership(paginatedreviews);
+            return verifiedreviews;
+
+        }
     }
 }

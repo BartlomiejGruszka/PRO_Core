@@ -30,5 +30,9 @@ namespace PRO.Domain.Interfaces.Services
         IQueryable<Review> FilterSearch(string query);
         IQueryable<Review> SortList(string sortOrder, IQueryable<Review> reviews);
         bool UserDelete(int id);
+        PaginatedList<ReviewPlaytime> VerifyGameOwnership(PaginatedList<ReviewPlaytime> paginatedreviews);
+
+        PaginatedList<ReviewPlaytime> PrepareReviews(List<Review> reviews, int? page, int? items);
+
     }
 }

@@ -63,7 +63,6 @@ namespace PRO.Controllers
 
         public ActionResult Index()
         {
-            var test = _steamApi.CheckAppOwnership(1, 1);
 
             var homeViewModel = new HomeViewModel
             {

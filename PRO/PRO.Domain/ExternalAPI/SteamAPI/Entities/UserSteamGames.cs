@@ -10,6 +10,6 @@ namespace PRO.Domain.ExternalAPI.SteamAPI.Entities
     public class UserSteamGames
     {
         [JsonProperty(PropertyName = "response")]
-        SteamGames SteamGames { get; set; }
+        public SteamGames SteamGames { get; set; }
     }
 }
