@@ -65,6 +65,7 @@ namespace PRO.Domain.Services
             return userId;
         }
 
+
         public Task<IdentityResult> Update(ApplicationUser editUser)
         {
             var user = Find(editUser.Id);
@@ -167,6 +168,14 @@ namespace PRO.Domain.Services
             if (!loggeduserid.HasValue || !userid.HasValue) return false;
             if (loggeduserid.Value != userid.Value) return false;
             return true;
+        }
+
+        public async Task<List<UserLoginInfo>> GetUserLoginsAsync(int? id)
+        {
+            var user = Find(id);
+            if (user == null) return null;
+            var CurrentLogins = await _userManager.GetLoginsAsync(user);
+            return CurrentLogins.ToList();
         }
     }
 }

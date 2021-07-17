@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<AssemblyName>PRO.Domain</AssemblyName>
+		<UserSecretsId>716123c7-7e5d-47bc-9ce2-6439e97cd606</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -10,6 +11,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.4" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="System.Drawing.Common" Version="5.0.2" />

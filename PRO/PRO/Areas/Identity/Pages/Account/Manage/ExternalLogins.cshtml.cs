@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PRO.Entities;
+using PRO.Domain.Interfaces.Services;
 
 
 namespace PRO.UI.Areas.Identity.Pages.Account.Manage
@@ -15,13 +16,15 @@ namespace PRO.UI.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        private readonly IUserService _userService;
         public ExternalLoginsModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
         }
 
         public IList<UserLoginInfo> CurrentLogins { get; set; }
@@ -33,6 +36,8 @@ namespace PRO.UI.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        public ApplicationUser AppUser { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -40,7 +45,7 @@ namespace PRO.UI.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID 'user.Id'.");
             }
-
+            AppUser = _userService.Find(user.Id);
             CurrentLogins = await _userManager.GetLoginsAsync(user);
             OtherLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
                 .Where(auth => CurrentLogins.All(ul => auth.Name != ul.LoginProvider))
@@ -56,7 +61,6 @@ namespace PRO.UI.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID 'user.Id'.");
             }
-
             var result = await _userManager.RemoveLoginAsync(user, loginProvider, providerKey);
             if (!result.Succeeded)
             {

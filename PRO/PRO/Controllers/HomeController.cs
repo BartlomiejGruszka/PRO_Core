@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Specialized;
 using System.Web;
+using PRO.Domain.ExternalAPI.SteamAPI;
 
 namespace PRO.Controllers
 {
@@ -20,13 +21,15 @@ namespace PRO.Controllers
         private readonly IReviewService _reviewService;
         private readonly IUserService _userService;
         private readonly ICompanyService _companyService;
+        private readonly ISteamApi _steamApi;
 
         public HomeController(
             IArticleService articleService,
             IGameService gameService,
             IReviewService reviewService,
             IUserService userService,
-            ICompanyService companyService
+            ICompanyService companyService,
+            ISteamApi steamApi
             )
         {
             _articleService = articleService;
@@ -34,6 +37,7 @@ namespace PRO.Controllers
             _reviewService = reviewService;
             _userService = userService;
             _companyService = companyService;
+            _steamApi = steamApi;
         }
 
         public IActionResult NewIndex()
@@ -59,6 +63,8 @@ namespace PRO.Controllers
 
         public ActionResult Index()
         {
+            var test = _steamApi.CheckAppOwnership(1, 1);
+
             var homeViewModel = new HomeViewModel
             {
                 RecentGames = _gameService.GetAllActive().OrderByDescending(s=>s.ReleaseDate).Take(5).ToList(),

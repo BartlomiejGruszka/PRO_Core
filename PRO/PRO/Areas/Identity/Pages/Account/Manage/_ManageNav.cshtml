@@ -1,16 +1,39 @@
-﻿@using PRO.Entities;
+﻿@model PRO.Entities.ApplicationUser
+@using Microsoft.AspNetCore.Identity
+@using PRO.Entities
+@using PRO.UI.Areas.Identity.Pages.Account.Manage
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
-    @if (hasExternalLogins)
-    {
-        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
-    }
-    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
-</ul>
+<div class="borderClass userprofile" style="border-width: 0 1px 0 0;" valign="top">
+    <div class="userprofilebuttons">
+
+        <div style="text-align: center;">
+            @if (Model.Image != null)
+            {<a>
+                    <img style="max-width:200px;width: expression(this.width > 200 ? 200: true);" class="lazyloaded" src="/images/@Model.Image.ImagePath">
+                </a>}
+
+        </div>
+        <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
+        </div>
+        <div class="underlined_h2">Dołączył: </div><p>@Model.RegisterDate.ToShortDateString()</p>
+
+        <div class="underlined_h2"></div>
+        <a style="margin: 20px; display:block;" href="/users/gamelists/@Model.Id" class="btn btn-secondary">Gry użytkownika</a>
+        <a style="margin: 20px; display:block;" href="/users/userlists/@Model.Id" class="btn btn-secondary">Listy użytkownika</a>
+
+        <a style="margin: 20px; display:block;" href="/users/@Model.Id/profile" class="btn btn-primary">Edytuj profil</a>
+        <a style="margin: 20px; display:block;" href="/users/@Model.Id/password" class="btn btn-primary">Zmień hasło</a>
+        @if (hasExternalLogins)
+        {
+            <a style="margin: 20px; display:block;" class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/ExternalLogins">Połączone konta</a>
+        }
+        
+
+        <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
+        </div>
+
+    </div>
+</div>
