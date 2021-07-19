@@ -36,8 +36,6 @@ namespace PRO.Entities
         [DisplayName("Obraz profilu")]
         public Image Image { get; set; }
 
-        public string SteamKey { get; set; }
-
         public ICollection<UserList> UserLists { get; set; }
         public ICollection<Review> Reviews { get; set; }
 
