@@ -16,6 +16,8 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
     {
         private readonly IConfiguration _config;
         private readonly IUserService _userService;
+        private static bool ConnectionErrorLock = false;
+
         public SteamApi(IConfiguration config, IUserService userService)
         {
             _config = config;
@@ -92,15 +94,20 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public async Task<UserSteamGames> GetUserSteamGames(UInt64 userid, int? appid)
         {
-            
-            
+
+
             using (var client = new HttpClient())
             {
-                var url = new Uri(UserSteamGamesUrl(userid,appid));
+                var url = new Uri(UserSteamGamesUrl(userid, appid));
                 var response = await client.GetAsync(url);
                 string json;
                 using (var content = response.Content)
                 {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        ConnectionErrorLock = true;
+                        return null;
+                    }
                     json = await content.ReadAsStringAsync();
                 }
                 var result = JsonConvert.DeserializeObject<UserSteamGames>(json);
@@ -126,12 +133,13 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public async Task<bool> CheckAppOwnershipAsync(int? userid, int? appid)
         {
+            if (_config["SteamApiKey"] == null || ConnectionErrorLock == true) return false;
             var logins = _userService.GetUserLoginsAsync(userid);
-
             var provider = GetUserSteamProvider(logins.Result);
             var steamid = GetSteamUserId(provider);
             if (steamid == 0) return false;
             var games = await GetUserSteamGames(steamid, appid);
+            if (games == null) return false;
             var result = games.SteamGames.SteamAppPlaytimes.Any(s => s.AppId == appid) ? true : false;
             return result;
 
