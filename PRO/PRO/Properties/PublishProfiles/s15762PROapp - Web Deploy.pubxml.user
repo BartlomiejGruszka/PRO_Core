@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAACc0xtzqluEOHH2Pn3AevNgAAAAACAAAAAAAQZgAAAAEAACAAAABF8qEIR1hQz+CWF3PzfXOMWXq4PXzOLuIRr3actiExoAAAAAAOgAAAAAIAACAAAADq6O8vzShhc1eSEhTSMVsrIwDvTtb6xsXQGMAH7ez/tIAAAADGtbWulNofkLDKBl2zw2OQyeGR4xclRoMS0lq+Np3zTRkC9SvsPk9kB//B8mgdbur0CqtqND5kj/W/MjL+hm/V4WfFRoFuZefiYRjtaEI3Gb46X+r2WTeaYiYVA1ozdguyFo8yQ97kCu1XFYZDF7G4fh5opanZF6KEtROsKhfJc0AAAAC9JzntvP2Mc402+7DvtrlxnmiOlXprBrMUjhWq/z2QLFCZbmC3fbdFdruiXCXKnUDu7a0J+kD6aYULhSap8dro</EncryptedPassword>
+    <History>True|2021-09-03T14:11:43.0374424Z;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=tcp:s15762prodb.database.windows.net,1433%3bInitial Catalog=s15762PRO%3bPersist Security Info=False%3bUser ID=s15762%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bAuthentication="Active Directory Integrated"</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="SteamApiKey">
+      <Value>F30B6D12B9F31134363DF3D7E88B6AF4</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
