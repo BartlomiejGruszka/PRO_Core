@@ -115,6 +115,7 @@ namespace PRO.Domain.Services
         public IQueryable<UserList> FilterByList(string currentFilter, IQueryable<UserList> userlists)
         {
             if (currentFilter == null) return userlists;
+            if (userlists == null) return null;
             if (currentFilter.Equals("all")) return userlists;
             return userlists.Where(s => s.ListType.Name.ToLower().Contains(currentFilter.ToLower()));
         }
@@ -157,7 +158,7 @@ namespace PRO.Domain.Services
             }
             else
             {
-                userlists = GetAll().Where(u => u.UserId == _userService.GetLoggedInUserId() && u.IsPublic == true).AsQueryable();
+                userlists = GetAll().Where(u => u.UserId == userid && u.IsPublic == true).AsQueryable();
             }
             return userlists;
 
