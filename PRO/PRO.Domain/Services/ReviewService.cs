@@ -214,6 +214,7 @@ namespace PRO.Domain.Services
         {
             foreach (var paginatedreview in paginatedreviews)
             {
+                if (paginatedreview.Review != null && paginatedreview.Review?.Game != null)
                 paginatedreview.VerifiedOwner = _steamApi.CheckAppOwnershipAsync(paginatedreview.Review.UserId, paginatedreview.Review.Game.SteamAppId).Result;
             }
             return paginatedreviews;

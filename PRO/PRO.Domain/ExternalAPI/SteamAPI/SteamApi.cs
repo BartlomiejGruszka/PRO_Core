@@ -133,7 +133,7 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public async Task<bool> CheckAppOwnershipAsync(int? userid, int? appid)
         {
-            if (_config["SteamApiKey"] == null || ConnectionErrorLock == true) return false;
+            if (_config["SteamApiKey"] == null || ConnectionErrorLock == true || appid == null) return false;
             var logins = _userService.GetUserLoginsAsync(userid);
             var provider = GetUserSteamProvider(logins.Result);
             var steamid = GetSteamUserId(provider);
