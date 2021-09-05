@@ -8,6 +8,7 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\wwwroot\images\220px-FIF
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\wwwroot\images\222211031234.PNG
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\wwwroot\images\267e0545deb5a71b1901bbb6c5d2e222-98210640990.jpg
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\wwwroot\images\305a13f648147e862ed5e86d83d51dd6-98215049818.jpg
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\wwwroot\images\360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws213742499.jpg
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\wwwroot\images\6034312b4499a2d8ae681e7ad74b5500-98214840748.jpg
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\wwwroot\images\Assassins-creed-valhalla-jaquette214926466.jpg
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\wwwroot\images\assassinscreed2214915719.jpg

@@ -67,8 +67,10 @@ namespace PRO.Entities
         [DisplayName("Identyfikator Steam")]
         public int? SteamAppId { get; set; }
 
+        [DisplayName("Języki")]
         public ICollection<Language> Languages { get; set; }
 
+        [DisplayName("Tagi")]
         public ICollection<Tag> Tags { get; set; }
 
         public ICollection<Award> Awards { get; set; }

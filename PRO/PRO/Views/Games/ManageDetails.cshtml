@@ -162,6 +162,19 @@
             { <p>Brak języków</p>}
 
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SteamAppId)
+        </dt>
+
+        <dd>
+            @if (Model.SteamAppId != null)
+            {
+                @Model.SteamAppId
+            }
+            else
+            { <p>Brak przypisanej aplikacji Steam</p>}
+
+        </dd>
 
     </dl>
 </div>

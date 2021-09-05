@@ -6,15 +6,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAACc0xtzqluEOHH2Pn3AevNgAAAAACAAAAAAAQZgAAAAEAACAAAABF8qEIR1hQz+CWF3PzfXOMWXq4PXzOLuIRr3actiExoAAAAAAOgAAAAAIAACAAAADq6O8vzShhc1eSEhTSMVsrIwDvTtb6xsXQGMAH7ez/tIAAAADGtbWulNofkLDKBl2zw2OQyeGR4xclRoMS0lq+Np3zTRkC9SvsPk9kB//B8mgdbur0CqtqND5kj/W/MjL+hm/V4WfFRoFuZefiYRjtaEI3Gb46X+r2WTeaYiYVA1ozdguyFo8yQ97kCu1XFYZDF7G4fh5opanZF6KEtROsKhfJc0AAAAC9JzntvP2Mc402+7DvtrlxnmiOlXprBrMUjhWq/z2QLFCZbmC3fbdFdruiXCXKnUDu7a0J+kD6aYULhSap8dro</EncryptedPassword>
-    <History>True|2021-09-03T14:11:43.0374424Z;</History>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnwJqW3ANKUyCkFgZwFo/WgAAAAACAAAAAAAQZgAAAAEAACAAAAAOeRnkNXYOiYtgsliJZnfBW6iJGiTMFUUXs+Q33kavMAAAAAAOgAAAAAIAACAAAAAnmKqzw9kgYFRC7myUolvo2hHoxzABoGAJR5MGQQNwVoAAAAC7L7thk9NTtLemD1R6rPxjLM9Fwk4USBFRihf3OQV3+4Tl7aH1AMpfyXg2DMl5cIr7B/spizKDfq9OWLVZVOKkFZHki+qz2Q0RMypZeYGFgG31M9BK0zS34IC+4PeZO3agQNHTmyiAFEb/LG98R2UE3BTMtwlQRW2Tg/+w6iv3BUAAAADe0mYem2K1jkLmXpJ60sTkiB4AFBSYV5twtxTOhqWbbdnXIgnX2xluq5iB01dGACsczB9NVM51kh3KEk3/IcqZ</EncryptedPassword>
+    <History>True|2021-09-05T18:22:14.0139727Z;</History>
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="DefaultConnection">
-      <Value>Server=tcp:s15762prodb.database.windows.net,1433%3bInitial Catalog=s15762PRO%3bPersist Security Info=False%3bUser ID=s15762%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bAuthentication="Active Directory Integrated"</Value>
+      <Value>Data Source=tcp:s15762prodb.database.windows.net,1433%3bInitial Catalog=s15762PRO%3bUser Id=s15762%40s15762prodb%3bPassword=%24portLine413</Value>
     </DestinationConnectionStrings>
     <DestinationConnectionStrings Include="SteamApiKey">
-      <Value>F30B6D12B9F31134363DF3D7E88B6AF4</Value>
+      <Value>BFEE9E2983C047451E6E15CC7020A01F</Value>
     </DestinationConnectionStrings>
   </ItemGroup>
 </Project>
