@@ -202,7 +202,6 @@ D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\Microsoft.Extensions.Opti
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\Microsoft.Extensions.Options.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\Microsoft.Extensions.Primitives.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\Microsoft.Extensions.WebEncoders.dll
-D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\Microsoft.Identity.Client.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\Microsoft.JSInterop.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\Microsoft.Net.Http.Headers.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\Microsoft.VisualBasic.Core.dll
@@ -323,7 +322,6 @@ D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\System.Security.Cryptogra
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\System.Security.Cryptography.Csp.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\System.Security.Cryptography.Encoding.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\System.Security.Cryptography.Primitives.dll
-D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\System.Security.Cryptography.ProtectedData.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\System.Security.Cryptography.X509Certificates.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\System.Security.Cryptography.Xml.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\refs\System.Security.dll
@@ -372,10 +370,6 @@ D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\PRO.UI.pdb
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\AngleSharp.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\AspNet.Security.OpenId.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\AspNet.Security.OpenId.Steam.dll
-D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Azure.Core.dll
-D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Azure.Extensions.AspNetCore.Configuration.Secrets.dll
-D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Azure.Identity.dll
-D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Azure.Security.KeyVault.Secrets.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Humanizer.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -404,7 +398,6 @@ D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.FileProvi
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Identity.Core.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Identity.Stores.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.Identity.Client.dll
-D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.Identity.Client.Extensions.Msal.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Protocols.dll

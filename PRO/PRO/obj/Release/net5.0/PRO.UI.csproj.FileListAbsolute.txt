@@ -287,10 +287,6 @@ D:\PRO_Core\PRO\PRO\bin\Release\net5.0\PRO.UI.Views.pdb
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\AngleSharp.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\AspNet.Security.OpenId.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\AspNet.Security.OpenId.Steam.dll
-D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Azure.Core.dll
-D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Azure.Extensions.AspNetCore.Configuration.Secrets.dll
-D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Azure.Identity.dll
-D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Azure.Security.KeyVault.Secrets.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Humanizer.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -320,7 +316,6 @@ D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.Extensions.FileProviders.Embedd
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.Extensions.Identity.Core.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.Extensions.Identity.Stores.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.Identity.Client.dll
-D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.IdentityModel.Logging.dll
 D:\PRO_Core\PRO\PRO\bin\Release\net5.0\Microsoft.IdentityModel.Protocols.dll

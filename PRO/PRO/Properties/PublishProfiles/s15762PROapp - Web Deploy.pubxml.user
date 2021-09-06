@@ -6,7 +6,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAACc0xtzqluEOHH2Pn3AevNgAAAAACAAAAAAAQZgAAAAEAACAAAACsAsFwK5F9Y7Xaf3HFO6mX/W4fm9HlgWCOG8t85/vwUAAAAAAOgAAAAAIAACAAAAADe6yPP3hg02HyzBDHrpZxUwhQ0Dvgysh0bqblObFVbYAAAAA9Frh0yKR3xyaey8TR93PYWK13bcLZbBK+ZYA2hTod34IkVueoqzSU1amAe7LViZvlPjQNirJzFlKIdWT4EE6h73LyhkMdra9/CEKxm1hoIgX8aCSvUYpuJx9Ei77HMv20rJYXYV8+yAJFddyPYB0o6T1KHnxlF6CJEF166VM0HkAAAAB+iwR32/MIVBs90sZGiofixGQD62H3QfizWsiam83tz0FhBt6ye2oDE7X8mw+hN+PWDLCuXrU02y8qeJSBbSTL</EncryptedPassword>
-    <History>True|2021-09-03T11:24:53.7269021Z;</History>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnwJqW3ANKUyCkFgZwFo/WgAAAAACAAAAAAAQZgAAAAEAACAAAAAOeRnkNXYOiYtgsliJZnfBW6iJGiTMFUUXs+Q33kavMAAAAAAOgAAAAAIAACAAAAAnmKqzw9kgYFRC7myUolvo2hHoxzABoGAJR5MGQQNwVoAAAAC7L7thk9NTtLemD1R6rPxjLM9Fwk4USBFRihf3OQV3+4Tl7aH1AMpfyXg2DMl5cIr7B/spizKDfq9OWLVZVOKkFZHki+qz2Q0RMypZeYGFgG31M9BK0zS34IC+4PeZO3agQNHTmyiAFEb/LG98R2UE3BTMtwlQRW2Tg/+w6iv3BUAAAADe0mYem2K1jkLmXpJ60sTkiB4AFBSYV5twtxTOhqWbbdnXIgnX2xluq5iB01dGACsczB9NVM51kh3KEk3/IcqZ</EncryptedPassword>
+    <History>True|2021-09-05T18:22:14.0139727Z;</History>
   </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:s15762prodb.database.windows.net,1433%3bInitial Catalog=s15762PRO%3bUser Id=s15762%40s15762prodb%3bPassword=%24portLine413</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="SteamApiKey">
+      <Value>BFEE9E2983C047451E6E15CC7020A01F</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
 </Project>

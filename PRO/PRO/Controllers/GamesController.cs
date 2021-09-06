@@ -260,7 +260,7 @@ namespace PRO.Controllers
         public ActionResult Ranking(int? page, int? items)
         {
             var games = _gameService.GetAllActive().OrderBy(s => s.Title);
-            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).OrderByDescending(s => s.Score).AsQueryable();
+            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).OrderByDescending(s => s.Score).ThenByDescending(c=>c.Game.ReleaseDate).AsQueryable();
             var paginatedgamesrankings = PaginatedList<GameScore>.Create(gamesRankings.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             paginatedgamesrankings.Pagination.Action = action;
