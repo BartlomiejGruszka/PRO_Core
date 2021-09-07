@@ -21,7 +21,6 @@ namespace PRO
 {
     public class Startup
     {
-        private string _steamApiKey = null;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,11 +31,9 @@ namespace PRO
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            _steamApiKey = Configuration["SteamApiKey"];
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration["s15762PROapp:DbConnectionString"]));
             services.AddIdentity<ApplicationUser, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole<int>>()
                 .AddErrorDescriber<CustomIdentityErrorDescriber>() //localized identity errors

@@ -636,3 +636,11 @@ D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\AngleSharp.dll
 D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\AspNet.Security.OpenId.dll
 D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\AspNet.Security.OpenId.Steam.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.csproj.AssemblyReference.cache
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\Azure.Core.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\Azure.Data.AppConfiguration.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\Azure.Identity.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\Microsoft.Azure.AppConfiguration.AspNetCore.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\Microsoft.Extensions.Configuration.AzureAppConfiguration.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\PRO_Core\PRO\PRO\bin\Debug\net5.0\System.Memory.Data.dll

@@ -117,7 +117,7 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public string UserSteamGamesUrl(UInt64 userid, int? appid)
         {
-            var apikey = _config["SteamApiKey"];
+            var apikey = _config["s15762PROapp:SteamApiKey"];
             var sb = new StringBuilder();
             sb.Append("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1?key=");
             sb.Append(apikey);
@@ -133,7 +133,7 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public async Task<bool> CheckAppOwnershipAsync(int? userid, int? appid)
         {
-            if (_config["SteamApiKey"] == null || ConnectionErrorLock == true || appid == null) return false;
+            if (_config["s15762PROapp:SteamApiKey"] == null || ConnectionErrorLock == true || appid == null) return false;
             var logins = _userService.GetUserLoginsAsync(userid);
             var provider = GetUserSteamProvider(logins.Result);
             var steamid = GetSteamUserId(provider);
