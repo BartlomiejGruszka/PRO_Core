@@ -323,6 +323,7 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\refs\System.Security.Cry
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\refs\System.Security.Cryptography.Csp.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\refs\System.Security.Cryptography.Encoding.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\refs\System.Security.Cryptography.Primitives.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\refs\System.Security.Cryptography.ProtectedData.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\refs\System.Security.Cryptography.X509Certificates.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\refs\System.Security.Cryptography.Xml.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\refs\System.Security.dll
@@ -371,6 +372,10 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\PRO.UI.pdb
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\AngleSharp.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\AspNet.Security.OpenId.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\AspNet.Security.OpenId.Steam.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Azure.Core.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Azure.Data.AppConfiguration.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Azure.Identity.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Azure.Security.KeyVault.Secrets.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Humanizer.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -382,6 +387,7 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.AspNetCore.Ide
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Azure.AppConfiguration.AspNetCore.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.CodeAnalysis.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.CodeAnalysis.CSharp.dll
@@ -393,12 +399,14 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.EntityFramewor
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.EntityFrameworkCore.Relational.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Extensions.Configuration.AzureAppConfiguration.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Extensions.DependencyModel.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Extensions.FileProviders.Embedded.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Extensions.Identity.Core.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Extensions.Identity.Stores.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Identity.Client.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.Identity.Client.Extensions.Msal.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Microsoft.IdentityModel.Protocols.dll
@@ -423,6 +431,7 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\System.Diagnostics.Diagn
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\System.Drawing.Common.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\System.IO.Pipelines.dll
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\System.Memory.Data.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\System.Runtime.Caching.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\win-x86\PubTmp\Out\Toolbelt.EntityFrameworkCore.AnnotationBasedModelBuilder.dll
