@@ -35,6 +35,9 @@ namespace PRO.Entities
         [Required, Range(1, 10), DisplayName("Grywalność")]
         public int GameplayScore { get; set; }
 
+        [DisplayName("Zweryfikowany posiadacz")]
+        public bool IsVerifiedOwner { get; set; }
+
         [Required]
         [IndexColumn("UniqueReview_IX", 1, IsUnique = true)]
         public int UserId { get; set; }

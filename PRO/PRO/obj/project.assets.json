@@ -6753,8 +6753,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Eilinn\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\bartl\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -6762,14 +6761,11 @@
       "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
       "projectName": "PRO.UI",
       "projectPath": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
-      "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\bartl\\.nuget\\packages\\",
       "outputPath": "D:\\PRO_Core\\PRO\\PRO\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Eilinn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bartl\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6777,7 +6773,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.emzi0767.com/api/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
@@ -6871,7 +6868,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

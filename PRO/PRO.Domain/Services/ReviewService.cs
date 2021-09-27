@@ -37,6 +37,8 @@ namespace PRO.Domain.Services
         public void Add(Review review)
         {
             review.ReviewDate = DateTime.Now;
+            var game = _gameRepository.Find(review.GameId);
+            review.IsVerifiedOwner = _steamApi.CheckAppOwnershipAsync(review.UserId, game.SteamAppId).Result;
             _reviewRepository.Add(review);
             _reviewRepository.Save();
         }
@@ -61,6 +63,8 @@ namespace PRO.Domain.Services
         public void Update(Review review)
         {
             review.EditDate = DateTime.Now;
+            var game = _gameRepository.Find(review.GameId);
+            review.IsVerifiedOwner = _steamApi.CheckAppOwnershipAsync(review.UserId, game.SteamAppId).Result;
             _reviewRepository.Update(review);
             _reviewRepository.Save();
         }
@@ -215,7 +219,9 @@ namespace PRO.Domain.Services
             foreach (var paginatedreview in paginatedreviews)
             {
                 if (paginatedreview.Review != null && paginatedreview.Review?.Game != null)
-                paginatedreview.VerifiedOwner = _steamApi.CheckAppOwnershipAsync(paginatedreview.Review.UserId, paginatedreview.Review.Game.SteamAppId).Result;
+                    // paginatedreview.VerifiedOwner = _steamApi.CheckAppOwnershipAsync(paginatedreview.Review.UserId, paginatedreview.Review.Game.SteamAppId).Result;
+                    paginatedreview.VerifiedOwner = paginatedreview.Review.IsVerifiedOwner;
+                           
             }
             return paginatedreviews;
         }
