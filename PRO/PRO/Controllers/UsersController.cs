@@ -416,7 +416,8 @@ namespace PRO.Controllers
             ViewData["ScoreSortParm"] = sortOrder == "score" ? "score_desc" : "score";
             ViewData["HoursSortParm"] = sortOrder == "hours" ? "hours_desc" : "hours";
 
-            if (!id.HasValue) id = _userService.GetLoggedInUserId();
+            var LoggedUserId = _userService.GetLoggedInUserId();
+            if (!id.HasValue) id = LoggedUserId;
             var user = _userService.Find(id);
             if (user == null || !id.HasValue) { return NotFound(); }
 
@@ -429,7 +430,7 @@ namespace PRO.Controllers
                 AppUser = user,
                 ListTypes = _listTypeService.GetAll().ToList(),
                 GameLists = PaginatedList<GameList>.Create(gamelists.AsNoTracking(), page, items),
-                LoggedUserId = user.Id
+                LoggedUserId = LoggedUserId
             };
 
             model.GameLists.Pagination.Action = "gamelists";
@@ -448,7 +449,8 @@ namespace PRO.Controllers
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CountSortParm"] = sortOrder == "count" ? "count_desc" : "count";
 
-            if (!id.HasValue) id = _userService.GetLoggedInUserId();
+            var LoggedUserId = _userService.GetLoggedInUserId();
+            if (!id.HasValue) id = LoggedUserId;
             var user = _userService.Find(id);
             if (user == null || !id.HasValue) { return NotFound(); }
 
@@ -460,7 +462,7 @@ namespace PRO.Controllers
                 AppUser = user,
                 ListTypes = _listTypeService.GetAll().ToList(),
                 UserLists = PaginatedList<UserList>.Create(userlists.AsNoTracking(), page, items),
-                LoggedUserId = user.Id
+                LoggedUserId = LoggedUserId
             };
 
             model.UserLists.Pagination.Action = "userlists";

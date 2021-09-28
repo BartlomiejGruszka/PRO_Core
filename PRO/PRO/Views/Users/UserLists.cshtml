@@ -15,10 +15,10 @@
             <div class="status-menu">
                 @{ var selectedlist = "all";
                     if (ViewData["CurrentFilter"] != null) { selectedlist = ViewData["CurrentFilter"].ToString(); } }
-                <a href="/users/userlists/@Model.LoggedUserId?currentFilter=all" class="status-button @(selectedlist.Equals("all") ? "on" : "")">Wszystkie listy</a>
+                <a href="/users/userlists/@Model.AppUser.Id?currentFilter=all" class="status-button @(selectedlist.Equals("all") ? "on" : "")">Wszystkie listy</a>
                 @{foreach (ListType list in Model.ListTypes)
                     {
-                        <a href="/users/userlists/@Model.LoggedUserId?currentFilter=@list.Name" class="status-button @(selectedlist.Equals(list.Name) ? "on" : "")">@list.Name</a>
+                        <a href="/users/userlists/@Model.AppUser.Id?currentFilter=@list.Name" class="status-button @(selectedlist.Equals(list.Name) ? "on" : "")">@list.Name</a>
                     }
                 }
             </div>
@@ -33,10 +33,11 @@
                         else
                         { <span>@selectedlist</span>}
                     </span>
-
+                    @if (!Model.LoggedUserId.HasValue && Model.LoggedUserId.Value != 0)
+                    {
                         <a  style="margin:10px;" href="/users/userlist" class="btn btn-secondary">
                             Dodaj
-                        </a>
+                        </a>}
 
                 </div>
 
