@@ -30,61 +30,68 @@
         </div>
     </div>
 </nav>
-<table class="table">
-    <tr>
-        <th><a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Użytkownik</a>
-            
-        </th>
-        <th><a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Imię</a>
-           
-        </th>
-        <th><a asp-action="Manage" asp-route-sortOrder="@ViewData["SurnameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwisko</a>
-            
-        </th>
-        <th>
-           Aktywny
-        </th>
-        <th><a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data dodania</a>
-            
-        </th>
+<div class="table-container">
+    <table class="table">
+        <tr class="tableheadercolor">
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Użytkownik</a>
 
-        <th>Opcje</th>
-    </tr>
+            </th>
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Imię</a>
 
-    @{ foreach (var item in Model)
-        {
-            <tr class="tablerow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
+            </th>
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["SurnameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwisko</a>
 
-                <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { id = item.UserId }) |
-                    @Html.ActionLink("Szczegóły", "Details", new { id = item.UserId }) |
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.UserId })
-                </td>
-            </tr>
+            </th>
+            <th>
+                Aktywny
+            </th>
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data dodania</a>
+
+            </th>
+
+            <th>Opcje</th>
+        </tr>
+
+        @{ foreach (var item in Model)
+            {
+                <tr class="tablerow">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.UserId }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.UserId }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.UserId })
+                    </td>
+                </tr>
+            }
         }
-    }
-</table>
-<div>
-    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
-</div><script>
-    function openButton2() {
-        var element = document.getElementById("navbarColor02");
-        element.classList.toggle("collapse");
-    }
+    </table>
+    </div>
+    <div>
+        <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
+    </div>
+    <script>
+        function openButton2() {
+            var element = document.getElementById("navbarColor02");
+            element.classList.toggle("collapse");
+        }
 
-</script>
+    </script>

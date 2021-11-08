@@ -1284,7 +1284,7 @@ pre {
         max-width: 75%;
     }
 
-   /**/ .col-md-10 {
+    /**/ .col-md-10 {
         -ms-flex: 0 0 83.333333%;
         flex: 0 0 83.333333%;
         max-width: 83.333333%;
@@ -1920,27 +1920,14 @@ pre {
     }
 }
 
-.table {
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    /*border-bottom: 1px solid #dee2e6;*/
 }
 
-    .table th,
-    .table td {
-        padding: 0.75rem;
-        vertical-align: top;
-        /*border-bottom: 1px solid #dee2e6;*/
-    }
 
-@media (max-width: 1200px) {
-    .table th, .table td {
-        padding: 0.75rem;
-        vertical-align: top;
-        /*border-bottom: 1px solid #dee2e6;*/
-        overflow-wrap: anywhere;
-    }
-}
 
 .table tr {
     border-bottom: 1px solid #dee2e6;
@@ -11529,7 +11516,7 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #ebebeb;
     border-style: solid;
     border-width: 0 1px 1px;
-   /* padding: 5px 10px 10px;*/
+    /* padding: 5px 10px 10px;*/
     position: relative;
 }
 
@@ -12436,6 +12423,57 @@ input, select, textarea {
     text-align: center;
 }
 
-.js-scrollfix-bottom-rel{
-    padding:10px;
+.js-scrollfix-bottom-rel {
+    padding: 10px;
+}
+
+@media (min-width: 1200px) {
+    .table {
+        /*overflow-x: scroll;*/
+        width: 100%;
+        /*display: block;*/
+        /*border: 1px solid red;*/
+        /*margin-top: 50px;*/
+        /*padding: 0.75rem;*/
+        vertical-align: top;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+    .table-container {
+       /*width: 1140px;*/ 
+    }
+}
+
+@media (min-width: 1000px) {
+    .table {
+        overflow-wrap: anywhere;
+        width: 100%;
+        /*display: block;*/
+        /*border: 1px solid red;*/
+        /*margin-top: 50px;*/
+        /*padding: 0.75rem;*/
+        vertical-align: top;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+  
+}
+
+.table {
+    width: 100%;
+    
+    /*display: block;*/
+    /*border: 1px solid red;*/
+    /*margin-top: 50px;*/
+    /*padding: 0.75rem;*/
+    vertical-align: top;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.tableheadercolor {
+    background-color: #e9ecef;
+}
+.table-container {
+    overflow: overlay;
 }

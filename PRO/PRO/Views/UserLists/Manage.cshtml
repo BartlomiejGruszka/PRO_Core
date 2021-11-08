@@ -34,64 +34,66 @@
         </div>
     </div>
 </nav>
-<table class="table">
-    <tr>
-        <th>
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Użytkownik</a>
+<div class="table-container">
+    <table class="table">
+        <tr class="tableheadercolor">
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Użytkownik</a>
 
-        </th>
-        <th>
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwa</a>
+            </th>
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwa</a>
 
-        </th>
-        <th>
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["TypeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Rodzaj listy</a>
-        </th>
+            </th>
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["TypeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Rodzaj listy</a>
+            </th>
 
-        <th>
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data utworzenia</a>
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data utworzenia</a>
 
-        </th>
+            </th>
 
-        <th>
-            Publiczna
-        </th>
-        <th></th>
-    </tr>
+            <th>
+                Publiczna
+            </th>
+            <th></th>
+        </tr>
 
-    @{ foreach (var item in Model)
-        {
-            <tr class="tablerow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ListType.Name)
-                </td>
+        @{ foreach (var item in Model)
+            {
+                <tr class="tablerow">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListType.Name)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsPublic)
-                </td>
-                <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
-                    @if (User.IsInRole("Admin"))
-                    {<text>|</text>
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                }
-                </td>
-            </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPublic)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
+                        @if (User.IsInRole("Admin"))
+                        {<text>|</text>
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                    }
+                    </td>
+                </tr>
+            }
         }
-    }
 
-</table>
+    </table>
+</div>
 <div>
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
 </div>

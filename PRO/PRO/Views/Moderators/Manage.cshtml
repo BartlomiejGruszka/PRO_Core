@@ -30,62 +30,65 @@
         </div>
     </div>
 </nav>
-<table class="table">
-    <tr>
-        <th>
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Użytkownik</a>
-        </th>
-        <th>
+<<div class="table-container">
+    <table class="table">
+        <tr class="tableheadercolor">
+            <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Użytkownik</a>
+            </th>
+            <th>
 
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data dodania</a>
-        </th>
-        <th>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data dodania</a>
+            </th>
+            <th>
 
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["LoginDateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data logowania</a>
-        </th>
-        <th>
-            Aktywny
-        </th>
-        <th></th>
-    </tr>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["LoginDateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data logowania</a>
+            </th>
+            <th>
+                Aktywny
+            </th>
+            <th></th>
+        </tr>
 
-    @{
-        foreach (var item in Model)
-        {
+        @{
+            foreach (var item in Model)
+            {
 
-            <tr class="tablerow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
-                <td>
-                    @if (!item.LastLoginDate.HasValue)
-                    {
-                        <text>Brak</text>
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => item.LastLoginDate.Value)
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { id = item.UserId }) |
-                    @Html.ActionLink("Szczegóły", "Details", new { id = item.UserId }) |
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.UserId })
-                </td>
-            </tr>
+                <tr class="tablerow">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @if (!item.LastLoginDate.HasValue)
+                        {
+                            <text>Brak</text>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.LastLoginDate.Value)
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.UserId }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.UserId }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.UserId })
+                    </td>
+                </tr>
+            }
+
         }
-
-    }
-</table>
+    </table>
+</div>
 <div>
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
-</div><script>
+</div>
+<script>
     function openButton2() {
         var element = document.getElementById("navbarColor02");
         element.classList.toggle("collapse");

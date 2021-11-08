@@ -74,7 +74,7 @@
                                             {
 
                                                 foreach (var game in Model.RecentlyUpdatedGames)
-                                                {<div class="statistics-updates di-b w100 mb8">
+                                                {<div class="statistics-updates di-b w100 mb8" style="margin-bottom:5px;">
                                                         @if (game.Item1.Game.Image != null)
                                                         {<a href="/games/@game.Item1.GameId" class="image fl-l di-ib mr8">
                                                                 <img style="max-width:60px;" class="lazyloaded" src="/images/@game.Item1.Game.Image.ImagePath">

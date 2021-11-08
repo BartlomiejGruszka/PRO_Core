@@ -30,110 +30,114 @@
         </div>
     </div>
 </nav>
-<table class="table">
-    <tr>
-        <th>
-            
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Tytuł</a>
-        </th>
-        <th>
-            
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["PlatformSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Platforma</a>
-        </th>
-        <th>
-            
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["StatusSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Status</a>
-        </th>
-        <th>
-           
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data wydania</a>
-        </th>
-        <th>
-            
-            <a asp-action="Manage" asp-route-sortOrder="@ViewData["GenreSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Gatunek</a>
-        </th>
-        <th>
-            Producent
-        </th>
-        <th>
-            Wydawca
-        </th>
-        <th>
-            Seria
-        </th>
-        <th>
-            Dostępna
-        </th>
-        <th></th>
-    </tr>
+<div class="table-container">
+    <table class="table">
+        <tr class="tableheadercolor">
+            <th>
 
-    @{foreach (var item in Model)
-        {
-            <tr class="tablerow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Platform.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status.Name)
-                </td>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Tytuł</a>
+            </th>
+            <th>
 
-                <td>
-                    @if (item.ReleaseDate != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["PlatformSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Platforma</a>
+            </th>
+            <th>
 
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["StatusSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Status</a>
+            </th>
+            <th>
+
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data wydania</a>
+            </th>
+            <th>
+
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["GenreSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Gatunek</a>
+            </th>
+            <th>
+                Producent
+            </th>
+            <th>
+                Wydawca
+            </th>
+            <th>
+                Seria
+            </th>
+            <th>
+                Dostępna
+            </th>
+            <th></th>
+        </tr>
+
+        @{foreach (var item in Model)
+            {
+                <tr class="tablerow">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Platform.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+
+                    <td>
+                        @if (item.ReleaseDate != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.ReleaseDate)
+
+                        }
+                        else
+                        { <p>Brak</p>}
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre.Name)
+                    </td>
+                    <td>
+                        @if (item.DeveloperCompany != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.DeveloperCompany.Name)
+
+                        }
+                        else
+                        { <p>Brak</p>}
+                    </td>
+
+                    <td>
+                        @if (item.PublisherCompany != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.PublisherCompany.Name)
+
+                        }
+                        else
+                        { <p>Brak</p>}
+                    </td>
+                    <td>
+                        @if (item.Series != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.Series.Name)
+
+                        }
+                        else
+                        { <p>Brak</p>}
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id }) @if (@User.IsInRole("Admin"))
+                        {<text>|</text>
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
                     }
-                    else
-                    { <p>Brak</p>}
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre.Name)
-                </td>
-                <td>
-                    @if (item.DeveloperCompany != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.DeveloperCompany.Name)
-
-                    }
-                    else
-                    { <p>Brak</p>}
-                </td>
-
-                <td>
-                    @if (item.PublisherCompany != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.PublisherCompany.Name)
-
-                    }
-                    else
-                    { <p>Brak</p>}
-                </td>
-                <td>
-                    @if (item.Series != null) { 
-                        @Html.DisplayFor(modelItem => item.Series.Name)
-
-                    }
-                    else
-                    { <p>Brak</p>}
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id }) @if (@User.IsInRole("Admin"))
-                    {<text>|</text>
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                }
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            }
         }
-    }
-</table>
+    </table>
+</div>
+
 <div>
     <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
 </div>
