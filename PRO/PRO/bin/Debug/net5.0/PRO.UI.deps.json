@@ -325,6 +325,11 @@
         "runtime": {
           "PRO.UI.dll": {}
         },
+        "resources": {
+          "pl/PRO.UI.resources.dll": {
+            "locale": "pl"
+          }
+        },
         "compile": {
           "PRO.UI.dll": {}
         }

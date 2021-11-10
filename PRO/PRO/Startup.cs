@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
 using PRO.Domain.Extensions;
 using PRO.Domain.ExternalAPI.SteamAPI;
 using PRO.Domain.Interfaces.Repositories;
@@ -16,6 +18,8 @@ using PRO.Entities;
 using PRO.Persistance.Data;
 using PRO.Persistance.Repositories;
 using System;
+using System.Globalization;
+using System.Reflection;
 
 namespace PRO
 {
@@ -40,6 +44,36 @@ namespace PRO
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
+
+            services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+            services.AddMvc(options =>
+            {
+                var F = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
+                var L = F.Create("ModelBindingMessages", "PRO.UI");
+                options.ModelBindingMessageProvider.SetValueIsInvalidAccessor((x) => L["The value '{0}' is invalid.", x]);
+                options.ModelBindingMessageProvider.SetValueMustBeANumberAccessor((x) => L["The field {0} must be a number.", x]);
+                options.ModelBindingMessageProvider.SetMissingBindRequiredValueAccessor((x) => L["A value for the '{0}' property was not provided.", x]);
+                options.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor((x, y) => L["The value '{0}' is not valid for {1}.", x, y]);
+                options.ModelBindingMessageProvider.SetMissingKeyOrValueAccessor(() => L["A value is required."]);
+                options.ModelBindingMessageProvider.SetUnknownValueIsInvalidAccessor((x) => L["The supplied value is invalid for {0}.", x]);
+                options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor((x) => L["Null value is invalid.", x]);
+            }).
+            AddViewLocalization(o => o.ResourcesPath = "Resources")
+            .AddDataAnnotationsLocalization(o => {
+                var factory = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
+                var localizer = factory.Create("DataAnnotationResource", "PRO.UI");
+                o.DataAnnotationLocalizerProvider = (t, f) => localizer;
+            })
+            ;
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("pl") };
+                options.DefaultRequestCulture = new RequestCulture("en", "en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
+
 
             services.AddAuthentication(options => { /* Authentication options */ })
            .AddSteam();
@@ -149,6 +183,14 @@ namespace PRO
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("pl") };
+            app.UseRequestLocalization(new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture(new CultureInfo("en")),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

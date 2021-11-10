@@ -11,6 +11,7 @@ using System;
 using System.Collections.Specialized;
 using System.Web;
 using PRO.Domain.ExternalAPI.SteamAPI;
+using Microsoft.AspNetCore.Localization;
 
 namespace PRO.Controllers
 {
@@ -49,7 +50,16 @@ namespace PRO.Controllers
             //  var list =  test.Result;
             return View();
         }
+        public IActionResult SetCulture(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
 
+            return LocalRedirect(returnUrl);
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -73,7 +83,11 @@ namespace PRO.Controllers
                 MostPopularGames = _gameService.GetGamesByPopularity().Take(3).ToList(),
                 BestRatedGames = _gameService.GetOrderedGamesRanking(3)
             };
-
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture("pl")),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
             return View(homeViewModel);
         }
 

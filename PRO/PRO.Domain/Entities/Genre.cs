@@ -10,7 +10,11 @@ namespace PRO.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required, MaxLength(50), DisplayName("Nazwa gatunku"), MinLength(3), IndexColumn("GenreName_IX", IsUnique = true)] //add custom is unique constraint UniqueGenreName
+        [Required(ErrorMessage = "Please enter value for {0}")]
+        [StringLength(
+        maximumLength: 50, MinimumLength = 3,
+        ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Nazwa gatunku"), IndexColumn("GenreName_IX", IsUnique = true)] //add custom is unique constraint UniqueGenreName
         public string Name { get; set; }
 
         public ICollection<Game> Games { get; set; }
