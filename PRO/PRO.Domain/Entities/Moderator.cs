@@ -13,7 +13,8 @@ namespace PRO.Entities
         [Key, ForeignKey("User")]
         public int UserId { get; set; } //user fk and pk
 
-        [Required, DisplayName("Data nadania roli")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Data nadania roli")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
@@ -23,7 +24,8 @@ namespace PRO.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? LastLoginDate { get; set; }
 
-        [Required, DisplayName("Wciąż aktywny")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Wciąż aktywny")]
         public bool IsActive { get; set; }
 
         public ICollection<Review> Reviews { get; set; }

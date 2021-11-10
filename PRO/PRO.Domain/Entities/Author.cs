@@ -13,18 +13,24 @@ namespace PRO.Entities
         [Key,ForeignKey("User"), DisplayName("Użytkownik")]
         public int UserId { get; set; } // user id fk and pk
 
-        [Required, MaxLength(50), DisplayName("Imię"), MinLength(3)]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Imię")]
         public string FirstName { get; set; }
 
-        [Required, MaxLength(50), DisplayName("Nazwisko"), MinLength(3)]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Nazwisko")]
         public string LastName { get; set; }
 
-        [Required, DisplayName("Data nadania roli")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Data nadania roli")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
 
-        [Required, DisplayName("Wciąż aktywny")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Wciąż aktywny")]
         public bool IsActive { get; set; }
 
         public ICollection<Article> Articles { get; set; }

@@ -13,6 +13,8 @@
 
     <div class="form-horizontal">
         <hr />
+        <br />
+        <h3 class="underlined_h2">Podstawowe informacje</h3>
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Game.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -25,32 +27,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Game.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Game.Description, new { @id = "mytextarea", @class = "form-control" })
+                @Html.TextAreaFor(model => model.Game.Description, new { required = "required", @id = "mytextarea", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Game.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Game.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Game.ReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Game.ReleaseDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Game.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Game.IsActive)
-                    @Html.ValidationMessageFor(model => model.Game.IsActive, "", new { @class = "text-danger" })
-                </div>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Game.PlatformId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="selectpicker show-tick" style="max-width:400px;" id="Game.PlatformId" name="Game.PlatformId" data-live-search="true" title="Wybierz platformę">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="Game.PlatformId" name="Game.PlatformId" data-live-search="true" title="Wybierz platformę" required>
                     @foreach (var item in Model.Platforms)
                     {
                         <option value="@item.Id">@item.Name</option>
@@ -64,7 +48,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Game.StatusId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="selectpicker show-tick" style="max-width:400px;" id="Game.StatusId" name="Game.StatusId" data-live-search="true" title="Wybierz status">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="Game.StatusId" name="Game.StatusId" data-live-search="true" title="Wybierz status" required>
                     @foreach (var item in Model.Statuses)
                     {
                         <option value="@item.Id">@item.Name</option>
@@ -77,14 +61,33 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Game.GenreId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="selectpicker show-tick" style="max-width:400px;" id="Game.GenreId" name="Game.GenreId" data-live-search="true" title="Wybierz gatunek">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="Game.GenreId" name="Game.GenreId" data-live-search="true" title="Wybierz gatunek" required>
                     @foreach (var item in Model.Genres)
                     {
                         <option value="@item.Id">@item.Name</option>
                     }
 
                 </select>
-            <div>@Html.ValidationMessageFor(model => model.Game.GenreId, "", new { @class = "text-danger" })</div>
+                <div>@Html.ValidationMessageFor(model => model.Game.GenreId, "", new { @class = "text-danger" })</div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Game.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Game.IsActive)
+                    @Html.ValidationMessageFor(model => model.Game.IsActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <h3 class="underlined_h2">Dodatkowe informacje</h3>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Game.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Game.ReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Game.ReleaseDate, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -97,7 +100,7 @@
                     }
 
                 </select>
-                @Html.ValidationMessageFor(model => model.Game.SeriesId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.Game.SeriesId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
         <div class="form-group">
@@ -118,7 +121,7 @@
                 <select class="selectpicker show-tick" style="max-width:400px;" id="ImageId" name="Game.ImageId" data-live-search="true" onchange="SetImageId()" title="Wybierz obraz">
                     <option value="0">Brak</option>
                 </select>
-                @Html.ValidationMessageFor(model => model.Game.ImageId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.Game.ImageId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
 
@@ -132,7 +135,7 @@
                     }
 
                 </select>
-                @Html.ValidationMessageFor(model => model.Game.PublisherId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.Game.PublisherId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
         <div class="form-group">
@@ -145,7 +148,7 @@
                     }
 
                 </select>
-                @Html.ValidationMessageFor(model => model.Game.DeveloperId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.Game.DeveloperId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
         <div class="form-group">
@@ -158,7 +161,7 @@
                     }
 
                 </select>
-                @Html.ValidationMessageFor(model => model.Game.Languages, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.Game.Languages, "", new { @class = "text-danger" })</div>
             </div>
         </div>
         <div class="form-group">
@@ -184,7 +187,7 @@
                     }
 
                 </select>
-                @Html.ValidationMessageFor(model => model.Game.SteamAppId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.Game.SteamAppId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
         <div class="form-group">
@@ -193,7 +196,7 @@
                 <select class="selectpicker show-tick" style="max-width:400px;" id="SteamAppId" name="Game.SteamAppId" data-live-search="true" title="Wybierz grę Steam">
                     <option value="0">Brak</option>
                 </select>
-                @Html.ValidationMessageFor(model => model.Game.SteamAppId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.Game.SteamAppId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
         <div class="form-group">
@@ -255,9 +258,9 @@
             type: "POST",
             success: function (data) {
                 if (data.length > 0) {
-                    var markup = "<option value=\"0\">Wybierz obrazek</option>";
+                    var markup = "<option value=\"0\">Wybierz grę</option>";
                 } else {
-                    var markup = "<option value=\"0\">Brak obrazków wybranego typu</option>";
+                    var markup = "<option value=\"0\">Brak gier</option>";
                 }
 
                 for (var x = 0; x < data.length; x++) {

@@ -10,13 +10,13 @@ namespace PRO.Entities
     public class GameTag
     {
 
-        [Required]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
         public int GameId { get; set; }
 
         public Game Game { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
         public int TagId { get; set; }
 
         public Tag Tag { get; set; }

@@ -10,24 +10,33 @@ namespace PRO.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Pole \"Tytuł\" jest wymagane."), MaxLength(100), DisplayName("Tytuł"),MinLength(10)]
+
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 100, MinimumLength = 10, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Tytuł")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Pole \"Skrót\" jest wymagane."), MaxLength(400), DisplayName("Skrót"), MinLength(100)]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 400, MinimumLength = 100, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Skrót")]
         public string Preview { get; set; }
 
-        [Required(ErrorMessage = "Pole \"Treść\" jest wymagane."), MaxLength(10000), DisplayName("Treść"),MinLength(100)]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 10000, MinimumLength = 100, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Treść")]
         public string Content { get; set; }
 
-        [Required(ErrorMessage = "Pole \"Data publikacji\" jest wymagane."), DisplayName("Data publikacji")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Data publikacji")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PublishedDate { get; set; }
 
-        [MaxLength(255), DisplayName("Link źródłowy")]
+        [StringLength(maximumLength: 255, MinimumLength = 0, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Link źródłowy")]
         public string SourceLink { get; set; }
 
-
-        [Required, DisplayName("Widoczny")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Widoczny")]
         public bool IsActive { get; set; }
 
         public int? ImageId { get; set; }
@@ -35,19 +44,21 @@ namespace PRO.Entities
         [ForeignKey("ImageId"), DisplayName("Obraz")]
         public Image Image { get; set; }
 
-        [Required(ErrorMessage = "Pole \"Gra\" jest wymagane."), DisplayName("Gra")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Gra")]
         public int GameId { get; set; }
 
         [ForeignKey("GameId"),DisplayName("Gra")]
         public Game Game { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
         public int UserId { get; set; }
 
         [ForeignKey("UserId")]
         public Author Author { get; set; }
 
-        [Required(ErrorMessage = "Pole \"Rodzaj artykułu\" jest wymagane."), DisplayName("Rodzaj artykułu")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Rodzaj artykułu")]
         public int ArticleTypeId { get; set; }
 
         [ForeignKey("ArticleTypeId"),DisplayName("Rodzaj artykułu")]

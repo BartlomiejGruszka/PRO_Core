@@ -12,19 +12,24 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 100, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
         [IndexColumn("PlatformName_IX", IsUnique = true)]
-        [Required, MaxLength(100), DisplayName("Nazwa platformy"), MinLength(3)] //add custom is unique constraint UniquePlatformName
+        [DisplayName("Nazwa platformy")] //add custom is unique constraint UniquePlatformName
         public string Name { get; set; }
 
-        [Required, DisplayName("Data premiery")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Data premiery")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ReleaseDate { get; set; }
 
-        [Required, DisplayName("Wciąż dostępna")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Wciąż dostępna")]
         public bool IsActive { get; set; }
 
-        [Required, DisplayName("Wydawca")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Wydawca")]
         public int CompanyId { get; set; }
 
         [ForeignKey("CompanyId"), DisplayName("Wydawca")]

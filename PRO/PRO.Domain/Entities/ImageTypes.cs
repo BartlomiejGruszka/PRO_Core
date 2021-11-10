@@ -13,13 +13,16 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
         [IndexColumn("ImageTypeName_IX", IsUnique = true)]
-        [Required, MaxLength(50), DisplayName("Rodzaj obrazu"), MinLength(3)] //add custom is unique constraint UniqueImageTypeName
+        [DisplayName("Rodzaj obrazu")] //add custom is unique constraint UniqueImageTypeName
         public string Name { get; set; }
 
         public ICollection<Image> Images { get; set; }
 
-        [Required, DisplayName("Typ")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Typ")]
         [EnumDataType(typeof(ImageTypes))]
         public ImageTypes Type { get; set; }
     }

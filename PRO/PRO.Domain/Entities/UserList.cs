@@ -12,26 +12,30 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required, DisplayName("Data utworzenia")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Data utworzenia")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
 
-        [Required, DisplayName("Nazwa"), MaxLength(50), MinLength(3)]
-        [IndexColumn("UniqueUserList_IX", 1, IsUnique = true)]//add custom is unique constraint UniqueUserListUserIdAndName
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Nazwa"), IndexColumn("UniqueUserList_IX", 1, IsUnique = true)]//add custom is unique constraint UniqueUserListUserIdAndName
         public string Name { get; set; }
 
         [Required, DisplayName("Dostępna publicznie")]
         public bool IsPublic { get; set; }
 
-        [Required, DisplayName("Właściciel listy")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Właściciel listy")]
         [IndexColumn("UniqueUserList_IX", 2, IsUnique = true)]
         public int UserId { get; set; }
 
         [ForeignKey("UserId"), DisplayName("Właściciel listy")]
         public ApplicationUser User { get; set; }
 
-        [Required, DisplayName("Rodzaj listy")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Rodzaj listy")]
         public int ListTypeId { get; set; }
 
         [ForeignKey("ListTypeId"), DisplayName("Rodzaj listy")]

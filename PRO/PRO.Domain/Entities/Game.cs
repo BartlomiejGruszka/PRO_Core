@@ -11,8 +11,10 @@ namespace PRO.Entities
 
         [Key]
         public int Id { get; set; }
-
-        [Required, MaxLength(100), DisplayName("Tytuł"), MinLength(3)]
+        
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Tytuł")]
         public string Title { get; set; }
 
         [MaxLength(1000), DisplayName("Opis")]
@@ -23,22 +25,26 @@ namespace PRO.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? ReleaseDate { get; set; }
 
-        [Required, DisplayName("Wciąż dostępna")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Wciąż dostępna")]
         public bool IsActive { get; set; }
 
-        [Required, DisplayName("Platforma")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [ DisplayName("Platforma")]
         public int PlatformId { get; set; }
 
         [ForeignKey("PlatformId"), DisplayName("Platforma")]
         public Platform Platform { get; set; }
 
-        [Required, DisplayName("Status")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [ DisplayName("Status")]
         public int StatusId { get; set; }
 
         [ForeignKey("StatusId"), DisplayName("Status")]
         public Status Status { get; set; }
 
-        [Required, DisplayName("Gatunek")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Gatunek")]
         public int GenreId { get; set; }
 
         [ForeignKey("GenreId"), DisplayName("Gatunek")]

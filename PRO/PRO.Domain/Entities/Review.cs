@@ -13,10 +13,13 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required, MaxLength(5000), DisplayName("Treść"), MinLength(10)]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 5000, MinimumLength = 10, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Treść")]
         public string Content { get; set; }
 
-        [Required, DisplayName("Data recenzji")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Data recenzji")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ReviewDate { get; set; }
@@ -26,26 +29,37 @@ namespace PRO.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EditDate { get; set; }
 
-        [Required, Range(1, 10), DisplayName("Grafika")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [Range(1, 10, ErrorMessage = "'{0}' value must be between {1} and {2}.")]
+        [DisplayName("Grafika")]
         public int GraphicsScore { get; set; }
-        [Required, Range(1, 10), DisplayName("Fabuła")]
+
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [Range(1, 10, ErrorMessage = "'{0}' value must be between {1} and {2}.")]
+        [DisplayName("Fabuła")]
         public int StoryScore { get; set; }
-        [Required, Range(1, 10), DisplayName("Muzyka")]
+
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [Range(1, 10, ErrorMessage = "'{0}' value must be between {1} and {2}.")]
+        [DisplayName("Muzyka")]
         public int MusicScore { get; set; }
-        [Required, Range(1, 10), DisplayName("Grywalność")]
+
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [Range(1, 10, ErrorMessage = "'{0}' value must be between {1} and {2}.")]
+        [DisplayName("Grywalność")]
         public int GameplayScore { get; set; }
 
         [DisplayName("Zweryfikowany posiadacz")]
         public bool IsVerifiedOwner { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
         [IndexColumn("UniqueReview_IX", 1, IsUnique = true)]
         public int UserId { get; set; }
 
         [ForeignKey("UserId"), DisplayName("Użytkownik")]
         public ApplicationUser User { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
         [IndexColumn("UniqueReview_IX", 2, IsUnique = true)]
         public int GameId { get; set; }
 
@@ -54,9 +68,9 @@ namespace PRO.Entities
 
         public int? ModeratorId { get; set; }
 
-        
+
         [ForeignKey("ModeratorId"), DisplayName("Moderator")]
-        public Moderator Moderator{ get; set; }
+        public Moderator Moderator { get; set; }
 
 
     }

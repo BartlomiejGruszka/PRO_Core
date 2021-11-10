@@ -13,8 +13,10 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 100, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
         [IndexColumn("ImageName_IX", IsUnique = true)]
-        [Required(ErrorMessage = "Nazwa obrazu jest wymagana."), MaxLength(100),DisplayName("Nazwa"),MinLength(3)] //add custom is unique constraint UniqueImageName
+        [DisplayName("Nazwa")] //add custom is unique constraint UniqueImageName
         public string Name { get; set; }
 
         [DisplayName("Ścieżka obrazu")]
@@ -24,7 +26,8 @@ namespace PRO.Entities
         [CustomValidation(typeof(Image), "ValidateFile")]//FileMustBeAnImage
         public IFormFile ImageFile { get; set; }
 
-        [Required(ErrorMessage = "Rodzaj obrazu jest wymagany."), DisplayName("Rodzaj obrazu")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Rodzaj obrazu")]
         public int ImageTypeId { get; set; }
 
         [ForeignKey("ImageTypeId")]

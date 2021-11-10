@@ -11,11 +11,14 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 100, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
         [IndexColumn("StatusName_IX", IsUnique = true)]
-        [Required, MaxLength(100), DisplayName("Status"), MinLength(3)] //add custom is unique constraintUniqueStatusName
+        [DisplayName("Status")] //add custom is unique constraintUniqueStatusName
         public string Name { get; set; }
 
-        [Required, DisplayName("Umożliwia recenzowanie")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Umożliwia recenzowanie")]
         public bool AllowReviews { get; set; }
 
         public ICollection<Game> Games { get; set; }

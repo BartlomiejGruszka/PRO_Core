@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ListType, null, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="selectpicker show-tick" style="max-width:400px;" id="ListTypeId" name="ListTypeId" data-live-search="true" title="Wybierz rodzaj listy">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="ListTypeId" name="ListTypeId" data-live-search="true" title="Wybierz rodzaj listy" required>
                     @foreach (var item in ViewBag.typesList)
                     {
                         if (Model.ListTypeId == item.Id)
@@ -42,7 +42,7 @@
                     }
 
                 </select>
-                @Html.ValidationMessageFor(model => model.ListTypeId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.ListTypeId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
 

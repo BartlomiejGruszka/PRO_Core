@@ -9,10 +9,10 @@ namespace PRO.Entities
 {
     public class GameLanguage
     {
-        [Required]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
         public int GameId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
         public int LanguageId { get; set; }
 
 

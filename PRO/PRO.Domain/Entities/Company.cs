@@ -11,14 +11,18 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required, MaxLength(100), DisplayName("Nazwa firmy"), MinLength(2), IndexColumn("CompanyName_IX", IsUnique = true)] //add custom is unique constraint UniqueCompanyName
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 100, MinimumLength = 2, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Nazwa firmy"), IndexColumn("CompanyName_IX", IsUnique = true)] //add custom is unique constraint UniqueCompanyName
         public string Name { get; set; }
 
-        [Required, DataType(DataType.Date), DisplayName("Data założenia")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DataType(DataType.Date), DisplayName("Data założenia")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
 
-        [Required, DisplayName("Wciąż aktywna")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Wciąż aktywna")]
         public bool IsActive { get; set; }
 
 

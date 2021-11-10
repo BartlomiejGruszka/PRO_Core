@@ -120,4 +120,10 @@
   <data name="'{0}' must be at least {2} and maximum {1} characters." xml:space="preserve">
     <value>Pole '{0}' musi mieć między {2} a {1} znaków.</value>
   </data>
+  <data name="'{0}' value must be between {1} and {2}." xml:space="preserve">
+    <value>Pole '{0}' musi mieć wartość od {1} do {2}.</value>
+  </data>
+  <data name="Please enter value for {0}." xml:space="preserve">
+    <value>Pole '{0}' nie może być puste.</value>
+  </data>
 </root>

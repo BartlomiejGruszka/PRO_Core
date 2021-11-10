@@ -12,14 +12,19 @@ namespace PRO.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required, IndexColumn("AwardName_IX", IsUnique = true), MaxLength(100), DisplayName("Nazwa nagrody"), MinLength(3)] //add custom is unique constraint UniqueAwardName
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 100, MinimumLength = 3, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [IndexColumn("AwardName_IX", IsUnique = true), DisplayName("Nazwa nagrody")] //add custom is unique constraint UniqueAwardName
         public string Name { get; set; }
-        [Required, DisplayName("Data nadania")]
+
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Data nadania")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime AwardDate { get; set; }
 
-        [Required, DisplayName("Nagrodzona gra")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Nagrodzona gra")]
         public int GameId { get; set; }
 
         [ForeignKey("GameId"),DisplayName("Nagrodzona gra")]

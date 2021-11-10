@@ -11,7 +11,7 @@ namespace PRO.Entities
     public class ApplicationUser : IdentityUser<int>
     {
 
-        [Required]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
         [DisplayName("Data rejestracji")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -21,13 +21,16 @@ namespace PRO.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EditDate { get; set; }
 
-        [MaxLength(5000), DisplayName("Opis")]
+        [StringLength(maximumLength: 5000, MinimumLength = 0, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
+        [DisplayName("Opis")]
         public string Description { get; set; } //nullable
 
-        [Required, DisplayName("Wciąż aktywny")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Wciąż aktywny")]
         public bool IsActive { get; set; }
 
-        [Required, DisplayName("Publiczny profil")]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [DisplayName("Publiczny profil")]
         public bool IsPublic { get; set; }
 
         [DisplayName("Obraz profilu")]
