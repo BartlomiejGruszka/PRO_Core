@@ -47,12 +47,12 @@ namespace PRO.UI.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required (ErrorMessage = "Pole {0} jest wymagane.")]
-            [EmailAddress(ErrorMessage = "{0} jest nieprawidłowy.")]
+            [Required (ErrorMessage = "Please enter value for {0}.")]
+            [EmailAddress(ErrorMessage = "{0} is not valid.")]
 
             public string Email { get; set; }
 
-            [Required (ErrorMessage = "Pole {0} jest wymagane.") ]
+            [Required (ErrorMessage = "Please enter value for {0}.") ]
             [DataType(DataType.Password)]
             [Display(Name = "Hasło")]
             public string Password { get; set; }

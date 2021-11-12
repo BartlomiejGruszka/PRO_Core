@@ -33,7 +33,7 @@ namespace PRO.UI.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Please enter value for {0}.")]
             [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Text)]
             [Display(Name = "Authenticator code")]

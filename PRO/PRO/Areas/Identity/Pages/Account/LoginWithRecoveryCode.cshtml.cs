@@ -32,7 +32,7 @@ namespace PRO.UI.Areas.Identity.Pages.Account
         public class InputModel
         {
             [BindProperty]
-            [Required]
+            [Required(ErrorMessage = "Please enter value for {0}.")]
             [DataType(DataType.Text)]
             [Display(Name = "Recovery Code")]
             public string RecoveryCode { get; set; }

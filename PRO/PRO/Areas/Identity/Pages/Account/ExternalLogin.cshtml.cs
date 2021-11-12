@@ -49,7 +49,7 @@ namespace PRO.UI.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Please enter value for {0}.")]
             [EmailAddress]
             public string Email { get; set; }
         }

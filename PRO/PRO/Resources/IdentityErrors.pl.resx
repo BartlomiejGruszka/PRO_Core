@@ -117,25 +117,84 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="'{0}' must be at least {2} and maximum {1} characters." xml:space="preserve">
-    <value>Pole '{0}' musi mieć między {2} a {1} znaków.</value>
+  <data name="A user with this login already exists." xml:space="preserve">
+    <value>Ten login jest już zajęty.</value>
+    <comment>LoginAlreadyAssociated</comment>
   </data>
-  <data name="'{0}' value must be between {1} and {2}." xml:space="preserve">
-    <value>Pole '{0}' musi mieć wartość od {1} do {2}.</value>
+  <data name="An unknown failure has occurred." xml:space="preserve">
+    <value>Wystąpił nieznany błąd.</value>
+    <comment>DefaultError</comment>
   </data>
-  <data name="Passwords are not identical." xml:space="preserve">
-    <value>Hasła nie są takie same.</value>
+  <data name="Email {0} is already taken." xml:space="preserve">
+    <value>Email '{0}' jest już zajęty.</value>
+    <comment>DuplicateEmail</comment>
   </data>
-  <data name="Please enter value for {0}." xml:space="preserve">
-    <value>Pole '{0}' nie może być puste.</value>
+  <data name="Email {0} is invalid." xml:space="preserve">
+    <value>Email '{0}' jest nieprawidłowy.</value>
+    <comment>InvalidEmail</comment>
   </data>
-  <data name="The password and confirmation password do not match." xml:space="preserve">
-    <value>Hasła nie są takie same.</value>
+  <data name="Incorrect password." xml:space="preserve">
+    <value>Nieprawidłowe hasło.</value>
+    <comment>PasswordMismatch</comment>
   </data>
-  <data name="The {0} must be at least {2} and at max {1} characters long.&quot;" xml:space="preserve">
-    <value>Pole '{0}' musi mieć między {2} a {1} znaków.</value>
+  <data name="Invalid token." xml:space="preserve">
+    <value>Nieprawidłowy token.</value>
+    <comment>InvalidToken</comment>
   </data>
-  <data name="{0} is not valid." xml:space="preserve">
-    <value>Adres {0} jest nieprawidłowy.</value>
+  <data name="Lockout is not enabled for this user." xml:space="preserve">
+    <value>Blokada użytkownika nie jest włączona.</value>
+    <comment>UserLockoutNotEnabled</comment>
+  </data>
+  <data name="Optimistic concurrency failure, object has been modified.&quot;" xml:space="preserve">
+    <value>Obiekt został zmodyfikowany przez innego użytkownika.</value>
+    <comment>ConcurrencyFailure</comment>
+  </data>
+  <data name="Passwords must be at least {0} characters." xml:space="preserve">
+    <value>Hasło musi mieć co najmniej {0} znaków.</value>
+    <comment>PasswordTooShort</comment>
+  </data>
+  <data name="Passwords must have at least one digit ('0'-'9')." xml:space="preserve">
+    <value>Hasło musi zawierać co najmniej jedną cyfrę ('0'-'9').</value>
+    <comment>PasswordRequiresDigit</comment>
+  </data>
+  <data name="Passwords must have at least one lowercase ('a'-'z')." xml:space="preserve">
+    <value>Hasło musi zawierać co najmniej jedną małą literę ('a'-'z').</value>
+    <comment>PasswordRequiresLower</comment>
+  </data>
+  <data name="Passwords must have at least one non alphanumeric character." xml:space="preserve">
+    <value>Hasło musi zawierać przynajmniej jeden znak specjalny.</value>
+    <comment>PasswordRequiresNonAlphanumeric</comment>
+  </data>
+  <data name="Passwords must have at least one uppercase ('A'-'Z')." xml:space="preserve">
+    <value>Hasło musi zawierać co najmniej jedną wielką literę ('A'-'Z').</value>
+    <comment>PasswordRequiresUpper</comment>
+  </data>
+  <data name="Role name {0} is already taken." xml:space="preserve">
+    <value>Nazwa roli '{0}' jest już zajęta.</value>
+    <comment>DuplicateRoleName</comment>
+  </data>
+  <data name="Role name {0} is invalid." xml:space="preserve">
+    <value>Nazwa roli '{0}' jest nieprawidłoa.</value>
+    <comment>InvalidRoleName</comment>
+  </data>
+  <data name="User already has a password set." xml:space="preserve">
+    <value>Użytkownik posiada już hasło.</value>
+    <comment>UserAlreadyHasPassword</comment>
+  </data>
+  <data name="User already in role {0}." xml:space="preserve">
+    <value>Użytkownik posiada już rolę '{0}'.</value>
+    <comment>UserAlreadyInRole</comment>
+  </data>
+  <data name="User is not in role {0}." xml:space="preserve">
+    <value>Użytkownik nie posiada roli '{0}'.</value>
+    <comment>UserNotInRole</comment>
+  </data>
+  <data name="User Name {0} is already taken." xml:space="preserve">
+    <value>"Nazwa użytkownika '{0}' jest już zajęta.</value>
+    <comment>DuplicateUserName</comment>
+  </data>
+  <data name="User name {0} is invalid, can only contain letters or digits." xml:space="preserve">
+    <value>Nazwa użytkownika '{0}' jest nieprawidłowa. Może zawierać tylko litery i cyfry.</value>
+    <comment>InvalidUserName</comment>
   </data>
 </root>

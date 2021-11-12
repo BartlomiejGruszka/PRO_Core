@@ -30,7 +30,7 @@ namespace PRO.UI.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Please enter value for {0}.")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
         }

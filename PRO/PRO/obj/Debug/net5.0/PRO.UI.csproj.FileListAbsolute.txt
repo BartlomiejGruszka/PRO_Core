@@ -649,3 +649,4 @@ D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.Resources.ModelBindingMessages.pl.re
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.csproj.GenerateResource.cache
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\pl\PRO.UI.resources.dll
 D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.Resources.DataAnnotationResource.pl.resources
+D:\PRO_Core\PRO\PRO\obj\Debug\net5.0\PRO.UI.Resources.IdentityErrors.pl.resources

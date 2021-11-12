@@ -12,15 +12,15 @@ namespace PRO.UI.ViewModels
 
         public ApplicationUser AppUser { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaków.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Please enter value for {0}.")]
+        [StringLength(maximumLength: 100, MinimumLength = 6, ErrorMessage = "'{0}' must be at least {2} and maximum {1} characters.")]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Powtórz hasło")]
-        [Compare("Password", ErrorMessage = "Hasła nie są takie same.")]
+        [Compare("Password", ErrorMessage = "Passwords are not identical.")]
         public string ConfirmPassword { get; set; }
 
         public IEnumerable<ImageType> ImageTypes { get; set; }

@@ -44,7 +44,7 @@ namespace PRO.UI.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Please enter value for {0}.")]
             [EmailAddress]
             [Display(Name = "New email")]
             public string NewEmail { get; set; }
