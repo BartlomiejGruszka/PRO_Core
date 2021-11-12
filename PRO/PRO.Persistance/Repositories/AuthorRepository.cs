@@ -23,7 +23,7 @@ namespace PRO.Persistance.Repositories
                .ToList();
             return users;
         }
-        public Author Find(int id)
+        public new Author Find(int? id)
         {
             return _dbContext.Authors.Include(i=>i.User).SingleOrDefault(u => u.UserId == id);
         }

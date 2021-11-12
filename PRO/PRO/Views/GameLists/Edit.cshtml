@@ -18,22 +18,6 @@
         @Html.HiddenFor(model => model.AddedDate)
         @Html.HiddenFor(model => model.UserListId)
         <div class="form-group">
-            @Html.LabelFor(model => model.HoursPlayed, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HoursPlayed, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HoursPlayed, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PersonalScore, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PersonalScore, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PersonalScore, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.UserList.UserId, "Użytkownik", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.UserList.UserId, new List<SelectListItem> { }, Model.UserList.User.UserName, new { @class = "form-control", @disabled = "disabled" })
@@ -42,11 +26,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserListId, "Lista użytkownika", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="selectpicker show-tick" style="max-width:400px;" id="UserListId" name="UserListId" data-live-search="true" onchange="SetListId()" title="Wybierz listę">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="UserListId" name="UserListId" data-live-search="true" onchange="SetListId()" title="Wybierz listę" required>
                     @foreach (var item in ViewBag.userLists)
                     {
 
-                        if (Model.GameId == item.Id)
+                        if (Model.UserListId == item.Id)
                         {
                             <option selected value="@item.Id">@item.Name</option>
                         }
@@ -56,7 +40,7 @@
                         }
                     }
                 </select>
-                @Html.ValidationMessageFor(model => model.UserListId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.UserListId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
         <div class="form-group">
@@ -77,9 +61,28 @@
                     }
 
                 </select>
-                @Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })
+                <div>@Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })</div>
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoursPlayed, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HoursPlayed, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoursPlayed, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonalScore, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonalScore, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PersonalScore, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

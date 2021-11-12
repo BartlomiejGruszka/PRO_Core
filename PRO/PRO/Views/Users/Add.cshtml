@@ -5,29 +5,35 @@
 
 
 <h2>Dodaj użytkownika</h2>
+<hr />
 
 <div class="">
     @using (Html.BeginForm("Add", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <h3 class="underlined_h2">Podstawowe informacje</h3>
+        <br />
         <div class="form-group">
             @Html.LabelFor(m => m.AppUser.Email, new { @class = "col-md-2 control-label" })
             <div class="col-md-12">
                 @Html.TextBoxFor(m => m.AppUser.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AppUser.Email, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.AppUser.UserName, "Nazwa użytkownika", new { @class = "col-md-2 control-label" })
             <div class="col-md-12">
                 @Html.TextBoxFor(m => m.AppUser.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AppUser.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
             <div class="col-md-12">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -44,12 +50,25 @@
             </div>
         </div>
         <div class="form-group">
+            @Html.LabelFor(model => model.AppUser.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.AppUser.IsActive)
+                    @Html.ValidationMessageFor(model => model.AppUser.IsActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <h3 class="underlined_h2">Dodatkowe informacje</h3>
+        <br />
+        <div class="form-group">
             @Html.LabelFor(model => model.AppUser.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextAreaFor(model => model.AppUser.Description, new { @id = "mytextarea", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AppUser.Description, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.ImageTypes, "Rodzaj obrazka", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -69,15 +88,6 @@
                     <option value="0">Brak</option>
                 </select>
                 @Html.ValidationMessageFor(model => model.AppUser.ImageId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.AppUser.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.AppUser.IsActive)
-                    @Html.ValidationMessageFor(model => model.AppUser.IsActive, "", new { @class = "text-danger" })
-                </div>
             </div>
         </div>
         <div class="form-group">

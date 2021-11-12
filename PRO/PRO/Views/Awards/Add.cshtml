@@ -25,14 +25,14 @@
     <div class="form-group">
         @Html.LabelFor(model => model.GameId, "Gra", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker show-tick" style="max-width:400px;" id="GameId" name="GameId" data-live-search="true" title="Wybierz nagrodzoną grę">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="GameId" name="GameId" data-live-search="true" title="Wybierz nagrodzoną grę" required>
                 @foreach (var item in ViewBag.Games)
                 {
                     <option value="@item.Id">@item.Title</option>
                 }
 
             </select>
-            @Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })
+            <div>@Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })</div>
         </div>
     </div>
     <div class="form-group">

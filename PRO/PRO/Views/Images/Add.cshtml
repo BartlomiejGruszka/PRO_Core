@@ -33,14 +33,14 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ImageTypeId, "Rodzaj obrazu", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="selectpicker show-tick" style="max-width:400px;" id="ImageTypeId" name="ImageTypeId" data-live-search="true" title="Wybierz rodzaj obrazu">
+            <select class="selectpicker show-tick" style="max-width:400px;" id="ImageTypeId" name="ImageTypeId" data-live-search="true" title="Wybierz rodzaj obrazu" required>
                 @foreach (var item in ViewBag.ImageTypes)
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
 
             </select>
-            @Html.ValidationMessageFor(model => model.ImageTypeId, "", new { @class = "text-danger" })
+            <div>@Html.ValidationMessageFor(model => model.ImageTypeId, "", new { @class = "text-danger" })</div>
         </div>
     </div>
     <div class="form-group">

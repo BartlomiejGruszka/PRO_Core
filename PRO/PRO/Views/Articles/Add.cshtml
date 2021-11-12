@@ -15,6 +15,21 @@
 
         <hr />
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <br />
+        <h3 class="underlined_h2">Podstawowe informacje</h3>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Article.GameId, "Gra", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="Article.GameId" name="Article.GameId" data-live-search="true" title="Wybierz grę" required>
+                    @foreach (var item in Model.Games)
+                    {
+                        <option value="@item.Id">@item.Title</option>
+                    }
+
+                </select>
+                <div>@Html.ValidationMessageFor(model => model.Article.GameId, "", new { @class = "text-danger" })</div>
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Article.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -36,7 +51,23 @@
                 @Html.ValidationMessageFor(model => model.Article.Content, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Article.ArticleTypeId, "Rodzaj artykułu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="selectpicker show-tick" style="max-width:400px;" id="Article.ArticleTypeId" name="Article.ArticleTypeId" data-live-search="true" title="Wybierz rodzaj artykułu" required>
+                    @foreach (var item in Model.ArticleTypes)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
 
+                </select>
+                <div>@Html.ValidationMessageFor(model => model.Article.ArticleTypeId, "", new { @class = "text-danger" })</div>
+            </div>
+        </div>
+
+        <br />
+        <h3 class="underlined_h2">Dodatkowe informacje</h3>
+        <br />
         <div class="form-group">
             @Html.LabelFor(model => model.Article.SourceLink, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -45,18 +76,9 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Article.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Article.IsActive)
-                    @Html.ValidationMessageFor(model => model.Article.IsActive, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
             @Html.LabelFor(model => model.ImageTypes, "Rodzaj obrazka", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="selectpicker show-tick" style="max-width:400px;" id="SelectedImageTypeId" name="SelectedImageTypeId" data-live-search="true" onchange="javascript:GetImagesByType(this.value);" title="Wybierz rodzaj obrazka" >
+                <select class="selectpicker show-tick" style="max-width:400px;" id="SelectedImageTypeId" name="SelectedImageTypeId" data-live-search="true" onchange="javascript:GetImagesByType(this.value);" title="Wybierz rodzaj obrazka">
                     @foreach (var item in Model.ImageTypes)
                     {
                         <option value="@item.Id">@item.Name</option>
@@ -74,31 +96,15 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Article.GameId, "Gra", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Article.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="selectpicker show-tick" style="max-width:400px;" id="Article.GameId" name="Article.GameId" data-live-search="true" title="Wybierz grę">
-                    @foreach (var item in Model.Games)
-                    {
-                        <option value="@item.Id">@item.Title</option>
-                    }
-
-                </select>
-                @Html.ValidationMessageFor(model => model.Article.GameId, "", new { @class = "text-danger" })
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Article.IsActive)
+                    @Html.ValidationMessageFor(model => model.Article.IsActive, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Article.ArticleTypeId, "Rodzaj artykułu", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <select class="selectpicker show-tick" style="max-width:400px;" id="Article.ArticleTypeId" name="Article.ArticleTypeId" data-live-search="true" title="Wybierz rodzaj artykułu">
-                    @foreach (var item in Model.ArticleTypes)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
 
-                </select>
-                @Html.ValidationMessageFor(model => model.Article.ArticleTypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Dodaj" class="btn btn-primary" />
