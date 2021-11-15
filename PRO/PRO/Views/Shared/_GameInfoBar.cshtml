@@ -4,10 +4,10 @@
 <td class="borderClass" width="225" style="border-width: 0 1px 0 0;" valign="top">
     <div style="width: 225px">
 
-        <div style="text-align: center;">
+        <div style="text-align: center; margin:20px;">
             @if (Model.Game.Image != null)
             {<a>
-                    <img style="max-width:200px;width: expression(this.width > 200 ? 200: true);" class="lazyloaded" src="/images/@Model.Game.Image.ImagePath">
+                    <img style="max-width:200px;" class="lazyloaded" src="/images/@Model.Game.Image.ImagePath">
                 </a>}
 
         </div>

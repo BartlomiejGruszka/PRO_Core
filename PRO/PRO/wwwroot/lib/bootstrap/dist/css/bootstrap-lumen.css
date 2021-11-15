@@ -12477,3 +12477,6 @@ input, select, textarea {
 .table-container {
     overflow: overlay;
 }
+.tablerow {
+    border-bottom: #ededed 1px solid;
+}
