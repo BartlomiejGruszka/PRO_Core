@@ -27,26 +27,15 @@ namespace PRO.Controllers
         }
 
         [Route("languages/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var languages = _languageService.FilterSearch(query);
+            var languages = _languageService.FilterSearch(currentFilter);
             languages = _languageService.SortList(sortOrder, languages);
-
             var result = PaginatedList<Language>.Create(languages.AsNoTracking(), page, items);
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
-            
+            result.Pagination.Configure(
+                this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
+
             return View(result);
 
         }
@@ -87,7 +76,7 @@ namespace PRO.Controllers
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);
-                
+
             }
 
             return View(language);
@@ -110,7 +99,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("languages/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Language language)
+        public ActionResult Edit(Language language)
         {
             if (ModelState.IsValid)
             {

@@ -20,24 +20,14 @@ namespace PRO.Controllers
 
         // GET: Tags
         [Route("tags/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
-        {
-            ViewData["CurrentSort"] = sortOrder;
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
+        {          
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var tags = _tagService.FilterSearch(query);
+            var tags = _tagService.FilterSearch(currentFilter);
             tags = _tagService.SortList(sortOrder, tags);
             var result = PaginatedList<Tag>.Create(tags.AsNoTracking(), page, items);
 
-            result.Pagination.Action = "manage";
+            result.Pagination.Configure("manage", currentFilter, sortOrder);
             return View(result);
         }
 
@@ -64,7 +54,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("tags/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add( Tag tag)
+        public ActionResult Add(Tag tag)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +87,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("tags/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Tag tag)
+        public ActionResult Edit(Tag tag)
         {
             if (ModelState.IsValid)
             {

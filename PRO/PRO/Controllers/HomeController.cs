@@ -40,16 +40,6 @@ namespace PRO.Controllers
             _companyService = companyService;
             _steamApi = steamApi;
         }
-
-        public IActionResult NewIndex()
-        {
-
-            var test = _gameService.GetAll();
-            var userId = User.GetLoggedInUserId<int>(); // Specify the type of your UserId;
-            var userName = User.GetLoggedInUserName();
-            //  var list =  test.Result;
-            return View();
-        }
         public IActionResult SetCulture(string culture, string returnUrl)
         {
             Response.Cookies.Append(
@@ -59,10 +49,6 @@ namespace PRO.Controllers
             );
 
             return LocalRedirect(returnUrl);
-        }
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -76,7 +62,7 @@ namespace PRO.Controllers
 
             var homeViewModel = new HomeViewModel
             {
-                RecentGames = _gameService.GetAllActive().OrderByDescending(s=>s.ReleaseDate).Take(5).ToList(),
+                RecentGames = _gameService.GetAllActive().OrderByDescending(s => s.ReleaseDate).Take(5).ToList(),
                 RecentReviews = _reviewService.GetRecentReviews(),
                 RecentArticles = _articleService.GetAllActive().OrderByDescending(s => s.PublishedDate).Take(5).ToList(),
                 ComingGames = _gameService.GetComingGames(),
@@ -99,9 +85,9 @@ namespace PRO.Controllers
             switch (type)
             {
                 case "games":
-                    return RedirectToAction("Search", "Games", new { query = searchString });
+                    return RedirectToAction("Search", "Games", new { currentFilter = searchString });
                 case "articles":
-                    return RedirectToAction("Search", "Articles", new { query = searchString });
+                    return RedirectToAction("Search", "Articles", new { currentFilter = searchString });
                 case "users":
                     //redirect to filtered list view of users
                     return RedirectToAction("Index");
@@ -110,13 +96,6 @@ namespace PRO.Controllers
             }
         }
 
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
         [HttpPost]
         public ActionResult Pages(int pageItems)
         {
@@ -128,12 +107,6 @@ namespace PRO.Controllers
             uriBuilder.Query = query.ToString();
 
             return Redirect(uriBuilder.Uri.ToString());
-        }
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
 
     }

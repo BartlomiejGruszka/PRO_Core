@@ -17,8 +17,9 @@
                         <a asp-controller="@controllerName"
                            asp-route-id="@Model.RouteId"
                            asp-action="@Model.Action"
-                           asp-route-sortOrder="@ViewData["CurrentSort"]"
-                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-sortOrder="@Model.CurrentSort"
+                           asp-route-currentFilter="@Model.CurrentFilter"
+                           asp-route-filterType="@Model.FilterType"
                            asp-route-page="1"
                            asp-route-items="@Model.PageItems"
                            asp-route-value="@ViewData["FilterValue"]"
@@ -31,8 +32,9 @@
                     <a asp-controller="@controllerName"
                        asp-route-id="@Model.RouteId"
                        asp-action="@Model.Action"
-                       asp-route-sortOrder="@ViewData["CurrentSort"]"
-                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-sortOrder="@Model.CurrentSort"
+                       asp-route-currentFilter="@Model.CurrentFilter"
+                       asp-route-filterType="@Model.FilterType"
                        asp-route-page="@(Model.PageIndex-1)"
                        asp-route-items="@Model.PageItems"
                        asp-route-value="@ViewData["FilterValue"]"
@@ -46,8 +48,9 @@
                 <a asp-controller="@controllerName"
                    asp-route-id="@Model.RouteId"
                    asp-action="@Model.Action"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   asp-route-sortOrder="@Model.CurrentSort"
+                   asp-route-currentFilter="@Model.CurrentFilter"
+                   asp-route-filterType="@Model.FilterType"
                    asp-route-page="@(Model.PageIndex)"
                    asp-route-items="@Model.PageItems"
                    asp-route-value="@ViewData["FilterValue"]"
@@ -61,8 +64,9 @@
                     <a asp-controller="@controllerName"
                        asp-route-id="@Model.RouteId"
                        asp-action="@Model.Action"
-                       asp-route-sortOrder="@ViewData["CurrentSort"]"
-                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-sortOrder="@Model.CurrentSort"
+                       asp-route-currentFilter="@Model.CurrentFilter"
+                       asp-route-filterType="@Model.FilterType"
                        asp-route-page="@(Model.PageIndex+1)"
                        asp-route-items="@Model.PageItems"
                        asp-route-value="@ViewData["FilterValue"]"
@@ -77,8 +81,9 @@
                         <a asp-controller="@controllerName"
                            asp-route-id="@Model.RouteId"
                            asp-action="@Model.Action"
-                           asp-route-sortOrder="@ViewData["CurrentSort"]"
-                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-sortOrder="@Model.CurrentSort"
+                           asp-route-currentFilter="@Model.CurrentFilter"
+                           asp-route-filterType="@Model.FilterType"
                            asp-route-page="@(Model.TotalPages)"
                            asp-route-items="@Model.PageItems"
                            asp-route-value="@ViewData["FilterValue"]"
@@ -97,11 +102,44 @@
         @using (Html.BeginForm("Pages", "Home", FormMethod.Post, new { style = "display:flex;" }))
         {
             <select class="page-link" id="pageItems" name="pageItems" style="margin-right: 5px;">
-                <option value="1">1</option>
-                <option selected value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-            </select>           
+                @{ if (Model.PageItems == 1)
+                    {
+                        <option selected value="1">1</option>
+                    }
+                    else
+                    {
+                        <option value="1">1</option>
+                    }
+
+                } @{ if (Model.PageItems == 5)
+                    {
+                        <option selected value="5">5</option>
+                    }
+                    else
+                    {
+                        <option value="5">5</option>
+                    }
+
+                } @{ if (Model.PageItems == 10)
+                    {
+                        <option selected value="10">10</option>
+                    }
+                    else
+                    {
+                        <option value="10">10</option>
+                    }
+
+                } @{ if (Model.PageItems == 20)
+                    {
+                        <option selected value="20">20</option>
+                    }
+                    else
+                    {
+                        <option value="20">20</option>
+                    }
+
+                }
+            </select>
             <input class="page-link" type="submit" value="Wybierz">
         }
 

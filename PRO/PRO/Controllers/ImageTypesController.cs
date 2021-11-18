@@ -19,26 +19,16 @@ namespace PRO.Controllers
         }
 
         [Route("ImageTypes/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
+            
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
-
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var ImageTypes = _imageTypeService.FilterSearch(query);
+            var ImageTypes = _imageTypeService.FilterSearch(currentFilter);
             ImageTypes = _imageTypeService.SortList(sortOrder, ImageTypes);
             var result = PaginatedList<ImageType>.Create(ImageTypes.AsNoTracking(), page, items);
 
-            result.Pagination.Action = "manage";
+            result.Pagination.Configure("manage", currentFilter,sortOrder);
             return View(result);
         }
 

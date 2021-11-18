@@ -39,29 +39,18 @@ namespace PRO.Controllers
         // GET: UserLists
         [Route("userlists/manage")]
         [Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
-        {
-            ViewData["CurrentSort"] = sortOrder;
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
+        {        
             ViewData["AddDateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "adddate_desc" : "";
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
             ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
-
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var userlists = _userListService.FilterSearch(query);
+            var userlists = _userListService.FilterSearch(currentFilter);
             userlists = _userListService.SortList(sortOrder, userlists);
 
             var result = PaginatedList<UserList>.Create(userlists.AsNoTracking(), page, items);
 
-            result.Pagination.Action = "manage";
+            result.Pagination.Configure("manage", currentFilter, sortOrder);
             return View(result);
         }
 

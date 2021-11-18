@@ -58,29 +58,18 @@ namespace PRO.Controllers
 
         [Route("users/manage")]
         [Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "user_desc" : "";
             ViewData["EmailSortParm"] = sortOrder == "email" ? "email_desc" : "email";
             ViewData["AddDateSortParm"] = sortOrder == "adddate" ? "adddate_desc" : "adddate";
             ViewData["EditDateSortParm"] = sortOrder == "editdate" ? "editdate_desc" : "editdate";
 
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var users = _userService.FilterSearch(query);
+            var users = _userService.FilterSearch(currentFilter);
             users = _userService.SortList(sortOrder, users);
             var result = PaginatedList<ApplicationUser>.Create(users.AsNoTracking(), page, items);
 
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure( this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter,sortOrder);
             return View(result);
         }
 
@@ -101,7 +90,7 @@ namespace PRO.Controllers
                 RecentlyUpdatedGames = _gameListService.GetRecentUserGameListUpdates(user.Id, 3),
                 ListTypes = _listTypeService.GetAll().ToList()
             };
-            model.ReviewsPlaytimes.Pagination.Action = "Details";
+            model.ReviewsPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString(); ;
             ViewBag.IsOwner = _userService.IsOwner(id);
 
             return View(model);
@@ -399,8 +388,7 @@ namespace PRO.Controllers
                 AppUser = user,
                 ReviewsPlaytimes = PaginatedList<ReviewPlaytime>.Create(playtimes.AsNoTracking(), page, items)
             };
-            model.ReviewsPlaytimes.Pagination.Action = "Reviews";
-            model.ReviewsPlaytimes.Pagination.RouteId = id;
+            model.ReviewsPlaytimes.Pagination.Configure(this.ControllerContext.ActionDescriptor.ActionName.ToString(), id);
             ViewBag.IsOwner = _userService.IsOwner(id);
             return View(model);
         }
@@ -408,9 +396,8 @@ namespace PRO.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("users/gamelists/{id?}")]
-        public ActionResult GameLists(int? id, int? page, int? items, string sortOrder, string filterType, string filterContent)
+        public ActionResult GameLists(int? id, int? page, int? items, string sortOrder, string filterType, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "game_desc" : null;
             ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
             ViewData["ScoreSortParm"] = sortOrder == "score" ? "score_desc" : "score";
@@ -422,7 +409,7 @@ namespace PRO.Controllers
             if (user == null || !id.HasValue) { return NotFound(); }
 
             IQueryable<GameList> gamelists = _gameListService.OwnerGameLists(id);
-            gamelists = _gameListService.FilterByList(filterType, filterContent, gamelists);
+            gamelists = _gameListService.FilterByList(filterType, currentFilter, gamelists);
             gamelists = _gameListService.SortList(sortOrder, gamelists);
 
             var model = new UserGameListsViewModel
@@ -432,10 +419,8 @@ namespace PRO.Controllers
                 GameLists = PaginatedList<GameList>.Create(gamelists.AsNoTracking(), page, items),
                 LoggedUserId = LoggedUserId
             };
-
-            model.GameLists.Pagination.Action = "gamelists";
-            model.GameLists.Pagination.RouteId = id;
-            ViewData["CurrentFilter"] = filterContent;
+            model.GameLists.Pagination.Configure(
+                this.ControllerContext.ActionDescriptor.ActionName.ToString(), id, filterType, currentFilter, sortOrder);
             ViewBag.IsOwner = _userService.IsOwner(id);
             return View(model);
         }
@@ -445,7 +430,6 @@ namespace PRO.Controllers
         [Route("users/userlists/{id?}")]
         public ActionResult UserLists(int? id, int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CountSortParm"] = sortOrder == "count" ? "count_desc" : "count";
 
@@ -465,9 +449,8 @@ namespace PRO.Controllers
                 LoggedUserId = LoggedUserId
             };
 
-            model.UserLists.Pagination.Action = "userlists";
-            model.UserLists.Pagination.RouteId = id;
-            ViewData["CurrentFilter"] = currentFilter;
+            model.UserLists.Pagination.Configure(
+                this.ControllerContext.ActionDescriptor.ActionName.ToString(), id,null,currentFilter,sortOrder);
             ViewBag.IsOwner = _userService.IsOwner(id);
             return View(model);
         }

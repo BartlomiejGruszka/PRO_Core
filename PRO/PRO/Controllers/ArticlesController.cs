@@ -16,10 +16,8 @@ namespace PRO.Controllers
     {
         private readonly IArticleService _articleService;
         private readonly IGameService _gameService;
-        private readonly IGameListService _gameListService;
         private readonly IReviewService _reviewService;
         private readonly IUserService _userService;
-        private readonly IImageService _imageService;
         private readonly IArticleTypeService _articleTypeService;
         private readonly IAuthorService _authorService;
         private readonly IImageTypeService _imageTypeService;
@@ -27,10 +25,8 @@ namespace PRO.Controllers
         public ArticlesController(
             IArticleService articleService,
             IGameService gameService,
-            IGameListService gameListService,
             IReviewService reviewService,
             IUserService userService,
-            IImageService imageService,
             IArticleTypeService articleTypeService,
             IAuthorService authorService,
             IImageTypeService imageTypeService
@@ -38,10 +34,8 @@ namespace PRO.Controllers
         {
             _articleService = articleService;
             _gameService = gameService;
-            _gameListService = gameListService;
             _reviewService = reviewService;
             _userService = userService;
-            _imageService = imageService;
             _articleTypeService = articleTypeService;
             _authorService = authorService;
             _imageTypeService = imageTypeService;
@@ -49,57 +43,38 @@ namespace PRO.Controllers
 
         [AllowAnonymous]
         [Route("articles/")]
-        public ActionResult Index(int? page, int? items, string query, string currentFilter)
+        public ActionResult Index(int? page, int? items, string currentFilter)
         {
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var articlesList = _articleService.ArticlesByPlatform(query).AsQueryable();
+
+            var articlesList = _articleService.ArticlesByPlatform(currentFilter).AsQueryable();
             var result = PaginatedList<Article>.Create(articlesList.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure(action, currentFilter, null);
             return View(result);
         }
 
         [Route("articles/manage")]
         [Authorize(Roles = "Admin,Author")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["GameSortParm"] = sortOrder == "Game" ? "game_desc" : "Game";
-
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
 
             IQueryable<Article> articlesList = null;
 
             if (!User.IsInRole("Admin"))
             {
-                articlesList = _articleService.GetAllForAuthor(query,_userService.GetLoggedInUserId()).AsQueryable();
+                articlesList = _articleService.GetAllForAuthor(currentFilter, _userService.GetLoggedInUserId()).AsQueryable();
             }
             else
             {
-                articlesList = _articleService.GetAllForAdmin(query).AsQueryable();
+                articlesList = _articleService.GetAllForAdmin(currentFilter).AsQueryable();
             }
             var sorted = _articleService.SortList(sortOrder, articlesList);
             var result = PaginatedList<Article>.Create(sorted.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure(action, currentFilter, sortOrder);
             return View(result);
         }
 
@@ -238,26 +213,18 @@ namespace PRO.Controllers
         }
 
         [AllowAnonymous]
-        [Route("articles/search/{query?}")]
-        public ActionResult Search(string query, int? page, int? items, string currentFilter)
+        [Route("articles/search/{currentFilter?}")]
+        public ActionResult Search(int? page, int? items, string currentFilter)
         {
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var searchList = _articleService.SearchResultArticles(null,query).AsQueryable();
+
+            var searchList = _articleService.SearchResultArticles(null, currentFilter).AsQueryable();
             var result = PaginatedList<Article>.Create(searchList.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure(action, currentFilter, null);
             return View(result);
         }
 
-        public ArticleViewModel PopulateArticleViewModel (int? id)
+        public ArticleViewModel PopulateArticleViewModel(int? id)
         {
             var article = _articleService.Find(id);
             var viewModel = new ArticleViewModel

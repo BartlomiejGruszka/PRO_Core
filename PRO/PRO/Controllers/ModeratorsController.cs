@@ -24,28 +24,17 @@ namespace PRO.Controllers
 
         // GET: Moderators
         [Route("moderators/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
-        {
-            ViewData["CurrentSort"] = sortOrder;
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
+        {         
             ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "user_desc" : "";
             ViewData["AddDateSortParm"] = sortOrder == "adddate" ? "adddate_desc" : "adddate";
             ViewData["LoginDateSortParm"] = sortOrder == "logindate" ? "logindate_desc" : "logindate";
-
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var moderators = _moderatorService.FilterSearch(query);
+            var moderators = _moderatorService.FilterSearch(currentFilter);
             moderators = _moderatorService.SortList(sortOrder, moderators);
 
             var result = PaginatedList<Moderator>.Create(moderators.AsNoTracking(), page, items);
 
-            result.Pagination.Action = "manage";
+            result.Pagination.Configure( "manage", currentFilter, sortOrder);
             return View(result);
         }
 

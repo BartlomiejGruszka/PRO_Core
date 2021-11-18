@@ -20,24 +20,16 @@ namespace PRO.Controllers
         }
         // GET: Status
         [Route("status/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
+            
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var statuses = _statusService.FilterSearch(query);
+            
+            var statuses = _statusService.FilterSearch(currentFilter);
             statuses = _statusService.SortList(sortOrder, statuses);
             var result = PaginatedList<Status>.Create(statuses.AsNoTracking(), page, items);
 
-            result.Pagination.Action = "manage";
+            result.Pagination.Configure("manage", currentFilter, sortOrder);
             return View(result);
         }
 

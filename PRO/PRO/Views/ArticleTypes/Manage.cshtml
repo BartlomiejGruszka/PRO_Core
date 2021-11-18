@@ -24,7 +24,7 @@
                 </li>
             </ul>
             <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">
-                <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="query" value="@ViewData["CurrentFilter"]" />
+                <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="currentFilter" value="@Model.Pagination.CurrentFilter" />
                 <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
             </form>
         </div>
@@ -34,7 +34,7 @@
     <table class="table">
         <tr class="tableheadercolor">
             <th style="width:70%;">
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwa</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Nazwa</a>
             </th>
             <th style="width:30%;">Opcje</th>
         </tr>

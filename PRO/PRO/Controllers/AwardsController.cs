@@ -24,28 +24,18 @@ namespace PRO.Controllers
         }
 
         [Route("awards/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
             ViewData["GameSortParm"] = sortOrder == "game" ? "game_desc" : "game";
 
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-
-            var awards = _awardService.FilterSearch(query);
+            var awards = _awardService.FilterSearch(currentFilter);
             awards = _awardService.SortList(sortOrder, awards);
             var result = PaginatedList<Award>.Create(awards.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure( action, currentFilter,sortOrder);
+
             return View(result);
         }
 

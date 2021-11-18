@@ -14,7 +14,7 @@
         <div id="status-menu" class="status-menu-container">
             <div class="status-menu">
                 @{ var selectedlist = "all";
-                    if (ViewData["CurrentFilter"] != null) { selectedlist = ViewData["CurrentFilter"].ToString(); } }
+                    if (Model.UserLists.Pagination.CurrentFilter != null) { selectedlist = Model.UserLists.Pagination.CurrentFilter.ToString(); } }
                 <a href="/users/userlists/@Model.AppUser.Id?currentFilter=all" class="status-button @(selectedlist.Equals("all") ? "on" : "")">Wszystkie listy</a>
                 @{foreach (ListType list in Model.ListTypes)
                     {
@@ -45,7 +45,7 @@
                     <tbody>
                         <tr class="list-table-header">
                             <th class="header-title">
-                                <a class="link sort" asp-action="UserLists" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nazwa</a>
+                                <a class="link sort" asp-action="UserLists" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.UserLists.Pagination.CurrentFilter">Nazwa</a>
                             </th>
                             <th class="header-title">
                                 <span class="link sort">
@@ -53,7 +53,7 @@
                                 </span>
                             </th>
                             <th class="header-title">
-                                <a class="link sort" asp-action="UserLists" asp-route-sortOrder="@ViewData["CountSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Gier na liście</a>
+                                <a class="link sort" asp-action="UserLists" asp-route-sortOrder="@ViewData["CountSortParm"]" asp-route-currentFilter="@Model.UserLists.Pagination.CurrentFilter">Gier na liście</a>
                             </th>
                             @if (ViewBag.IsOwner)
                             {
@@ -82,7 +82,7 @@
                             <tbody class="list-item">
                                 <tr class="list-table-data">
                                     <td class="data title clearfix">
-                                        <a href="/users/gamelists/@Model.AppUser.Id?filterType=ListName&filterContent=@item.Name" class="link sort">@item.Name</a>
+                                        <a href="/users/gamelists/@Model.AppUser.Id?filterType=ListName&currentFilter=@item.Name" class="link sort">@item.Name</a>
                                     </td>
                                     <td class="data score">
                                         <span class="score-label score-na">

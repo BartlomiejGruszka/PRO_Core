@@ -111,33 +111,21 @@ namespace PRO.Controllers
         [HttpGet]
         [Authorize(Roles = "Admin,Author")]
         [Route("games/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
+
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
             ViewData["PlatformSortParm"] = sortOrder == "Platform" ? "Platform_desc" : "Platform";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
             ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
             ViewData["GenreSortParm"] = sortOrder == "Genre" ? "Genre_desc" : "Genre";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
 
-            var games = _gameService.FilterSearch(query);
-            var test = games.ToList();
+            var games = _gameService.FilterSearch(currentFilter);
             games = _gameService.SortList(sortOrder, games);
 
-            test = games.ToList();
-
             var result = PaginatedList<Game>.Create(games.AsNoTracking(), page, items);
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure(
+                this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
             return View(result);
         }
 
@@ -257,13 +245,13 @@ namespace PRO.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("games/ranking")]
-        public ActionResult Ranking(int? page, int? items)
+        public ActionResult Ranking(int? page, int? items, string currentFilter, string sortOrder)
         {
             var games = _gameService.GetAllActive().OrderBy(s => s.Title);
-            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).OrderByDescending(s => s.Score).ThenByDescending(c=>c.Game.ReleaseDate).AsQueryable();
+            var gamesRankings = _gameService.GetUserUnorderedGamesRanking(_userService.GetLoggedInUserId()).OrderByDescending(s => s.Score).ThenByDescending(c => c.Game.ReleaseDate).AsQueryable();
             var paginatedgamesrankings = PaginatedList<GameScore>.Create(gamesRankings.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            paginatedgamesrankings.Pagination.Action = action;
+            paginatedgamesrankings.Pagination.Configure(action, currentFilter, sortOrder);
             var viewModel = new GameFilterViewModel
             {
                 GamesScores = paginatedgamesrankings
@@ -280,13 +268,12 @@ namespace PRO.Controllers
             if (game == null) return NotFound();
             var DetailsModel = new GameDetailsViewModel
             {
-                ReviewPlaytimes = _reviewService.PrepareReviews(_reviewService.GetGameReviews(id) , page, items),
+                ReviewPlaytimes = _reviewService.PrepareReviews(_reviewService.GetGameReviews(id), page, items),
                 RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
                 GameInfo = SetupGameInfo(game)
             };
 
-            DetailsModel.ReviewPlaytimes.Pagination.Action = ControllerContext.ActionDescriptor.ActionName.ToString();
-            DetailsModel.ReviewPlaytimes.Pagination.RouteId = id;
+            DetailsModel.ReviewPlaytimes.Pagination.Configure(ControllerContext.ActionDescriptor.ActionName.ToString(), id);
             return View(DetailsModel);
         }
 
@@ -303,10 +290,7 @@ namespace PRO.Controllers
                 RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
                 GameInfo = SetupGameInfo(game)
             };
-
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            DetailsModel.ReviewPlaytimes.Pagination.Action = action;
-
+            DetailsModel.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             if (DetailsModel.ReviewPlaytimes[0].Review.UserId == _userService.GetLoggedInUserId()) { ViewBag.CanEdit = true; } else { ViewBag.CanEdit = false; }
 
             return View(DetailsModel);
@@ -327,9 +311,7 @@ namespace PRO.Controllers
                 RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
                 GameInfo = SetupGameInfo(game)
             };
-
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            DetailsModel.ReviewPlaytimes.Pagination.Action = action;
+            DetailsModel.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
 
             return View(DetailsModel);
         }
@@ -349,9 +331,7 @@ namespace PRO.Controllers
                 RelevantArticles = _articleService.GetAll().Where(a => a.GameId == id).OrderByDescending(a => a.PublishedDate).Take(3),
                 GameInfo = SetupGameInfo(game)
             };
-
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            DetailsModel.ReviewPlaytimes.Pagination.Action = action;
+            DetailsModel.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
 
             var userid = _userService.GetLoggedInUserId();
             if (review.UserId == userid) { ViewBag.CanEdit = true; } else { ViewBag.CanEdit = false; }
@@ -360,18 +340,16 @@ namespace PRO.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("games/search/{query?}")]
-        public ActionResult Search(int? page, int? items, string query, string CurrentFilter)
+        [Route("games/search/{currentFilter?}")]
+        public ActionResult Search(int? page, int? items, string currentFilter)
         {
-            if (query == null && CurrentFilter != null) query = CurrentFilter;
-            var filteredgames = _gameService.GetFilteredGamesRanking(query).OrderBy(g => g.Game.Title).AsQueryable();
+            var filteredgames = _gameService.GetFilteredGamesRanking(currentFilter).OrderBy(g => g.Game.Title).AsQueryable();
 
             var viewModel = new GameFilterViewModel
             {
                 GamesScores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items)
             };
-            viewModel.GamesScores.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            ViewData["CurrentFilter"] = query;
+            viewModel.GamesScores.Pagination.Configure(this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter,null);
             return View("Index", viewModel);
         }
         [HttpGet]
@@ -388,9 +366,7 @@ namespace PRO.Controllers
                 GameInfo = SetupGameInfo(game),
                 ReviewPlaytimes = _reviewService.PrepareReviews(new List<Review> { review }, null, null),
             };
-
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            DetailsModel.ReviewPlaytimes.Pagination.Action = action;
+            DetailsModel.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
 
             return View("UserDeleteReview", DetailsModel);
         }

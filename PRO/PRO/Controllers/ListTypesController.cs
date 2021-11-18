@@ -22,24 +22,16 @@ namespace PRO.Controllers
 
         // GET: ListTypes
         [Route("listtypes/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
+            
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var listTypes = _listTypeService.FilterSearch(query);
+
+            var listTypes = _listTypeService.FilterSearch(currentFilter);
             listTypes = _listTypeService.SortList(sortOrder, listTypes);
             var result = PaginatedList<ListType>.Create(listTypes.AsNoTracking(), page, items);
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure(
+                this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
             return View(result);
         }
 

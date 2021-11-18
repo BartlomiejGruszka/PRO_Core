@@ -30,27 +30,19 @@ namespace PRO.Controllers
         }
         // GET: Platforms
         [Route("platforms/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
+            
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CompanySortParm"] = sortOrder == "company" ? "company_desc" : "company";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var platforms = _platformService.FilterSearch(query);
+
+            var platforms = _platformService.FilterSearch(currentFilter);
             platforms = _platformService.SortList(sortOrder, platforms);
 
             var result = PaginatedList<Platform>.Create(platforms.AsNoTracking(), page, items);
 
-            result.Pagination.Action = "manage";
+            result.Pagination.Configure("manage", currentFilter, sortOrder);
             return View(result);
         }
 

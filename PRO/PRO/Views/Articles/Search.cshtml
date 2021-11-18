@@ -3,25 +3,25 @@
         ViewBag.Title = "Index";
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
-
+@{ string currentFilter = Model.Pagination.CurrentFilter;}
 <ul class="nav nav-tabs" id="myTab">
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "all" ? "active" : "")" href="/articles?query=all">Wszystkie</a>
+        <a class="nav-link @(currentFilter == "all" ? "active" : "")" href="/articles?currentFilter=all">Wszystkie</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "PC" ? "active" : "")" href="/articles?query=PC">PC</a>
+        <a class="nav-link @(currentFilter == "PC" ? "active" : "")" href="/articles?currentFilter=PC">PC</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString().Contains("Playstation") ? "active" : "")" href="/articles?query=Playstation">Playstation</a>
+        <a class="nav-link @(currentFilter.Contains("Playstation") ? "active" : "")" href="/articles?currentFilter=Playstation">Playstation</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString().Contains("Xbox") ? "active" : "")" href="/articles?query=Xbox">Xbox</a>
+        <a class="nav-link @(currentFilter.Contains("Xbox") ? "active" : "")" href="/articles?currentFilter=Xbox">Xbox</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "Switch" ? "active" : "")" href="/articles?query=Switch">Switch</a>
+        <a class="nav-link @(currentFilter == "Switch" ? "active" : "")" href="/articles?currentFilter=Switch">Switch</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link active" href="/articles/search/@ViewData["CurrentFilter"]">Wyszukiwanie</a>
+        <a class="nav-link active" href="/articles/search/@currentFilter">Wyszukiwanie</a>
     </li>
 
 </ul>

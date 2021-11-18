@@ -26,27 +26,16 @@ namespace PRO.Controllers
         }
 
         [HttpGet]
-        [Route("genres/manage/{query?}")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
-        {
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;             
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var genres = _genreService.FilterSearch(query);
+        [Route("genres/manage/{currentFilter?}")]
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
+        {    
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";         
+            var genres = _genreService.FilterSearch(currentFilter);
             genres = _genreService.SortList(sortOrder,genres);
 
             var result = PaginatedList<Genre>.Create(genres.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure(action, currentFilter,sortOrder);
 
             return View("Manage", result);
         }

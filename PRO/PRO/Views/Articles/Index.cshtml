@@ -3,30 +3,30 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@{ string currentFilter = Model.Pagination.CurrentFilter; }
 <ul class="nav nav-tabs" id="myTab">
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "all" ? "active" : "")" href="/articles?query=all">Wszystkie</a>
+        <a class="nav-link @(currentFilter == "all" ? "active" : "")" href="/articles?currentFilter=all">Wszystkie</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "PC" ? "active" : "")" href="/articles?query=PC">PC</a>
+        <a class="nav-link @(currentFilter == "PC" ? "active" : "")" href="/articles?currentFilter=PC">PC</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString().Contains("Playstation") ? "active" : "")" href="/articles?query=Playstation">Playstation</a>
+        <a class="nav-link @(currentFilter.Contains("Playstation") ? "active" : "")" href="/articles?currentFilter=Playstation">Playstation</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString().Contains("Xbox") ? "active" : "")" href="/articles?query=Xbox">Xbox</a>
+        <a class="nav-link @(currentFilter.Contains("Xbox") ? "active" : "")" href="/articles?currentFilter=Xbox">Xbox</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewData["CurrentFilter"].ToString() == "Switch" ? "active" : "")" href="/articles?query=Switch">Switch</a>
+        <a class="nav-link @(currentFilter == "Switch" ? "active" : "")" href="/articles?currentFilter=Switch">Switch</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @((ViewData["CurrentFilter"].ToString() != "all" &&
-ViewData["CurrentFilter"].ToString() != "PC" &&
-!ViewData["CurrentFilter"].ToString().Contains("Playstation") &&
-!ViewData["CurrentFilter"].ToString().Contains("Xbox") &&
-ViewData["CurrentFilter"].ToString() != "Switch") 
-|| ViewData["CurrentFilter"].ToString() == "other" ? "active" : "")" href="/articles?query=other">Inne</a>
+        <a class="nav-link @((currentFilter != "all" &&
+currentFilter != "PC" &&
+!currentFilter.Contains("Playstation") &&
+!currentFilter.Contains("Xbox") &&
+currentFilter != "Switch")
+|| currentFilter == "other" ? "active" : "")" href="/articles?currentFilter=other">Inne</a>
     </li>
 
 
@@ -35,7 +35,7 @@ ViewData["CurrentFilter"].ToString() != "Switch")
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active show" id="all">
         <div class="list-group">
-            @{ 
+            @{
                 foreach (var item in Model)
                 {
                     <div class="news-list mt16 mr8">
@@ -55,7 +55,7 @@ ViewData["CurrentFilter"].ToString() != "Switch")
                                 </div>
                                 <div class="information">
                                     <p class="info di-ib">
-                                        @item.PublishedDate.ToShortDateString() <text>przez</text> <a href="/users/@item.Author.UserId">@item.Author.FirstName @item.Author.LastName</a> dla <a href="/articles?query=@item.Game.Platform.Name" class="nav-item">@item.Game.Platform.Name</a>
+                                        @item.PublishedDate.ToShortDateString() <text>przez</text> <a href="/users/@item.Author.UserId">@item.Author.FirstName @item.Author.LastName</a> dla <a href="/articles?currentFilter=@item.Game.Platform.Name" class="nav-item">@item.Game.Platform.Name</a>
                                     </p>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@ ViewData["CurrentFilter"].ToString() != "Switch")
 
 </div>
 <div>
-    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" /> 
+    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
 </div>
 
 

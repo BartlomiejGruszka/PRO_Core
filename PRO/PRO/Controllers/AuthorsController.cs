@@ -24,27 +24,18 @@ namespace PRO.Controllers
 
         // GET: Authors
         [Route("authors/manage")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
-        {
-            ViewData["CurrentSort"] = sortOrder;
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
+        {          
             ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
             ViewData["SurnameSortParm"] = sortOrder == "Surname" ? "Surname_desc" : "Surname";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var authors = _authorService.FilterSearch(query);
+           
+            var authors = _authorService.FilterSearch(currentFilter);
             authors = _authorService.SortList(sortOrder, authors);
             var result = PaginatedList<Author>.Create(authors.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure( action, currentFilter,sortOrder);
             return View(result);
         }
 

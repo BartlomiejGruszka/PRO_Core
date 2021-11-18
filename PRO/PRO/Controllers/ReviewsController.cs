@@ -29,28 +29,18 @@ namespace PRO.Controllers
 
         [Route("reviews/manage")]
         [Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["DateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewData["GameSortParm"] = sortOrder == "game" ? "game_desc" : "game";
             ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
             ViewData["EditDateSortParm"] = sortOrder == "editdate" ? "editdate_desc" : "editdate";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var reviews = _reviewService.FilterSearch(query);
+            var reviews = _reviewService.FilterSearch(currentFilter);
             reviews = _reviewService.SortList(sortOrder, reviews);
 
             var result = PaginatedList<Review>.Create(reviews.AsNoTracking(), page, items);
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = action;
+            result.Pagination.Configure(
+                this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
             return View(result);
         }
         // [Authorize]

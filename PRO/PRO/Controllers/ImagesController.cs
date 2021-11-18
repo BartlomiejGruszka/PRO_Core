@@ -13,7 +13,7 @@ using PRO.Domain.Interfaces.Services;
 
 namespace PRO.Controllers
 {
-     [Authorize]
+    [Authorize]
     public class ImagesController : Controller
     {
 
@@ -36,26 +36,18 @@ namespace PRO.Controllers
         }
         [Route("images/manage")]
         [Authorize(Roles = "Admin,Author")]
-        public ActionResult Manage(string query, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["CurrentSort"] = sortOrder;
+
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
-            if (!String.IsNullOrEmpty(query))
-            {
-                page = 1;
-            }
-            else
-            {
-                query = currentFilter;
-            }
-            ViewData["CurrentFilter"] = query;
-            var images = _imageService.FilterSearch(query);
+
+            var images = _imageService.FilterSearch(currentFilter);
             images = _imageService.SortList(sortOrder, images);
 
             var result = PaginatedList<Image>.Create(images.AsNoTracking(), page, items);
-            var test = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Action = test;
+            result.Pagination.Configure(
+                this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
             return View(result);
 
         }
@@ -90,7 +82,8 @@ namespace PRO.Controllers
             if (ModelState.IsValid)
             {
                 var errors = _imageService.ValidateImage(image);
-                if (!errors.Any()) {
+                if (!errors.Any())
+                {
                     _imageService.Add(image);
 
                     return RedirectToAction("Manage");
@@ -169,7 +162,7 @@ namespace PRO.Controllers
                 ModelState.Merge(errors);
                 return RedirectToAction("Manage");
             }
-           
+
             ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View(image);
         }
