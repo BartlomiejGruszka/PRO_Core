@@ -33,7 +33,7 @@
                         else
                         { <span>@selectedlist</span>}
                     </span>
-                    @if (!Model.LoggedUserId.HasValue && Model.LoggedUserId.Value != 0)
+                    @if (Model.LoggedUserId.HasValue && Model.LoggedUserId.Value != 0)
                     {
                         <a  style="margin:10px;" href="/users/userlist" class="btn btn-secondary">
                             Dodaj
@@ -82,7 +82,7 @@
                             <tbody class="list-item">
                                 <tr class="list-table-data">
                                     <td class="data title clearfix">
-                                        <a href="" class="link sort">@item.Name</a>
+                                        <a href="/users/gamelists/@Model.AppUser.Id?filterType=ListName&filterContent=@item.Name" class="link sort">@item.Name</a>
                                     </td>
                                     <td class="data score">
                                         <span class="score-label score-na">

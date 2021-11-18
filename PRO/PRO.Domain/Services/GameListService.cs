@@ -189,12 +189,13 @@ namespace PRO.Domain.Services
             return gameLists.AsQueryable();
         }
 
-        public IQueryable<GameList> FilterByList(string currentFilter, IQueryable<GameList> gamelists)
+        public IQueryable<GameList> FilterByList(string filterType, string filterContent, IQueryable<GameList> gamelists)
         {
-            if (currentFilter == null) return gamelists;
             if (gamelists == null) return null;
-            if (currentFilter.Equals("all")) return gamelists;
-            return gamelists.Where(s => s.UserList.ListType.Name.ToLower().Contains(currentFilter.ToLower()));
+            if (filterContent == null) return gamelists;           
+            if (filterContent.Equals("all")) return gamelists;
+            if (filterType == "ListName") return gamelists.Where(s => s.UserList.Name.ToLower().Contains(filterContent.ToLower()));
+            return gamelists.Where(s => s.UserList.ListType.Name.ToLower().Contains(filterContent.ToLower()));
         }
         public bool UserDelete(int id)
         {

@@ -21,17 +21,19 @@
         <div class="underlined_h2">Dołączył: </div><p>@Model.RegisterDate.ToShortDateString()</p>
 
         <div class="underlined_h2"></div>
-        <a style="margin: 20px; display:block;" href="/users/gamelists/@Model.Id" class="btn btn-secondary">Gry użytkownika</a>
-        <a style="margin: 20px; display:block;" href="/users/userlists/@Model.Id" class="btn btn-secondary">Listy użytkownika</a>
-        @if (ViewBag.IsOwner != null && ViewBag.IsOwner == true)
-        {
-            <a style="margin: 20px; display:block;" href="/users/@Model.Id/profile" class="btn btn-primary">Edytuj profil</a>
-            <a style="margin: 20px; display:block;" href="/users/@Model.Id/password" class="btn btn-primary">Zmień hasło</a>
-            @if (hasExternalLogins)
+        <div class="userprofileinnerbuttons">
+            <a href="/users/gamelists/@Model.Id" class="btn btn-secondary userleftsidebuttons">Gry użytkownika</a>
+            <a href="/users/userlists/@Model.Id" class="btn btn-secondary userleftsidebuttons">Listy użytkownika</a>
+            @if (ViewBag.IsOwner != null && ViewBag.IsOwner == true)
             {
-                <a style="margin: 20px; display:block;" class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/ExternalLogins">Połączone konta</a>
+                <a href="/users/@Model.Id/profile" class="btn btn-primary userleftsidebuttons">Edytuj profil</a>
+                <a href="/users/@Model.Id/password" class="btn btn-primary userleftsidebuttons">Zmień hasło</a>
+                @if (hasExternalLogins)
+                {
+                    <a style="" class="btn btn-primary userleftsidebuttons" asp-area="Identity" asp-page="/Account/Manage/ExternalLogins">Połączone konta</a>
+                }
             }
-        }
+        </div>
 
         <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
         </div>

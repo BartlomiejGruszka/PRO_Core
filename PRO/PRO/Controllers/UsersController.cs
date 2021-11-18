@@ -408,7 +408,7 @@ namespace PRO.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("users/gamelists/{id?}")]
-        public ActionResult GameLists(int? id, int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult GameLists(int? id, int? page, int? items, string sortOrder, string filterType, string filterContent)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "game_desc" : null;
@@ -422,7 +422,7 @@ namespace PRO.Controllers
             if (user == null || !id.HasValue) { return NotFound(); }
 
             IQueryable<GameList> gamelists = _gameListService.OwnerGameLists(id);
-            gamelists = _gameListService.FilterByList(currentFilter, gamelists);
+            gamelists = _gameListService.FilterByList(filterType, filterContent, gamelists);
             gamelists = _gameListService.SortList(sortOrder, gamelists);
 
             var model = new UserGameListsViewModel
@@ -435,7 +435,7 @@ namespace PRO.Controllers
 
             model.GameLists.Pagination.Action = "gamelists";
             model.GameLists.Pagination.RouteId = id;
-            ViewData["CurrentFilter"] = currentFilter;
+            ViewData["CurrentFilter"] = filterContent;
             ViewBag.IsOwner = _userService.IsOwner(id);
             return View(model);
         }
