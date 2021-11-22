@@ -33,7 +33,7 @@
     <table class="table">
         <tr class="tableheadercolor">
             <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Nazwa</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Nazwa</a>
             </th>
             <th></th>
         </tr>

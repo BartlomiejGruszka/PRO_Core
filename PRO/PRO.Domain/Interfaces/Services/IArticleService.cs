@@ -13,6 +13,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Article article);
         public void Update(Article article);
         List<Article> GetAllActive();
+        public IEnumerable<Article> GetRecentlyReleased();
         public IEnumerable<Article> GetAllByPlatform(string platform);
         public IEnumerable<Article> SearchResultArticles(IEnumerable<Article> list,string query);
         public IEnumerable<Article> ArticlesByPlatform(string platform);

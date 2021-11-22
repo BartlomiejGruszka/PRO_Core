@@ -51,19 +51,19 @@
                                 </span>
                             </th>
                             <th class="header-title">
-                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-filterContent="@Model.GameLists.Pagination.CurrentFilter">Tytuł gry</a>
+                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-filterContent="@Model.GameLists.Pagination.CurrentFilter" asp-route-items="@Model.GameLists.Pagination.PageItems" asp-route-page="@Model.GameLists.Pagination.PageIndex">Tytuł gry</a>
 
                             </th>
                             <th class="header-title">
-                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["ScoreSortParm"]" asp-route-filterContent="@Model.GameLists.Pagination.CurrentFilter">Ocena użytkownika</a>
+                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["ScoreSortParm"]" asp-route-filterContent="@Model.GameLists.Pagination.CurrentFilter" asp-route-items="@Model.GameLists.Pagination.PageItems" asp-route-page="@Model.GameLists.Pagination.PageIndex">Ocena użytkownika</a>
 
                             </th>
                             <th class="header-title">
-                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-filterContent="@Model.GameLists.Pagination.CurrentFilter">Lista</a>
+                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-filterContent="@Model.GameLists.Pagination.CurrentFilter" asp-route-items="@Model.GameLists.Pagination.PageItems" asp-route-page="@Model.GameLists.Pagination.PageIndex">Lista</a>
 
                             </th>
                             <th class="header-title">
-                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["HoursSortParm"]" asp-route-filterContent="@Model.GameLists.Pagination.CurrentFilter">Rozegrane godziny</a>
+                                <a class="link sort" asp-action="GameLists" asp-route-sortOrder="@ViewData["HoursSortParm"]" asp-route-filterContent="@Model.GameLists.Pagination.CurrentFilter" asp-route-items="@Model.GameLists.Pagination.PageItems" asp-route-page="@Model.GameLists.Pagination.PageIndex">Rozegrane godziny</a>
 
                             </th>
                             @if (ViewBag.IsOwner)

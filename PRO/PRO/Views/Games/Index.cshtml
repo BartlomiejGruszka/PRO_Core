@@ -14,13 +14,14 @@
     <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table">
         <tbody>
             <tr class="table-header">
-                <td class="title">Tytuł</td>
-                <td class="score">Średnia ocena</td>
+                <td class="title"><a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@Model.GamesScores.Pagination.CurrentFilter" asp-route-items="@Model.GamesScores.Pagination.PageItems" asp-route-page="@Model.GamesScores.Pagination.PageIndex" class="sort-link">Tytuł</a></td>
+                <td class="score"><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@Model.GamesScores.Pagination.CurrentFilter" asp-route-items="@Model.GamesScores.Pagination.PageItems" asp-route-page="@Model.GamesScores.Pagination.PageIndex" class="sort-link">Data premiery</a></td>
+                <td class="score"><a asp-action="Index" asp-route-sortOrder="@ViewData["ScoreSortParm"]" asp-route-currentFilter="@Model.GamesScores.Pagination.CurrentFilter" asp-route-items="@Model.GamesScores.Pagination.PageItems" asp-route-page="@Model.GamesScores.Pagination.PageIndex" class="sort-link">Średnia ocena</a></td>
                 @{ if (userLoggedIn)
                     {
-                        <td class="your-score">Twoja ocena</td>
+                        <td class="your-score"><a asp-action="Index" asp-route-sortOrder="@ViewData["UserscoreSortParm"]" asp-route-currentFilter="@Model.GamesScores.Pagination.CurrentFilter" asp-route-items="@Model.GamesScores.Pagination.PageItems" asp-route-page="@Model.GamesScores.Pagination.PageIndex"  class="sort-link">Twoja ocena</a></td>
                     } }
-                <td class="status">Status</td>
+                <td class="status"><a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSortParm"]" asp-route-currentFilter="@Model.GamesScores.Pagination.CurrentFilter" asp-route-items="@Model.GamesScores.Pagination.PageItems" asp-route-page="@Model.GamesScores.Pagination.PageIndex"  class="sort-link">Status</a></td>
             </tr>
             @{
                 foreach (var item in Model.GamesScores)
@@ -48,7 +49,13 @@
                                 </div>
                             </div>
                         </td>
+                        <td class="status ac">
+                            @if (item.Game.ReleaseDate.HasValue)
+                            {@item.Game.ReleaseDate.Value.ToShortDateString()}
+                        else
+                        { <text>brak daty</text>}
 
+                        </td>
                         <td class="score ac fs14">
                             <div class="js-top-ranking-score-col di-ib al" style="width: 48.7969px;">
                                 <i class="icon-score-star mr4 on"></i>
@@ -78,7 +85,7 @@
                                         }
                                         else
                                         {
-                                            <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">@Math.Round((double)item.UserScore.Value,1)</span>
+                                            <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">@Math.Round((double)item.UserScore.Value, 1)</span>
                                         }
 
                                     </div>

@@ -73,14 +73,21 @@ namespace PRO.Controllers
 
         [AllowAnonymous]
         [Route("games/")]
-        public ActionResult Index(int? page, int? items)
+        public ActionResult Index(int? page, int? items, string sortOrder, string currentFilter)
         {
-            var games = _gameService.GetAllActive().OrderBy(g => g.Title).ToList();
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
+            ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
+            ViewData["ScoreSortParm"] = sortOrder == "Score" ? "Score_desc" : "Score";
+            ViewData["UserscoreSortParm"] = sortOrder == "Userscore" ? "Userscore_desc" : "Userscore";
+
+            var games = _gameService.FilterSearch(currentFilter, true);
             int? user = _userService.GetLoggedInUserId();
-            var gamescores = _gameService.GetUserUnorderedGamesRanking(user).OrderBy(g => g.Game.Title).AsQueryable();
+            var gamescores = _gameService.GetUserUnorderedGamesRanking(user, games).OrderBy(g => g.Game.Title).AsQueryable();
+            gamescores = _gameService.GameSortList(sortOrder, gamescores);             
             var paginatedgamescores = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            paginatedgamescores.Pagination.Action = action;
+            paginatedgamescores.Pagination.Configure(
+                ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
             var viewModel = new GameFilterViewModel
             {
                 GamesScores = paginatedgamescores
@@ -120,7 +127,7 @@ namespace PRO.Controllers
             ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
             ViewData["GenreSortParm"] = sortOrder == "Genre" ? "Genre_desc" : "Genre";
 
-            var games = _gameService.FilterSearch(currentFilter);
+            var games = _gameService.FilterSearch(currentFilter, false);
             games = _gameService.SortList(sortOrder, games);
 
             var result = PaginatedList<Game>.Create(games.AsNoTracking(), page, items);

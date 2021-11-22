@@ -56,6 +56,12 @@ namespace PRO.Domain.Services
         {
             return _articleRepository.GetAll().Where(i=>i.IsActive==true).ToList();
         }
+
+        public IEnumerable<Article> GetRecentlyReleased()
+        {
+            return GetAllActive().OrderByDescending(s => s.PublishedDate).Take(5).ToList();
+        }
+
         public IEnumerable<Article> GetAllByPlatform(string platform)
         {
             return _articleRepository.GetAll().Where(i=>i.Game.Platform.Name.Contains(platform)).ToList();

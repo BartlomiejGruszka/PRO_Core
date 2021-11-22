@@ -40,18 +40,18 @@
                 Obraz
             </th>
             <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Użytkownik</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Użytkownik</a>
             </th>
             <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EmailSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Email</a>
-            </th>
-            <th>
-
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Data dodania</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EmailSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Email</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Data edycji</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data dodania</a>
+            </th>
+            <th>
+
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data edycji</a>
             </th>
             <th>
                 Aktywny

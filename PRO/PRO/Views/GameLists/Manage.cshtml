@@ -35,31 +35,31 @@
         <tr class="tableheadercolor">
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Użytkownik</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Użytkownik</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["GameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Gra</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["GameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Gra</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["ListSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Lista użytkownika</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["ListSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Lista użytkownika</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["HoursSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Rozegrane godziny</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["HoursSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Rozegrane godziny</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["ScoreSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Ocena</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["ScoreSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Ocena</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Data dodania</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data dodania</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Data edycji</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data edycji</a>
             </th>
 
             <th></th>

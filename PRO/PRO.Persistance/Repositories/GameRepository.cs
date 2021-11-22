@@ -56,6 +56,5 @@ namespace PRO.Persistance.Repositories
 
             return games;
         }
-
     }
 }

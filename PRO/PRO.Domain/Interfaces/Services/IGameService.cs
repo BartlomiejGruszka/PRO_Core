@@ -14,6 +14,7 @@ namespace PRO.Domain.Interfaces.Services
         Game Find(int? id);
         Game FindActive(int? id);
         IEnumerable<Game> GetComingGames();
+        public IEnumerable<Game> GetRecentlyReleased();
         List<Game> GetAll();
         List<Game> GetAllActive();
         IQueryable<GameScore> FilterByProperty(string property, string value, IQueryable<GameScore> list);
@@ -21,9 +22,10 @@ namespace PRO.Domain.Interfaces.Services
         void Add(Game newGame);
         void AddTags(Game newGame, IEnumerable<int> selectedTagsId);
         void AddLanguages(Game newGame, IEnumerable<int> selectedLanguagesId);
-        List<GameScore> GetUnorderedGamesRanking(); 
+        List<GameScore> GetUnorderedGamesRanking();
+        List<GameScore> GetUnorderedGamesRanking(IQueryable<Game> games);
         List<GameScore> GetUserUnorderedGamesRanking(int? userid);
-
+        List<GameScore> GetUserUnorderedGamesRanking(int? userid, IQueryable<Game> games);
         List<GameScore> GetOrderedGamesRanking(int? number);
         public List<Tuple<Game, int?>> GetGamesByPopularity();
 
@@ -34,7 +36,8 @@ namespace PRO.Domain.Interfaces.Services
 
         List<Game> FilterGames(string query);
         void Update(Game game);
-        IQueryable<Game> FilterSearch(string query);
+        IQueryable<Game> FilterSearch(string query, bool active);
         IQueryable<Game> SortList(string sortOrder, IQueryable<Game> games);
+        public IQueryable<GameScore> GameSortList(string sortOrder, IQueryable<GameScore> games);
     }
 }

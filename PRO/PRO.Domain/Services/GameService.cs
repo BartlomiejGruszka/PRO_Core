@@ -101,9 +101,12 @@ namespace PRO.Domain.Services
 
         public IEnumerable<Game> GetComingGames()
         {
-            return _gameRepository.GetAll().Where(a => a.ReleaseDate > DateTime.Now).OrderBy(a => a.ReleaseDate).Take(3);
+            return GetAllActive().Where(a => a.ReleaseDate > DateTime.Now).OrderBy(a => a.ReleaseDate).Take(3);
         }
-
+        public IEnumerable<Game> GetRecentlyReleased()
+        {
+            return GetAllActive().Where(a => a.ReleaseDate < DateTime.Now).OrderBy(a => a.ReleaseDate).Take(5);
+        }
         public List<GameScore> GetOrderedGamesRanking(int? number)
         {
             var orderedRanking = GetUnorderedGamesRanking().OrderByDescending(o => o.Score).ThenByDescending(d => d.Game.ReleaseDate).ToList();
@@ -130,13 +133,21 @@ namespace PRO.Domain.Services
               .ToList();
             return ranking;
         }
-        public List<GameScore> GetUserUnorderedGamesRanking(int? userid)
+        public List<GameScore> GetUnorderedGamesRanking(IQueryable <Game> games)
         {
-            if (!userid.HasValue) return GetUnorderedGamesRanking();
-            if (userid < 1) return GetUnorderedGamesRanking();
+            //var images = _imageRepository.GetAll();
+            var ranking = games
+              .Select(c => new GameScore { Game = c, Score = c.GameLists.Average(p => p.PersonalScore) })
+              .ToList();
+            return ranking;
+        }
+        public List<GameScore> GetUserUnorderedGamesRanking(int? userid, IQueryable<Game> games)
+        {
+            if (!userid.HasValue) return GetUnorderedGamesRanking(games);
+            if (userid < 1) return GetUnorderedGamesRanking(games);
 
             var usergamelists = _gameListRepository.GetAll().Where(s => s.UserList.UserId == userid);
-            var ranking = GetUnorderedGamesRanking();
+            var ranking = GetUnorderedGamesRanking(games);
 
             foreach (var item in ranking)
             {
@@ -145,7 +156,10 @@ namespace PRO.Domain.Services
             }
             return ranking;
         }
-
+        public List<GameScore> GetUserUnorderedGamesRanking(int? userid)
+        {
+            return GetUserUnorderedGamesRanking(userid, null);
+        }
         public List<Tuple<Game, int?>> GetGamesByPopularity()
         {
             var popularity = _gameListRepository.GetAll()
@@ -232,9 +246,19 @@ namespace PRO.Domain.Services
             return games.FindIndex(s => s.Item1.Id == gameid) + 1;
         }
 
-        public IQueryable<Game> FilterSearch(string query)
+        public IQueryable<Game> FilterSearch(string query, bool active)
         {
-            var games = GetAll().AsQueryable();
+            IQueryable<Game> games = null;
+
+            if (active)
+            {
+                games = GetAllActive().AsQueryable();
+            }
+            else
+            {
+                games = GetAll().AsQueryable();
+            }
+
             if (!string.IsNullOrEmpty(query))
             {
                 games = games.Where(s =>
@@ -270,7 +294,29 @@ namespace PRO.Domain.Services
                 "Genre_desc" => games.OrderByDescending(s => s.Genre.Name),
                 "Genre" => games.OrderBy(s => s.Genre.Name),
 
+
                 _ => games.OrderBy(s => s.Title),
+            };
+            return games.AsQueryable();
+        }
+        public IQueryable<GameScore> GameSortList(string sortOrder, IQueryable<GameScore> games)
+        {
+            games = sortOrder switch
+            {
+                "Title_desc" => games.OrderByDescending(s => s.Game.Title),
+                "" => games.OrderBy(s => s.Game.Title),
+                "Platform_desc" => games.OrderByDescending(s => s.Game.Platform.Name),
+                "Platform" => games.OrderBy(s => s.Game.Platform.Name),
+                "Date_desc" => games.OrderByDescending(s => s.Game.ReleaseDate),
+                "Date" => games.OrderBy(s => s.Game.ReleaseDate),
+                "Status_desc" => games.OrderByDescending(s => s.Game.Status.Name),
+                "Status" => games.OrderBy(s => s.Game.Status.Name),
+                "Score_desc" => games.OrderByDescending(s => s.Score),
+                "Score" => games.OrderBy(s => s.Score),
+                "Userscore_desc" => games.OrderByDescending(s => s.UserScore),
+                "Userscore" => games.OrderBy(s => s.UserScore),
+
+                _ => games.OrderBy(s => s.Game.Title),
             };
             return games.AsQueryable();
         }
@@ -287,7 +333,7 @@ namespace PRO.Domain.Services
                 "genre" => list.Where(s => s.Game.Genre.Name == value),
                 "publisher" => list.Where(s => s.Game.PublisherCompany != null && s.Game.DeveloperCompany.Name == value),
                 "developer" => list.Where(s => s.Game.DeveloperCompany != null && s.Game.DeveloperCompany.Name == value),
-                "language" => list.Where(s => s.Game.Languages.Any(i=>i.Name == value)),
+                "language" => list.Where(s => s.Game.Languages.Any(i => i.Name == value)),
                 "tag" => list.Where(s => s.Game.Tags.Any(i => i.Name == value)),
                 _ => list.OrderBy(s => s.Game.Title),
             };

@@ -75,13 +75,13 @@
                                 <td class="your-score ac fs14">
                                     <div class="js-top-ranking-your-score-col di-ib al" style="width: 43.4063px;">
                                         @{
-                                            var test = "";
+                                            var userscore = "";
                                             if (item.UserScore != null)
-                                                test = item.UserScore.ToString();
+                                                userscore = item.UserScore.ToString();
                                             else
-                                                test = "Brak";
+                                                userscore = "Brak";
                                         }
-                                        <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">@test</span>
+                                        <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">@userscore</span>
                                     </div>
                                 </td>
                             }}

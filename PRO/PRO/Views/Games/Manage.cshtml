@@ -35,23 +35,23 @@
         <tr class="tableheadercolor">
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Tytuł</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Tytuł</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["PlatformSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Platforma</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["PlatformSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Platforma</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["StatusSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Status</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["StatusSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Status</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Data wydania</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data wydania</a>
             </th>
             <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["GenreSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Gatunek</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["GenreSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Gatunek</a>
             </th>
             <th>
                 Producent

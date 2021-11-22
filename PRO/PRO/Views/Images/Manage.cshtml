@@ -37,14 +37,14 @@
                 <label>Obraz</label>
             </th>
             <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Nazwa</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Nazwa</a>
 
             </th>
             <th>
                 <label>Scieżka</label>
             </th>
             <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["TypeSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Rodzaj obrazka</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["TypeSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Rodzaj obrazka</a>
 
             </th>
             <th>

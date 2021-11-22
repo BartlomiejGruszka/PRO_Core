@@ -62,9 +62,9 @@ namespace PRO.Controllers
 
             var homeViewModel = new HomeViewModel
             {
-                RecentGames = _gameService.GetAllActive().OrderByDescending(s => s.ReleaseDate).Take(5).ToList(),
+                RecentGames = _gameService.GetRecentlyReleased(),
                 RecentReviews = _reviewService.GetRecentReviews(),
-                RecentArticles = _articleService.GetAllActive().OrderByDescending(s => s.PublishedDate).Take(5).ToList(),
+                RecentArticles = _articleService.GetRecentlyReleased(),
                 ComingGames = _gameService.GetComingGames(),
                 MostPopularGames = _gameService.GetGamesByPopularity().Take(3).ToList(),
                 BestRatedGames = _gameService.GetOrderedGamesRanking(3)

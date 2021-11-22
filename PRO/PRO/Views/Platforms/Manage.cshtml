@@ -34,13 +34,13 @@
         <tr class="tableheadercolor">
 
             <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Nazwa</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Nazwa</a>
             </th>
             <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["CompanySortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Wydawca</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["CompanySortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Wydawca</a>
             </th>
             <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter">Data premiery</a>
+                <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data premiery</a>
             </th>
             <th>
                 Aktywna
