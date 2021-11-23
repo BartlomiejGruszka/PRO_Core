@@ -43,7 +43,7 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item @Html.IsSelected(actions: "Index,Details,Search", controllers: "Articles")">
-                        <a class="nav-link" href="/articles?query=all">Artykuły</a>
+                        <a class="nav-link" href="/articles?currentFilter=all">Artykuły</a>
                     </li>
                     <li class="nav-item @Html.IsSelected(actions: "Index,Details,Search,Filter,Reviews,SingleReview,UserReview", controllers: "Games")">
                         <a class="nav-link" href="/games">Gry</a>

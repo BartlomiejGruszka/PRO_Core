@@ -135,7 +135,7 @@ namespace PRO.Domain.Services
         }
         public List<GameScore> GetUnorderedGamesRanking(IQueryable <Game> games)
         {
-            //var images = _imageRepository.GetAll();
+            if (games == null) return GetUnorderedGamesRanking();
             var ranking = games
               .Select(c => new GameScore { Game = c, Score = c.GameLists.Average(p => p.PersonalScore) })
               .ToList();

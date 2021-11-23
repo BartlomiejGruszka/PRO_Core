@@ -17,12 +17,13 @@
     </div>*/
 }
 
-<div>
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table">
+<div class="table-container">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table table">
         <tbody>
             <tr class="table-header">
                 <td class="rank">Ranga</td>
                 <td class="title">Tytuł</td>
+                <td class="title">Platforma</td>
                 <td class="release-date">Data premiery</td>
                 @{ if (userLoggedIn)
                     {
@@ -30,9 +31,9 @@
                     } }
                 <td class="score">Średnia ocena</td>
             </tr>
-            @{ 
-                int i = ((Model.GamesScores.Pagination.PageIndex-1)*Model.GamesScores.Pagination.PageItems);
-                foreach(var item in Model.GamesScores)
+            @{
+                int i = ((Model.GamesScores.Pagination.PageIndex - 1) * Model.GamesScores.Pagination.PageItems);
+                foreach (var item in Model.GamesScores)
 
                 {
                     i = i + 1;
@@ -63,16 +64,24 @@
                             </div>
 
                         </td>
+                        <td style="text-align:center;">
+                            <div>
+                                @if (item.Game.Platform.Name != null)
+                                {@item.Game.Platform.Name }
+                            else
+                            { <text>-</text>}
+                            </div>
+                        </td>
                         <td class="status ac">
                             @if (item.Game.ReleaseDate.HasValue)
                             {@item.Game.ReleaseDate.Value.ToShortDateString()}
                         else
-                        { <text>brak daty</text>}
+                        { <text>-</text>}
 
                         </td>
                         @{if (userLoggedIn)
                             {
-                                <td class="your-score ac fs14">
+                                <td class="ac fs14">
                                     <div class="js-top-ranking-your-score-col di-ib al" style="width: 43.4063px;">
                                         @{
                                             var userscore = "";
@@ -96,7 +105,7 @@
                                         }
                                         else
                                         {
-                                            @:0
+                                            @:-
                                         }
                                     }
                                 </span>

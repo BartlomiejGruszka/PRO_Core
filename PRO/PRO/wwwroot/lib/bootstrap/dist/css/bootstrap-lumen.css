@@ -12496,3 +12496,13 @@ a.sort-link:hover {
     text-decoration: none;
     color: black;
 }
+
+.your-score {
+    display: flex;
+    text-align: center;
+}
+
+.your-score-link {
+    margin-left: 5px;
+    margin-right: 5px;
+}
