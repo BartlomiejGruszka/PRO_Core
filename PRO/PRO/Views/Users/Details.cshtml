@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    <div>
+    <div class="box-shadow">
         <partial name="~/Views/Users/_TopUserBar.cshtml" , model="Model.AppUser" />
     </div>
 </div>
-<div id="content" class="userprofilecontent">
+<div id="content" class="userprofilecontent box-shadow window-background">
     @if (Model.AppUser.IsPublic || ViewBag.IsOwner)
     {
 

@@ -60,7 +60,7 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #fff;
+    background-color: #ededed;
 }
 
 [tabindex="-1"]:focus:not() {
@@ -4999,6 +4999,7 @@ input[type="button"].btn-block {
     border-radius: 0.25rem;
 }
 
+
     .card > hr {
         margin-right: 0;
         margin-left: 0;
@@ -5025,7 +5026,8 @@ input[type="button"].btn-block {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 1.25rem;
+    text-align: center;
+    padding: 10px 5px 10px 5px;
 }
 
 .card-title {
@@ -11175,6 +11177,7 @@ a.text-dark:hover, a.text-dark:focus {
     max-height: 150px;
     height: 100%;
     line-height: 25px;
+    margin-bottom: 0px !important;
 }
 
     .card-ellipsis:before {
@@ -11206,11 +11209,11 @@ a.text-dark:hover, a.text-dark:focus {
 
 .sidebar-title {
     align-self: center;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .footer-ranking {
-    background-color: #f5f6f9;
+    background-color: #fff;
     display: block;
     padding: 20px 0 14px;
     text-align: center;
@@ -11295,21 +11298,25 @@ a.text-dark:hover, a.text-dark:focus {
     margin-right: 8px !important;
 }
 
-.news-container .title {
-    color: #323232;
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 0;
-    margin-after: 0;
-    margin-before: 0;
-    margin-end: 0;
-    margin-start: 0;
-    padding: 12px 0 0;
+.news-container {
+    background-color: #fff !important;
 }
 
-    .news-container .title a {
+    .news-container .title {
         color: #323232;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0px;
+        margin-after: 0px;
+        margin-before: 0;
+        margin-end: 0;
+        margin-start: 0;
+        padding: 12px 0 0;
     }
+
+        .news-container .title a {
+            color: #323232;
+        }
 
 .news-list .news-unit {
     border-bottom: #ededed 1px solid;
@@ -11393,7 +11400,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .news .information {
     color: #7f7f7f;
-    background-color: #e9ecef;
+    background-color: #fff;
     display: block;
     font-size: 12px;
     font-size: 11px !important;
@@ -11893,6 +11900,10 @@ input, select, textarea {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+    .recentlyReleasedGames :hover {
+        background-color: #f8f9fa !important;
+    }
 
 .gameListImageGrid {
     display: grid;
@@ -12505,4 +12516,31 @@ a.sort-link:hover {
 .your-score-link {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.list-title {
+    font-family: inherit;
+    color: white;
+    background-color: #4f74c8;
+    margin-bottom: 0px;
+    font-weight: 600;
+    border: none;
+    height: 44px;
+    line-height: 44px;
+    padding-left: 20px;
+}
+
+.box-shadow {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+.article-image {
+    display:flex;
+    justify-content:center;
+
+}
+.article-text {
+
+}
+.window-background {
+    background-color: #fff !important;
 }

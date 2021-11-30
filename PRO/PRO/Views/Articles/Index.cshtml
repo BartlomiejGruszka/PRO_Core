@@ -4,74 +4,76 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{ string currentFilter = Model.Pagination.CurrentFilter; }
-<ul class="nav nav-tabs" id="myTab">
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter == "all" ? "active" : "")" href="/articles?currentFilter=all">Wszystkie</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter == "PC" ? "active" : "")" href="/articles?currentFilter=PC">PC</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter.Contains("Playstation") ? "active" : "")" href="/articles?currentFilter=Playstation">Playstation</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter.Contains("Xbox") ? "active" : "")" href="/articles?currentFilter=Xbox">Xbox</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter == "Switch" ? "active" : "")" href="/articles?currentFilter=Switch">Switch</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @((currentFilter != "all" &&
+<div class="box-shadow window-background" >
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter == "all" ? "active" : "")" href="/articles?currentFilter=all">Wszystkie</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter == "PC" ? "active" : "")" href="/articles?currentFilter=PC">PC</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter.Contains("Playstation") ? "active" : "")" href="/articles?currentFilter=Playstation">Playstation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter.Contains("Xbox") ? "active" : "")" href="/articles?currentFilter=Xbox">Xbox</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter == "Switch" ? "active" : "")" href="/articles?currentFilter=Switch">Switch</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @((currentFilter != "all" &&
 currentFilter != "PC" &&
 !currentFilter.Contains("Playstation") &&
 !currentFilter.Contains("Xbox") &&
 currentFilter != "Switch")
 || currentFilter == "other" ? "active" : "")" href="/articles?currentFilter=other">Inne</a>
-    </li>
+        </li>
 
 
-</ul>
+    </ul>
 
-<div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade active show" id="all">
-        <div class="list-group">
-            @{
-                foreach (var item in Model)
-                {
-                    <div class="news-list mt16 mr8">
-                        <div class="news-unit">
-                            @if (item.Image != null)
-                            {
-                                <a href="/articles/@item.Id" class="image-link">
-                                    <img style="max-height:300px;max-width:200px;" class="img" alt="myimage" src="/images/@item.Image.ImagePath">
-                                </a>
-                            }
-                            <div class="news-unit-right">
-                                <p class="title">
-                                    <a href="/articles/@item.Id">@item.Title</a>
-                                </p>
-                                <div class="text">
-                                    @item.Preview
-                                </div>
-                                <div class="information">
-                                    <p class="info di-ib">
-                                        @item.PublishedDate.ToShortDateString() <text>przez</text> <a href="/users/@item.Author.UserId">@item.Author.FirstName @item.Author.LastName</a> dla <a href="/articles?currentFilter=@item.Game.Platform.Name" class="nav-item">@item.Game.Platform.Name</a>
+    <div id="myTabContent" class="tab-content m-2">
+        <div class="tab-pane fade active show" id="all">
+            <div class="list-group">
+                @{
+                    foreach (var item in Model)
+                    {
+                        <div class="news-list mt16 mr8">
+                            <div class="news-unit">
+                                @if (item.Image != null)
+                                {
+                                    <a href="/articles/@item.Id" class="image-link">
+                                        <img style="max-height:300px;max-width:200px;" class="img" alt="myimage" src="/images/@item.Image.ImagePath">
+                                    </a>
+                                }
+                                <div class="news-unit-right">
+                                    <p class="title">
+                                        <a href="/articles/@item.Id">@item.Title</a>
                                     </p>
+                                    <div class="text">
+                                        @item.Preview
+                                    </div>
+                                    <div class="information">
+                                        <p class="info di-ib">
+                                            @item.PublishedDate.ToShortDateString() <text>przez</text> <a href="/users/@item.Author.UserId">@item.Author.FirstName @item.Author.LastName</a> dla <a href="/articles?currentFilter=@item.Game.Platform.Name" class="nav-item">@item.Game.Platform.Name</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    }
                 }
-            }
 
+            </div>
         </div>
+
     </div>
 
+    <div>
+        <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
+    </div>
 </div>
-<div>
-    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
-</div>
-
 
 

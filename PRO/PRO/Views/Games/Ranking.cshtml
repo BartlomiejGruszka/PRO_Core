@@ -16,108 +16,109 @@
         @Html.LabelFor(l=>l.Platforms)
     </div>*/
 }
+<div class="window-background box-shadow">
+    <div class="table-container">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table table">
+            <tbody>
+                <tr class="table-header">
+                    <td class="rank">Ranga</td>
+                    <td class="title">Tytuł</td>
+                    <td class="title">Platforma</td>
+                    <td class="release-date">Data premiery</td>
+                    @{ if (userLoggedIn)
+                        {
+                            <td class="your-score">Twoja ocena</td>
+                        } }
+                    <td class="score">Średnia ocena</td>
+                </tr>
+                @{
+                    int i = ((Model.GamesScores.Pagination.PageIndex - 1) * Model.GamesScores.Pagination.PageItems);
+                    foreach (var item in Model.GamesScores)
 
-<div class="table-container">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table table">
-        <tbody>
-            <tr class="table-header">
-                <td class="rank">Ranga</td>
-                <td class="title">Tytuł</td>
-                <td class="title">Platforma</td>
-                <td class="release-date">Data premiery</td>
-                @{ if (userLoggedIn)
                     {
-                        <td class="your-score">Twoja ocena</td>
-                    } }
-                <td class="score">Średnia ocena</td>
-            </tr>
-            @{
-                int i = ((Model.GamesScores.Pagination.PageIndex - 1) * Model.GamesScores.Pagination.PageItems);
-                foreach (var item in Model.GamesScores)
+                        i = i + 1;
 
-                {
-                    i = i + 1;
+                        <tr class="ranking-list tablerow">
+                            <td class="rank ac" valign="top">
+                                <span class="lightLink top-game-rank-text rank1">@i</span>
+                            </td>
+                            <td class="title al va-t word-break">
+                                <div class="gameListImageGrid">
+                                    <div>
+                                        @if (item.Game.Image != null)
+                                        {
+                                            <a class="fl-l ml12 mr8" href="/games/@item.Game.Id" style="position: relative;">
+                                                <img width="70" height="90" class=" lazyloaded" border="0" src="/images/@item.Game.Image.ImagePath">
+                                            </a>
+                                        }
+                                    </div>
 
-                    <tr class="ranking-list tablerow">
-                        <td class="rank ac" valign="top">
-                            <span class="lightLink top-game-rank-text rank1">@i</span>
-                        </td>
-                        <td class="title al va-t word-break">
-                            <div class="gameListImageGrid">
+                                    <div class="detail">
+                                        <div class="di-flex clearfix">
+                                            <a class="" href="/games/@item.Game.Id">@item.Game.Title</a>
+                                        </div>
+                                        <div class="information di-ib mt4" style="overflow:hidden; text-overflow:clip; max-width:500px; min-width:200px;">
+                                            @Html.Raw(item.Game.Description.Truncate(140))...<a href="/games/@item.Game.Id">więcej</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td style="text-align:center;">
                                 <div>
-                                    @if (item.Game.Image != null)
-                                    {
-                                        <a class="fl-l ml12 mr8" href="/games/@item.Game.Id" style="position: relative;">
-                                            <img width="70" height="90" class=" lazyloaded" border="0" src="/images/@item.Game.Image.ImagePath">
-                                        </a>
-                                    }
+                                    @if (item.Game.Platform.Name != null)
+                                    {@item.Game.Platform.Name }
+                                else
+                                { <text>-</text>}
                                 </div>
-
-                                <div class="detail">
-                                    <div class="di-flex clearfix">
-                                        <a class="" href="/games/@item.Game.Id">@item.Game.Title</a>
-                                    </div>
-                                    <div class="information di-ib mt4" style="overflow:hidden; text-overflow:clip; max-width:500px; min-width:200px;">
-                                        @Html.Raw(item.Game.Description.Truncate(140))...<a href="/games/@item.Game.Id">więcej</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td style="text-align:center;">
-                            <div>
-                                @if (item.Game.Platform.Name != null)
-                                {@item.Game.Platform.Name }
+                            </td>
+                            <td class="status ac">
+                                @if (item.Game.ReleaseDate.HasValue)
+                                {@item.Game.ReleaseDate.Value.ToShortDateString()}
                             else
                             { <text>-</text>}
-                            </div>
-                        </td>
-                        <td class="status ac">
-                            @if (item.Game.ReleaseDate.HasValue)
-                            {@item.Game.ReleaseDate.Value.ToShortDateString()}
-                        else
-                        { <text>-</text>}
 
-                        </td>
-                        @{if (userLoggedIn)
-                            {
-                                <td class="ac fs14">
-                                    <div class="js-top-ranking-your-score-col di-ib al" style="width: 43.4063px;">
+                            </td>
+                            @{if (userLoggedIn)
+                                {
+                                    <td class="ac fs14">
+                                        <div class="js-top-ranking-your-score-col di-ib al" style="width: 43.4063px;">
+                                            @{
+                                                var userscore = "";
+                                                if (item.UserScore != null)
+                                                    userscore = item.UserScore.ToString();
+                                                else
+                                                    userscore = "Brak";
+                                            }
+                                            <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">@userscore</span>
+                                        </div>
+                                    </td>
+                                }}
+                            <td class="score ac fs14">
+                                <div class="js-top-ranking-score-col di-ib al" style="width: 48.7969px;">
+                                    <i class="icon-score-star mr4 on"></i>
+                                    <span class="text on score-label score-9">
                                         @{
-                                            var userscore = "";
-                                            if (item.UserScore != null)
-                                                userscore = item.UserScore.ToString();
+                                            if (item.Score.HasValue && !Double.IsNaN(item.Score.Value))
+                                            {
+                                                @Math.Round((double)item.Score, 1)
+                                            }
                                             else
-                                                userscore = "Brak";
+                                            {
+                                                @:-
+                                            }
                                         }
-                                        <i class="icon-score-star mr4 "></i><span class="text  score-label score-na">@userscore</span>
-                                    </div>
-                                </td>
-                            }}
-                        <td class="score ac fs14">
-                            <div class="js-top-ranking-score-col di-ib al" style="width: 48.7969px;">
-                                <i class="icon-score-star mr4 on"></i>
-                                <span class="text on score-label score-9">
-                                    @{
-                                        if (item.Score.HasValue && !Double.IsNaN(item.Score.Value))
-                                        {
-                                            @Math.Round((double)item.Score, 1)
-                                        }
-                                        else
-                                        {
-                                            @:-
-                                        }
-                                    }
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-        </tbody>
-    </table>
-</div>
-<div>
-    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.GamesScores.Pagination" />
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.GamesScores.Pagination" />
+    </div>
 </div>
 

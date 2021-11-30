@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<PRO.Entities.Game>
 @using PRO.Domain.Extensions
-<div class="side-list-group">
-    <h3 class="sidebar-title">Nadchodzące premiery</h3>
+<div class="side-list-group box-shadow">
+    <h3 class="sidebar-title list-title box-shadow">Nadchodzące premiery</h3>
     @{
         var comingGames = Model.ToList().Take(3);
 

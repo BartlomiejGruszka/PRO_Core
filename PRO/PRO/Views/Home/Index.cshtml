@@ -25,8 +25,8 @@
 
 <div class="maingrid-container">
     <div class="">
-        <div class="list-group">
-            <h2>Bieżące informacje</h2>
+        <div class="list-group box-shadow">
+            <h2 class="list-title box-shadow">Bieżące informacje</h2>
             @{
                 var articles = Model.RecentArticles.ToList().Take(3);
                 foreach (var article in articles)
@@ -49,17 +49,18 @@
                 }
             }
         </div>
+        <br />
         <div>
-            <br />
-            <h2>Ostatnie premiery</h2>
-            <div class="leftinnergrid-container">
+
+            <h2 class="list-title box-shadow">Ostatnie premiery</h2>
+            <div class="leftinnergrid-container box-shadow">
 
                 @{
                     var games = Model.RecentGames.ToList().Take(4);
 
                     foreach (var game in games)
                     {
-                        <div class="card mb-3 recentlyReleasedGames">
+                        <div class="card recentlyReleasedGames">
                             <a href="/games/@game.Id" style="text-decoration:none; color:black; display:block;width: 100%; ">
                                 <div class="">
                                     <div style=" text-align: center;">
@@ -82,8 +83,9 @@
 
             </div>
         </div>
-        <div class="list-group">
-            <h2>Najpopularniejsze</h2>
+        <br />
+        <div class="list-group box-shadow">
+            <h2 class="list-title box-shadow">Najpopularniejsze</h2>
             @{
                 var popularGames = Model.MostPopularGames;
 
@@ -103,7 +105,8 @@
                             </div>
                             <p class="mb-1">
                                 @{ var content = StripHTML(@game.Description, 300);
-                                    if (content.Length == 300) {
+                                    if (content.Length == 300)
+                                    {
                                         content = content + "...";
                                     }
                                 }
