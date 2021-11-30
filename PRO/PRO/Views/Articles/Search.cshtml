@@ -1,30 +1,31 @@
 ﻿@model PRO.Entities.PaginatedList<PRO.Entities.Article>
-    @{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{ string currentFilter = Model.Pagination.CurrentFilter;}
-<ul class="nav nav-tabs" id="myTab">
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter == "all" ? "active" : "")" href="/articles?currentFilter=all">Wszystkie</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter == "PC" ? "active" : "")" href="/articles?currentFilter=PC">PC</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter.Contains("Playstation") ? "active" : "")" href="/articles?currentFilter=Playstation">Playstation</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter.Contains("Xbox") ? "active" : "")" href="/articles?currentFilter=Xbox">Xbox</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link @(currentFilter == "Switch" ? "active" : "")" href="/articles?currentFilter=Switch">Switch</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" href="/articles/search/@currentFilter">Wyszukiwanie</a>
-    </li>
+<div class="box-shadow window-background">
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter == "all" ? "active" : "")" href="/articles?currentFilter=all">Wszystkie</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter == "PC" ? "active" : "")" href="/articles?currentFilter=PC">PC</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter.Contains("Playstation") ? "active" : "")" href="/articles?currentFilter=Playstation">Playstation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter.Contains("Xbox") ? "active" : "")" href="/articles?currentFilter=Xbox">Xbox</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(currentFilter == "Switch" ? "active" : "")" href="/articles?currentFilter=Switch">Switch</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/articles/search/@currentFilter">Wyszukiwanie</a>
+        </li>
 
-</ul>
+    </ul>
 
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active show" id="all">
@@ -62,4 +63,4 @@
     <div>
         <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
     </div>
-
+</div>

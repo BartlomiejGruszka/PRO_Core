@@ -3,42 +3,45 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="window-background box-shadow">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
+        <tbody>
+            <tr class="table-header top-game-rank-text manage">
+                <td class="rank ac">
+                    <span style="font-size:24px;    margin-right: -40px;">Zarządzaj danymi artykułów</span>
+                    <div class="btn btn-secondary" style="float:right; margin-right:10px;"><a class="actionLinkManage" href="/panel">Powrót</a></div>
+                </td>
+            </tr>
+            <tr class="ranking-list">
+                <td class="rank ac" valign="top">
+                    <span class="lightLink top-game-rank-text manage"><a href="/articles/manage">Artykuły</a></span>
+                </td>
+            </tr>
+            <tr class="ranking-list">
+                <td class="rank ac" valign="top">
+                    <span class="lightLink top-game-rank-text manage"><a href="/authors/manage">Autorzy</a></span>
+                </td>
+            </tr>
+            <tr class="ranking-list">
+                <td class="rank ac" valign="top">
+                    <span class="lightLink top-game-rank-text manage"><a href="/articletypes/manage">Rodzaje artykułów</a></span>
+                </td>
+            </tr>
+            <tr class="ranking-list">
+                <td class="rank ac" valign="top">
+                    <span class="lightLink top-game-rank-text manage"><a href="/images/manage">Obrazki</a></span>
+                </td>
+            </tr>
+            <tr class="ranking-list">
+                <td class="rank ac" valign="top">
+                    <span class="lightLink top-game-rank-text manage"><a href="/imagetypes/manage">Rodzaje obrazków</a></span>
+                </td>
+            </tr>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table">
-    <tbody>
-        <tr class="table-header top-game-rank-text manage">
-            <td class="rank ac">
-                <span style="font-size:24px;    margin-right: -40px;">Zarządzaj danymi artykułów</span>
-                <div class="btn btn-secondary" style="float:right; margin-right:10px;"><a class="actionLinkManage" href="/panel">Powrót</a></div>
-            </td>
-        </tr>
-        <tr class="ranking-list">
-            <td class="rank ac" valign="top">
-                <span class="lightLink top-game-rank-text manage"><a href="/articles/manage">Artykuły</a></span>
-            </td>
-        </tr>
-        <tr class="ranking-list">
-            <td class="rank ac" valign="top">
-                <span class="lightLink top-game-rank-text manage"><a href="/authors/manage">Autorzy</a></span>
-            </td>
-        </tr>
-        <tr class="ranking-list">
-            <td class="rank ac" valign="top">
-                <span class="lightLink top-game-rank-text manage"><a href="/articletypes/manage">Rodzaje artykułów</a></span>
-            </td>
-        </tr>
-        <tr class="ranking-list">
-            <td class="rank ac" valign="top">
-                <span class="lightLink top-game-rank-text manage"><a href="/images/manage">Obrazki</a></span>
-            </td>
-        </tr>
-        <tr class="ranking-list">
-            <td class="rank ac" valign="top">
-                <span class="lightLink top-game-rank-text manage"><a href="/imagetypes/manage">Rodzaje obrazków</a></span>
-            </td>
-        </tr>
 
 
+        </tbody>
+    </table>
 
-    </tbody>
-</table>
+
+</div>

@@ -33,94 +33,97 @@
         </div>
     </div>
 </nav>
-<div class="table-container">
-    <table class="table">
-        <tr class="tableheadercolor">
-            <th>
-                Obraz
-            </th>
-            <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Użytkownik</a>
-            </th>
-            <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EmailSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Email</a>
-            </th>
-            <th>
+<div class="window-background box-shadow">
+    <div class="table-container">
+        <table class="table tablecolor">
+            <tr class="tableheadercolor">
+                <th>
+                    Obraz
+                </th>
+                <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Użytkownik</a>
+                </th>
+                <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["EmailSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Email</a>
+                </th>
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data dodania</a>
-            </th>
-            <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data dodania</a>
+                </th>
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data edycji</a>
-            </th>
-            <th>
-                Aktywny
-            </th>
-            <th>
-                Publiczny
-            </th>
-            <th></th>
-        </tr>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data edycji</a>
+                </th>
+                <th>
+                    Aktywny
+                </th>
+                <th>
+                    Publiczny
+                </th>
+                <th></th>
+            </tr>
 
-        @{ foreach (var item in Model)
-            {
-                <tr class="tablerow">
-                    <td>
-                        @{if (item.Image != null)
-                            {
+            @{ foreach (var item in Model)
+                {
+                    <tr class="tablerow">
+                        <td>
+                            @{if (item.Image != null)
+                                {
 
-                                <div style="text-align: center;">
-                                    <img style="max-height:70px;max-width:70px;" class=" lazyloaded" src="/images/@item.Image.ImagePath">
-                                </div>
+                                    <div style="text-align: center;">
+                                        <img style="max-height:70px;max-width:70px;" class=" lazyloaded" src="/images/@item.Image.ImagePath">
+                                    </div>
+                                }
+                                else
+                                { <p>Brak obrazu</p>}
                             }
-                            else
-                            { <p>Brak obrazu</p>}
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RegisterDate)
+                        </td>
+                        <td>
+                            @if (item.EditDate.HasValue)
+                            {@Html.DisplayFor(modelItem => item.EditDate)}
+                        else
+                        { <p>brak</p>}
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsPublic)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
+                            @if (User.IsInRole("Admin"))
+                            {<text>|</text>
+                            @Html.ActionLink("Usuń", "Delete", new { id = item.Id });
+                            <text>|</text>
+                            @Html.ActionLink("Zmień hasło", "ChangePassword", new { id = item.Id });
                         }
 
-                    </td>
+                        </td>
+                    </tr>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RegisterDate)
-                    </td>
-                    <td>
-                        @if (item.EditDate.HasValue)
-                        {@Html.DisplayFor(modelItem => item.EditDate)}
-                    else
-                    { <p>brak</p>}
-
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsActive)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsPublic)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
-                        @if (User.IsInRole("Admin"))
-                        {<text>|</text>
-                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id });
-                        <text>|</text>
-                        @Html.ActionLink("Zmień hasło", "ChangePassword", new { id = item.Id });
-                    }
-
-                    </td>
-                </tr>
-
+                }
             }
-        }
 
-    </table>
-</div>
-<div>
-    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
+        </table>
+
+    </div>     
+    <div>
+        <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
+    </div>
 </div>
 <script>
     function openButton2() {

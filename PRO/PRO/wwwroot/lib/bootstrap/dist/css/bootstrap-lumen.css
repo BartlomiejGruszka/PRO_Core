@@ -12476,8 +12476,17 @@ input, select, textarea {
 }
 
 .tableheadercolor {
-    background-color: #e9ecef;
+    background-color: #6c757d;
+    color: #e9ecef;
 }
+
+    .tableheadercolor a {
+        text-decoration: none;
+        color: #e9ecef;
+    }
+    .tableheadercolor a:hover {
+        text-decoration:auto;
+    }
 
 .table-container {
     overflow: overlay;
@@ -12485,6 +12494,10 @@ input, select, textarea {
 
 .tablerow {
     border-bottom: #ededed 1px solid;
+}
+
+.tablecolor tr:nth-child(even) {
+    background-color: #e9ecef !important;
 }
 
 .userleftsidebuttons {
@@ -12533,14 +12546,15 @@ a.sort-link:hover {
 .box-shadow {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
+
 .article-image {
-    display:flex;
-    justify-content:center;
-
+    display: flex;
+    justify-content: center;
 }
+
 .article-text {
-
 }
+
 .window-background {
     background-color: #fff !important;
 }

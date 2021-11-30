@@ -23,50 +23,52 @@
                     <a class="nav-link" href="/panel">Powrót</a>
                 </li>
             </ul>
-            <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">                
+            <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">
                 <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="currentFilter" value="@Model.Pagination.CurrentFilter" />
                 <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
-            </form>     
+            </form>
         </div>
     </div>
 </nav>
-<div class="table-container">
-    <table class="table">
-        <tr class="tableheadercolor">
-            <th style="width:70%;">
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Nazwa</a>
-            </th>
-            <th style="width:30%;">
-                Opcje
-            </th>
-        </tr>
+<div class="window-background box-shadow">
+    <div class="table-container">
+        <table class="table tablecolor">
+            <tr class="tableheadercolor">
+                <th style="width:70%;">
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Nazwa</a>
+                </th>
+                <th style="width:30%;">
+                    Opcje
+                </th>
+            </tr>
 
-        @{ foreach (var item in Model)
-            {
-                <tr class="tablerow">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td style="float:right; margin-right:10px;">
-                        @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
-                        @if (@User.IsInRole("Admin"))
-                        {<text>|</text>
-                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                    }
-                    </td>
-                </tr>
+            @{ foreach (var item in Model)
+                {
+                    <tr class="tablerow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td style="float:right; margin-right:10px;">
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
+                            @if (@User.IsInRole("Admin"))
+                            {<text>|</text>
+                            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                        }
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </table>
+        </table>
     </div>
     <div>
         <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
     </div>
-    <script>
-        function openButton2() {
-            var element = document.getElementById("navbarColor02");
-            element.classList.toggle("collapse");
-        }
+</div>
+<script>
+    function openButton2() {
+        var element = document.getElementById("navbarColor02");
+        element.classList.toggle("collapse");
+    }
 
-    </script>
+</script>

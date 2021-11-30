@@ -28,95 +28,97 @@
         </div>
     </div>
 </nav>
-<div class="table-container">
-    <table class="table">
-        <tr class="tableheadercolor">
-            <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["GameSortParm"]game" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Gra</a>
-            </th>
-            <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Użytkownik</a>
-            </th>
-            <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data recenzji</a>
-            </th>
-            <th>
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data edycji</a>
-            </th>
-            <th>
-                Moderator
-            </th>
+<div class="window-background box-shadow">
+    <div class="table-container">
+        <table class="table tablecolor">
+            <tr class="tableheadercolor">
+                <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["GameSortParm"]game" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Gra</a>
+                </th>
+                <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Użytkownik</a>
+                </th>
+                <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data recenzji</a>
+                </th>
+                <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data edycji</a>
+                </th>
+                <th>
+                    Moderator
+                </th>
 
-            <th>
-                Ocena grafiki
-            </th>
-            <th>
-                Ocena fabuły
-            </th>
-            <th>
-                Ocena muzyki
-            </th>
-            <th>
-                Ocena grywalności
-            </th>
-            <th></th>
-        </tr>
+                <th>
+                    Ocena grafiki
+                </th>
+                <th>
+                    Ocena fabuły
+                </th>
+                <th>
+                    Ocena muzyki
+                </th>
+                <th>
+                    Ocena grywalności
+                </th>
+                <th></th>
+            </tr>
 
-        @{ foreach (var item in Model)
-            {
-                <tr class="tablerow">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Game.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReviewDate)
-                    </td>
-                    <td>
-                        @if (item.EditDate.HasValue)
-                        {
-                            @Html.DisplayFor(modelItem => item.EditDate)}
-                        else
-                        { <p>Brak</p>}
-                    </td>
-                    <td>
-                        @if (item.Moderator != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.Moderator.User.UserName)}
-                        else
-                        { <p>Brak</p>}
-                    </td>
+            @{ foreach (var item in Model)
+                {
+                    <tr class="tablerow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Game.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReviewDate)
+                        </td>
+                        <td>
+                            @if (item.EditDate.HasValue)
+                            {
+                                @Html.DisplayFor(modelItem => item.EditDate)}
+                            else
+                            { <p>Brak</p>}
+                        </td>
+                        <td>
+                            @if (item.Moderator != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.Moderator.User.UserName)}
+                            else
+                            { <p>Brak</p>}
+                        </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GraphicsScore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StoryScore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MusicScore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GameplayScore)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
-                        @if (@User.IsInRole("Admin"))
-                        {<text>|</text>
-                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                    }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GraphicsScore)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StoryScore)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MusicScore)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GameplayScore)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
+                            @if (@User.IsInRole("Admin"))
+                            {<text>|</text>
+                            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                        }
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </table>
-</div>
-<div>
-    <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
+        </table>
+    </div>
+    <div>
+        <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
+    </div>
 </div>
 <script>
     function openButton2() {

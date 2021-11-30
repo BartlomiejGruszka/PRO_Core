@@ -30,92 +30,94 @@
         </div>
     </div>
 </nav>
-<div class="table-container">
-    <table class="table">
-        <tr class="tableheadercolor">
-            <th>
+<div class="window-background box-shadow">
+    <div class="table-container">
+        <table class="table tablecolor">
+            <tr class="tableheadercolor">
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Użytkownik</a>
-            </th>
-            <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["UserSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Użytkownik</a>
+                </th>
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["GameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Gra</a>
-            </th>
-            <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["GameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Gra</a>
+                </th>
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["ListSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Lista użytkownika</a>
-            </th>
-            <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["ListSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Lista użytkownika</a>
+                </th>
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["HoursSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Rozegrane godziny</a>
-            </th>
-            <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["HoursSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Rozegrane godziny</a>
+                </th>
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["ScoreSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Ocena</a>
-            </th>
-            <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["ScoreSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Ocena</a>
+                </th>
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data dodania</a>
-            </th>
-            <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["AddDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data dodania</a>
+                </th>
+                <th>
 
-                <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data edycji</a>
-            </th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["EditDateSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Data edycji</a>
+                </th>
 
-            <th></th>
-        </tr>
+                <th></th>
+            </tr>
 
-        @{ foreach (var item in Model)
-            {
-                <tr class="tablerow">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserList.User.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Game.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserList.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HoursPlayed)
-                    </td>
-                    <td>
-                        @if (item.PersonalScore == null)
+            @{ foreach (var item in Model)
+                {
+                    <tr class="tablerow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserList.User.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Game.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserList.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoursPlayed)
+                        </td>
+                        <td>
+                            @if (item.PersonalScore == null)
 
-                        {<text>Brak</text>}
-                    else
-                    {@Html.DisplayFor(modelItem => item.PersonalScore)}
+                            {<text>Brak</text>}
+                        else
+                        {@Html.DisplayFor(modelItem => item.PersonalScore)}
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AddedDate)
-                    </td>
-                    <td>
-                        @if (item.EditedDate == null)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AddedDate)
+                        </td>
+                        <td>
+                            @if (item.EditedDate == null)
 
-                        {<text>Brak</text>}
-                    else
-                    {@Html.DisplayFor(modelItem => item.EditedDate)}
+                            {<text>Brak</text>}
+                        else
+                        {@Html.DisplayFor(modelItem => item.EditedDate)}
 
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </table>
+        </table>
     </div>
     <div>
         <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
     </div>
-    <script>
-        function openButton2() {
-            var element = document.getElementById("navbarColor02");
-            element.classList.toggle("collapse");
-        }
+</div>
+<script>
+    function openButton2() {
+        var element = document.getElementById("navbarColor02");
+        element.classList.toggle("collapse");
+    }
 
-    </script>
+</script>
