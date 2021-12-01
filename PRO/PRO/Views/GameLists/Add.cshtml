@@ -5,73 +5,76 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Dodaj grę do listy użytkownika</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<h2 class="list-title box-shadow">Dodaj grę do listy użytkownika</h2>
+<div class="window-background box-shadow p-3">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.UserList.UserId, "Użytkownik", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select class="selectpicker show-tick" style="max-width:400px;" id="UserList.UserId" name="UserList.UserId" data-live-search="true" title="Wybierz użytkownika" onchange="javascript:GetUserLists(this.value);" required>
-                @foreach (var item in ViewBag.userList)
-                {
-                    <option value="@item.Id">@item.UserName</option>
-                }
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-            </select>
-            <div>@Html.ValidationMessageFor(model => model.UserList.UserId, "", new { @class = "text-danger" })</div>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.UserListId, "Lista użytkownika", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select class="selectpicker show-tick" style="max-width:400px;" id="UserListId" name="UserListId" data-live-search="true" onchange="SetListId()" title="Wybierz listę" required>
-            </select>
-            <div>@Html.ValidationMessageFor(model => model.UserListId, "", new { @class = "text-danger" })</div>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.GameId, "Gra", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select class="selectpicker show-tick" style="max-width:400px;" id="GameId" name="GameId" data-live-search="true" title="Wybierz grę" required>
-                @foreach (var item in ViewBag.Games)
-                {
-                    <option value="@item.Id">@item.Title</option>
-                }
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserList.UserId, "Użytkownik", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select class="selectpicker show-tick" style="max-width:400px;" id="UserList.UserId" name="UserList.UserId" data-live-search="true" title="Wybierz użytkownika" onchange="javascript:GetUserLists(this.value);" required>
+                        @foreach (var item in ViewBag.userList)
+                        {
+                            <option value="@item.Id">@item.UserName</option>
+                        }
 
-            </select>
-            <div>@Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })</div>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.HoursPlayed, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HoursPlayed, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HoursPlayed, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    </select>
+                    <div>@Html.ValidationMessageFor(model => model.UserList.UserId, "", new { @class = "text-danger" })</div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserListId, "Lista użytkownika", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select class="selectpicker show-tick" style="max-width:400px;" id="UserListId" name="UserListId" data-live-search="true" onchange="SetListId()" title="Wybierz listę" required>
+                    </select>
+                    <div>@Html.ValidationMessageFor(model => model.UserListId, "", new { @class = "text-danger" })</div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GameId, "Gra", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameId" name="GameId" data-live-search="true" title="Wybierz grę" required>
+                        @foreach (var item in ViewBag.Games)
+                        {
+                            <option value="@item.Id">@item.Title</option>
+                        }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.PersonalScore, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PersonalScore, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PersonalScore, "", new { @class = "text-danger" })
+                    </select>
+                    <div>@Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })</div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HoursPlayed, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.HoursPlayed, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.HoursPlayed, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PersonalScore, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PersonalScore, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PersonalScore, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Dodaj" class="btn btn-primary" />
+                    <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Dodaj" class="btn btn-primary" />
-            <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
-        </div>
-    </div>
+    }
 </div>
-}
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script language="javascript" type="text/javascript">
     function GetUserLists(_stateId) {

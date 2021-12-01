@@ -5,53 +5,56 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Szczegóły moderatora</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
+<h2 class="list-title box-shadow">Szczegóły moderatora</h2>
+<div class="window-background box-shadow p-3">
+    <div>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.User)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.UserName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastLoginDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
 
-        <dd>
-            @if (!Model.LastLoginDate.HasValue) 
-            { 
-              <text>brak logowania</text>
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.LastLoginDate.Value)
-            }
+            <dt>
+                @Html.DisplayNameFor(model => model.LastLoginDate)
+            </dt>
+
+            <dd>
+                @if (!Model.LastLoginDate.HasValue)
+                {
+                    <text>brak logowania</text>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.LastLoginDate.Value)
+                }
 
             </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <hr />
+    <p>
+        <div class="btn btn-primary"><a class="actionLinkManage" href="/moderators/edit/@Model.UserId">Edytuj</a></div>
+        <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
+    </p>
 </div>
-<p>
-    <div class="btn btn-primary"><a class="actionLinkManage" href="/moderators/edit/@Model.UserId">Edytuj</a></div>
-    <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
-</p>

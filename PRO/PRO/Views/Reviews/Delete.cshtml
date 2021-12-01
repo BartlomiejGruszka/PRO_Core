@@ -5,103 +5,105 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Usuń recenzję</h2>
 
-<h3>Czy na pewno chcesz usunąć tę recenzję?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Game)
-        </dt>
+<h2 class="list-title box-shadow">Usuń recenzję</h2>
+<div class="window-background box-shadow p-3">
+    <h3>Czy na pewno chcesz usunąć tę recenzję?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Game)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Game.Title)
+            <dd>
+                @Html.DisplayFor(model => model.Game.Title)
 
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReviewDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.UserName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReviewDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReviewDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Moderator)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ReviewDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Moderator)
+            </dt>
 
-        <dd>
-            @if (Model.Moderator == null)
-            {<p>Brak</p> }
-            else
-            { @Html.DisplayFor(model => model.Moderator.User.UserName)}
+            <dd>
+                @if (Model.Moderator == null)
+                {<p>Brak</p> }
+                else
+                { @Html.DisplayFor(model => model.Moderator.User.UserName)}
 
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EditDate)
-        </dt>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EditDate)
+            </dt>
 
-        <dd>
-            @if (Model.EditDate == null)
-            {<p>Brak</p> }
-            else
-            { @Html.DisplayFor(model => model.EditDate)}
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+            <dd>
+                @if (Model.EditDate == null)
+                {<p>Brak</p> }
+                else
+                { @Html.DisplayFor(model => model.EditDate)}
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
 
-        <dd>
-            @Html.Raw(@Model.Content)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.GraphicsScore)
-        </dt>
+            <dd>
+                @Html.Raw(@Model.Content)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GraphicsScore)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GraphicsScore)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.GraphicsScore)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StoryScore)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.StoryScore)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StoryScore)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.StoryScore)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MusicScore)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.MusicScore)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MusicScore)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.MusicScore)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.GameplayScore)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.GameplayScore)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GameplayScore)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.GameplayScore)
+            </dd>
 
-    </dl>
+        </dl>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Usuń" class="btn btn-primary" />
-            <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
-        </div>
-    }
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-primary" />
+                <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
+            </div>
+        }
+    </div>
 </div>

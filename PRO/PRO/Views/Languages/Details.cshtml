@@ -5,23 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Szczegóły języka</h2>
 
-<div>
+<h2 class="list-title box-shadow">Szczegóły języka</h2>
+<div class="window-background box-shadow p-3">
+    <div>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+        </dl>
+    </div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <p>
+        <div class="btn btn-primary"><a class="actionLinkManage" href="/languages/edit/@Model.Id">Edytuj</a></div>
+        <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
+    </p>
 </div>
-<p>
-    <div class="btn btn-primary"><a class="actionLinkManage" href="/languages/edit/@Model.Id">Edytuj</a></div>
-    <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
-
-</p>

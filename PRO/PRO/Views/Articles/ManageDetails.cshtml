@@ -5,106 +5,108 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Szczegóły artykułu</h2>
+<h2 class="list-title box-shadow">Szczegóły artykułu</h2>
+<div class="window-background box-shadow p-3">
+    <div>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Game)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Game)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Game.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ArticleType.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Game.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ArticleType.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ArticleType.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ArticleType.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.FirstName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Author.FirstName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author.FirstName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.LastName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Author.FirstName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Author.LastName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author.LastName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Author.LastName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PublishedDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PublishedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageId)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PublishedDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageId)
+            </dt>
 
-        <dd>
+            <dd>
 
-            @{if (Model.Image != null)
-                {
+                @{if (Model.Image != null)
+                    {
 
-                    <div style="text-align: left;">
-                        <img style="max-height:200px;max-width:100px;width: expression(this.width > 100 ? 100: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
-                    </div>
+                        <div style="text-align: left;">
+                            <img style="max-height:200px;max-width:100px;width: expression(this.width > 100 ? 100: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
+                        </div>
+                    }
+                    else
+                    { <p>Brak obrazu</p>}
                 }
-                else
-                { <p>Brak obrazu</p>}
-            }
 
 
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Preview)
-        </dt>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Preview)
+            </dt>
 
-        <dd>
-            @Html.Raw(@Model.Preview)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+            <dd>
+                @Html.Raw(@Model.Preview)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
 
-        <dd>
-            @Html.Raw(@Model.Content)
-        </dd>
+            <dd>
+                @Html.Raw(@Model.Content)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SourceLink)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SourceLink)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SourceLink)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SourceLink)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <hr />
+    <p>
+        <div class="btn btn-primary"><a class="actionLinkManage" href="/articles/edit/@Model.Id">Edytuj</a></div>
+        <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
+    </p>
 </div>
-<p>
-    <div class="btn btn-primary"><a class="actionLinkManage" href="/articles/edit/@Model.Id">Edytuj</a></div>
-    <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
-</p>

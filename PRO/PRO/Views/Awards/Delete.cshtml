@@ -5,44 +5,45 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Usuń nagrodę</h2>
+<h2 class="list-title box-shadow">Usuń nagrodę</h2>
+<div class="window-background box-shadow p-3">
+    <h3>Czy na pewno chcesz usunąć tę nagrodę?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-<h3>Czy na pewno chcesz usunąć tę nagrodę?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Game.Title)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Game.Title)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Game.Title)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Game.Title)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AwardDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AwardDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AwardDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AwardDate)
-        </dd>
+        </dl>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    </dl>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Usuń" class="btn btn-primary" />
-            <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
-        </div>
-    }
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-primary" />
+                <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
+            </div>
+        }
+    </div>
 </div>
