@@ -622,3 +622,17 @@ D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\PRO.UI.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\ref\PRO.UI.dll
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\PRO.UI.pdb
 D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\PRO.UI.genruntimeconfig.cache
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\pl\PRO.UI.resources.dll
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\Azure.Core.dll
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\Azure.Data.AppConfiguration.dll
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\Azure.Identity.dll
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\Azure.Security.KeyVault.Secrets.dll
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\Microsoft.Azure.AppConfiguration.AspNetCore.dll
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\Microsoft.Extensions.Configuration.AzureAppConfiguration.dll
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\PRO_Core\PRO\PRO\bin\Release\net5.0\win-x86\System.Memory.Data.dll
+D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\PRO.UI.Resources.DataAnnotationResource.pl.resources
+D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\PRO.UI.Resources.IdentityErrors.pl.resources
+D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\PRO.UI.Resources.ModelBindingMessages.pl.resources
+D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\PRO.UI.csproj.GenerateResource.cache
+D:\PRO_Core\PRO\PRO\obj\Release\net5.0\win-x86\pl\PRO.UI.resources.dll
