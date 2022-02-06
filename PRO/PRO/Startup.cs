@@ -178,6 +178,7 @@ namespace PRO
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+            services.AddAzureAppConfiguration();
 
         }
 
@@ -206,6 +207,7 @@ namespace PRO
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAzureAppConfiguration();
 
             app.UseRouting();
 

@@ -80,6 +80,19 @@
           "lib/netstandard2.0/Azure.Data.AppConfiguration.dll": {}
         }
       },
+      "Azure.Extensions.AspNetCore.Configuration.Secrets/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Security.KeyVault.Secrets": "4.0.1",
+          "Microsoft.Extensions.Configuration": "2.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.Extensions.AspNetCore.Configuration.Secrets.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Extensions.AspNetCore.Configuration.Secrets.dll": {}
+        }
+      },
       "Azure.Identity/1.4.1": {
         "type": "package",
         "dependencies": {
@@ -2183,6 +2196,22 @@
         "azure.data.appconfiguration.nuspec",
         "lib/netstandard2.0/Azure.Data.AppConfiguration.dll",
         "lib/netstandard2.0/Azure.Data.AppConfiguration.xml",
+        "pkgicon.png"
+      ]
+    },
+    "Azure.Extensions.AspNetCore.Configuration.Secrets/1.0.0": {
+      "sha512": "G5KbKkQNgc+IDdykJrrSYYus027Reub3E9EEQGqmZwiU+RYM339VwiBoQlz1cpV/C6yTsq9y9e22JTP3BkpQXg==",
+      "type": "package",
+      "path": "azure.extensions.aspnetcore.configuration.secrets/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.extensions.aspnetcore.configuration.secrets.1.0.0.nupkg.sha512",
+        "azure.extensions.aspnetcore.configuration.secrets.nuspec",
+        "lib/netstandard2.0/Azure.Extensions.AspNetCore.Configuration.Secrets.dll",
+        "lib/netstandard2.0/Azure.Extensions.AspNetCore.Configuration.Secrets.xml",
         "pkgicon.png"
       ]
     },
@@ -6737,6 +6766,7 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "AspNet.Security.OpenId.Steam >= 5.0.0",
+      "Azure.Extensions.AspNetCore.Configuration.Secrets >= 1.0.0",
       "Azure.Identity >= 1.4.1",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 5.0.4",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.4",
@@ -6753,21 +6783,17 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Eilinn\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Eilinn\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
+      "projectUniqueName": "D:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj",
       "projectName": "PRO.UI",
-      "projectPath": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
+      "projectPath": "D:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj",
       "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-      "outputPath": "D:\\PRO_Core\\PRO\\PRO\\obj\\",
+      "outputPath": "D:\\Repo_PRO\\PRO\\PRO\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\Eilinn\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -6783,11 +6809,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
-              "projectPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj"
+            "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
+              "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj"
             },
-            "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
-              "projectPath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
+            "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
+              "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
             }
           }
         }
@@ -6805,6 +6831,10 @@
           "AspNet.Security.OpenId.Steam": {
             "target": "Package",
             "version": "[5.0.0, )"
+          },
+          "Azure.Extensions.AspNetCore.Configuration.Secrets": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "Azure.Identity": {
             "target": "Package",
@@ -6871,7 +6901,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -34,6 +34,7 @@
       "PRO.UI/1.0.0": {
         "dependencies": {
           "AspNet.Security.OpenId.Steam": "5.0.0",
+          "Azure.Extensions.AspNetCore.Configuration.Secrets": "1.0.0",
           "Azure.Identity": "1.4.1",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "5.0.4",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.4",
@@ -417,6 +418,21 @@
         },
         "compile": {
           "lib/netstandard2.0/Azure.Data.AppConfiguration.dll": {}
+        }
+      },
+      "Azure.Extensions.AspNetCore.Configuration.Secrets/1.0.0": {
+        "dependencies": {
+          "Azure.Security.KeyVault.Secrets": "4.0.1",
+          "Microsoft.Extensions.Configuration": "3.1.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Extensions.AspNetCore.Configuration.Secrets.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20.30501"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.Extensions.AspNetCore.Configuration.Secrets.dll": {}
         }
       },
       "Azure.Identity/1.4.1": {
@@ -3734,6 +3750,13 @@
       "sha512": "sha512-Pwn9Kpc4J4w/2e5uuDYieS29nvQDPPBLOxFmMVoaXj0QehlFiPth2lqNbrbhFAapPaXLyko1K0oQ6RopyPPkgw==",
       "path": "azure.data.appconfiguration/1.0.0",
       "hashPath": "azure.data.appconfiguration.1.0.0.nupkg.sha512"
+    },
+    "Azure.Extensions.AspNetCore.Configuration.Secrets/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G5KbKkQNgc+IDdykJrrSYYus027Reub3E9EEQGqmZwiU+RYM339VwiBoQlz1cpV/C6yTsq9y9e22JTP3BkpQXg==",
+      "path": "azure.extensions.aspnetcore.configuration.secrets/1.0.0",
+      "hashPath": "azure.extensions.aspnetcore.configuration.secrets.1.0.0.nupkg.sha512"
     },
     "Azure.Identity/1.4.1": {
       "type": "package",

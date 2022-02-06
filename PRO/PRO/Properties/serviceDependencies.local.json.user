@@ -1,16 +1,24 @@
 {
   "dependencies": {
-    "mssql2": {
+    "appConfig1": {
       "restored": true,
-      "restoreTime": "2021-09-03T11:20:40.9459676Z"
+      "restoreTime": "2022-01-29T23:27:34.9539126Z"
     },
     "secrets1": {
       "restored": true,
       "restoreTime": "2021-09-03T11:06:44.9253494Z"
     },
+    "mssql2": {
+      "restored": true,
+      "restoreTime": "2021-09-03T11:20:40.9459676Z"
+    },
     "mssql1": {
       "restored": true,
       "restoreTime": "2021-03-15T17:39:29.8094195Z"
+    },
+    "secrets2": {
+      "restored": true,
+      "restoreTime": "2022-01-29T23:27:33.4985854Z"
     }
   },
   "parameters": {
@@ -19,10 +27,30 @@
       "Type": "subscription",
       "Value": "acdd0f94-e2f2-4add-be37-db9fb8d1a1fc"
     },
+    "secrets2.resourceGroupName": {
+      "Name": "secrets2.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "PRO_app_group"
+    },
+    "appConfig1.subscriptionId": {
+      "Name": "appConfig1.subscriptionId",
+      "Type": "subscription",
+      "Value": "acdd0f94-e2f2-4add-be37-db9fb8d1a1fc"
+    },
+    "secrets2.subscriptionId": {
+      "Name": "secrets2.subscriptionId",
+      "Type": "subscription",
+      "Value": "acdd0f94-e2f2-4add-be37-db9fb8d1a1fc"
+    },
     "mssql2.resourceGroupName": {
       "Name": "mssql2.resourceGroupName",
       "Type": "resourceGroup",
       "Value": "PRO_Database_Group"
+    },
+    "appConfig1.resourceGroupName": {
+      "Name": "appConfig1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "pro_app_group"
     }
   }
 }

@@ -1,21 +1,18 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj": {}
+    "D:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj": {}
   },
   "projects": {
-    "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
+    "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+        "projectUniqueName": "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj",
         "projectName": "PRO.Domain",
-        "projectPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+        "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj",
         "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-        "outputPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\obj\\",
+        "outputPath": "D:\\Repo_PRO\\PRO\\PRO.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\Eilinn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -98,22 +95,19 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
+    "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
+        "projectUniqueName": "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
         "projectName": "PRO.Persistance",
-        "projectPath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
+        "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj",
         "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-        "outputPath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\obj\\",
+        "outputPath": "D:\\Repo_PRO\\PRO\\PRO.Persistance\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\Eilinn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -129,8 +123,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
-                "projectPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj"
+              "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
+                "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj"
               }
             }
           }
@@ -177,22 +171,19 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj": {
+    "D:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
+        "projectUniqueName": "D:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj",
         "projectName": "PRO.UI",
-        "projectPath": "D:\\PRO_Core\\PRO\\PRO\\PRO.UI.csproj",
+        "projectPath": "D:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj",
         "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-        "outputPath": "D:\\PRO_Core\\PRO\\PRO\\obj\\",
+        "outputPath": "D:\\Repo_PRO\\PRO\\PRO\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\Eilinn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -208,11 +199,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
-                "projectPath": "D:\\PRO_Core\\PRO\\PRO.Domain\\PRO.Domain.csproj"
+              "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
+                "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj"
               },
-              "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
-                "projectPath": "D:\\PRO_Core\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
+              "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
+                "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
               }
             }
           }
@@ -230,6 +221,10 @@
             "AspNet.Security.OpenId.Steam": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "Azure.Extensions.AspNetCore.Configuration.Secrets": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             },
             "Azure.Identity": {
               "target": "Package",
@@ -296,7 +291,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }
