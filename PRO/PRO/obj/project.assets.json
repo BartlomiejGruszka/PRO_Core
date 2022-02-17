@@ -6788,11 +6788,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj",
+      "projectUniqueName": "E:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj",
       "projectName": "PRO.UI",
-      "projectPath": "D:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj",
+      "projectPath": "E:\\Repo_PRO\\PRO\\PRO\\PRO.UI.csproj",
       "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-      "outputPath": "D:\\Repo_PRO\\PRO\\PRO\\obj\\",
+      "outputPath": "E:\\Repo_PRO\\PRO\\PRO\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Eilinn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6809,11 +6809,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
-              "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj"
+            "E:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj": {
+              "projectPath": "E:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj"
             },
-            "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
-              "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
+            "E:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj": {
+              "projectPath": "E:\\Repo_PRO\\PRO\\PRO.Persistance\\PRO.Persistance.csproj"
             }
           }
         }

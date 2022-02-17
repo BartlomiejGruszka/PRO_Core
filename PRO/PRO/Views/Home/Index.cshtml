@@ -53,14 +53,14 @@
         <div>
 
             <h2 class="list-title box-shadow">Ostatnie premiery</h2>
-            <div class="leftinnergrid-container box-shadow">
+            <div class="leftinnergrid-container">
 
                 @{
                     var games = Model.RecentGames.ToList().Take(4);
 
                     foreach (var game in games)
                     {
-                        <div class="card recentlyReleasedGames">
+                        <div class="card recentlyReleasedGames box-shadow">
                             <a href="/games/@game.Id" style="text-decoration:none; color:black; display:block;width: 100%; ">
                                 <div class="">
                                     <div style=" text-align: center;">

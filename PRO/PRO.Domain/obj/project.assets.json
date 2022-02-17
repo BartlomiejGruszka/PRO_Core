@@ -1406,11 +1406,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+      "projectUniqueName": "E:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj",
       "projectName": "PRO.Domain",
-      "projectPath": "D:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj",
+      "projectPath": "E:\\Repo_PRO\\PRO\\PRO.Domain\\PRO.Domain.csproj",
       "packagesPath": "C:\\Users\\Eilinn\\.nuget\\packages\\",
-      "outputPath": "D:\\Repo_PRO\\PRO\\PRO.Domain\\obj\\",
+      "outputPath": "E:\\Repo_PRO\\PRO\\PRO.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Eilinn\\AppData\\Roaming\\NuGet\\NuGet.Config",
