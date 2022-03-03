@@ -68,6 +68,13 @@
                     </select>
                     <div>@Html.ValidationMessageFor(model => model.Game.GenreId, "", new { @class = "text-danger" })</div>
                 </div>
+                <div>
+                    <a asp-controller="Genres"
+                       asp-action="Add"
+                       class="btn-primary">
+                        Dodaj
+                    </a>
+                </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Game.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
