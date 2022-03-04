@@ -25,7 +25,20 @@
                                                 <div class="game-detail-header-stats di-tc va-t ">
                                                     <div class="stats-block po-r clearfix">
                                                         <div class="fl-l score" data-title="ocena">
-                                                            <div class="score-label score-7">@Model.GameInfo.Rating</div>
+                                                            <div class="score-label score-7">
+
+                                                                @{
+                                                                    if (Model.GameInfo.Rating.HasValue && !Double.IsNaN(Model.GameInfo.Rating.Value) && Model.GameInfo.Rating.Value != 0)
+                                                                    {
+                                                                        @Math.Round((double)Model.GameInfo.Rating.Value)
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @:-
+                                                                    }
+                                                                }
+
+                                                            </div>
                                                         </div>
                                                         <div class="di-ib ml12 pl20 pt8">
                                                             <span class="numbers ranked">Ranking<strong>#@Model.GameInfo.Position</strong></span>

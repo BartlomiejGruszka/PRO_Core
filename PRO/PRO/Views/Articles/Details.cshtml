@@ -6,51 +6,54 @@
 
 <div class="maingrid-container">
     <div class="news">
-        <div class="article box-shadow" style="background-color:#fff !important;">
-            <div class="news-container ">
-                <h1 class="list-title">@Model.Article.Title</h1>
+        <div class="article">
+            <h1 class="list-title box-shadow" style="margin-bottom:20px;">@Model.Article.Title</h1>
+            <div class="news-container box-shadow">
 
-                <div class="news-info-block clearfix mt16 mb20">
-                    <div class="sns-unit fl-r mr8"><div class="js-sns-icon-container icon-block mt0"></div></div>
-                    <div class="information">
-                        <div class="author">Autor <a href="/users/@Model.Article.Author.UserId">@Model.Article.Author.FirstName @Model.Article.Author.LastName</a><br>@Model.Article.PublishedDate.ToShortDateString()</div>
+                <div>
+                    <div class="news-info-block clearfix mt16 mb20">
+                        <div class="sns-unit fl-r mr8"><div class="js-sns-icon-container icon-block mt0"></div></div>
+                        <div class="information">
+                            <div class="author">Autor <a href="/users/@Model.Article.Author.UserId">@Model.Article.Author.FirstName @Model.Article.Author.LastName</a><br>@Model.Article.PublishedDate.ToShortDateString()</div>
 
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <div class="article-image">
+                            @if (Model.Article.Image != null)
+                            {
+                                <img style="max-width: 100%; max-height: 100%; padding-bottom:10px;" class="img" src="/images/@Model.Article.Image.ImagePath">
+                            }
+                        </div>
+
+
+                        <div class="article-text m-3">@Html.Raw(Model.Article.Content) </div>
+                    </div>
+                    <div class="m-3">
+                        <a href="@Model.Article.SourceLink" target="_blank" rel="nofollow noopener noreferrer">Źródło</a>
                     </div>
                 </div>
-
-                <div class="content">
-                    <div class="article-image">
-                        @if (Model.Article.Image != null)
-                        {
-                            <img style="max-width: 100%; max-height: 100%; padding-bottom:10px;" class="img" src="/images/@Model.Article.Image.ImagePath">
-                        }
-                    </div>
-                   
-
-                    <div class="article-text m-3">@Html.Raw(Model.Article.Content) </div>
-                </div>
+                <hr />
                 <div class="m-3">
-                    <a href="@Model.Article.SourceLink" target="_blank" rel="nofollow noopener noreferrer">Źródło</a>
-                </div>
-            </div>
-            <hr />
-            <div class="m-3">
-                <div class="details">
-                    <h2 class="">Powiązana gra: </h2><a href="/games/@Model.Article.GameId" class="tag tag-color4">@Model.Article.Game.Title</a>
-                </div>
-                <div class="details">
-                    <h2 class="">Tagi: </h2>
-                    @{
-                        foreach (var tag in Model.Article.Game.Tags)
-                        {
-                            <a href="/games/Filter?currentFilter=tag&value=@tag.Name" class="tag tag-color4">@tag.Name</a>
+                    <div class="details">
+                        <h2 class="">Powiązana gra: </h2><a href="/games/@Model.Article.GameId" class="tag tag-color4">@Model.Article.Game.Title</a>
+                    </div>
+                    <div class="details">
+                        <h2 class="">Tagi: </h2>
+                        @{
+                            foreach (var tag in Model.Article.Game.Tags)
+                            {
+                                <a href="/games/Filter?currentFilter=tag&value=@tag.Name" class="tag tag-color4">@tag.Name</a>
+                            }
                         }
-                    }
+
+                    </div>
 
                 </div>
 
+                <br />
             </div>
-            <br />
         </div>
         <br />
     </div>

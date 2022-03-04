@@ -1,7 +1,7 @@
 ﻿@model List<PRO.Domain.HelperClasses.GameScore>
 @using PRO.Domain.Extensions
 <div class="">
-    <div class="side-list-group box-shadow">
+    <div class="side-list-group">
         <h3 class="sidebar-title list-title box-shadow">Najwyżej oceniane</h3>
         @{
 
@@ -9,7 +9,7 @@
             {
                 var game = item.Game;
 
-                <a href="/games/@game.Id" class="list-group-item list-group-item-action flex-column align-items-start">
+                <a href="/games/@game.Id" class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
                     <div style="display:flex; flex-direction:row;">
                         @if (game.Image != null)
                         {<img style="max-width: 50px;max-height: 50%;align-self: flex-start;flex-direction: row;" class=" lazyloaded" src="/images/@game.Image.ImagePath">
