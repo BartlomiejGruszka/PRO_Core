@@ -1,0 +1,15 @@
+E:\Repo_PRO\PRO\PRO.Persistance\bin\Release\net6.0\PRO.Persistance.deps.json
+E:\Repo_PRO\PRO\PRO.Persistance\bin\Release\net6.0\PRO.Persistance.dll
+E:\Repo_PRO\PRO\PRO.Persistance\bin\Release\net6.0\PRO.Persistance.pdb
+E:\Repo_PRO\PRO\PRO.Persistance\bin\Release\net6.0\PRO.Domain.dll
+E:\Repo_PRO\PRO\PRO.Persistance\bin\Release\net6.0\PRO.Domain.pdb
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\PRO.Persistance.csproj.AssemblyReference.cache
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\PRO.Persistance.GeneratedMSBuildEditorConfig.editorconfig
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\PRO.Persistance.AssemblyInfoInputs.cache
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\PRO.Persistance.AssemblyInfo.cs
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\PRO.Persistance.csproj.CoreCompileInputs.cache
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\PRO.Persistance.csproj.CopyComplete
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\PRO.Persistance.dll
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\refint\PRO.Persistance.dll
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\PRO.Persistance.pdb
+E:\Repo_PRO\PRO\PRO.Persistance\obj\Release\net6.0\ref\PRO.Persistance.dll

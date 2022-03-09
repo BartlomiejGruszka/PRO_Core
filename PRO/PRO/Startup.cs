@@ -47,9 +47,10 @@ namespace PRO
                 .AddDefaultUI();
 
             services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+            var F = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
             services.AddMvc(options =>
             {
-                var F = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
+
                 var L = F.Create("ModelBindingMessages", "PRO.UI");
                 options.ModelBindingMessageProvider.SetValueIsInvalidAccessor((x) => L["The value '{0}' is invalid.", x]);
                 options.ModelBindingMessageProvider.SetValueMustBeANumberAccessor((x) => L["The field {0} must be a number.", x]);
@@ -61,8 +62,7 @@ namespace PRO
             }).
             AddViewLocalization(o => o.ResourcesPath = "Resources")
             .AddDataAnnotationsLocalization(o => {
-                var factory = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
-                var localizer = factory.Create("DataAnnotationResource", "PRO.UI");
+                var localizer = F.Create("DataAnnotationResource", "PRO.UI");
                 o.DataAnnotationLocalizerProvider = (t, f) => localizer;
             })
             ;
