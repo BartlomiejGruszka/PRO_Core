@@ -24,7 +24,6 @@ D:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\ref\PRO.Domain.dll
 D:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.pdb
 E:\Repo_PRO\PRO\PRO.Domain\bin\Debug\net5.0\PRO.Domain.deps.json
 E:\Repo_PRO\PRO\PRO.Domain\bin\Debug\net5.0\PRO.Domain.dll
-E:\Repo_PRO\PRO\PRO.Domain\bin\Debug\net5.0\ref\PRO.Domain.dll
 E:\Repo_PRO\PRO\PRO.Domain\bin\Debug\net5.0\PRO.Domain.pdb
 E:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.csproj.AssemblyReference.cache
 E:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.GeneratedMSBuildEditorConfig.editorconfig
@@ -34,3 +33,4 @@ E:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.csproj.CoreCompileInputs.
 E:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.dll
 E:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\ref\PRO.Domain.dll
 E:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\PRO.Domain.pdb
+E:\Repo_PRO\PRO\PRO.Domain\obj\Debug\net5.0\refint\PRO.Domain.dll
