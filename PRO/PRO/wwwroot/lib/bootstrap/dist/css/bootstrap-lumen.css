@@ -11422,7 +11422,6 @@ a.text-dark:hover, a.text-dark:focus {
 .top-ranking-table .table-header td {
     background-color: #4f74c8;
     border: #4f74c8 0 solid;
-    border-left: #fff 1px solid;
     color: #fff;
     font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
     font-size: 12px;
@@ -11431,22 +11430,21 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .top-ranking-table tr td {
-    border-left: #ebebeb 1px solid;
     padding-bottom: 12px;
     padding-top: 12px;
 }
 
 .top-ranking-table tr.ranking-list td {
-    background-color: #fff;
+    background-color: #e6e6e6;
     vertical-align: middle;
 }
 
 .top-ranking-table tr.ranking-list:nth-of-type(odd) td {
-    background-color: #f6f6f6;
+    background-color: #fff;
 }
 
 .top-ranking-table tr td:last-of-type {
-    border-right: #ebebeb 1px solid;
+    /*border-right: #ebebeb 1px solid;*/
 }
 
 .ac {
@@ -12453,7 +12451,7 @@ input, select, textarea {
 
 @media (min-width: 1000px) {
     .table {
-        overflow-wrap: anywhere;
+        overflow: auto;
         width: 100%;
         /*display: block;*/
         /*border: 1px solid red;*/
@@ -12490,7 +12488,7 @@ input, select, textarea {
     }
 
 .table-container {
-    overflow: overlay;
+    overflow: auto;
 }
 
 .tablerow {

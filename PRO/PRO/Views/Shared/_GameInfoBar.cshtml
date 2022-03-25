@@ -1,13 +1,13 @@
 ﻿
 @model PRO.UI.ViewModels.GameInfoViewModel
 
-<td class="borderClass" width="225" style="border-width: 0 1px 0 0;" valign="top">
-    <div style="width: 225px">
+<div class="borderClass userprofile" style="border-width: 0 1px 0 0;" valign="top">
+    <div class="userprofilebuttons">
 
         <div style="text-align: center; margin:20px;">
             @if (Model.Game.Image != null)
             {<a>
-                    <img style="max-width:200px;" class="lazyloaded" src="/images/@Model.Game.Image.ImagePath">
+                    <img style="max-width:200px; margin-top: 10px;" class="lazyloaded" src="/images/@Model.Game.Image.ImagePath">
                 </a>}
 
         </div>
@@ -128,6 +128,6 @@
     }
     <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
     </div>
-
+    <div class="underlined_h2"></div>
 </div>
-</td>
+</div>

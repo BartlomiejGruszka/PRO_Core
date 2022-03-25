@@ -1,179 +1,182 @@
-﻿
-@model PRO.UI.ViewModels.GameDetailsViewModel
+﻿@model PRO.UI.ViewModels.GameDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <partial name="~/Views/Shared/_GameTitleBar.cshtml" , model="Model.GameInfo.Game" />
-<div id="content" class="box-shadow window-background">
 
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-        <tbody>
-            <tr>
-                <partial name="~/Views/Shared/_GameInfoBar.cshtml" , model="Model.GameInfo" />
-                <td valign="top" style="padding-left: 5px;">
-                    <div class="js-scrollfix-bottom-rel">
-                        <div style=" margin:0 auto"></div><a name="lower"></a>
+<div id="content" class="userprofilecontent box-shadow window-background">
 
-                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                            <tbody>
-                                <tr>
-                                    <td valign="top">
-                                        <div class="pb16">
-                                            <div class="di-t w100 mt12">
-                                                <div class="game-detail-header-stats di-tc va-t ">
-                                                    <div class="stats-block po-r clearfix">
-                                                        <div class="fl-l score" data-title="ocena">
-                                                            <div class="score-label score-7">
 
-                                                                @{
-                                                                    if (Model.GameInfo.Rating.HasValue && !Double.IsNaN(Model.GameInfo.Rating.Value) && Model.GameInfo.Rating.Value != 0)
-                                                                    {
-                                                                        @Math.Round((double)Model.GameInfo.Rating.Value)
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        @:-
-                                                                    }
-                                                                }
+    <partial name="~/Views/Shared/_GameInfoBar.cshtml" , model="Model.GameInfo" />
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="di-ib ml12 pl20 pt8">
-                                                            <span class="numbers ranked">Ranking<strong>#@Model.GameInfo.Position</strong></span>
-                                                            <span class="numbers popularity">Popularność<strong>#@Model.GameInfo.Popularity</strong></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="pb24">
-                                        <div class="underlined_h2">Opis</div>
-                                        @if (String.IsNullOrEmpty(Model.GameInfo.Game.Description))
-                                        {
-                                            {<p>Obecnie nie ma opisu dla tej gry</p>}
-                                        }
-                                        else
-                                        {
-                                            <p>@Html.Raw(Model.GameInfo.Game.Description)</p>
-                                        }
+    <div valign="top" style="        padding-left: 5px;        width: 100%;">
+        <div class="js-scrollfix-bottom-rel" style="display: flex; width: 100%;">
+            <div style=" margin:0 auto"></div><a name="lower"></a>
 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="pb24">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td valign="top">
 
-                                        @if (Model.GameInfo.Game.Series != null)
-                                        {
-                                            if (Model.GameInfo.Game.Series.Games.Count() > 1)
-                                            {
-                                                <div class="underlined_h2">Gry z serii @Model.GameInfo.Game.Series.Name</div>
-                                                <table class="" style="border-spacing:0px;">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td width="100%" style=" display: flex; flex-direction: column;" class="">
-                                                                @{
-                                                                    foreach (var game in Model.GameInfo.Game.Series.Games)
-                                                                    {
-                                                                        if (game.Id != Model.GameInfo.Game.Id)
-                                                                        {
-                                                                            <a href="/games/@game.Id">@game.Title</a>
-                                                                        }
+                            <div class="di-t w100 mt12">
+                                <div class="game-detail-header-stats di-tc va-t ">
+                                    <div class="stats-block po-r clearfix">
+                                        <div class="fl-l score" data-title="ocena">
+                                            <div class="score-label score-7">
 
-                                                                    }
-                                                                }
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <br />
-                                            }
-                                        }
-                                        <div>
-                                            <span class="floatRightHeader">
                                                 @{
-                                                    if (Model.GameInfo.Game.Reviews?.Any() == true)
-                                                    { <span style="display:flex;">
-                                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameInfo.Game.Id/userreview">Twoja recenzja </a>
-                                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/reviews/@Model.GameInfo.Game.Id">Więcej recenzji</a>
-                                                        </span>
-
+                                                    if (Model.GameInfo.Rating.HasValue && !Double.IsNaN(Model.GameInfo.Rating.Value) && Model.GameInfo.Rating.Value != 0)
+                                                    {
+                                                        @Math.Round((double)Model.GameInfo.Rating.Value)
                                                     }
                                                     else
                                                     {
-                                                        <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameInfo.Game.Id/userreview">Twoja recenzja </a>
+                                                        @:-
                                                     }
                                                 }
-                                            </span>
-                                            <div class="underlined_h2">Recenzje</div>
+
+                                            </div>
                                         </div>
-                                        @if (Model.ReviewPlaytimes.Count() == 0)
-                                        {<p>Obecnie nie ma recenzji dla tej gry</p>}
+                                        <div class="di-ib ml12 pl20 pt8">
+                                            <span class="numbers ranked">Ranking<strong>#@Model.GameInfo.Position</strong></span>
+                                            <span class="numbers popularity">Popularność<strong>#@Model.GameInfo.Popularity</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="pb24">
+                            <div class="underlined_h2">Opis</div>
+                            @if (String.IsNullOrEmpty(Model.GameInfo.Game.Description))
+                            {
+                                {
+                                    <p>Obecnie nie ma opisu dla tej gry</p>
+                                }
+                            }
+                            else
+                            {
+                                <p>@Html.Raw(Model.GameInfo.Game.Description)</p>
+                            }
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="pb24">
+
+                            @if (Model.GameInfo.Game.Series != null)
+                            {
+                                if (Model.GameInfo.Game.Series.Games.Count() > 1)
+                                {
+                                    <div class="underlined_h2">Gry z serii @Model.GameInfo.Game.Series.Name</div>
+                                    <table class="" style="border-spacing:0px;">
+                                        <tbody>
+                                            <tr>
+                                                <td width="100%" style=" display: flex; flex-direction: column;" class="">
+                                                    @{
+                                                        foreach (var game in Model.GameInfo.Game.Series.Games)
+                                                        {
+                                                            if (game.Id != Model.GameInfo.Game.Id)
+                                                            {
+                                                                <a href="/games/@game.Id">@game.Title</a>
+                                                            }
+
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                }
+                            }
+                            <div>
+                                <span class="floatRightHeader">
+                                    @{
+                                        if (Model.GameInfo.Game.Reviews?.Any() == true)
+                                        {
+                                            <span style="display:flex;">
+                                                <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameInfo.Game.Id/userreview">Twoja recenzja </a>
+                                                <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/reviews/@Model.GameInfo.Game.Id">Więcej recenzji</a>
+                                            </span>
+
+                                        }
                                         else
                                         {
-                                            foreach (var item in Model.ReviewPlaytimes)
-                                            {
-
-                                                <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
-
-
-                                            }
+                                            <a style="float:right; margin-right:5px; text-decoration:none; font-weight:normal;" href="/games/@Model.GameInfo.Game.Id/userreview">Twoja recenzja </a>
                                         }
-                                        @{ if (Model.RelevantArticles.Count() > 0)
-                                            {
+                                    }
+                                </span>
+                                <div class="underlined_h2">Recenzje</div>
+                            </div>
+                            @if (Model.ReviewPlaytimes.Count() == 0)
+                            {
+                                <p>Obecnie nie ma recenzji dla tej gry</p>
+                            }
+                            else
+                            {
+                                foreach (var item in Model.ReviewPlaytimes)
+                                {
 
-                                                <br>
-                                                <div class="underlined_h2">Powiązane artykuły</div>
+                                    <partial name="~/Views/Shared/_SingleReview.cshtml" , model="item" />
 
-                                                foreach (var article in Model.RelevantArticles)
+
+                                }
+                            }
+                            @{
+                                if (Model.RelevantArticles.Count() > 0)
+                                {
+
+                                    <br>
+                                    <div class="underlined_h2">Powiązane artykuły</div>
+
+                                    foreach (var article in Model.RelevantArticles)
+                                    {
+                                        <div class="clearfix">
+                                            <div class="picSurround fl-l mr8 ml3 mt4" style="padding-top:10px;">
+                                                @if (article.Image != null)
                                                 {
-                                                    <div class="clearfix">
-                                                        <div class="picSurround fl-l mr8 ml3 mt4" style="padding-top:10px;">
-                                                            @if (article.Image != null)
-                                                            {
-                                                                <img style="max-width: 100px; max-height: 100px;" class=" lazyloaded" src="/images/@article.Image.ImagePath">
-                                                            }
-                                                        </div>
-                                                        <p class="spaceit">
-                                                            <a href="/articles/@article.Id">
-                                                                <strong>@article.Title</strong>
-                                                            </a>
-                                                        </p>
-                                                        <div class="clearfix" style="overflow:hidden;">
-                                                            <p>
-                                                                @article.Preview<a href="/articles/@article.Id">więcej</a>
-                                                            </p>
-                                                        </div>
-                                                        <p class="lightLink spaceit">@article.PublishedDate.ToShortDateString() przez <a href="/users/@article.Author.UserId">@article.Author.FirstName @article.Author.LastName</a></p>
-                                                    </div>
-                                                    <div class="borderClass"></div>
-                                                    <br>
+                                                    <img style="max-width: 100px; max-height: 100px;" class=" lazyloaded" src="/images/@article.Image.ImagePath">
                                                 }
+                                            </div>
+                                            <p class="spaceit">
+                                                <a href="/articles/@article.Id">
+                                                    <strong>@article.Title</strong>
+                                                </a>
+                                            </p>
+                                            <div class="clearfix" style="overflow:hidden;">
+                                                <p>
+                                                    @article.Preview<a href="/articles/@article.Id">więcej</a>
+                                                </p>
+                                            </div>
+                                            <p class="lightLink spaceit">@article.PublishedDate.ToShortDateString() przez <a href="/users/@article.Author.UserId">@article.Author.FirstName @article.Author.LastName</a></p>
+                                        </div>
+                                        <div class="borderClass"></div>
+                                        <br>
+                                    }
 
 
-                                            }
+                                }
 
 
-                                        }
+                            }
 
-                                        @if (Model.RecommendedGames?.Any() ?? false)
-                                        {
-                                            <div class="underlined_h2">Rekomendowane</div>
-                                        }
+                            @if (Model.RecommendedGames?.Any() ?? false)
+                            {
+                                <div class="underlined_h2">Rekomendowane</div>
+                            }
 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    </div>
+
 </div>
 

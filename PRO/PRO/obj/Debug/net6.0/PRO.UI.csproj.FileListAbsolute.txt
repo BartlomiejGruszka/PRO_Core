@@ -586,4 +586,3 @@ E:\Repo_PRO\PRO\PRO\bin\Debug\net6.0\runtimes\win-arm64\lib\net6.0\dotnet-aspnet
 E:\Repo_PRO\PRO\PRO\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
 E:\Repo_PRO\PRO\PRO\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
 E:\Repo_PRO\PRO\PRO\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
-E:\Repo_PRO\PRO\PRO\obj\Debug\net6.0\pl\PRO.UI.resources.cs

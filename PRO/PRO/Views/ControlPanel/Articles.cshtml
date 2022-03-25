@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="window-background box-shadow">
+<div style="padding-bottom:15px">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
         <tbody>
             <tr class="table-header top-game-rank-text manage">
@@ -12,6 +12,12 @@
                     <div class="btn btn-secondary" style="float:right; margin-right:10px;"><a class="actionLinkManage" href="/panel">Powrót</a></div>
                 </td>
             </tr>
+        </tbody>
+    </table>
+</div>
+<div class="window-background box-shadow">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
+        <tbody>
             <tr class="ranking-list">
                 <td class="rank ac" valign="top">
                     <span class="lightLink top-game-rank-text manage"><a href="/articles/manage">Artykuły</a></span>
