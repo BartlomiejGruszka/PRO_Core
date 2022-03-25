@@ -57,6 +57,7 @@ namespace PRO.Controllers
         [Route("languages/add")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             return View();
         }
 
@@ -64,15 +65,16 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("languages/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Language language)
+        public ActionResult Add(Language language, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var errors = _languageService.ValidateLanguage(language);
                 if (!errors.Any())
                 {
                     _languageService.Add(language);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);

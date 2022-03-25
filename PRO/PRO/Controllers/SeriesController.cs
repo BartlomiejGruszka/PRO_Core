@@ -50,6 +50,7 @@ namespace PRO.Controllers
         [Route("series/add")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             return View();
         }
 
@@ -57,15 +58,16 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("series/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Series series)
+        public ActionResult Add(Series series, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var errors = _seriesService.ValidateSeries(series);
                 if (!errors.Any())
                 {
                     _seriesService.Add(series);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);

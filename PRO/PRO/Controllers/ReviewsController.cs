@@ -67,6 +67,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             ViewBag.GameId = _gameService.GetAllActive().ToList();
             return View();
         }
@@ -75,8 +76,9 @@ namespace PRO.Controllers
         [Route("reviews/add")]
         [Authorize(Roles = "Admin,Moderator")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Review review)
+        public ActionResult Add(Review review, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             review = _reviewService.SetValues(review, _userService.GetLoggedInUserId().Value);
             if (ModelState.IsValid)
             {
@@ -84,7 +86,7 @@ namespace PRO.Controllers
                 if (!errors.Any())
                 {
                     _reviewService.Add(review);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);

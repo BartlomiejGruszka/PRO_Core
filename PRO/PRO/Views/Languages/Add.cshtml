@@ -8,8 +8,8 @@
 
 <h2 class="list-title box-shadow">Dodaj język</h2>
 <div class="window-background box-shadow p-3">
-    @using (Html.BeginForm("Add", "Languages"))
-    {
+    <form asp-controller="Languages" asp-action="Add" asp-route-returnUrl="@ViewBag.returnUrl" method="post">
+
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
@@ -31,9 +31,9 @@
                 </div>
             </div>
         </div>
-    }
+    </form>
 </div>
 @section scripts{
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 
 }
