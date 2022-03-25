@@ -875,8 +875,8 @@ pre {
 
 @media (max-width: 575px) {
     .userprofilebuttons {
-        margin-left: 30px;
-        margin-right: 30px;
+        /*margin-left: 30px;
+        margin-right: 30px;*/
     }
 
     .user-statistics .user-statistics-stats {
@@ -2281,6 +2281,7 @@ pre {
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 @media (max-width: 999.98px) {
     .form-control {
         display: block;
@@ -2298,6 +2299,11 @@ pre {
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 }
+
+.form-control-width {
+    width: 225px !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .form-control {
         transition: none;
@@ -5824,7 +5830,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     padding: 0.75rem 1.25rem;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.125);
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
     .list-group-item:first-child {
@@ -12499,9 +12505,10 @@ input, select, textarea {
         text-decoration: none;
         color: #e9ecef;
     }
-    .tableheadercolor a:hover {
-        text-decoration:auto;
-    }
+
+        .tableheadercolor a:hover {
+            text-decoration: auto;
+        }
 
 .table-container {
     overflow: auto;
@@ -12553,13 +12560,16 @@ a.sort-link:hover {
     margin-bottom: 0px;
     font-weight: 600;
     border: none;
-    height: 44px;
+    min-height: 44px;
     line-height: 44px;
     padding-left: 20px;
     margin-bottom: 20px;
 }
 
-.box-shadow {
+.article-list-title {
+    padding-bottom: 5px;
+}
+    .box-shadow {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 

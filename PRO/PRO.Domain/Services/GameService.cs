@@ -105,7 +105,7 @@ namespace PRO.Domain.Services
         }
         public IEnumerable<Game> GetRecentlyReleased()
         {
-            return GetAllActive().Where(a => a.ReleaseDate < DateTime.Now).OrderBy(a => a.ReleaseDate).Take(5);
+            return GetAllActive().Where(a => a.ReleaseDate < DateTime.Now).OrderByDescending(a => a.ReleaseDate).Take(4);
         }
         public List<GameScore> GetOrderedGamesRanking(int? number)
         {
