@@ -244,6 +244,9 @@
                     <div>@Html.ValidationMessageFor(model => model.Game.Tags, "", new { @class = "text-danger" })</div>
                 </div>
             </div>
+                         <br />
+            <h3 class="underlined_h2">Integracja z zewnętrznymi platformami</h3>
+            <br />
             <div class="form-group">
                 @Html.LabelFor(model => model.Game.SteamAppId, "Filtruj aplikacje Steam", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">

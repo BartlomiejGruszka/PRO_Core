@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5/iXL8lg4X9a6pTcKycp1KdIPbB/OTAm1/dMB0Iq6cM=",
+  "Hash": "IWVTrouybu8ZBwqwGRlR4NLqJIpj/wTa4Wi6VTvcyA4=",
   "Source": "PRO.UI",
   "BasePath": "_content/PRO.UI",
   "Mode": "Default",
@@ -1173,23 +1173,6 @@
       "OriginalItemSpec": "wwwroot\\images\\267e0545deb5a71b1901bbb6c5d2e222-98210640990.jpg"
     },
     {
-      "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\305a13f648147e862ed5e86d83d51dd6-98215049818.jpg",
-      "SourceId": "PRO.UI",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\",
-      "BasePath": "_content/PRO.UI",
-      "RelativePath": "images/305a13f648147e862ed5e86d83d51dd6-98215049818.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\305a13f648147e862ed5e86d83d51dd6-98215049818.jpg"
-    },
-    {
       "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws213742499.jpg",
       "SourceId": "PRO.UI",
       "SourceType": "Discovered",
@@ -1409,6 +1392,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\final-fantasy-xvi-articlejpg214958970.jpg"
+    },
+    {
+      "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\images221634527.jpg",
+      "SourceId": "PRO.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\",
+      "BasePath": "_content/PRO.UI",
+      "RelativePath": "images/images221634527.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\images221634527.jpg"
     },
     {
       "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\Mass_Effect_3_Game_Cover215010594.jpg",

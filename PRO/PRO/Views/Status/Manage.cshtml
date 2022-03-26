@@ -34,13 +34,13 @@
     <div class="table-container">
         <table class="table tablecolor">
             <tr class="tableheadercolor">
-                <th>
+                <th style="width:50%;">
                     <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Nazwa</a>
                 </th>
-                <th>
+                <th style="width:20%;">
                     Umożliwia recenzowanie
                 </th>
-                <th></th>
+                <th style="width:30%;">Opcje</th>
             </tr>
 
             @{ foreach (var item in Model)
