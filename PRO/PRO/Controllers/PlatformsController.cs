@@ -32,7 +32,7 @@ namespace PRO.Controllers
         [Route("platforms/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            
+
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CompanySortParm"] = sortOrder == "company" ? "company_desc" : "company";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
@@ -62,6 +62,7 @@ namespace PRO.Controllers
         [Route("platforms/add")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             ViewBag.Companies = _companyService.GetAll();
             return View();
         }
@@ -70,15 +71,16 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("platforms/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add( Platform platform)
+        public ActionResult Add(Platform platform, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var errors = _platformService.ValidatePlatform(platform);
                 if (!errors.Any())
                 {
                     _platformService.Add(platform);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);
@@ -106,7 +108,7 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("platforms/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Platform platform)
+        public ActionResult Edit(Platform platform)
         {
             if (ModelState.IsValid)
             {

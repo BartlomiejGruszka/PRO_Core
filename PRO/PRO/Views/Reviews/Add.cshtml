@@ -7,8 +7,8 @@
 
 <h2 class="list-title box-shadow">Dodaj recenzję</h2>
 <div class="window-background box-shadow p-3">
-    @using (Html.BeginForm("Add", "Reviews"))
-    {
+       <form asp-controller="Reviews" asp-action="Add" asp-route-returnUrl="@ViewBag.returnUrl" method="post">
+
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-    }
+    </form>
 </div>
 @section scripts{
     <partial name="_ValidationScriptsPartial" />

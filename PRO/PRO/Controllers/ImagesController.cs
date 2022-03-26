@@ -69,6 +69,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Author")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View();
         }
@@ -77,15 +78,16 @@ namespace PRO.Controllers
         [Route("images/add")]
         [Authorize(Roles = "Admin,Author")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Image image)
+        public ActionResult Add(Image image, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var errors = _imageService.ValidateImage(image);
                 if (!errors.Any())
                 {
                     _imageService.Add(image);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);

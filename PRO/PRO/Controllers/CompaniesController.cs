@@ -60,21 +60,23 @@ namespace PRO.Controllers
         [Route("companies/add")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             return View();
         }
 
         [HttpPost]
         [Route("companies/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Company company)
+        public ActionResult Add(Company company, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var errors = _companyService.ValidateCompany(company);
                 if (!errors.Any())
                 {
                     _companyService.Add(company);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);

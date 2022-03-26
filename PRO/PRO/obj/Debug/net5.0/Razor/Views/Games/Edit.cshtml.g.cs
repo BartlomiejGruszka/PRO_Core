@@ -28,7 +28,9 @@ using PRO.UI.ViewModels;
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f72aaaaeaee76e4ade8d232d236e68431befb418", @"/Views/Games/Edit.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"50bf9f3a3aa24260c90f9edb8910125fa82e0c97", @"/Views/_ViewImports.cshtml")]
+    #nullable restore
     public class Views_Games_Edit : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<PRO.UI.ViewModels.GameFormViewModel>
+    #nullable disable
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("value", "0", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("active"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -170,7 +172,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb4188794", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb4188840", async() => {
 #nullable restore
 #line 44 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                              Write(item.Name);
@@ -214,7 +216,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41811146", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41811192", async() => {
 #nullable restore
 #line 48 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                     Write(item.Name);
@@ -281,7 +283,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41814455", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41814501", async() => {
 #nullable restore
 #line 64 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                              Write(item.Name);
@@ -325,7 +327,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41816808", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41816854", async() => {
 #nullable restore
 #line 68 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                     Write(item.Name);
@@ -392,7 +394,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41820110", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41820156", async() => {
 #nullable restore
 #line 84 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                              Write(item.Name);
@@ -436,7 +438,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41822463", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41822509", async() => {
 #nullable restore
 #line 88 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                     Write(item.Name);
@@ -551,7 +553,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41827998", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41828044", async() => {
 #nullable restore
 #line 124 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                              Write(item.Name);
@@ -595,7 +597,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41830354", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41830400", async() => {
 #nullable restore
 #line 128 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                     Write(item.Name);
@@ -664,7 +666,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41833618", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41833664", async() => {
 #nullable restore
 #line 143 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                 Write(item.Name);
@@ -722,7 +724,7 @@ using PRO.UI.ViewModels;
                 <div class=""col-md-10"">
                     <select class=""selectpicker show-tick"" style=""max-width:400px;"" id=""ImageId"" name=""Game.ImageId"" data-live-search=""true"" onchange=""SetImageId()"" title=""Wybierz obraz"">
                         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41836556", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41836602", async() => {
                 WriteLiteral("Brak");
             }
             );
@@ -747,7 +749,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41837982", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41838028", async() => {
 #nullable restore
 #line 157 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                                     Write(Model.Game.Image.Name);
@@ -816,7 +818,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41841635", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41841681", async() => {
 #nullable restore
 #line 172 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                              Write(item.Name);
@@ -860,7 +862,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41843991", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41844037", async() => {
 #nullable restore
 #line 176 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                     Write(item.Name);
@@ -927,7 +929,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41847329", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41847375", async() => {
 #nullable restore
 #line 192 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                              Write(item.Name);
@@ -971,7 +973,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41849685", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41849731", async() => {
 #nullable restore
 #line 196 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                     Write(item.Name);
@@ -1039,7 +1041,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41853060", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41853106", async() => {
 #nullable restore
 #line 213 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                                             Write(item.Name);
@@ -1084,7 +1086,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41855529", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41855575", async() => {
 #nullable restore
 #line 217 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                     Write(item.Name);
@@ -1151,7 +1153,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41858871", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41858917", async() => {
 #nullable restore
 #line 233 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                                                      Write(item.Name);
@@ -1196,7 +1198,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41861358", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41861404", async() => {
 #nullable restore
 #line 237 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                                     Write(item.Name);
@@ -1266,7 +1268,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41864667", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41864713", async() => {
 #nullable restore
 #line 253 "E:\Repo_PRO\PRO\PRO\Views\Games\Edit.cshtml"
                                              Write(item);
@@ -1321,7 +1323,7 @@ using PRO.UI.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("\r\n                <div class=\"col-md-10\">\r\n                    <select class=\"selectpicker show-tick\" style=\"max-width:400px;\" id=\"SteamAppId\" name=\"Game.SteamAppId\" data-live-search=\"true\" title=\"Wybierz grę Steam\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41867595", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f72aaaaeaee76e4ade8d232d236e68431befb41867641", async() => {
                 WriteLiteral("Brak");
             }
             );
@@ -1447,7 +1449,7 @@ using PRO.UI.ViewModels;
 ");
             DefineSection("scripts", async() => {
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f72aaaaeaee76e4ade8d232d236e68431befb41872559", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f72aaaaeaee76e4ade8d232d236e68431befb41872605", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();
@@ -1466,16 +1468,26 @@ using PRO.UI.ViewModels;
             );
         }
         #pragma warning restore 1998
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<PRO.UI.ViewModels.GameFormViewModel> Html { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<PRO.UI.ViewModels.GameFormViewModel> Html { get; private set; } = default!;
+        #nullable disable
     }
 }
 #pragma warning restore 1591

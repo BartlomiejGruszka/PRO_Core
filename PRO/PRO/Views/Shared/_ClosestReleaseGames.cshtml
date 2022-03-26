@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<PRO.Entities.Game>
 @using PRO.Domain.Extensions
-<div class="side-list-group box-shadow">
+<div class="side-list-group">
     <h3 class="sidebar-title list-title box-shadow">Nadchodzące premiery</h3>
     @{
         var comingGames = Model.ToList().Take(3);
 
         foreach (var game in comingGames)
         {
-            <a href="/games/@game.Id" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="/games/@game.Id" class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
                 <div style="display:flex; flex-direction:row; overflow:hidden; text-overflow:clip;">
                     @if (game.Image != null)
                     {<img style="max-width: 50px;max-height: 50%;align-self: flex-start;flex-direction: row;" class=" lazyloaded" src="/images/@game.Image.ImagePath">

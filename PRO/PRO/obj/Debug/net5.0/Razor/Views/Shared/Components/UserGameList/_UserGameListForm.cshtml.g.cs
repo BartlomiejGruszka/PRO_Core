@@ -28,7 +28,9 @@ using PRO.UI.ViewModels;
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8c679af1d2c0df68c9f280abc84c4e0669063072", @"/Views/Shared/Components/UserGameList/_UserGameListForm.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"50bf9f3a3aa24260c90f9edb8910125fa82e0c97", @"/Views/_ViewImports.cshtml")]
+    #nullable restore
     public class Views_Shared_Components_UserGameList__UserGameListForm : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<PRO.Entities.GameList>
+    #nullable disable
     {
         #line hidden
         #pragma warning disable 0649
@@ -117,7 +119,7 @@ Write(Html.ValidationSummary(true, "", new { @class = "text-danger" }));
 #line hidden
 #nullable disable
             WriteLiteral("                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c679af1d2c0df68c9f280abc84c4e06690630725591", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c679af1d2c0df68c9f280abc84c4e06690630725637", async() => {
 #nullable restore
 #line 22 "E:\Repo_PRO\PRO\PRO\Views\Shared\Components\UserGameList\_UserGameListForm.cshtml"
                                                      Write(item.Title);
@@ -161,7 +163,7 @@ Write(Html.ValidationSummary(true, "", new { @class = "text-danger" }));
 #line hidden
 #nullable disable
             WriteLiteral("                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c679af1d2c0df68c9f280abc84c4e06690630728010", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c679af1d2c0df68c9f280abc84c4e06690630728056", async() => {
 #nullable restore
 #line 26 "E:\Repo_PRO\PRO\PRO\Views\Shared\Components\UserGameList\_UserGameListForm.cshtml"
                                             Write(item.Title);
@@ -292,16 +294,26 @@ Write(Html.ValidationSummary(true, "", new { @class = "text-danger" }));
 #nullable disable
         }
         #pragma warning restore 1998
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<PRO.Entities.GameList> Html { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<PRO.Entities.GameList> Html { get; private set; } = default!;
+        #nullable disable
     }
 }
 #pragma warning restore 1591

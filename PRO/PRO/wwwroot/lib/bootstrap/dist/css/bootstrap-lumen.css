@@ -31,7 +31,7 @@
     --breakpoint-md: 768px;
     --breakpoint-lg: 992px;
     --breakpoint-xl: 1200px;
-    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-sans-serif: "Fira Sans","Fira Sans-fallback",sans-serif;
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -54,7 +54,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Fira Sans","Fira Sans-fallback",sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -875,8 +875,8 @@ pre {
 
 @media (max-width: 575px) {
     .userprofilebuttons {
-        margin-left: 30px;
-        margin-right: 30px;
+        /*margin-left: 30px;
+        margin-right: 30px;*/
     }
 
     .user-statistics .user-statistics-stats {
@@ -2268,7 +2268,7 @@ pre {
 
 .form-control {
     display: block;
-    width: 100%;
+    width: 400px;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
@@ -2280,6 +2280,28 @@ pre {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (max-width: 999.98px) {
+    .form-control {
+        display: block;
+        width: 220px;
+        height: calc(1.5em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+}
+
+.form-control-width {
+    width: 225px !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4995,8 +5017,8 @@ input[type="button"].btn-block {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    /*border-radius: 0.25rem;*/
 }
 
 
@@ -5792,13 +5814,13 @@ a.badge-dark:focus, a.badge-dark.focus {
 
 .list-group-item-action:hover, .list-group-item-action:focus {
     z-index: 1;
-    color: #495057;
+    color: #2e3134;
     text-decoration: none;
     background-color: #f8f9fa;
 }
 
 .list-group-item-action:active {
-    color: #212529;
+    color: #2e3134;
     background-color: #e9ecef;
 }
 
@@ -5808,6 +5830,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     padding: 0.75rem 1.25rem;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.125);
+    margin-bottom: 10px;
 }
 
     .list-group-item:first-child {
@@ -11421,7 +11444,6 @@ a.text-dark:hover, a.text-dark:focus {
 .top-ranking-table .table-header td {
     background-color: #4f74c8;
     border: #4f74c8 0 solid;
-    border-left: #fff 1px solid;
     color: #fff;
     font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
     font-size: 12px;
@@ -11430,22 +11452,21 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .top-ranking-table tr td {
-    border-left: #ebebeb 1px solid;
     padding-bottom: 12px;
     padding-top: 12px;
 }
 
 .top-ranking-table tr.ranking-list td {
-    background-color: #fff;
+    background-color: #e6e6e6;
     vertical-align: middle;
 }
 
 .top-ranking-table tr.ranking-list:nth-of-type(odd) td {
-    background-color: #f6f6f6;
+    background-color: #fff;
 }
 
 .top-ranking-table tr td:last-of-type {
-    border-right: #ebebeb 1px solid;
+    /*border-right: #ebebeb 1px solid;*/
 }
 
 .ac {
@@ -12452,7 +12473,7 @@ input, select, textarea {
 
 @media (min-width: 1000px) {
     .table {
-        overflow-wrap: anywhere;
+        overflow: auto;
         width: 100%;
         /*display: block;*/
         /*border: 1px solid red;*/
@@ -12484,12 +12505,13 @@ input, select, textarea {
         text-decoration: none;
         color: #e9ecef;
     }
-    .tableheadercolor a:hover {
-        text-decoration:auto;
-    }
+
+        .tableheadercolor a:hover {
+            text-decoration: auto;
+        }
 
 .table-container {
-    overflow: overlay;
+    overflow: auto;
 }
 
 .tablerow {
@@ -12538,12 +12560,16 @@ a.sort-link:hover {
     margin-bottom: 0px;
     font-weight: 600;
     border: none;
-    height: 44px;
+    min-height: 44px;
     line-height: 44px;
     padding-left: 20px;
+    margin-bottom: 20px;
 }
 
-.box-shadow {
+.article-list-title {
+    padding-bottom: 5px;
+}
+    .box-shadow {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 

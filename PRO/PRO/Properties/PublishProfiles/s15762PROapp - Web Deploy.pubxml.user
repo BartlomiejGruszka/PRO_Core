@@ -3,10 +3,10 @@
 This file is used by the publish/package process of your Web project. You can customize the behavior of this process
 by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
 -->
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project>
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAIFB5DvF0ukqRKZ2pErEYegAAAAACAAAAAAAQZgAAAAEAACAAAACk23I2hDM5xURHDwRzDB/TtQneCcXWJeknsKX4iRmDAgAAAAAOgAAAAAIAACAAAAA3RSQd7r7Ub/8Ve/tF8DPQztQkKMU2nERM5f48W1gOmIAAAADq7YeFPhBh6sYVj6frZMV1sQMY477ZSbCCCQNF6rcAyCGHOXzRQb21cesRMWJXHcyDxsfgTjr2lEoUxyBQmNmdjj2rDdBn0EvN4sLS7WzFmJ65jWGK+zNUv9PL1UxKQ3AzEpOx4rFPIR99DDz44QcNNVIz/D+3wrSjTAa8d8ykGUAAAAAPwtm9nsZcDgM0+u0KKZeppXDVYkbB1EX9JGRDKdcTAH0o/bJLQ+eX/+/ryADEzebqpckTCTpPwcnUytFsEs1r</EncryptedPassword>
-    <History>True|2022-01-05T09:02:35.4299908Z;</History>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA2jh6SBn3g0KTYMURI4MWRwAAAAACAAAAAAAQZgAAAAEAACAAAADZ1hQDb6h6mdmXH5WAGYc4be+DjqLTsIMwe2AHR9U2XAAAAAAOgAAAAAIAACAAAAAqJe8y15t3sDXN3MeX/SC6Wl3r1UGonsQ3RLEjkD0ie4AAAAAJvpFZjhCmMUc3+jMv5iN11jy4sKME4+9W+hBDeqGE09Gb1LcKzZKAkfX1VOlpQPiDm6Aa2U/Y8kJfyjwevmdHQrIeaWZ2AhcpgzoShMTQQWe6rfm8BSEbJhMnDMe3nVSJs9bGspCYUb7lrh9vkMlXhzwkxjrdQba/bB8/+q7QnEAAAABByEgY1/tQJ/r5auEr41oCL36H2UuFR5xgi3Bb94XbFTz4QEBW1pjPT13PQeCGIkH5wwmkDDaW6dWoB/ejFD6s</EncryptedPassword>
+    <History>True|2022-03-09T16:07:51.7458642Z;False|2022-03-09T17:00:39.0049526+01:00;</History>
   </PropertyGroup>
 </Project>

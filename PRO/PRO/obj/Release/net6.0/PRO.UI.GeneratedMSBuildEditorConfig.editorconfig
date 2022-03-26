@@ -1,0 +1,800 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = PRO.UI
+build_property.RootNamespace = PRO.UI
+build_property.ProjectDir = E:\Repo_PRO\PRO\PRO\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = E:\Repo_PRO\PRO\PRO
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/ConfirmEmail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/ConfirmEmailChange.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxDb25maXJtRW1haWxDaGFuZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/ExternalLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxFeHRlcm5hbExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/ForgotPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxGb3Jnb3RQYXNzd29yZENvbmZpcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Lockout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2Nrb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/LoginWith2fa.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbldpdGgyZmEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/LoginWithRecoveryCode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbldpdGhSZWNvdmVyeUNvZGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/DeletePersonalData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRGVsZXRlUGVyc29uYWxEYXRhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/Disable2fa.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRGlzYWJsZTJmYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRG93bmxvYWRQZXJzb25hbERhdGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/Email.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRW1haWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRW5hYmxlQXV0aGVudGljYXRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/ExternalLogins.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRXh0ZXJuYWxMb2dpbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/GenerateRecoveryCodes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcR2VuZXJhdGVSZWNvdmVyeUNvZGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcUGVyc29uYWxEYXRhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/ResetAuthenticator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcUmVzZXRBdXRoZW50aWNhdG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcU2V0UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/ShowRecoveryCodes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcU2hvd1JlY292ZXJ5Q29kZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcVHdvRmFjdG9yQXV0aGVudGljYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1N0YXR1c01lc3NhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3RlckNvbmZpcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/ResetPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNldFBhc3N3b3JkQ29uZmlybWF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/_StatusMessage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfU3RhdHVzTWVzc2FnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Articles/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Articles/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Articles/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Articles/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Articles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Articles/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcTWFuYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Articles/ManageDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcTWFuYWdlRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Articles/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcU2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ArticleTypes/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVR5cGVzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ArticleTypes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVR5cGVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ArticleTypes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVR5cGVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ArticleTypes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVR5cGVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ArticleTypes/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVR5cGVzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Authors/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Authors/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Authors/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Authors/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Authors/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xNYW5hZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Awards/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXdhcmRzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Awards/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXdhcmRzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Awards/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXdhcmRzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Awards/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXdhcmRzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Awards/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXdhcmRzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Companies/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFuaWVzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Companies/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFuaWVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Companies/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFuaWVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Companies/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFuaWVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Companies/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFuaWVzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ControlPanel/Admin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbFBhbmVsXEFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ControlPanel/Articles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbFBhbmVsXEFydGljbGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ControlPanel/Author.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbFBhbmVsXEF1dGhvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ControlPanel/Games.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbFBhbmVsXEdhbWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ControlPanel/Moderator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbFBhbmVsXE1vZGVyYXRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ControlPanel/OldAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbFBhbmVsXE9sZEFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ControlPanel/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbFBhbmVsXFVzZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/GameLists/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZUxpc3RzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/GameLists/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZUxpc3RzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/GameLists/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZUxpc3RzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/GameLists/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZUxpc3RzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/GameLists/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZUxpc3RzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcTWFuYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/ManageDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcTWFuYWdlRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/Ranking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcUmFua2luZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/Reviews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcUmV2aWV3cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/SingleReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcU2luZ2xlUmV2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/UserDeleteReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcVXNlckRlbGV0ZVJldmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Games/UserReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2FtZXNcVXNlclJldmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Genres/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Genres/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Genres/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Genres/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Genres/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Home/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Home/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Home/NewIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOZXdJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Images/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Images/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Images/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Images/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Images/EditFile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXEVkaXRGaWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Images/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ImageTypes/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VUeXBlc1xBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ImageTypes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VUeXBlc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ImageTypes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VUeXBlc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ImageTypes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VUeXBlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ImageTypes/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VUeXBlc1xNYW5hZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Languages/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGFuZ3VhZ2VzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Languages/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGFuZ3VhZ2VzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Languages/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGFuZ3VhZ2VzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Languages/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGFuZ3VhZ2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Languages/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGFuZ3VhZ2VzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ListTypes/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlzdFR5cGVzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ListTypes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlzdFR5cGVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ListTypes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlzdFR5cGVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ListTypes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlzdFR5cGVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/ListTypes/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlzdFR5cGVzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Moderators/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZXJhdG9yc1xBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Moderators/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZXJhdG9yc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Moderators/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZXJhdG9yc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Moderators/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZXJhdG9yc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Moderators/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZXJhdG9yc1xNYW5hZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Platforms/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGZvcm1zXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Platforms/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGZvcm1zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Platforms/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGZvcm1zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Platforms/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGZvcm1zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Platforms/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGZvcm1zXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Reviews/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Reviews/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Reviews/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Reviews/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Reviews/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xNYW5hZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Reviews/ManageDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xNYW5hZ2VEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Series/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VyaWVzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Series/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VyaWVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Series/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VyaWVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Series/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VyaWVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Series/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VyaWVzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/Components/AddGameToUserList/_AddGameToUserList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQWRkR2FtZVRvVXNlckxpc3RcX0FkZEdhbWVUb1VzZXJMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/Components/Footer/_Footer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcRm9vdGVyXF9Gb290ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/Components/UserGameList/_UserGameListForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcVXNlckdhbWVMaXN0XF9Vc2VyR2FtZUxpc3RGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/Components/UserList/_UserListForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcVXNlckxpc3RcX1VzZXJMaXN0Rm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/Components/UserReview/_UserReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcVXNlclJldmlld1xfVXNlclJldmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_BestRatedGames.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9CZXN0UmF0ZWRHYW1lcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_ClosestReleaseGames.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DbG9zZXN0UmVsZWFzZUdhbWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_GameInfoBar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9HYW1lSW5mb0Jhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_GameTitleBar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9HYW1lVGl0bGVCYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_NewReviews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OZXdSZXZpZXdzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_Pagination.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYWdpbmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_SingleReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaW5nbGVSZXZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_UserProfileEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Vc2VyUHJvZmlsZUVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Status/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdHVzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Status/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdHVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Status/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdHVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Status/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdHVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Status/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdHVzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Tags/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Tags/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Tags/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Tags/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Tags/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xNYW5hZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/UserLists/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckxpc3RzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/UserLists/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckxpc3RzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/UserLists/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckxpc3RzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/UserLists/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckxpc3RzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/UserLists/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckxpc3RzXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdFByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/GameListDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcR2FtZUxpc3REZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/GameListForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcR2FtZUxpc3RGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/GameLists.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcR2FtZUxpc3RzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcTWFuYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/ManageDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcTWFuYWdlRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/Reviews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcUmV2aWV3cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/UserChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVXNlckNoYW5nZVBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/UserListDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVXNlckxpc3REZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/UserListForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVXNlckxpc3RGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/UserLists.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVXNlckxpc3RzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/_TopUserBar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcX1RvcFVzZXJCYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/_UserChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcX1VzZXJDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/Users/_UserLeftSide.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcX1VzZXJMZWZ0U2lkZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Repo_PRO/PRO/PRO/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

@@ -25,14 +25,14 @@
 
 <div class="maingrid-container">
     <div class="">
-        <div class="list-group box-shadow">
+        <div class="list-group">
             <h2 class="list-title box-shadow">Bieżące informacje</h2>
             @{
                 var articles = Model.RecentArticles.ToList().Take(3);
                 foreach (var article in articles)
                 {
 
-                    <a href="/articles/@article.Id" class="list-group-item list-group-item-action flex-column align-items-start " id="home-article-cards">
+                    <a href="/articles/@article.Id" class="list-group-item list-group-item-action flex-column align-items-start box-shadow" id="home-article-cards">
                         <div>
                             @if (article.Image != null)
                             {<img style="max-width: 150px;max-height: 100%;" class=" lazyloaded" src="/images/@article.Image.ImagePath">
@@ -84,7 +84,7 @@
             </div>
         </div>
         <br />
-        <div class="list-group box-shadow">
+        <div class="list-group">
             <h2 class="list-title box-shadow">Najpopularniejsze</h2>
             @{
                 var popularGames = Model.MostPopularGames;
@@ -92,7 +92,7 @@
                 foreach (var item in popularGames)
                 {
                     var game = item.Item1;
-                    <a href="/games/@game.Id" class="list-group-item list-group-item-action flex-column align-items-start " id="home-article-cards">
+                    <a href="/games/@game.Id" class="list-group-item list-group-item-action flex-column align-items-start box-shadow" id="home-article-cards">
                         <div>
                             @if (game.Image != null)
                             {

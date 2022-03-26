@@ -28,14 +28,14 @@ namespace PRO.Controllers
         [HttpGet]
         [Route("genres/manage/{currentFilter?}")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
-        {    
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";         
+        {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             var genres = _genreService.FilterSearch(currentFilter);
-            genres = _genreService.SortList(sortOrder,genres);
+            genres = _genreService.SortList(sortOrder, genres);
 
             var result = PaginatedList<Genre>.Create(genres.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            result.Pagination.Configure(action, currentFilter,sortOrder);
+            result.Pagination.Configure(action, currentFilter, sortOrder);
 
             return View("Manage", result);
         }
@@ -56,21 +56,23 @@ namespace PRO.Controllers
         [Route("genres/add")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             return View();
         }
 
         [HttpPost]
         [Route("genres/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("Name")] Genre genre)
+        public ActionResult Add([Bind("Name")] Genre genre, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var errors = _genreService.ValidateGenre(genre);
                 if (!errors.Any())
                 {
                     _genreService.Add(genre);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);

@@ -24,7 +24,7 @@
                 </li>
             </ul>
             <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">
-                <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="currentFilter" value="@Model.Pagination.CurrentFilter" />
+                <input class="form-control form-control-width me-sm-2" placeholder="Szukaj" type="text" name="currentFilter" value="@Model.Pagination.CurrentFilter" />
                 <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
             </form>
         </div>
@@ -48,7 +48,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
-                        <td style="float:right; margin-right:10px;">
+                        <td>
                             @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
                             @if (@User.IsInRole("Admin"))

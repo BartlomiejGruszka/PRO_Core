@@ -47,6 +47,7 @@ namespace PRO.Controllers
         [Route("tags/add")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             return View();
         }
 
@@ -54,15 +55,16 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("tags/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Tag tag)
+        public ActionResult Add(Tag tag, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var errors = _tagService.ValidateTag(tag);
                 if (!errors.Any())
                 {
                     _tagService.Add(tag);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);

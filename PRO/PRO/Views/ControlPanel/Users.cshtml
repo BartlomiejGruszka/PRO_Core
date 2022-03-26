@@ -1,9 +1,8 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="window-background box-shadow">
+<div style="padding-bottom:15px;">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
         <tbody>
             <tr class="table-header top-game-rank-text manage">
@@ -12,8 +11,20 @@
                     <div class="btn btn-secondary" style="float:right; margin-right:10px;"><a class="actionLinkManage" href="/panel">Powrót</a></div>
                 </td>
             </tr>
-            <tr class="lightLink top-game-rank-text manage"><td class="rank ac"></td></tr>
+        </tbody>
+    </table>
+</div>
+<div style="padding-bottom:15px; padding-top:15px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
+        <tbody>
             <tr class="table-header"><td class="rank">Użytkownicy</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
+        <tbody>
             <tr class="ranking-list">
                 <td class="rank ac" valign="top">
                     <span class="lightLink top-game-rank-text manage"><a href="/authors/manage">Autorzy</a></span>
@@ -29,12 +40,19 @@
                     <span class="lightLink top-game-rank-text manage"><a href="/users/manage">Użytkownicy</a></span>
                 </td>
             </tr>
+        </tbody>
+    </table>
+</div>
+<div style="padding-bottom:15px; padding-top:15px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
+        <tbody>
             <tr class="table-header"><td class="rank">Listy użytkowników</td></tr>
-            <tr class="ranking-list">
-                <td class="rank ac" valign="top">
-                    <span class="lightLink top-game-rank-text manage"><a href="/userlists/manage">Listy użytkowników</a></span>
-                </td>
-            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
+        <tbody>
             <tr class="ranking-list">
                 <td class="rank ac" valign="top">
                     <span class="lightLink top-game-rank-text manage"><a href="/gamelists/manage">Gry na listach użytkowników</a></span>
@@ -42,20 +60,40 @@
             </tr>
             <tr class="ranking-list">
                 <td class="rank ac" valign="top">
+                    <span class="lightLink top-game-rank-text manage"><a href="/userlists/manage">Listy użytkowników</a></span>
+                </td>
+            </tr>
+
+            <tr class="ranking-list">
+                <td class="rank ac" valign="top">
                     <span class="lightLink top-game-rank-text manage"><a href="/listtypes/manage">Rodzaje list</a></span>
                 </td>
             </tr>
+
+        </tbody>
+    </table>
+</div>
+<div style="padding-bottom:15px; padding-top:15px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
+        <tbody>
             <tr class="table-header"><td class="rank">Inne</td></tr>
-            <tr class="ranking-list">
-                <td class="rank ac" valign="top">
-                    <span class="lightLink top-game-rank-text manage"><a href="/reviews/manage">Recenzje</a></span>
-                </td>
-            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="top-ranking-table box-shadow">
+        <tbody>
             <tr class="ranking-list">
                 <td class="rank ac" valign="top">
                     <span class="lightLink top-game-rank-text manage"><a href="/images/manage">Obrazki</a></span>
                 </td>
             </tr>
+            <tr class="ranking-list">
+                <td class="rank ac" valign="top">
+                    <span class="lightLink top-game-rank-text manage"><a href="/reviews/manage">Recenzje</a></span>
+                </td>
+            </tr>
+
             <tr class="ranking-list">
                 <td class="rank ac" valign="top">
                     <span class="lightLink top-game-rank-text manage"><a href="/imagetypes/manage">Rodzaje obrazków</a></span>

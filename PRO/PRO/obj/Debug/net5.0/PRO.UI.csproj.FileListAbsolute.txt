@@ -1312,7 +1312,6 @@ E:\Repo_PRO\PRO\PRO\bin\Debug\net5.0\PRO.UI.deps.json
 E:\Repo_PRO\PRO\PRO\bin\Debug\net5.0\PRO.UI.runtimeconfig.json
 E:\Repo_PRO\PRO\PRO\bin\Debug\net5.0\PRO.UI.runtimeconfig.dev.json
 E:\Repo_PRO\PRO\PRO\bin\Debug\net5.0\PRO.UI.dll
-E:\Repo_PRO\PRO\PRO\bin\Debug\net5.0\ref\PRO.UI.dll
 E:\Repo_PRO\PRO\PRO\bin\Debug\net5.0\PRO.UI.pdb
 E:\Repo_PRO\PRO\PRO\bin\Debug\net5.0\pl\PRO.UI.resources.dll
 E:\Repo_PRO\PRO\PRO\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Antiforgery.dll
@@ -1957,3 +1956,4 @@ E:\Repo_PRO\PRO\PRO\obj\Debug\net5.0\PRO.UI.dll
 E:\Repo_PRO\PRO\PRO\obj\Debug\net5.0\ref\PRO.UI.dll
 E:\Repo_PRO\PRO\PRO\obj\Debug\net5.0\PRO.UI.pdb
 E:\Repo_PRO\PRO\PRO\obj\Debug\net5.0\PRO.UI.genruntimeconfig.cache
+E:\Repo_PRO\PRO\PRO\obj\Debug\net5.0\refint\PRO.UI.dll

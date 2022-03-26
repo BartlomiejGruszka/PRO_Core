@@ -4,26 +4,17 @@
       "type": "mssql.local",
       "connectionId": "DefaultConnection"
     },
-    "secrets1": {
-      "type": "secrets.user"
-    },
-    "mssql2": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/s15762prodb/databases/s15762PRO",
-      "type": "mssql.azure",
-      "connectionId": "ConnectionStrings:DefaultConnection",
-      "secretStore": "LocalSecretsFile"
-    },
     "secrets2": {
+      "secretStore": null,
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/s15762PROvault",
       "type": "secrets.keyVault",
-      "connectionId": "VaultUri",
-      "secretStore": null
+      "connectionId": "VaultUri"
     },
     "appConfig1": {
+      "secretStore": "AzureKeyVault",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.AppConfiguration/configurationStores/proappconfig",
       "type": "appConfig.azure",
-      "connectionId": "AppConfig",
-      "secretStore": "AzureKeyVault"
+      "connectionId": "AppConfig"
     }
   }
 }

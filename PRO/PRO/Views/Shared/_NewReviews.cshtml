@@ -18,7 +18,7 @@
         }
     }
 }
-<div class="side-list-group box-shadow">
+<div class="side-list-group">
     <h3 class="sidebar-title list-title box-shadow">Najnowsze recenzje</h3>
     @{ var reviews = Model.ToList();
         if (reviews.Any())
@@ -27,7 +27,7 @@
             {
                 if (reviews.ElementAtOrDefault(i) != null)
                 { <div>
-                        <a href="/games/@reviews[i].GameId/reviews/@reviews[i].Id" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <a href="/games/@reviews[i].GameId/reviews/@reviews[i].Id" class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
 
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">@reviews[i].Game.Title</h5>

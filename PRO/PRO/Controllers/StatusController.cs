@@ -49,6 +49,7 @@ namespace PRO.Controllers
         [Route("status/add")]
         public ActionResult Add()
         {
+            ViewBag.returnUrl = HttpContext.Request.Headers["Referer"];
             return View();
         }
 
@@ -56,15 +57,16 @@ namespace PRO.Controllers
         [HttpPost]
         [Route("status/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Status status)
+        public ActionResult Add(Status status, string returnUrl = null)
         {
+            ViewBag.returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var errors = _statusService.ValidateStatus(status);
                 if (!errors.Any())
                 {
                     _statusService.Add(status);
-
+                    if (returnUrl != null) { return Redirect(returnUrl); }
                     return RedirectToAction("Manage");
                 }
                 ModelState.Merge(errors);

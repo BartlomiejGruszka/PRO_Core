@@ -1,13 +1,13 @@
 ﻿
 @model PRO.UI.ViewModels.GameInfoViewModel
 
-<td class="borderClass" width="225" style="border-width: 0 1px 0 0;" valign="top">
-    <div style="width: 225px">
+<div class="borderClass userprofile" style="border-width: 0 1px 0 0;" valign="top">
+    <div class="userprofilebuttons">
 
         <div style="text-align: center; margin:20px;">
             @if (Model.Game.Image != null)
             {<a>
-                    <img style="max-width:200px;" class="lazyloaded" src="/images/@Model.Game.Image.ImagePath">
+                    <img style="max-width:200px; margin-top: 10px;" class="lazyloaded" src="/images/@Model.Game.Image.ImagePath">
                 </a>}
 
         </div>
@@ -90,35 +90,44 @@
         <div class="underlined_h2">Statystyki</div>
         <div>
             <span class="dark_text">Ocena:</span>
-            <span class="score-label score-7">@(Model.Rating==null?0:@Model.Rating)</span>
-        </div>
-        <div>
-            <span class="dark_text">Ranking:</span>
-            #@Model.Position
-        </div>
-        <div>
-            <span class="dark_text">Popularność:</span>
-            #@Model.Popularity
-        </div>
-        <br>
-
-
-        <div class="underlined_h2">Nagrody</div>
-        @{
-            if (Model.Game.Awards?.Any() == true)
-            {
-                foreach (var award in Model.Game.Awards)
+            <span class="score-label score-7">
+                @if (Model.Rating == null || Model.Rating.Value == 0)
                 {
-                    <span>@award.Name</span><br />
+                    @:-
                 }
-            }
-            else
+                else
+                {
+                    @Model.Rating
+                }
+        </span>
+    </div>
+    <div>
+        <span class="dark_text">Ranking:</span>
+        #@Model.Position
+    </div>
+    <div>
+        <span class="dark_text">Popularność:</span>
+        #@Model.Popularity
+    </div>
+    <br>
+
+
+    <div class="underlined_h2">Nagrody</div>
+    @{
+        if (Model.Game.Awards?.Any() == true)
+        {
+            foreach (var award in Model.Game.Awards)
             {
-                <div>brak</div>
+                <span>@award.Name</span><br />
             }
         }
-        <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
-        </div>
-
+        else
+        {
+            <div>brak</div>
+        }
+    }
+    <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
     </div>
-</td>
+    <div class="underlined_h2"></div>
+</div>
+</div>

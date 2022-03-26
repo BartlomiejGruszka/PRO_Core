@@ -24,7 +24,7 @@
                 </li>
             </ul>
             <form asp-action="Manage" method="get" class="d-flex" style="display: flex; align-items: center;">
-                <input class="form-control me-sm-2" placeholder="Szukaj" type="text" name="currentFilter" value="@Model.Pagination.CurrentFilter" />
+                <input class="form-control form-control-width me-sm-2" placeholder="Szukaj" type="text" name="currentFilter" value="@Model.Pagination.CurrentFilter" />
                 <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:5px;" type="submit">Szukaj</button>
             </form>
         </div>
@@ -35,17 +35,17 @@
     <div class="table-container">
         <table class="table tablecolor">
             <tr class="tableheadercolor">
-                <th>
+                <th style="width:50%;">
 
                     <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Nazwa</a>
 
                 </th>
-                <th>
+                <th style="width:30%;">
 
                     <a asp-action="Manage" asp-route-sortOrder="@ViewData["TypeSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Typ</a>
 
                 </th>
-                <th></th>
+                <th style="width:20%;">Opcje</th>
             </tr>
 
             @foreach (var item in Model)
