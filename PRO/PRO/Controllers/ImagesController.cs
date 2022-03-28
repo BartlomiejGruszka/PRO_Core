@@ -101,18 +101,6 @@ namespace PRO.Controllers
         // GET: Companies/Edit/5
         [Route("images/edit/{id}")]
         [Authorize(Roles = "Admin,Author")]
-        public ActionResult EditFile(int? id)
-        {
-            Image image = _imageService.Find(id);
-            if (image == null)
-            {
-                return BadRequest();
-            }
-            ViewBag.ImageTypes = _imageTypeService.GetAll();
-            return View(image);
-        }
-        [Route("images/rename/{id}")]
-        [Authorize(Roles = "Admin,Author")]
         public ActionResult Edit(int? id)
         {
             Image image = _imageService.Find(id);
@@ -129,7 +117,7 @@ namespace PRO.Controllers
         [Route("images/edit/{id}")]
         [Authorize(Roles = "Admin,Author")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditFile(Image image)
+        public ActionResult Edit(Image image)
         {
             if (ModelState.IsValid)
             {
@@ -142,29 +130,6 @@ namespace PRO.Controllers
                 }
                 ModelState.Merge(errors);
             }
-            ViewBag.ImageTypes = _imageTypeService.GetAll();
-            return View(image);
-        }
-
-        [HttpPost]
-        [Route("images/rename/{id}")]
-        [Authorize(Roles = "Admin,Author")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Image image)
-        {
-            if (ModelState.IsValid)
-            {
-                var errors = _imageService.ValidateImage(image);
-                if (!errors.Any())
-                {
-                    _imageService.RenameImage(image);
-
-                    return RedirectToAction("Manage");
-                }
-                ModelState.Merge(errors);
-                return RedirectToAction("Manage");
-            }
-
             ViewBag.ImageTypes = _imageTypeService.GetAll();
             return View(image);
         }

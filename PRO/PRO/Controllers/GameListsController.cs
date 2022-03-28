@@ -95,7 +95,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         [Route("gamelists/add")]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind("HoursPlayed, PersonalScore,GameId,UserListId")] GameList gameList)
+        public ActionResult Add([Bind("HoursPlayed,PersonalScore,GameId,UserListId")] GameList gameList)
         {
             var validate = _gameListService.ValidateGameList(gameList);
             ModelState.Merge(validate);
@@ -162,7 +162,7 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin")]
         [Route("gamelists/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Id, HoursPlayed, PersonalScore,GameId,UserListId")] GameList gameList)
+        public ActionResult Edit(GameList gameList)
         {
             var validate = _gameListService.ValidateGameList(gameList);
             ModelState.Merge(validate);

@@ -103,6 +103,7 @@ namespace PRO.Domain.Services
 
         public Task<IdentityResult> AddUserAsync(ApplicationUser user, string password)
         {
+            if (user.ImageId == 0) user.ImageId = null;
             return _userManager.CreateAsync(user, password);
         }
 

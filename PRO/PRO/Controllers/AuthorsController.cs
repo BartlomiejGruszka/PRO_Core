@@ -113,15 +113,14 @@ namespace PRO.Controllers
                 if (user == null) return NotFound();
 
                 var isAuthor = await _userService.IsUserInRole(user, "Author");
-                IdentityResult result = null;
 
                 if (isAuthor && !author.IsActive)
                 {
-                    result = await _userService.DeleteRoleFromUserAsync(user, "Author");
+                     await _userService.DeleteRoleFromUserAsync(user, "Author");
                 };
                 if (!isAuthor && author.IsActive)
                 {
-                    result = await _userService.AddRoleToUserAsync(user, "Author");
+                     await _userService.AddRoleToUserAsync(user, "Author");
                 }
                 _authorService.Update(author);
                 return RedirectToAction("Manage");

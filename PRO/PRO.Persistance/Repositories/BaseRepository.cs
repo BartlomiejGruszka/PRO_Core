@@ -62,11 +62,12 @@ namespace PRO.Persistance.Repositories
 
         public void Update(T updatedElement)
         {
-            //  var old = _dbContext.Set<T>().Find(updatedElement);
-            //  _dbContext.Entry(old).CurrentValues.SetValues(updatedElement);
             _dbContext.ChangeTracker.Clear();
-            _dbContext.Attach(updatedElement);
             _dbContext.Entry(updatedElement).State = EntityState.Modified;
+            _dbContext.SaveChanges(true);
+           // _dbContext.Attach(updatedElement);
+           //_dbContext.Entry(updatedElement).State = EntityState.Modified;
+           //_dbContext.Update(updatedElement);   
         }
 
     }

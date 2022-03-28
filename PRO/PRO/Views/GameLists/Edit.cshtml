@@ -17,9 +17,8 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
             @Html.HiddenFor(model => model.AddedDate)
-            @Html.HiddenFor(model => model.UserListId)
             <div class="form-group">
-                @Html.LabelFor(model => model.UserList.UserId, "Użytkownik", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.UserListId, "Użytkownik", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(m => m.UserList.UserId, new List<SelectListItem> { }, Model.UserList.User.UserName, new { @class = "form-control", @disabled = "disabled" })
                 </div>
@@ -27,7 +26,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.UserListId, "Lista użytkownika", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <select class="selectpicker show-tick" style="max-width:400px;" id="UserListId" name="UserListId" data-live-search="true" onchange="SetListId()" title="Wybierz listę" required>
+                    <select class="selectpicker show-tick" style="max-width:400px;" id="UserListId" name="UserListId" data-live-search="true" title="Wybierz listę" required>
                         @foreach (var item in ViewBag.userLists)
                         {
 

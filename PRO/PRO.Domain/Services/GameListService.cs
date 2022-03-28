@@ -66,10 +66,10 @@ namespace PRO.Domain.Services
             }
             else if(_userService.IsOwner(oldgamelist.UserList.UserId))
             {
-                oldgamelist.PersonalScore = gameList.PersonalScore;
-                oldgamelist.HoursPlayed = gameList.HoursPlayed;
-                oldgamelist.UserListId = gameList.UserListId;
-                Update(oldgamelist);
+                //oldgamelist.PersonalScore = gameList.PersonalScore;
+               // oldgamelist.HoursPlayed = gameList.HoursPlayed;
+               // oldgamelist.UserListId = gameList.UserListId;
+                Update(gameList);
             }
 
 
@@ -184,7 +184,7 @@ namespace PRO.Domain.Services
                 "score" => gameLists.OrderBy(s => s.PersonalScore),
                 "Name_desc" => gameLists.OrderByDescending(s => s.UserList.Name),
                 "Name" => gameLists.OrderBy(s => s.UserList.Name),
-                _ => gameLists.OrderBy(s => s.Game.Title),
+                _ => gameLists.OrderBy(s => s.UserList.User.UserName),
             };
             return gameLists.AsQueryable();
         }

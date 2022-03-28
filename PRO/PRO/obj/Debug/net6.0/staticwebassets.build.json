@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "IWVTrouybu8ZBwqwGRlR4NLqJIpj/wTa4Wi6VTvcyA4=",
+  "Hash": "40k/ZIxmCPOrIFUaiHvCcHWgl3NvnNAdKdfWGHcabuo=",
   "Source": "PRO.UI",
   "BasePath": "_content/PRO.UI",
   "Mode": "Default",
@@ -1139,6 +1139,23 @@
       "OriginalItemSpec": "wwwroot\\images\\220px-FIFA_21_Cover214815562.jpg"
     },
     {
+      "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\2220107682.png",
+      "SourceId": "PRO.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\",
+      "BasePath": "_content/PRO.UI",
+      "RelativePath": "images/2220107682.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\2220107682.png"
+    },
+    {
       "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\222211031234.PNG",
       "SourceId": "PRO.UI",
       "SourceType": "Discovered",
@@ -1513,12 +1530,12 @@
       "OriginalItemSpec": "wwwroot\\images\\masseffect3_article215114959.jpg"
     },
     {
-      "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\parrot214853179.jpg",
+      "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\parrot220257456.jpg",
       "SourceId": "PRO.UI",
       "SourceType": "Discovered",
       "ContentRoot": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\",
       "BasePath": "_content/PRO.UI",
-      "RelativePath": "images/parrot214853179.jpg",
+      "RelativePath": "images/parrot220257456.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1527,7 +1544,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\parrot214853179.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\parrot220257456.jpg"
     },
     {
       "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\Pokemon-Sword-and-Shield_article215022688.jpg",
@@ -1596,6 +1613,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Sword_EN_boxart214902510.png"
+    },
+    {
+      "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\user_default220340190.jpg",
+      "SourceId": "PRO.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\",
+      "BasePath": "_content/PRO.UI",
+      "RelativePath": "images/user_default220340190.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\user_default220340190.jpg"
     },
     {
       "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\valhalla_article214830763.jpg",
