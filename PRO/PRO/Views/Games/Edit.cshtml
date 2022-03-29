@@ -230,7 +230,7 @@
                         {
                             if (Model.Game.Tags.Where(s => s.Id == item.Id).ToList().Any())
                             {
-                                <option selected class="selected active" value="@item.Id">@item.Name</option>
+                                <option selected class="active" value="@item.Id">@item.Name</option>
                             }
                             else
                             {

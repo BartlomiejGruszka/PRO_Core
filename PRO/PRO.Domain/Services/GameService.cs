@@ -17,20 +17,25 @@ namespace PRO.Domain.Services
         private readonly IGameListRepository _gameListRepository;
         private readonly IRepository<Language> _languageRepository;
         private readonly IRepository<Tag> _tagRepository;
-
+        private readonly IRepository<GameLanguage> _gamelanguageRepository;
+        private readonly IRepository<GameTag> _gametagRepository;
         public GameService(
             IGameRepository gameRepository,
             IImageRepository imageRepository,
             IGameListRepository gameListRepository,
             IRepository<Language> languageRepository,
-            IRepository<Tag> tagRepository)
+            IRepository<Tag> tagRepository,
+            IRepository<GameLanguage> gamelanguageRepository,
+            IRepository<GameTag> gametagRepository)
         {
             _gameRepository = gameRepository;
             _gameListRepository = gameListRepository;
             _languageRepository = languageRepository;
             _tagRepository = tagRepository;
             _imageRepository = imageRepository;
-        }
+            _gamelanguageRepository = gamelanguageRepository; 
+            _gametagRepository = gametagRepository;
+    }
 
 
         public void Add(Game newGame)
@@ -54,6 +59,30 @@ namespace PRO.Domain.Services
             }
 
         }
+        public void UpdateTags(Game game, IEnumerable<int> selectedTagsId)
+        {
+            IEnumerable<GameTag> currentGameTags = _gametagRepository.Get(g => g.GameId == game.Id);
+            IEnumerable<GameTag> formGameTags = new List<GameTag>();
+            foreach (var item in selectedTagsId)
+            {
+                formGameTags = formGameTags.Append(new GameTag { GameId = game.Id, TagId = item });
+            }
+
+            var removedGameTags = currentGameTags.Except(formGameTags);
+            var newGameTags = formGameTags.Except(currentGameTags);
+
+            foreach (var gametag in removedGameTags)
+            {
+                _gametagRepository.Remove(gametag);
+            }
+            foreach (var gametag in newGameTags)
+            {
+                _gametagRepository.Add(gametag);
+            }
+
+            _gametagRepository.Save();
+
+        }
 
         public void AddLanguages(Game newGame, IEnumerable<int> selectedLanguagesId)
         {
@@ -68,6 +97,30 @@ namespace PRO.Domain.Services
                 }
                 newGame.Languages = newLanguages;
             }
+
+        }
+        public void UpdateLanguages(Game game, IEnumerable<int> selectedLanguagesId)
+        {
+            IEnumerable<GameLanguage> currentGameLanguages = _gamelanguageRepository.Get(g => g.GameId == game.Id);
+            IEnumerable<GameLanguage> formGameLangauges = new List<GameLanguage>();
+            foreach(var item in selectedLanguagesId)
+            {
+               formGameLangauges =  formGameLangauges.Append(new GameLanguage { GameId = game.Id, LanguageId = item });
+            }
+
+            var removedGameLanguages = currentGameLanguages.Except(formGameLangauges);
+            var newGameLanguages = formGameLangauges.Except(currentGameLanguages);
+
+            foreach (var gamelanguage in removedGameLanguages)
+            {
+                    _gamelanguageRepository.Remove(gamelanguage);          
+            }
+            foreach (var gamelanguage in newGameLanguages)
+            {
+                _gamelanguageRepository.Add(gamelanguage);
+            }
+
+            _gamelanguageRepository.Save();
 
         }
         public Game Find(int? id)

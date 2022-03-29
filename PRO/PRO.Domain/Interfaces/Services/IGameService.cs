@@ -21,7 +21,9 @@ namespace PRO.Domain.Interfaces.Services
         void Delete(Game game);
         void Add(Game newGame);
         void AddTags(Game newGame, IEnumerable<int> selectedTagsId);
+        void UpdateTags(Game game, IEnumerable<int> selectedTagsId);
         void AddLanguages(Game newGame, IEnumerable<int> selectedLanguagesId);
+        void UpdateLanguages(Game game, IEnumerable<int> selectedLanguagesId);
         List<GameScore> GetUnorderedGamesRanking();
         List<GameScore> GetUnorderedGamesRanking(IQueryable<Game> games);
         List<GameScore> GetUserUnorderedGamesRanking(int? userid);

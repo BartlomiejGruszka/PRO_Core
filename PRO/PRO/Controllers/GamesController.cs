@@ -212,8 +212,8 @@ namespace PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                _gameService.AddTags(viewModel.Game, viewModel.selectedTagsId);
-                _gameService.AddLanguages(viewModel.Game, viewModel.selectedLanguagesId);
+                _gameService.UpdateTags(viewModel.Game, viewModel.selectedTagsId);
+                _gameService.UpdateLanguages(viewModel.Game, viewModel.selectedLanguagesId);
                 _gameService.Update(viewModel.Game);
 
                 return RedirectToAction("Manage");

@@ -99,6 +99,8 @@ namespace PRO
             services.AddScoped(typeof(IRepository<ListType>), typeof(BaseRepository<ListType>));
             services.AddScoped(typeof(IRepository<Moderator>), typeof(BaseRepository<Moderator>));
             services.AddScoped(typeof(IRepository<Award>), typeof(BaseRepository<Award>));
+            services.AddScoped(typeof(IRepository<GameLanguage>), typeof(BaseRepository<GameLanguage>));
+            services.AddScoped(typeof(IRepository<GameTag>), typeof(BaseRepository<GameTag>));
 
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
