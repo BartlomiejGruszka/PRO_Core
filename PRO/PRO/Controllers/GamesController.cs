@@ -160,9 +160,16 @@ namespace PRO.Controllers
         [Route("games/details/{id}")]
         public ActionResult ManageDetails(int? id)
         {
-            Game games = _gameService.Find(id);
-            if (games == null) { return NotFound(); }
-            return View(games);
+            var game = _gameService.Find(id);
+            if (game == null) return NotFound();
+
+            var viewModel = new GameDetailsViewModel
+            {
+                GameInfo = SetupGameInfo(game)
+            };
+
+
+            return View(viewModel);
         }
 
         [HttpGet]

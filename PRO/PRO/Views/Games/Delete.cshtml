@@ -20,11 +20,20 @@
                 @Html.DisplayFor(model => model.Title)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Image)
             </dt>
 
             <dd>
-                @Html.Raw(@Model.Description)
+                @if (Model.Image != null)
+                {
+                    <img style="max-width:500px;width: expression(this.width > 500 ? 500: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
+
+                }
+                else
+                {
+                    <p>Brak obrazu</p>
+                }
+
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.ReleaseDate)
@@ -37,14 +46,9 @@
 
                 }
                 else
-                { <p>Brak daty</p>}
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IsActive)
+                {
+                    <p>Brak daty</p>
+                }
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Platform)
@@ -77,21 +81,11 @@
 
                 }
                 else
-                { <p>Brak serii</p>}
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Image)
-            </dt>
-
-            <dd>
-                @if (Model.Image != null)
-                {<img style="max-width:500px;width: expression(this.width > 500 ? 500: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
-
+                {
+                    <p>Brak serii</p>
                 }
-                else
-                { <p>Brak obrazu</p>}
-
             </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.PublisherCompany)
             </dt>
@@ -103,7 +97,9 @@
 
                 }
                 else
-                { <p>Brak wydawcy</p>}
+                {
+                    <p>Brak wydawcy</p>
+                }
 
             </dd>
             <dt>
@@ -117,7 +113,31 @@
 
                 }
                 else
-                { <p>Brak producenta</p>}
+                {
+                    <p>Brak producenta</p>
+                }
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SteamAppId)
+            </dt>
+
+            <dd>
+                @if (Model.SteamAppId != null && Model.SteamAppId != 0)
+                {
+                    @Model.SteamAppId
+                }
+                else
+                {
+                    <p>Brak przypisanej aplikacji Steam</p>
+                }
+
             </dd>
 
         </dl>
@@ -128,6 +148,7 @@
 
             <div class="form-actions no-color">
                 <input type="submit" value="Usuń" class="btn btn-primary" />
+                <a href="/games/details/@Model.Id" class="btn btn-secondary" >Więcej szczegółów</a>
                 <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
             </div>
         }

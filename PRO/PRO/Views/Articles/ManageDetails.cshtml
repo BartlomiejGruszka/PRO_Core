@@ -1,4 +1,4 @@
-﻿@model PRO.Entities.Article
+﻿@model PRO.UI.ViewModels.ArticleDetailsViewModel
 
 @{
     ViewBag.Title = "ManageDetails";
@@ -6,107 +6,91 @@
 }
 
 <h2 class="list-title box-shadow">Szczegóły artykułu</h2>
-<div class="window-background box-shadow p-3">
+
+<div class="" style="display: flex; justify-content: center;">
+    <div class="news" style="display: flex; width: 66%;">
+        <div class="article">
+            <h1 class="list-title article-list-title box-shadow">@Model.Article.Title</h1>
+            <div class="news-container box-shadow">
+
+                <div>
+                    <div class="news-info-block clearfix mt16 mb20">
+                        <div class="sns-unit fl-r mr8"><div class="js-sns-icon-container icon-block mt0"></div></div>
+                        <div class="information">
+                            <div class="author">Autor <a href="/users/@Model.Article.Author.UserId">@Model.Article.Author.FirstName @Model.Article.Author.LastName</a><br>@Model.Article.PublishedDate.ToShortDateString()</div>
+
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <div class="article-image">
+                            @if (Model.Article.Image != null)
+                            {
+                                <img style="max-width: 100%; max-height: 100%; padding-bottom:10px;" class="img" src="/images/@Model.Article.Image.ImagePath">
+                            }
+                        </div>
+
+
+                        <div class="article-text m-3">@Html.Raw(Model.Article.Content) </div>
+                    </div>
+                    <div class="m-3">
+                        <a href="@Model.Article.SourceLink" target="_blank" rel="nofollow noopener noreferrer">Źródło</a>
+                    </div>
+                </div>
+                <hr />
+                <div class="m-3">
+                    <div class="details">
+                        <h2 class="">Powiązana gra: </h2><a href="/games/@Model.Article.GameId" class="tag tag-color4">@Model.Article.Game.Title</a>
+                    </div>
+                    <div class="details">
+                        <h2 class="">Tagi: </h2>
+                        @{
+                            foreach (var tag in Model.Article.Game.Tags)
+                            {
+                                <a href="/games/Filter?currentFilter=tag&value=@tag.Name" class="tag tag-color4">@tag.Name</a>
+                            }
+                        }
+
+                    </div>
+
+                </div>
+
+                <br />
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+<h2 class="list-title box-shadow" style="margin-top:20px;">Szczegóły artykułu - pozostałe dane</h2>
+<div class="window-background box-shadow p-3" style="margin-top:20px;"> 
     <div>
 
         <dl class="dl-horizontal">
+
             <dt>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Article.IsActive)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Title)
+                @Html.DisplayFor(model => model.Article.IsActive)
             </dd>
+            
             <dt>
-                @Html.DisplayNameFor(model => model.Game)
+                @Html.DisplayNameFor(model => model.Article.Preview)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Game.Title)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ArticleType.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ArticleType.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Author.FirstName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Author.FirstName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Author.LastName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Author.LastName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IsActive)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.PublishedDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.PublishedDate)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ImageId)
-            </dt>
-
-            <dd>
-
-                @{if (Model.Image != null)
-                    {
-
-                        <div style="text-align: left;">
-                            <img style="max-height:200px;max-width:100px;width: expression(this.width > 100 ? 100: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
-                        </div>
-                    }
-                    else
-                    { <p>Brak obrazu</p>}
-                }
-
-
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Preview)
-            </dt>
-
-            <dd>
-                @Html.Raw(@Model.Preview)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Content)
-            </dt>
-
-            <dd>
-                @Html.Raw(@Model.Content)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SourceLink)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SourceLink)
+                @Html.Raw(@Model.Article.Preview)
             </dd>
 
         </dl>
     </div>
+
     <hr />
     <p>
-        <div class="btn btn-primary"><a class="actionLinkManage" href="/articles/edit/@Model.Id">Edytuj</a></div>
+        <div class="btn btn-primary"><a class="actionLinkManage" href="/articles/edit/@Model.Article.Id">Edytuj</a></div>
+        <a href="/articles/delete/@Model.Article.Id" class="btn btn-secondary">Usuń</a>
         <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
     </p>
 </div>

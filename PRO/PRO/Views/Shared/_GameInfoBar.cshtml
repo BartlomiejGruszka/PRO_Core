@@ -1,18 +1,20 @@
-﻿
-@model PRO.UI.ViewModels.GameInfoViewModel
+﻿@model PRO.UI.ViewModels.GameInfoViewModel
 
 <div class="borderClass userprofile" style="border-width: 0 1px 0 0;" valign="top">
     <div class="userprofilebuttons">
 
         <div style="text-align: center; margin:20px;">
             @if (Model.Game.Image != null)
-            {<a>
+            {
+                <a>
                     <img style="max-width:200px; margin-top: 10px;" class="lazyloaded" src="/images/@Model.Game.Image.ImagePath">
-                </a>}
+                </a>
+            }
 
         </div>
         @if (User.Identity.IsAuthenticated && (Model.UserLists?.Any() ?? false))
-        {<div class="underlined_h2">Dodaj do listy</div>
+        {
+            <div class="underlined_h2">Dodaj do listy</div>
             @await Component.InvokeAsync("AddGameToUserList", new { gameid = Model.Game.Id })
         }
 
@@ -24,14 +26,19 @@
             @{
 
                 if (Model.Game.ReleaseDate == null)
-                { <span>Nieznana</span>}
+                {
+                    <span>Nieznana</span>
+                }
                 else if (Model.Game.ReleaseDate.Value.Year < 1900)
-                { <span>Nieznana</span>}
+                {
+                    <span>Nieznana</span>
+                }
                 else
                 {
                     var date = @Model.Game.ReleaseDate.Value.ToShortDateString();
 
-                    <span>@date</span>}
+                    <span>@date</span>
+                }
             }
         </div>
         <div class="spaceit">
@@ -61,9 +68,13 @@
         <div class="spaceit"><span class="dark_text">Status: </span> <a asp-action="Filter" asp-route-currentFilter="status" asp-route-value="@Model.Game.Status.Name">@Model.Game.Status.Name</a></div>
         <div class="spaceit">
             <span class="dark_text">Seria: </span>@if (Model.Game.SeriesId == null)
-            {<a>Brak</a> }
+            {
+                <a>Brak</a>
+            }
             else
-            { <a asp-action="Filter" asp-route-currentFilter="series" asp-route-value="@Model.Game.Series.Name">@Model.Game.Series.Name</a>}
+            {
+                <a asp-action="Filter" asp-route-currentFilter="series" asp-route-value="@Model.Game.Series.Name">@Model.Game.Series.Name</a>
+            }
         </div>
 
         <div>
@@ -99,35 +110,37 @@
                 {
                     @Model.Rating
                 }
-        </span>
-    </div>
-    <div>
-        <span class="dark_text">Ranking:</span>
-        #@Model.Position
-    </div>
-    <div>
-        <span class="dark_text">Popularność:</span>
-        #@Model.Popularity
-    </div>
-    <br>
+            </span>
+        </div>
+        <div>
+            <span class="dark_text">Ranking:</span>
+            #@Model.Position
+        </div>
+        <div>
+            <span class="dark_text">Popularność:</span>
+            #@Model.Popularity
+        </div>
+        <br>
 
 
-    <div class="underlined_h2">Nagrody</div>
-    @{
-        if (Model.Game.Awards?.Any() == true)
-        {
-            foreach (var award in Model.Game.Awards)
+        <div class="underlined_h2">Nagrody</div>
+        @{
+            if (Model.Game.Awards?.Any() == true)
             {
-                <span>@award.Name</span><br />
+                foreach (var award in Model.Game.Awards)
+                {
+                    <span>@award.Name</span>
+
+                    <br />
+                }
+            }
+            else
+            {
+                <div>brak</div>
             }
         }
-        else
-        {
-            <div>brak</div>
-        }
-    }
-    <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
+        <div class="clearfix mauto mt16" style="width:160px;padding-right:10px">
+        </div>
+        <div class="underlined_h2"></div>
     </div>
-    <div class="underlined_h2"></div>
-</div>
 </div>

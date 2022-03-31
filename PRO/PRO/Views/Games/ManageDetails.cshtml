@@ -1,176 +1,136 @@
-﻿@model PRO.Entities.Game
+﻿
+@model PRO.UI.ViewModels.GameDetailsViewModel
 
 @{
     ViewBag.Title = "ManageDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <h2 class="list-title box-shadow">Szczegóły gry</h2>
-<div class="window-background box-shadow p-3">
+
+<partial name="~/Views/Shared/_GameTitleBar.cshtml" , model="Model.GameInfo.Game" />
+
+<div id="content" class="userprofilecontent box-shadow window-background">
+
+
+    <partial name="~/Views/Shared/_GameInfoBar.cshtml" , model="Model.GameInfo" />
+
+    <div valign="top" style="        padding-left: 5px;        width: 100%;">
+        <div class="js-scrollfix-bottom-rel" style="display: flex; width: 100%;">
+            <div style=" margin:0 auto"></div><a name="lower"></a>
+
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td valign="top">
+
+                            <div class="di-t w100 mt12">
+                                <div class="game-detail-header-stats di-tc va-t ">
+                                    <div class="stats-block po-r clearfix">
+                                        <div class="fl-l score" data-title="ocena">
+                                            <div class="score-label score-7">
+
+                                                @{
+                                                    if (Model.GameInfo.Rating.HasValue && !Double.IsNaN(Model.GameInfo.Rating.Value) && Model.GameInfo.Rating.Value != 0)
+                                                    {
+                                                        @Math.Round((double)Model.GameInfo.Rating.Value)
+                                                    }
+                                                    else
+                                                    {
+                                                        @:-
+                                                    }
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="di-ib ml12 pl20 pt8">
+                                            <span class="numbers ranked">Ranking<strong>#@Model.GameInfo.Position</strong></span>
+                                            <span class="numbers popularity">Popularność<strong>#@Model.GameInfo.Popularity</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="pb24">
+                            <div class="underlined_h2">Opis</div>
+                            @if (String.IsNullOrEmpty(Model.GameInfo.Game.Description))
+                            {
+                                {
+                                    <p>Obecnie nie ma opisu dla tej gry</p>
+                                }
+                            }
+                            else
+                            {
+                                <p>@Html.Raw(Model.GameInfo.Game.Description)</p>
+                            }
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="pb24">
+
+                            @if (Model.GameInfo.Game.Series != null)
+                            {
+                                if (Model.GameInfo.Game.Series.Games.Count() > 1)
+                                {
+                                    <div class="underlined_h2">Gry z serii @Model.GameInfo.Game.Series.Name</div>
+                                    <table class="" style="border-spacing:0px;">
+                                        <tbody>
+                                            <tr>
+                                                <td width="100%" style=" display: flex; flex-direction: column;" class="">
+                                                    @{
+                                                        foreach (var game in Model.GameInfo.Game.Series.Games)
+                                                        {
+                                                            if (game.Id != Model.GameInfo.Game.Id)
+                                                            {
+                                                                <a href="/games/@game.Id">@game.Title</a>
+                                                            }
+
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                }
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<h2 class="list-title box-shadow" style="margin-top:20px;">Szczegóły gry - pozostałe dane</h2>
+<div class="window-background box-shadow p-3" style="margin-top:20px;"> 
     <div>
 
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.GameInfo.Game.IsActive)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Title)
+                @Html.DisplayFor(model => model.GameInfo.Game.IsActive)
             </dd>
+
             <dt>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.GameInfo.Game.SteamAppId)
             </dt>
 
             <dd>
-                @Html.Raw(@Model.Description)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
-            </dt>
-
-            <dd>
-                @if (Model.ReleaseDate != null)
+                @if (Model.GameInfo.Game.SteamAppId != null && Model.GameInfo.Game.SteamAppId != 0)
                 {
-                    @Html.DisplayFor(model => model.ReleaseDate)
-
-                }
-                else
-                { <p>Brak daty</p>}
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IsActive)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Platform)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Platform.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Status)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Status.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Genre)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Genre.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Series)
-            </dt>
-
-            <dd>
-                @if (Model.Series != null)
-                {
-                    @Html.DisplayFor(model => model.Series.Name)
-
-                }
-                else
-                { <p>Brak serii</p>}
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Image)
-            </dt>
-
-            <dd>
-                @if (Model.Image != null)
-                {<img style="max-width:500px;width: expression(this.width > 500 ? 500: true);" class=" lazyloaded" src="/images/@Model.Image.ImagePath">
-
-                }
-                else
-                { <p>Brak obrazu</p>}
-
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.PublisherCompany)
-            </dt>
-
-            <dd>
-                @if (Model.PublisherCompany != null)
-                {
-                    @Html.DisplayFor(model => model.PublisherCompany.Name)
-
-                }
-                else
-                { <p>Brak wydawcy</p>}
-
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DeveloperCompany)
-            </dt>
-
-            <dd>
-                @if (Model.DeveloperCompany != null)
-                {
-                    @Html.DisplayFor(model => model.DeveloperCompany.Name)
-
-                }
-                else
-                { <p>Brak producenta</p>}
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Tags)
-            </dt>
-
-            <dd>
-                @if (Model.Tags != null)
-                {
-                    for (var x = 0; x < Model.Tags.Count; x++)
-                    {
-                        var tags = Model.Tags.ToArray();
-                        var tag = tags[x];
-
-                        if (x + 1 < Model.Tags.Count)
-                        {
-                            tag.Name = tag.Name + ", ";
-                        }
-                        @Html.DisplayFor(model => tag.Name)
-                    }
-                }
-                else
-                { <p>Brak tagów</p>}
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Languages)
-            </dt>
-
-            <dd>
-                @if (Model.Languages != null)
-                {
-                    for (var x = 0; x < Model.Languages.Count; x++)
-                    {
-                        var tags = Model.Languages.ToArray();
-                        var tag = tags[x];
-
-                        if (x + 1 < Model.Languages.Count)
-                        {
-                            tag.Name = tag.Name + ", ";
-                        }
-                        @Html.DisplayFor(model => tag.Name)
-                    }
-                }
-                else
-                { <p>Brak języków</p>}
-
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.SteamAppId)
-            </dt>
-
-            <dd>
-                @if (Model.SteamAppId != null)
-                {
-                    @Model.SteamAppId
+                    @Model.GameInfo.Game.SteamAppId
                 }
                 else
                 { <p>Brak przypisanej aplikacji Steam</p>}
@@ -181,7 +141,8 @@
     </div>
     <hr />
     <p>
-        <div class="btn btn-primary"><a class="actionLinkManage" href="/games/edit/@Model.Id">Edytuj</a></div>
+        <div class="btn btn-primary"><a class="actionLinkManage" href="/games/edit/@Model.GameInfo.Game.Id">Edytuj</a></div>
+        <a href="/games/delete/@Model.GameInfo.Game.Id" class="btn btn-secondary">Usuń</a>
         <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
     </p>
 </div>

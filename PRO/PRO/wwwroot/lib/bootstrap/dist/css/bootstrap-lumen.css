@@ -873,6 +873,10 @@ pre {
     margin-left: 91.666667%;
 }
 
+.userprofile-width {
+    max-width: 225px;
+}
+
 @media (max-width: 575px) {
     .userprofilebuttons {
         /*margin-left: 30px;
@@ -915,6 +919,10 @@ pre {
 
     .userprofilecontent {
         display: flex;
+    }
+
+    .userprofilebuttons {
+        max-width: 225px;
     }
 }
 
@@ -2300,8 +2308,22 @@ pre {
     }
 }
 
-.form-control-width {
-    width: 225px !important;
+@media (min-width: 992px) {
+    .form-control-width {
+        width: 225px !important;
+    }
+    .form-control-profilewidth {
+        width: 180px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .form-control-width {
+        width: 225px !important;
+    }
+    .form-control-profilewidth {
+        width: 225px !important;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -12569,7 +12591,8 @@ a.sort-link:hover {
 .article-list-title {
     padding-bottom: 5px;
 }
-    .box-shadow {
+
+.box-shadow {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 

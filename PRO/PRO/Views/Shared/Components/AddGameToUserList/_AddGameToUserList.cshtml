@@ -15,7 +15,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.HoursPlayed, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: inline; " })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HoursPlayed, new { htmlAttributes = new { @class = "form-control form-control-width", @min = "0", @max = "99999" ,@Value = "0"} })
+                @Html.EditorFor(model => model.HoursPlayed, new { htmlAttributes = new { @class = "form-control form-control-profilewidth", @min = "0", @max = "99999" ,@Value = "0"} })
                 @Html.ValidationMessageFor(model => model.HoursPlayed, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -23,14 +23,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PersonalScore, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: inline; " })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PersonalScore, new { htmlAttributes = new { @class = "form-control form-control-width", @min = "0", @max = "10" } })
+                @Html.EditorFor(model => model.PersonalScore, new { htmlAttributes = new { @class = "form-control form-control-profilewidth", @min = "0", @max = "10" } })
                 @Html.ValidationMessageFor(model => model.PersonalScore, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.UserListId, "Lista użytkownika", htmlAttributes: new { @class = "control-label col-md-2", @style = "display: inline; " })
             <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.UserListId,new SelectList(ViewBag.UserListId, "Id", "Name"), "Wybierz listę", htmlAttributes: new { @class = "form-control form-control-width"})
+                @Html.DropDownListFor(model=>model.UserListId,new SelectList(ViewBag.UserListId, "Id", "Name"), "Wybierz listę", htmlAttributes: new { @class = "form-control form-control-profilewidth"})
                 @Html.ValidationMessageFor(model => model.UserListId, "", new { @class = "text-danger" })
             </div>
         </div>

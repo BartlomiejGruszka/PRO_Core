@@ -103,12 +103,16 @@ namespace PRO.Controllers
         public ActionResult ManageDetails(int? id)
         {
 
-            var article = _articleService.Find(id);
-            if (article == null)
+
+            ArticleDetailsViewModel articleDetails = new ArticleDetailsViewModel
+            {
+                Article = _articleService.Find(id)
+            };
+            if (articleDetails.Article == null)
             {
                 return NotFound();
             }
-            return View(article);
+            return View(articleDetails);
         }
 
         [Route("articles/add")]
