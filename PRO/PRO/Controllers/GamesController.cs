@@ -89,8 +89,16 @@ namespace PRO.Controllers
             var paginatedgamescores = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
             paginatedgamescores.Pagination.Configure(
                 ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
-            var viewModel = new GameFilterViewModel
+            var viewModel = new GamesViewModel
             {
+                Platforms = _platformService.GetAll(),
+                Statuses = _statusService.GetAll(),
+                Genres = _genreService.GetAll(),
+                Series = _seriesService.GetAll(),
+                Publishers = _companyService.GetAll(),
+                Developers = _companyService.GetAll(),
+                Languages = _languageService.GetAll(),
+                Tags = _tagService.GetAll(),
                 GamesScores = paginatedgamescores
             };
             return View(viewModel);
@@ -107,7 +115,7 @@ namespace PRO.Controllers
             var paginatedgamescores = PaginatedList<GameScore>.Create(games.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             paginatedgamescores.Pagination.Action = action;
-            var viewModel = new GameFilterViewModel
+            var viewModel = new GamesViewModel
             {
                 GamesScores = paginatedgamescores
             };
@@ -267,7 +275,7 @@ namespace PRO.Controllers
             var paginatedgamesrankings = PaginatedList<GameScore>.Create(gamesRankings.AsNoTracking(), page, items);
             var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
             paginatedgamesrankings.Pagination.Configure(action, currentFilter, sortOrder);
-            var viewModel = new GameFilterViewModel
+            var viewModel = new GamesViewModel
             {
                 GamesScores = paginatedgamesrankings
             };
@@ -360,7 +368,7 @@ namespace PRO.Controllers
         {
             var filteredgames = _gameService.GetFilteredGamesRanking(currentFilter).OrderBy(g => g.Game.Title).AsQueryable();
 
-            var viewModel = new GameFilterViewModel
+            var viewModel = new GamesViewModel
             {
                 GamesScores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items)
             };

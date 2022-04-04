@@ -43,7 +43,7 @@ namespace PRO.UI.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var form = new GameFilterViewModel
+            var form = new GamesViewModel
             {
                 Platforms = _platformService.GetAll(),
                 Genres = _genreService.GetAll(),

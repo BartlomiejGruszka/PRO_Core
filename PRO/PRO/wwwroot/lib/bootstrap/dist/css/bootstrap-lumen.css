@@ -12607,3 +12607,16 @@ a.sort-link:hover {
 .window-background {
     background-color: #fff !important;
 }
+@media(min-width: 800px ){
+
+    .gamefilterformflex {
+        display:flex;
+    }
+}
+
+@media(max-width: 799px ) {
+
+    .gamefilterformflex {
+        display:block;
+    }
+}

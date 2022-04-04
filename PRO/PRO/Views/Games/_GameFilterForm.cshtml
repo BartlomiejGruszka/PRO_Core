@@ -1,0 +1,145 @@
+﻿@model PRO.UI.ViewModels.GamesViewModel
+
+<nav class="navbar navbar-dark bg-primary box-shadow" style="margin-bottom:20px;">
+    <button onclick="openButton2()" id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div>Filtry</div>
+    <div class="collapse navbar-collapse" id="navbarColor03" >
+
+
+            <div class="window-background box-shadow p-3">
+
+                @using (Html.BeginForm("MultiFilter", "Games"))
+                {
+                    <div class="gamefilterformflex">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Platforms, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.SelectedPlatformsId" name="GameFilterForm.SelectedPlatformsId" data-live-search="true" multiple title="Wybierz platformy">
+                                        @foreach (var item in Model.Platforms)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Statuses, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.SelectedStatusesId" name="GameFilterForm.SelectedStatusesId" data-live-search="true" multiple title="Wybierz statusy">
+                                        @foreach (var item in Model.Statuses)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.SelectedGenresId" name="GameFilterForm.SelectedGenresId" data-live-search="true" multiple title="Wybierz gatunki">
+                                        @foreach (var item in Model.Genres)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Series, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.SelectedSeriesId" name="GameFilterForm.SelectedSeriesId" data-live-search="true" multiple title="Wybierz serie">
+                                        @foreach (var item in Model.Series)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-direction:column;">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Publishers, "Wydawca", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.SelectedPublishersId" name="GameFilterForm.SelectedPublishersId" data-live-search="true" multiple title="Wybierz wydawców">
+                                        @foreach (var item in Model.Publishers)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Developers, "Producent", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.SelectedDevelopersId" name="GameFilterForm.SelectedDevelopersId" data-live-search="true" multiple title="Wybierz producentów">
+                                        @foreach (var item in Model.Developers)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Languages, "Języki", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.SelectedLanguagesId" name="GameFilterForm.SelectedLanguagesId" data-live-search="true" multiple title="Wybierz języki">
+                                        @foreach (var item in Model.Languages)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Tags, "Tagi", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.SelectedTagsId" name="GameFilterForm.SelectedTagsId" data-live-search="true" multiple title="Wybierz tagi">
+                                        @foreach (var item in Model.Tags)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="btn btn-primary">Filtruj</button>
+
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+      
+    </div>
+</nav>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    function openButton2() {
+        var element = document.getElementById("navbarColor03");
+        element.classList.toggle("collapse");
+    }
+
+</script>
+@section scripts{
+<partial name="_ValidationScriptsPartial" />
+}
