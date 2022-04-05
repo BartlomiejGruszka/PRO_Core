@@ -89,18 +89,7 @@ namespace PRO.Controllers
             var paginatedgamescores = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
             paginatedgamescores.Pagination.Configure(
                 ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
-            var viewModel = new GamesViewModel
-            {
-                Platforms = _platformService.GetAll(),
-                Statuses = _statusService.GetAll(),
-                Genres = _genreService.GetAll(),
-                Series = _seriesService.GetAll(),
-                Publishers = _companyService.GetAll(),
-                Developers = _companyService.GetAll(),
-                Languages = _languageService.GetAll(),
-                Tags = _tagService.GetAll(),
-                GamesScores = paginatedgamescores
-            };
+            var viewModel = SetupViewModel(paginatedgamescores);
             return View(viewModel);
         }
         [AllowAnonymous]
@@ -113,15 +102,27 @@ namespace PRO.Controllers
             var gamescores = _gameService.GetUserUnorderedGamesRanking(user).OrderBy(g => g.Game.Title).AsQueryable();
             var games = _gameService.FilterByProperty(currentFilter, value, gamescores);
             var paginatedgamescores = PaginatedList<GameScore>.Create(games.AsNoTracking(), page, items);
-            var action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
-            paginatedgamescores.Pagination.Action = action;
-            var viewModel = new GamesViewModel
-            {
-                GamesScores = paginatedgamescores
-            };
+            paginatedgamescores.Pagination.Configure(
+                ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, null);
+            var viewModel = SetupViewModel(paginatedgamescores);
             ViewData["CurrentFilter"] = currentFilter;
             ViewData["FilterValue"] = value;
             return View("Index", viewModel);
+        }
+        public GamesViewModel SetupViewModel(PaginatedList<GameScore> gamescores)
+        {
+            return new GamesViewModel
+            {
+                Platforms = _platformService.GetAll(),
+                Statuses = _statusService.GetAll(),
+                Genres = _genreService.GetAll(),
+                Series = _seriesService.GetAll(),
+                Publishers = _companyService.GetAll(),
+                Developers = _companyService.GetAll(),
+                Languages = _languageService.GetAll(),
+                Tags = _tagService.GetAll(),
+                GamesScores = gamescores
+            };
         }
 
         [HttpGet]
@@ -367,11 +368,8 @@ namespace PRO.Controllers
         public ActionResult Search(int? page, int? items, string currentFilter)
         {
             var filteredgames = _gameService.GetFilteredGamesRanking(currentFilter).OrderBy(g => g.Game.Title).AsQueryable();
-
-            var viewModel = new GamesViewModel
-            {
-                GamesScores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items)
-            };
+            var gamescores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items);
+            var viewModel = SetupViewModel(gamescores);
             viewModel.GamesScores.Pagination.Configure(this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter,null);
             return View("Index", viewModel);
         }

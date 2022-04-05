@@ -11951,7 +11951,7 @@ input, select, textarea {
 .gameListImageGrid {
     display: grid;
     grid-template-columns: 90px 1fr;
-    grid-template-rows: 120px;
+   /*grid-template-rows: 120px;*/ 
     grid-gap: 0px 0px;
     grid-template-areas: ". .";
 }

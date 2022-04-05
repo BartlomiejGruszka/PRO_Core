@@ -20,25 +20,18 @@ namespace PRO.Controllers
         private readonly IArticleService _articleService;
         private readonly IGameService _gameService;
         private readonly IReviewService _reviewService;
-        private readonly IUserService _userService;
-        private readonly ICompanyService _companyService;
-        private readonly ISteamApi _steamApi;
 
         public HomeController(
             IArticleService articleService,
             IGameService gameService,
-            IReviewService reviewService,
-            IUserService userService,
-            ICompanyService companyService,
-            ISteamApi steamApi
+            IReviewService reviewService
+
             )
         {
             _articleService = articleService;
             _gameService = gameService;
             _reviewService = reviewService;
-            _userService = userService;
-            _companyService = companyService;
-            _steamApi = steamApi;
+
         }
         public IActionResult SetCulture(string culture, string returnUrl)
         {
