@@ -41,5 +41,15 @@ namespace PRO.Domain.Interfaces.Services
         IQueryable<Game> FilterSearch(string query, bool active);
         IQueryable<Game> SortList(string sortOrder, IQueryable<Game> games);
         public IQueryable<GameScore> GameSortList(string sortOrder, IQueryable<GameScore> games);
+        public IQueryable<Game> MultiFilterGames(
+            IEnumerable<int> SelectedPlatformsId,
+            IEnumerable<int> SelectedStatusesId,
+            IEnumerable<int> SelectedGenresId,
+            IEnumerable<int> SelectedSeriesId,
+            IEnumerable<int> SelectedPublishersId,
+            IEnumerable<int> SelectedDevelopersId,
+            IEnumerable<int> SelectedLanguagesId,
+            IEnumerable<int> SelectedTagsId
+            );
     }
 }

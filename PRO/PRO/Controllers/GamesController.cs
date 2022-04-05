@@ -73,7 +73,15 @@ namespace PRO.Controllers
 
         [AllowAnonymous]
         [Route("games/")]
-        public ActionResult Index(int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Index(int? page, int? items, string sortOrder,
+               string[] Platforms,
+               string[] Statuses,
+               string[] Genres,
+               string[] Series,
+               string[] Publishers,
+               string[] Developers,
+               string[] Languages,
+               string[] Tags)
         {
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
@@ -82,20 +90,54 @@ namespace PRO.Controllers
             ViewData["ScoreSortParm"] = sortOrder == "Score" ? "Score_desc" : "Score";
             ViewData["UserscoreSortParm"] = sortOrder == "Userscore" ? "Userscore_desc" : "Userscore";
 
-            var games = _gameService.FilterSearch(currentFilter, true);
+            var games = _gameService.FilterSearch(null, true);
             int? user = _userService.GetLoggedInUserId();
             var gamescores = _gameService.GetUserUnorderedGamesRanking(user, games).OrderBy(g => g.Game.Title).AsQueryable();
-            gamescores = _gameService.GameSortList(sortOrder, gamescores);             
+            gamescores = _gameService.GameSortList(sortOrder, gamescores);
             var paginatedgamescores = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
             paginatedgamescores.Pagination.Configure(
-                ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
+                ControllerContext.ActionDescriptor.ActionName.ToString(), null, sortOrder);
             var viewModel = SetupViewModel(paginatedgamescores);
             return View(viewModel);
         }
+
         [AllowAnonymous]
-        [Route("games/Filter")]
-        public ActionResult Filter(string currentFilter, string value, int? page, int? items)
+        [HttpPost]
+        [Route("games/filter")]
+        public ActionResult MultiFilter(GamesViewModel gameFilterViewModel)
         {
+            var model = gameFilterViewModel.GameFilterForm;
+            //construct query string containing all gamefilterform values;
+            // redirect to route "Index" with above string;
+            //add all new string parameters to Index method;
+            // deconstruct incoming strings into arrays;
+            // filter games according to arrays;
+            //do other usual stuff like unordered games ranking for user, gamescores, sort;
+            // do not paginate;
+            // place all strings in viewbags;
+            // make a unique pagination for games Index page only containing all initial string parameters;
+            // dont forget about action name;
+            // filter selections will not persist!!!
+
+            //alternatively think about how one can make gamefilterform view model persist, apply on pagination, and refill on new page get;
+
+
+
+
+            return RedirectToRoute("Index", model.SelectedPlatformsId);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("games/filter")]
+        public ActionResult Filter(string currentFilter, string value, string sortOrder, int? page, int? items)
+        {
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
+            ViewData["PlatformSortParm"] = sortOrder == "Platform" ? "Platform_desc" : "Platform";
+            ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
+            ViewData["ScoreSortParm"] = sortOrder == "Score" ? "Score_desc" : "Score";
+            ViewData["UserscoreSortParm"] = sortOrder == "Userscore" ? "Userscore_desc" : "Userscore";
 
 
             int? user = _userService.GetLoggedInUserId();
@@ -370,7 +412,7 @@ namespace PRO.Controllers
             var filteredgames = _gameService.GetFilteredGamesRanking(currentFilter).OrderBy(g => g.Game.Title).AsQueryable();
             var gamescores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items);
             var viewModel = SetupViewModel(gamescores);
-            viewModel.GamesScores.Pagination.Configure(this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter,null);
+            viewModel.GamesScores.Pagination.Configure(this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, null);
             return View("Index", viewModel);
         }
         [HttpGet]

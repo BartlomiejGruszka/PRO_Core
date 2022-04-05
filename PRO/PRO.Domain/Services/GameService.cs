@@ -33,9 +33,26 @@ namespace PRO.Domain.Services
             _languageRepository = languageRepository;
             _tagRepository = tagRepository;
             _imageRepository = imageRepository;
-            _gamelanguageRepository = gamelanguageRepository; 
+            _gamelanguageRepository = gamelanguageRepository;
             _gametagRepository = gametagRepository;
-    }
+        }
+
+        public IQueryable<Game> MultiFilterGames(
+            IEnumerable<int> SelectedPlatformsId,
+            IEnumerable<int> SelectedStatusesId,
+            IEnumerable<int> SelectedGenresId,
+            IEnumerable<int> SelectedSeriesId,
+            IEnumerable<int> SelectedPublishersId,
+            IEnumerable<int> SelectedDevelopersId,
+            IEnumerable<int> SelectedLanguagesId,
+            IEnumerable<int> SelectedTagsId
+            )
+
+        {
+            var games = GetAllActive();
+            return null;
+
+        }
 
 
         public void Add(Game newGame)
@@ -103,9 +120,9 @@ namespace PRO.Domain.Services
         {
             IEnumerable<GameLanguage> currentGameLanguages = _gamelanguageRepository.Get(g => g.GameId == game.Id);
             IEnumerable<GameLanguage> formGameLangauges = new List<GameLanguage>();
-            foreach(var item in selectedLanguagesId)
+            foreach (var item in selectedLanguagesId)
             {
-               formGameLangauges =  formGameLangauges.Append(new GameLanguage { GameId = game.Id, LanguageId = item });
+                formGameLangauges = formGameLangauges.Append(new GameLanguage { GameId = game.Id, LanguageId = item });
             }
 
             var removedGameLanguages = currentGameLanguages.Except(formGameLangauges);
@@ -113,7 +130,7 @@ namespace PRO.Domain.Services
 
             foreach (var gamelanguage in removedGameLanguages)
             {
-                    _gamelanguageRepository.Remove(gamelanguage);          
+                _gamelanguageRepository.Remove(gamelanguage);
             }
             foreach (var gamelanguage in newGameLanguages)
             {
@@ -186,7 +203,7 @@ namespace PRO.Domain.Services
               .ToList();
             return ranking;
         }
-        public List<GameScore> GetUnorderedGamesRanking(IQueryable <Game> games)
+        public List<GameScore> GetUnorderedGamesRanking(IQueryable<Game> games)
         {
             if (games == null) return GetUnorderedGamesRanking();
             var ranking = games

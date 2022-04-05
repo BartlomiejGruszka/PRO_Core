@@ -48,6 +48,7 @@ namespace PRO.Entities
             Action = action;
             CurrentFilter = currentfilter;
             CurrentSort = sort;
+            
 
         }
     }
