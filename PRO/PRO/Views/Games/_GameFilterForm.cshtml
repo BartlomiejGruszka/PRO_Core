@@ -11,9 +11,10 @@
 
 
             <div class="window-background box-shadow p-3">
+                <form asp-controller="Games" asp-action="MultiFilter" method="post">
 
-                @using (Html.BeginForm("MultiFilter", "Games"))
-                {
+               
+                
                     <div class="gamefilterformflex">
                         <div class="form-horizontal">
                             <div class="form-group">
@@ -126,7 +127,7 @@
                         </div>
                     </div>
 
-                }
+                </form>
             </div>
 
       

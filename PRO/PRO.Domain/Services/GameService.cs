@@ -6,6 +6,7 @@ using PRO.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace PRO.Domain.Services
@@ -37,21 +38,90 @@ namespace PRO.Domain.Services
             _gametagRepository = gametagRepository;
         }
 
-        public IQueryable<Game> MultiFilterGames(
-            IEnumerable<int> SelectedPlatformsId,
-            IEnumerable<int> SelectedStatusesId,
-            IEnumerable<int> SelectedGenresId,
-            IEnumerable<int> SelectedSeriesId,
-            IEnumerable<int> SelectedPublishersId,
-            IEnumerable<int> SelectedDevelopersId,
-            IEnumerable<int> SelectedLanguagesId,
-            IEnumerable<int> SelectedTagsId
-            )
+        public string ConstructFilterString(
+          IEnumerable<int> PlatformsIds,
+          IEnumerable<int> StatusesIds,
+          IEnumerable<int> GenresIds,
+          IEnumerable<int> SeriesIds,
+          IEnumerable<int> PublishersIds,
+          IEnumerable<int> DevelopersIds,
+          IEnumerable<int> LanguagesIds,
+          IEnumerable<int> TagsIds
+          )
 
         {
-            var games = GetAllActive();
-            return null;
+            var sb = new StringBuilder();
+            bool elementExists = false;
+            sb.Append("/games?");
+            if (!PlatformsIds.IsNullOrEmpty())
+            {
+                sb.Append(FilterCollectionToString("Plat", PlatformsIds));
+                elementExists = true;
+            }
+            if (!StatusesIds.IsNullOrEmpty())
+            {
+                if (elementExists) { sb.Append('&'); }
+                sb.Append(FilterCollectionToString("Stat", StatusesIds));
+                elementExists = true;
+            }
+            if (!GenresIds.IsNullOrEmpty())
+            {
+                if (elementExists) { sb.Append('&'); }
+                sb.Append(FilterCollectionToString("Genr", GenresIds));
+                elementExists = true;
+            }
+            if (!SeriesIds.IsNullOrEmpty())
+            {
+                if (elementExists) { sb.Append('&'); }
+                sb.Append(FilterCollectionToString("Seri", SeriesIds));
+                elementExists = true;
+            }
+            if (!PublishersIds.IsNullOrEmpty())
+            {
+                if (elementExists) { sb.Append('&'); }
+                sb.Append(FilterCollectionToString("Publ", PublishersIds));
+                elementExists = true;
+            }
+            if (!DevelopersIds.IsNullOrEmpty())
+            {
+                if (elementExists) { sb.Append('&'); }
+                sb.Append(FilterCollectionToString("Deve", DevelopersIds));
+                elementExists = true;
+            }
+            if (!LanguagesIds.IsNullOrEmpty())
+            {
+                if (elementExists) { sb.Append('&'); }
+                sb.Append(FilterCollectionToString("Lang", LanguagesIds));
+                elementExists = true;
+            }
+            if (!TagsIds.IsNullOrEmpty())
+            {
+                if (elementExists) { sb.Append('&'); }
+                sb.Append(FilterCollectionToString("Tags", TagsIds));
+            }
 
+            return sb.ToString();
+        }
+        public string FilterCollectionToString(string collectionName, IEnumerable<int> collection)
+        {
+            if (!collection.Any()) return String.Empty;
+
+            var sb = new StringBuilder();
+
+
+            for (int x = 0; x < collection.Count(); x++)
+            {
+                sb.Append(collectionName);
+                sb.Append('=');
+                sb.Append(collection.ElementAt(x));
+                if (x + 1 < collection.Count())
+                {
+                    sb.Append('&');
+                }
+
+            }
+
+            return sb.ToString();
         }
 
 

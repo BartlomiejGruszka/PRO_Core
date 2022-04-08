@@ -2,24 +2,55 @@
 i:{00000000-0000-0000-0000-000000000000}:PRO.sln
 ++PRO.Persistance
 i:{00000000-0000-0000-0000-000000000000}:PRO.Persistance
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro.persistance\bin\debug\net6.0\pro.persistance.dll
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro.persistance\pro.persistance.csproj
 ++Dependencies
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>8541
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>8542
 i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16352
 ++Configurations
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\configurations\
-++ModelBuilderExtensions.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\configurations\modelbuilderextensions.cs
 ++Data
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\data\
-++ApplicationDbContext.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\data\applicationdbcontext.cs
 ++Migrations
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\
 ++Repositories
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\repositories\
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\
+++Analyzers
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:analyzers
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:analyzers
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:analyzers
+++Frameworks
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:frameworks
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:frameworks
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:frameworks
+++Packages
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:packages
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:packages
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:packages
+++Projects
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:projects
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:projects
+++ModelBuilderExtensions.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\configurations\modelbuilderextensions.cs
+++ApplicationDbContext.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\data\applicationdbcontext.cs
+++20210519214510_Initial.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210519214510_initial.cs
+++20210519214726_SeedData.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210519214726_seeddata.cs
+++20210702081259_usereditdate.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210702081259_usereditdate.cs
+++20210709145656_AllowReviews_status_property.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210709145656_allowreviews_status_property.cs
+++20210715130239_SteamDatabase.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210715130239_steamdatabase.cs
+++20210719084403_remove_user_steamkey.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210719084403_remove_user_steamkey.cs
+++20210927111558_ReviewVerification.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210927111558_reviewverification.cs
+++ApplicationDbContextModelSnapshot.cs
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\applicationdbcontextmodelsnapshot.cs
 ++ArticleRepository.cs
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\repositories\articlerepository.cs
 ++AuthorRepository.cs
@@ -46,37 +77,6 @@ i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\reposit
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\repositories\userlistrepository.cs
 ++UserRepository.cs
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\repositories\userrepository.cs
-++Analyzers
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:analyzers
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:analyzers
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:analyzers
-++Frameworks
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:frameworks
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:frameworks
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:frameworks
-++Packages
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:packages
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:packages
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:packages
-++Projects
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:projects
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:projects
-++20210519214510_Initial.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210519214510_initial.cs
-++20210519214726_SeedData.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210519214726_seeddata.cs
-++20210702081259_usereditdate.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210702081259_usereditdate.cs
-++20210709145656_AllowReviews_status_property.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210709145656_allowreviews_status_property.cs
-++20210715130239_SteamDatabase.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210715130239_steamdatabase.cs
-++20210719084403_remove_user_steamkey.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210719084403_remove_user_steamkey.cs
-++20210927111558_ReviewVerification.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210927111558_reviewverification.cs
-++ApplicationDbContextModelSnapshot.cs
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\applicationdbcontextmodelsnapshot.cs
 ++Microsoft.AspNetCore.App.Analyzers
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.3\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.3\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
@@ -110,21 +110,21 @@ i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\microso
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\microsoft.netcore.app
 i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\microsoft.netcore.app
 ++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.3)
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>16383
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16420
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>16392
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16398
 ++Microsoft.EntityFrameworkCore (6.0.3)
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>16378
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16384
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>16388
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16376
 ++Microsoft.EntityFrameworkCore.SqlServer (6.0.3)
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>16380
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16416
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>16390
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16393
 ++Toolbelt.EntityFrameworkCore.IndexAttribute (5.0.1)
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>16385
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16388
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:>16394
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16381
 ++PRO.Domain
-i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.domain\bin\debug\net6.0\pro.domain.dll
+i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.domain\pro.domain.csproj
 i:{00000000-0000-0000-0000-000000000000}:PRO.Domain
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro.domain\bin\debug\net6.0\pro.domain.dll
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro.domain\pro.domain.csproj
 ++20210519214510_Initial.Designer.cs
 i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrations\20210519214510_initial.designer.cs
 ++20210519214726_SeedData.Designer.cs
@@ -142,6 +142,18 @@ i:{82e2970c-f8cb-4062-847d-a1c85568f48b}:e:\repo_pro\pro\pro.persistance\migrati
 ++Entities
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\entities\
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\steamapi\entities\
+++Extensions
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\
+++ExternalAPI
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\
+++HelperClasses
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\helperclasses\
+++Interfaces
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\steamapi\interfaces\
+++Services
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\services\
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\services\
 ++ApplicationUser.cs
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\entities\applicationuser.cs
 ++Article.cs
@@ -190,44 +202,26 @@ i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\entities\sta
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\entities\tag.cs
 ++UserList.cs
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\entities\userlist.cs
-++Extensions
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\
-++ExternalAPI
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\
-++HelperClasses
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\helperclasses\
-++Interfaces
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\steamapi\interfaces\
-++IArticleRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iarticlerepository.cs
-++IAuthorRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iauthorrepository.cs
-++IAwardRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iawardrepository.cs
-++IGameListRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\igamelistrepository.cs
-++IGameRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\igamerepository.cs
-++IImageRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iimagerepository.cs
-++IModeratorRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\imoderatorrepository.cs
-++IPlatformRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iplatformrepository.cs
-++IRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\irepository.cs
-++IReviewRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\ireviewrepository.cs
-++ISeriesRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iseriesrepository.cs
-++IUserListRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iuserlistrepository.cs
-++IUserRepository.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iuserrepository.cs
-++Services
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\services\
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\services\
+++ClaimsPrincipalExtensions.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\claimsprincipalextensions.cs
+++CustomIdentityErrorDescriber.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\customidentityerrordescriber.cs
+++FormFileExtensions.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\formfileextensions.cs
+++HtmlHelperExtensions.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\htmlhelperextensions.cs
+++StringExtensions.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\stringextensions.cs
+++TempDataExtensions.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\tempdataextensions.cs
+++SteamAPI
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\steamapi\
+++GameScore.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\helperclasses\gamescore.cs
+++ReviewGametime.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\helperclasses\reviewgametime.cs
+++UserIdNames.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\helperclasses\useridnames.cs
 ++ArticleService.cs
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\services\articleservice.cs
 ++ArticleTypeService.cs
@@ -268,26 +262,52 @@ i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\services\tag
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\services\userlistservice.cs
 ++UserService.cs
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\services\userservice.cs
-++ClaimsPrincipalExtensions.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\claimsprincipalextensions.cs
-++CustomIdentityErrorDescriber.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\customidentityerrordescriber.cs
-++FormFileExtensions.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\formfileextensions.cs
-++HtmlHelperExtensions.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\htmlhelperextensions.cs
-++StringExtensions.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\stringextensions.cs
-++TempDataExtensions.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\tempdataextensions.cs
-++SteamAPI
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\steamapi\
-++GameScore.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\helperclasses\gamescore.cs
-++ReviewGametime.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\helperclasses\reviewgametime.cs
-++UserIdNames.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\helperclasses\useridnames.cs
+++Microsoft.AspNetCore.App
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\microsoft.aspnetcore.app
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\microsoft.aspnetcore.app
+++Microsoft.AspNetCore.Http.Abstractions (2.2.0)
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16383
+++Microsoft.AspNetCore.Http.Features (5.0.15)
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16375
+++Microsoft.AspNetCore.Mvc.Abstractions (2.2.0)
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16379
+++Microsoft.Extensions.Configuration.UserSecrets (6.0.1)
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16374
+++Microsoft.Extensions.Identity.Stores (6.0.3)
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16387
+++Newtonsoft.Json (13.0.1)
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16378
+++System.Drawing.Common (6.0.0)
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16373
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16386
+++SteamApi.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\steamapi\steamapi.cs
+++IArticleRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iarticlerepository.cs
+++IAuthorRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iauthorrepository.cs
+++IAwardRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iawardrepository.cs
+++IGameListRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\igamelistrepository.cs
+++IGameRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\igamerepository.cs
+++IImageRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iimagerepository.cs
+++IModeratorRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\imoderatorrepository.cs
+++IPlatformRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iplatformrepository.cs
+++IRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\irepository.cs
+++IReviewRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\ireviewrepository.cs
+++ISeriesRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iseriesrepository.cs
+++IUserListRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iuserlistrepository.cs
+++IUserRepository.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\repositories\iuserrepository.cs
 ++IArticleService.cs
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\services\iarticleservice.cs
 ++IArticleTypeService.cs
@@ -328,26 +348,6 @@ i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\s
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\services\iuserlistservice.cs
 ++IUserService.cs
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\interfaces\services\iuserservice.cs
-++Microsoft.AspNetCore.App
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\microsoft.aspnetcore.app
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\microsoft.aspnetcore.app
-++Microsoft.AspNetCore.Http.Abstractions (2.2.0)
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16389
-++Microsoft.AspNetCore.Http.Features (5.0.15)
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16382
-++Microsoft.AspNetCore.Mvc.Abstractions (2.2.0)
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16387
-++Microsoft.Extensions.Configuration.UserSecrets (6.0.1)
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16381
-++Microsoft.Extensions.Identity.Stores (6.0.3)
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16390
-++Newtonsoft.Json (13.0.1)
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16386
-++System.Drawing.Common (6.0.0)
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:>16379
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16413
-++SteamApi.cs
-i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\steamapi\steamapi.cs
 ++AppList.cs
 i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\externalapi\steamapi\entities\applist.cs
 ++SteamApp.cs
@@ -865,11 +865,11 @@ i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\scaffoldingreadme.t
 ++Startup.cs
 i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\startup.cs
 ++Azure App Configuration (proappconfig)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16431
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16440
 ++Azure Key Vault (s15762PROvault)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16430
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16439
 ++SQL Server Express LocalDB (Local) (DefaultConnection)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16429
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16438
 ++PublishProfiles
 i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\properties\publishprofiles\
 ++ServiceDependencies
@@ -1090,25 +1090,25 @@ i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:c:\users\eilinn\.nuget\packages\microso
 ++Microsoft.NET.Sdk.Razor.SourceGenerators
 i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:c:\program files\dotnet\sdk\6.0.201\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
 ++AspNet.Security.OpenId.Steam (6.0.0)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16424
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16402
 ++Azure.Extensions.AspNetCore.Configuration.Secrets (1.2.1)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16417
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16395
 ++Azure.Identity (1.5.0)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16419
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16397
 ++bootstrap-select (1.13.18)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16422
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16400
 ++Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore (6.0.3)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16418
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16396
 ++Microsoft.AspNetCore.Identity.UI (6.0.3)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16425
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16403
 ++Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation (6.0.3)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16414
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16389
 ++Microsoft.Azure.AppConfiguration.AspNetCore (5.0.0)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16415
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16391
 ++Microsoft.EntityFrameworkCore.Tools (6.0.3)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16421
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16399
 ++Microsoft.VisualStudio.Web.CodeGeneration.Design (6.0.2)
-i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16423
+i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:>16401
 ++s15762PROapp - Web Deploy.pubxml
 i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\properties\publishprofiles\s15762proapp - web deploy.pubxml
 ++local
@@ -1191,3 +1191,5 @@ i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\wwwroot\lib\tinymce
 i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\wwwroot\lib\tinymce\skins\lightgray\skin.min.css.map
 ++skin.mobile.min.css.map
 i:{887c9e2a-3204-4a9d-b28e-530537c3cbc1}:e:\repo_pro\pro\pro\wwwroot\lib\tinymce\skins\lightgray\skin.mobile.min.css.map
+++IsNullOrEmptyExtension.cs
+i:{ad6f1c01-9dd4-4713-ae20-0555165e8e4a}:e:\repo_pro\pro\pro.domain\extensions\isnulloremptyextension.cs

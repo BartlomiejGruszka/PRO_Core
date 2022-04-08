@@ -11,6 +11,7 @@ using System.Linq;
 using PRO.Domain.ExternalAPI.SteamAPI;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection;
 
 namespace PRO.Controllers
 {
@@ -74,14 +75,14 @@ namespace PRO.Controllers
         [AllowAnonymous]
         [Route("games/")]
         public ActionResult Index(int? page, int? items, string sortOrder,
-               string[] Platforms,
-               string[] Statuses,
-               string[] Genres,
-               string[] Series,
-               string[] Publishers,
-               string[] Developers,
-               string[] Languages,
-               string[] Tags)
+               int[] Plat,
+               int[] Stat,
+               int[] Genr,
+               int[] Seri,
+               int[] Publ,
+               int[] Deve,
+               int[] Lang,
+               int[] Tags)
         {
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
@@ -104,27 +105,22 @@ namespace PRO.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("games/filter")]
-        public ActionResult MultiFilter(GamesViewModel gameFilterViewModel)
+        public ActionResult MultiFilter(GamesViewModel viewModel)
         {
-            var model = gameFilterViewModel.GameFilterForm;
-            //construct query string containing all gamefilterform values;
-            // redirect to route "Index" with above string;
-            //add all new string parameters to Index method;
-            // deconstruct incoming strings into arrays;
-            // filter games according to arrays;
-            //do other usual stuff like unordered games ranking for user, gamescores, sort;
-            // do not paginate;
-            // place all strings in viewbags;
-            // make a unique pagination for games Index page only containing all initial string parameters;
-            // dont forget about action name;
-            // filter selections will not persist!!!
-
-            //alternatively think about how one can make gamefilterform view model persist, apply on pagination, and refill on new page get;
+            var filterform = viewModel.GameFilterForm;
 
 
-
-
-            return RedirectToRoute("Index", model.SelectedPlatformsId);
+            string query = _gameService.ConstructFilterString(
+                     filterform.SelectedPlatformsId,
+                     filterform.SelectedStatusesId,
+                     filterform.SelectedGenresId,
+                     filterform.SelectedSeriesId,
+                     filterform.SelectedPublishersId,
+                     filterform.SelectedDevelopersId,
+                     filterform.SelectedLanguagesId,
+                     filterform.SelectedTagsId
+                );
+            return Redirect(query);
         }
 
         [HttpGet]
