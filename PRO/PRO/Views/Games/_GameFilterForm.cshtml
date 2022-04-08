@@ -1,11 +1,13 @@
 ﻿@model PRO.UI.ViewModels.GamesViewModel
 
-<nav class="navbar navbar-dark bg-primary box-shadow" style="margin-bottom:20px;">
+<nav class="navbar-filters navbar-dark bg-primary box-shadow" style="margin-bottom:20px;">
+
     <button onclick="openButton2()" id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div>Filtry</div>
-    <div class="collapse navbar-collapse" id="navbarColor03" >
+        <div style="color:white; margin-left:20px;">Filtry</div>
+   </nav> 
+    <div class="collapse navbar-collapse" id="navbarColor03" style="padding-top:10px; padding-bottom:20px;">
 
 
             <div class="window-background box-shadow p-3">
@@ -129,7 +131,7 @@
 
       
     </div>
-</nav>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

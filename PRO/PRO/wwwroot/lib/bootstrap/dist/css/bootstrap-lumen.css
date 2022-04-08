@@ -2312,6 +2312,7 @@ pre {
     .form-control-width {
         width: 225px !important;
     }
+
     .form-control-profilewidth {
         width: 180px !important;
     }
@@ -2321,6 +2322,7 @@ pre {
     .form-control-width {
         width: 225px !important;
     }
+
     .form-control-profilewidth {
         width: 225px !important;
     }
@@ -4618,17 +4620,29 @@ input[type="button"].btn-block {
     padding: 0.5rem 1rem;
 }
 
-    .navbar .container,
-    .navbar .container-fluid, .navbar .container-sm, .navbar .container-md, .navbar .container-lg, .navbar .container-xl {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        -ms-flex-align: center;
-        align-items: center;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-    }
+.navbar-filters {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    padding: 0.5rem 1rem;
+}
+
+.navbar .container,
+.navbar .container-fluid, .navbar .container-sm, .navbar .container-md, .navbar .container-lg, .navbar .container-xl {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
 
 .navbar-brand {
     display: inline-block;
@@ -11951,7 +11965,7 @@ input, select, textarea {
 .gameListImageGrid {
     display: grid;
     grid-template-columns: 90px 1fr;
-   /*grid-template-rows: 120px;*/ 
+    /*grid-template-rows: 120px;*/
     grid-gap: 0px 0px;
     grid-template-areas: ". .";
 }
@@ -12607,16 +12621,17 @@ a.sort-link:hover {
 .window-background {
     background-color: #fff !important;
 }
-@media(min-width: 800px ){
+
+@media(min-width: 800px ) {
 
     .gamefilterformflex {
-        display:flex;
+        display: flex;
     }
 }
 
 @media(max-width: 799px ) {
 
     .gamefilterformflex {
-        display:block;
+        display: block;
     }
 }
