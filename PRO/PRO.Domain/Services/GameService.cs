@@ -37,100 +37,50 @@ namespace PRO.Domain.Services
             _gamelanguageRepository = gamelanguageRepository;
             _gametagRepository = gametagRepository;
         }
-
-        public string ConstructFilterString(
-          IEnumerable<int> PlatformsIds,
-          IEnumerable<int> StatusesIds,
-          IEnumerable<int> GenresIds,
-          IEnumerable<int> SeriesIds,
-          IEnumerable<int> PublishersIds,
-          IEnumerable<int> DevelopersIds,
-          IEnumerable<int> LanguagesIds,
-          IEnumerable<int> TagsIds
-          )
-
-        {
-            var sb = new StringBuilder();
-            bool elementExists = false;
-            sb.Append("/games?");
-            if (!PlatformsIds.IsNullOrEmpty())
-            {
-                sb.Append(FilterCollectionToString("Plat", PlatformsIds));
-                elementExists = true;
-            }
-            if (!StatusesIds.IsNullOrEmpty())
-            {
-                if (elementExists) { sb.Append('&'); }
-                sb.Append(FilterCollectionToString("Stat", StatusesIds));
-                elementExists = true;
-            }
-            if (!GenresIds.IsNullOrEmpty())
-            {
-                if (elementExists) { sb.Append('&'); }
-                sb.Append(FilterCollectionToString("Genr", GenresIds));
-                elementExists = true;
-            }
-            if (!SeriesIds.IsNullOrEmpty())
-            {
-                if (elementExists) { sb.Append('&'); }
-                sb.Append(FilterCollectionToString("Seri", SeriesIds));
-                elementExists = true;
-            }
-            if (!PublishersIds.IsNullOrEmpty())
-            {
-                if (elementExists) { sb.Append('&'); }
-                sb.Append(FilterCollectionToString("Publ", PublishersIds));
-                elementExists = true;
-            }
-            if (!DevelopersIds.IsNullOrEmpty())
-            {
-                if (elementExists) { sb.Append('&'); }
-                sb.Append(FilterCollectionToString("Deve", DevelopersIds));
-                elementExists = true;
-            }
-            if (!LanguagesIds.IsNullOrEmpty())
-            {
-                if (elementExists) { sb.Append('&'); }
-                sb.Append(FilterCollectionToString("Lang", LanguagesIds));
-                elementExists = true;
-            }
-            if (!TagsIds.IsNullOrEmpty())
-            {
-                if (elementExists) { sb.Append('&'); }
-                sb.Append(FilterCollectionToString("Tags", TagsIds));
-            }
-
-            return sb.ToString();
-        }
-        public string FilterCollectionToString(string collectionName, IEnumerable<int> collection)
-        {
-            if (!collection.Any()) return String.Empty;
-
-            var sb = new StringBuilder();
-
-
-            for (int x = 0; x < collection.Count(); x++)
-            {
-                sb.Append(collectionName);
-                sb.Append('=');
-                sb.Append(collection.ElementAt(x));
-                if (x + 1 < collection.Count())
-                {
-                    sb.Append('&');
-                }
-
-            }
-
-            return sb.ToString();
-        }
-
-
         public void Add(Game newGame)
         {
             _gameRepository.Add(newGame);
 
             _gameRepository.Save();
         }
+
+        public void Delete(Game game)
+        {
+            _gameRepository.Remove(game);
+            _gameRepository.Save();
+        }
+
+        public Game Find(int? id)
+        {
+            if (!id.HasValue) { return null; }
+            return _gameRepository.Find(id.Value);
+        }
+
+        public Game FindActive(int? id)
+        {
+            var game = Find(id);
+            if (game == null) { return null; }
+            if (game.IsActive == false) { return null; }
+            return game;
+        }
+
+        public List<Game> GetAll()
+        {
+
+            return _gameRepository.GetAll().ToList();
+        }
+
+        public List<Game> GetAllActive()
+        {
+            return _gameRepository.GetAll().Where(i => i.IsActive == true).ToList();
+        }
+
+        public void Update(Game game)
+        {
+            _gameRepository.Update(game);
+            _gameRepository.Save();
+        }
+
         public void AddTags(Game newGame, IEnumerable<int> selectedTagsId)
         {
             List<Tag> newTags = new List<Tag>();
@@ -146,6 +96,7 @@ namespace PRO.Domain.Services
             }
 
         }
+
         public void UpdateTags(Game game, IEnumerable<int> selectedTagsId)
         {
             IEnumerable<GameTag> currentGameTags = _gametagRepository.Get(g => g.GameId == game.Id);
@@ -186,6 +137,7 @@ namespace PRO.Domain.Services
             }
 
         }
+
         public void UpdateLanguages(Game game, IEnumerable<int> selectedLanguagesId)
         {
             IEnumerable<GameLanguage> currentGameLanguages = _gamelanguageRepository.Get(g => g.GameId == game.Id);
@@ -210,34 +162,6 @@ namespace PRO.Domain.Services
             _gamelanguageRepository.Save();
 
         }
-        public Game Find(int? id)
-        {
-            if (!id.HasValue) { return null; }
-            return _gameRepository.Find(id.Value);
-        }
-
-        public Game FindActive(int? id)
-        {
-            var game = Find(id);
-            if (game == null) { return null; }
-            if (game.IsActive == false) { return null; }
-            return game;
-        }
-
-        public List<Game> GetAll()
-        {
-
-            return _gameRepository.GetAll().ToList();
-        }
-        public List<Game> GetAllActive()
-        {
-            return _gameRepository.GetAll().Where(i => i.IsActive == true).ToList();
-        }
-        public void Delete(Game game)
-        {
-            _gameRepository.Remove(game);
-            _gameRepository.Save();
-        }
 
         public IEnumerable<Game> GetComingGames()
         {
@@ -258,7 +182,7 @@ namespace PRO.Domain.Services
         }
         public List<GameScore> GetFilteredGamesRanking(string query)
         {
-            var filteredgames = FilterGames(query).Select(s => new GameScore { Game = s, Score = null }).ToList();
+            var filteredgames = FilterSearch(query, true).Select(s => new GameScore { Game = s, Score = null }).ToList();
             var ranking = GetUnorderedGamesRanking();
             var result = ranking.Select(r => new GameScore { Game = r.Game, Score = r.Score })
                 .Where(g => ranking.Select(f => f.Game.Id).Intersect(filteredgames.Select(fg => fg.Game.Id)).Contains(g.Game.Id)).ToList();
@@ -324,40 +248,6 @@ namespace PRO.Domain.Services
             return popularity;
         }
 
-        public List<Game> FilterGames(string query)
-        {
-            var games = GetAllActive();
-
-            List<Game> filteredgames1 = new List<Game>();
-            foreach (var game in games)
-            {
-                if (game.DeveloperCompany != null)
-                {
-                    if (game.DeveloperCompany.Name.CaseInsensitiveContains(query)) { filteredgames1.Add(game); }
-                }
-                if (game.PublisherCompany != null)
-                {
-                    if (game.PublisherCompany.Name.CaseInsensitiveContains(query)) { filteredgames1.Add(game); }
-                }
-            }
-
-            var filteredgames = games.Where(g =>
-                g.Title.CaseInsensitiveContains(query) ||
-                g.Description.CaseInsensitiveContains(query) ||
-                g.Status.Name.CaseInsensitiveContains(query)
-                ).ToList();
-
-            var result = filteredgames.Concat(filteredgames1).Distinct().ToList();
-
-            return result;
-        }
-
-        public void Update(Game game)
-        {
-            _gameRepository.Update(game);
-            _gameRepository.Save();
-        }
-
         public int? GetGamePosition(int gameid)
         {
             var gamesRankings = GetOrderedGamesRanking(null);
@@ -389,6 +279,7 @@ namespace PRO.Domain.Services
         public IQueryable<Game> FilterSearch(string query, bool active)
         {
             IQueryable<Game> games = null;
+            query = query.ToLower();
 
             if (active)
             {
@@ -399,22 +290,82 @@ namespace PRO.Domain.Services
                 games = GetAll().AsQueryable();
             }
 
-            if (!string.IsNullOrEmpty(query))
+            if (string.IsNullOrEmpty(query)) return games;
+
+            games = games.Where(s =>
+            s.Title.ToLower().Contains(query)
+            ||
+            s.Description.ToLower().Contains(query)
+            ||
+            (s.DeveloperCompany != null && s.DeveloperCompany.Name.ToLower().Contains(query))
+            ||
+            (s.PublisherCompany != null && s.PublisherCompany.Name.ToLower().Contains(query))
+            ||
+            (s.Series != null && s.Series.Name.ToLower().Contains(query))
+            ||
+            s.Genre.Name.ToLower().Contains(query)
+            ||
+            s.Platform.Name.ToLower().Contains(query)
+            );
+
+            return games;
+        }
+        public IQueryable<Game> Filter(string text,
+               int[] Plat,
+               int[] Stat,
+               int[] Genr,
+               int[] Seri,
+               int[] Publ,
+               int[] Deve,
+               int[] Lang,
+               int[] Tags)
+        {
+            IQueryable<Game> games = GetAllActive().AsQueryable();
+            if (!Plat.IsNullOrEmpty())
+            {
+                games = games.Where(s => Plat.Contains(s.PlatformId));
+            }
+            if (!Stat.IsNullOrEmpty())
+            {
+                games = games.Where(s => Stat.Contains(s.StatusId));
+            }
+            if (!Genr.IsNullOrEmpty())
+            {
+                games = games.Where(s => Genr.Contains(s.GenreId));
+            }
+            if (!Seri.IsNullOrEmpty())
+            {
+                games = games.Where(s =>s.SeriesId.HasValue && Seri.Contains(s.SeriesId.Value));
+                var test2 = games.Any();
+            }
+            if (!Publ.IsNullOrEmpty())
+            {
+                games = games.Where(s => s.PublisherId.HasValue && Publ.Contains(s.PublisherId.Value));
+            }
+            if (!Deve.IsNullOrEmpty())
+            {
+                games = games.Where(s => s.DeveloperId.HasValue && Deve.Contains(s.DeveloperId.Value));
+            }
+            if (!Lang.IsNullOrEmpty())
+            {
+                games = games.Where(game => game.Languages.Where(lan => Lang.Contains(lan.Id)).Any());
+            }
+            if (!Tags.IsNullOrEmpty())
+            {
+                games = games.Where(game => game.Tags.Where(tag => Tags.Contains(tag.Id)).Any());
+            }
+            if (!string.IsNullOrEmpty(text))
             {
                 games = games.Where(s =>
-                s.Title.ToLower().Contains(query.ToLower()) ||
-                (s.DeveloperCompany != null &&
-                s.DeveloperCompany.Name.ToLower().Contains(query.ToLower())
-                ) ||
-                 (s.PublisherCompany != null &&
-                s.PublisherCompany.Name.ToLower().Contains(query.ToLower())
-                ) ||
-                 (s.Series != null &&
-                s.Series.Name.ToLower().Contains(query.ToLower())
-                ) ||
-                s.Genre.Name.ToLower().Contains(query.ToLower()) ||
-                s.Platform.Name.ToLower().Contains(query.ToLower())
-                );
+                    s.Title.ToLower().Contains(text)
+                    ||
+                    s.Description.ToLower().Contains(text)
+                    );
+            }
+            var test = games.Any();
+            if (test)
+            {
+                var test5 = games.ToList();
             }
             return games;
         }

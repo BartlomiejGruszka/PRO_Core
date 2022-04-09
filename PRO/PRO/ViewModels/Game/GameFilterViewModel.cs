@@ -4,13 +4,13 @@ namespace PRO.UI.ViewModels
 {
     public class GameFilterViewModel
     {
-        public IEnumerable<int> SelectedPlatformsId { get; set; }
-        public IEnumerable<int> SelectedStatusesId { get; set; }
-        public IEnumerable<int> SelectedGenresId { get; set; }
-        public IEnumerable<int> SelectedSeriesId { get; set; }
-        public IEnumerable<int> SelectedPublishersId { get; set; }
-        public IEnumerable<int> SelectedDevelopersId { get; set; }
-        public IEnumerable<int> SelectedLanguagesId { get; set; }
-        public IEnumerable<int> SelectedTagsId { get; set; }
+        public int[] Plat { get; set; }
+        public int[] Stat { get; set; }
+        public int[] Genr { get; set; }
+        public int[] Seri { get; set; }
+        public int[] Publ { get; set; }
+        public int[] Deve { get; set; }
+        public int[] Lang { get; set; }
+        public int[] Tags { get; set; }
     }
 }

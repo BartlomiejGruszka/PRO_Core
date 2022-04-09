@@ -36,22 +36,19 @@ namespace PRO.Domain.Interfaces.Services
         public int GetGamePopularity(int gameid);
         public List<GameScore> GetFilteredGamesRanking(string query);
 
-        List<Game> FilterGames(string query);
+        public IQueryable<Game> Filter(string text,
+              int[] Plat,
+              int[] Stat,
+              int[] Genr,
+              int[] Seri,
+              int[] Publ,
+              int[] Deve,
+              int[] Lang,
+              int[] Tags);
         void Update(Game game);
         IQueryable<Game> FilterSearch(string query, bool active);
         IQueryable<Game> SortList(string sortOrder, IQueryable<Game> games);
         public IQueryable<GameScore> GameSortList(string sortOrder, IQueryable<GameScore> games);
-        public string ConstructFilterString(
-            IEnumerable<int> PlatformsIds, 
-            IEnumerable<int> StatusesIds, 
-            IEnumerable<int> GenresIds, 
-            IEnumerable<int> SeriesIds, 
-            IEnumerable<int> PublishersIds, 
-            IEnumerable<int> DevelopersIds, 
-            IEnumerable<int> LanguagesIds, 
-            IEnumerable<int> TagsIds
-            );
-        public string FilterCollectionToString(string collectionName, IEnumerable<int> collection);
 
     }
 

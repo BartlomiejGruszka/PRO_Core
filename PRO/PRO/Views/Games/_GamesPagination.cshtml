@@ -1,0 +1,156 @@
+﻿@model PRO.UI.ViewModels.GamesViewModel
+@using PRO.Domain.Extensions
+@using PRO.Entities;
+@using Microsoft.AspNetCore.Identity
+@using System.Reflection
+@{
+    ViewBag.Title = "Index";
+    var pagination = Model.GamesScores.Pagination;
+}
+@{
+    var formModel = Model.GameFilterForm;
+    var routeData = new Dictionary<string, string>();
+    foreach (PropertyInfo myParam in formModel.GetType().GetProperties())
+    {
+        int[] array = (int[])myParam.GetValue(formModel);
+        for (int x = 0; x < array.Length; x++)
+        {
+
+            routeData.Add(myParam.Name+"["+x+"]", array[x].ToString());
+        }
+
+    }
+}
+<div style="display: flex; justify-content: space-between; padding:10px;">
+    <div class="pagination">
+    </div>
+    <ul class="pagination">
+        @{
+
+            var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+
+
+            if (pagination.PageIndex != 1)
+            {
+                if (pagination.PageIndex > 2)
+                {
+                    <li class="page-item">
+                        <a                           
+                           asp-action="@pagination.Action"
+                           asp-all-route-data="@routeData"
+                           asp-route-sortOrder="@pagination.CurrentSort"    
+                           asp-route-page="1"
+                           asp-route-items="@pagination.PageItems"
+                           class="page-link">
+                            «
+                        </a>
+                    </li>
+                }
+                <li class="page-item">
+                    <a 
+                       asp-action="@pagination.Action"
+                       asp-all-route-data="@routeData"
+                       asp-route-sortOrder="@pagination.CurrentSort"
+                       asp-route-page="@(pagination.PageIndex-1)"
+                       asp-route-items="@pagination.PageItems"
+                       class="page-link">
+                        @(pagination.PageIndex - 1)
+                    </a>
+                </li>
+            }
+
+            <li class="page-item active">
+                <a 
+                   asp-action="@pagination.Action"
+                   asp-all-route-data="@routeData"
+                   asp-route-sortOrder="@pagination.CurrentSort"  
+                   asp-route-page="@(pagination.PageIndex)"
+                   asp-route-items="@pagination.PageItems"
+                   class="page-link">
+                    @(pagination.PageIndex)
+                </a>
+            </li>
+            if (pagination.TotalPages > pagination.PageIndex)
+            {
+                <li class="page-item">
+                    <a 
+                       asp-action="@pagination.Action"
+                       asp-all-route-data="@routeData"
+                       asp-route-sortOrder="@pagination.CurrentSort"                    
+                       asp-route-page="@(pagination.PageIndex+1)"
+                       asp-route-items="@pagination.PageItems"
+                       class="page-link">
+                        @(pagination.PageIndex + 1)
+                    </a>
+                </li>
+
+                if (pagination.TotalPages > pagination.PageIndex + 1)
+                {
+                    <li class="page-item">
+                        <a 
+                           asp-action="@pagination.Action"
+                           asp-all-route-data="@routeData"
+                           asp-route-sortOrder="@pagination.CurrentSort"
+                           asp-route-page="@(pagination.TotalPages)"
+                           asp-route-items="@pagination.PageItems"
+                           class="page-link">
+                            &raquo;
+                        </a>
+                    </li>
+                }
+
+
+            }
+        }
+    </ul>
+    <div class="pagination">
+
+        @using (Html.BeginForm("Pages", "Home", FormMethod.Post, new { style = "display:flex;" }))
+        {
+            <select class="page-link" id="pageItems" name="pageItems" style="margin-right: 5px;">
+                @{ if (pagination.PageItems == 1)
+                    {
+                        <option selected value="1">1</option>
+                    }
+                    else
+                    {
+                        <option value="1">1</option>
+                    }
+
+                } @{ if (pagination.PageItems == 5)
+                    {
+                        <option selected value="5">5</option>
+                    }
+                    else
+                    {
+                        <option value="5">5</option>
+                    }
+
+                } @{ if (pagination.PageItems == 10)
+                    {
+                        <option selected value="10">10</option>
+                    }
+                    else
+                    {
+                        <option value="10">10</option>
+                    }
+
+                } @{ if (pagination.PageItems == 20)
+                    {
+                        <option selected value="20">20</option>
+                    }
+                    else
+                    {
+                        <option value="20">20</option>
+                    }
+
+                }
+            </select>
+            <input class="page-link" type="submit" value="Wybierz">
+        }
+
+
+
+
+    </div>
+</div>

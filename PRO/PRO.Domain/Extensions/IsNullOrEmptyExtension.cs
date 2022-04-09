@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public static class IsNullOrEmptyExtension
@@ -25,5 +26,14 @@ public static class IsNullOrEmptyExtension
             }
         }
         return true;
+    }
+
+    public static bool IsNullOrEmpty(this int[] array)
+    {
+        return (array == null || array.Length == 0);
+    }
+    public static bool IsNullOrEmpty(this string[] array)
+    {
+        return (array == null || array.Length == 0);
     }
 }

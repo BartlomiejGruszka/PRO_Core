@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using PRO.Domain.ExternalAPI.SteamAPI;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Reflection;
 
@@ -74,7 +73,7 @@ namespace PRO.Controllers
 
         [AllowAnonymous]
         [Route("games/")]
-        public ActionResult Index(int? page, int? items, string sortOrder,
+        public ActionResult Index(int? page, int? items, string sortOrder, string text,
                int[] Plat,
                int[] Stat,
                int[] Genr,
@@ -82,7 +81,8 @@ namespace PRO.Controllers
                int[] Publ,
                int[] Deve,
                int[] Lang,
-               int[] Tags)
+               int[] Tags
+               )
         {
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
@@ -91,7 +91,7 @@ namespace PRO.Controllers
             ViewData["ScoreSortParm"] = sortOrder == "Score" ? "Score_desc" : "Score";
             ViewData["UserscoreSortParm"] = sortOrder == "Userscore" ? "Userscore_desc" : "Userscore";
 
-            var games = _gameService.FilterSearch(null, true);
+            var games = _gameService.Filter(text, Plat, Stat, Genr, Seri, Publ, Deve, Lang, Tags);
             int? user = _userService.GetLoggedInUserId();
             var gamescores = _gameService.GetUserUnorderedGamesRanking(user, games).OrderBy(g => g.Game.Title).AsQueryable();
             gamescores = _gameService.GameSortList(sortOrder, gamescores);
@@ -99,6 +99,19 @@ namespace PRO.Controllers
             paginatedgamescores.Pagination.Configure(
                 ControllerContext.ActionDescriptor.ActionName.ToString(), null, sortOrder);
             var viewModel = SetupViewModel(paginatedgamescores);
+
+            viewModel.GameFilterForm = new GameFilterViewModel
+            {
+                Plat = Plat,
+                Stat = Stat,
+                Tags = Tags,
+                Deve = Deve,
+                Genr = Genr,
+                Lang = Lang,
+                Publ = Publ,
+                Seri = Seri
+
+            };
             return View(viewModel);
         }
 
@@ -109,43 +122,16 @@ namespace PRO.Controllers
         {
             var filterform = viewModel.GameFilterForm;
 
-
-            string query = _gameService.ConstructFilterString(
-                     filterform.SelectedPlatformsId,
-                     filterform.SelectedStatusesId,
-                     filterform.SelectedGenresId,
-                     filterform.SelectedSeriesId,
-                     filterform.SelectedPublishersId,
-                     filterform.SelectedDevelopersId,
-                     filterform.SelectedLanguagesId,
-                     filterform.SelectedTagsId
-                );
-            return Redirect(query);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("games/filter")]
-        public ActionResult Filter(string currentFilter, string value, string sortOrder, int? page, int? items)
-        {
-            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
-            ViewData["PlatformSortParm"] = sortOrder == "Platform" ? "Platform_desc" : "Platform";
-            ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
-            ViewData["ScoreSortParm"] = sortOrder == "Score" ? "Score_desc" : "Score";
-            ViewData["UserscoreSortParm"] = sortOrder == "Userscore" ? "Userscore_desc" : "Userscore";
-
-
-            int? user = _userService.GetLoggedInUserId();
-            var gamescores = _gameService.GetUserUnorderedGamesRanking(user).OrderBy(g => g.Game.Title).AsQueryable();
-            var games = _gameService.FilterByProperty(currentFilter, value, gamescores);
-            var paginatedgamescores = PaginatedList<GameScore>.Create(games.AsNoTracking(), page, items);
-            paginatedgamescores.Pagination.Configure(
-                ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, null);
-            var viewModel = SetupViewModel(paginatedgamescores);
-            ViewData["CurrentFilter"] = currentFilter;
-            ViewData["FilterValue"] = value;
-            return View("Index", viewModel);
+            return RedirectToAction("Index", new {
+                filterform.Plat,
+                filterform.Stat,
+                filterform.Tags,
+                filterform.Deve,
+                filterform.Genr,
+                filterform.Lang,
+                filterform.Publ,
+                filterform.Seri
+            });
         }
         public GamesViewModel SetupViewModel(PaginatedList<GameScore> gamescores)
         {
@@ -166,7 +152,7 @@ namespace PRO.Controllers
         [HttpGet]
         [Authorize(Roles = "Admin,Author")]
         [Route("games/manage")]
-        public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
+        public ActionResult Manage(int? page, int? items, string sortOrder, string text)
         {
 
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
@@ -175,12 +161,12 @@ namespace PRO.Controllers
             ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
             ViewData["GenreSortParm"] = sortOrder == "Genre" ? "Genre_desc" : "Genre";
 
-            var games = _gameService.FilterSearch(currentFilter, false);
+            var games = _gameService.FilterSearch(text, false);
             games = _gameService.SortList(sortOrder, games);
 
             var result = PaginatedList<Game>.Create(games.AsNoTracking(), page, items);
             result.Pagination.Configure(
-                this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, sortOrder);
+                this.ControllerContext.ActionDescriptor.ActionName.ToString(), text, sortOrder);
             return View(result);
         }
 
@@ -400,17 +386,6 @@ namespace PRO.Controllers
             return View(DetailsModel);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("games/search/{currentFilter?}")]
-        public ActionResult Search(int? page, int? items, string currentFilter)
-        {
-            var filteredgames = _gameService.GetFilteredGamesRanking(currentFilter).OrderBy(g => g.Game.Title).AsQueryable();
-            var gamescores = PaginatedList<GameScore>.Create(filteredgames.AsNoTracking(), page, items);
-            var viewModel = SetupViewModel(gamescores);
-            viewModel.GamesScores.Pagination.Configure(this.ControllerContext.ActionDescriptor.ActionName.ToString(), currentFilter, null);
-            return View("Index", viewModel);
-        }
         [HttpGet]
         [Authorize]
         [Route("games/userdelete")]

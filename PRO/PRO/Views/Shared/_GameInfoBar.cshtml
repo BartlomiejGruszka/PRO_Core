@@ -42,9 +42,9 @@
             }
         </div>
         <div class="spaceit">
-            <span class="dark_text">Platforma: </span><a asp-action="Filter" asp-route-currentFilter="platform" asp-route-value="@Model.Game.Platform.Name">@Model.Game.Platform.Name</a>
+            <span class="dark_text">Platforma: </span><a asp-action="Index" asp-route-Plat="@Model.Game.PlatformId">@Model.Game.Platform.Name</a>
         </div>
-        <div class="spaceit"><span class="dark_text">Gatunek: </span><a asp-action="Filter" asp-route-currentFilter="genre" asp-route-value="@Model.Game.Genre.Name">@Model.Game.Genre.Name</a></div>
+        <div class="spaceit"><span class="dark_text">Gatunek: </span><a asp-action="Index" asp-route-Genr="@Model.Game.GenreId">@Model.Game.Genre.Name</a></div>
         <div class="spaceit">
             <span class="dark_text">Wydawca: </span>@if (Model.Game.PublisherCompany == null)
             {
@@ -52,7 +52,7 @@
             }
             else
             {
-                <a asp-action="Filter" asp-route-currentFilter="publisher" asp-route-value="@Model.Game.PublisherCompany.Name">@Model.Game.PublisherCompany.Name</a>
+                <a asp-action="Index" asp-route-Publ="@Model.Game.PublisherId.Value">@Model.Game.PublisherCompany.Name</a>
             }
         </div>
         <div class="spaceit">
@@ -62,10 +62,10 @@
             }
             else
             {
-                <a asp-action="Filter" asp-route-currentFilter="developer" asp-route-value="@Model.Game.DeveloperCompany.Name">@Model.Game.DeveloperCompany.Name</a>
+                <a asp-action="Index" asp-route-Deve="@Model.Game.DeveloperId.Value">@Model.Game.DeveloperCompany.Name</a>
             }
         </div>
-        <div class="spaceit"><span class="dark_text">Status: </span> <a asp-action="Filter" asp-route-currentFilter="status" asp-route-value="@Model.Game.Status.Name">@Model.Game.Status.Name</a></div>
+        <div class="spaceit"><span class="dark_text">Status: </span> <a asp-action="Index" asp-route-Stat="@Model.Game.StatusId">@Model.Game.Status.Name</a></div>
         <div class="spaceit">
             <span class="dark_text">Seria: </span>@if (Model.Game.SeriesId == null)
             {
@@ -73,7 +73,7 @@
             }
             else
             {
-                <a asp-action="Filter" asp-route-currentFilter="series" asp-route-value="@Model.Game.Series.Name">@Model.Game.Series.Name</a>
+                <a asp-action="Index" asp-route-Seri="@Model.Game.SeriesId.Value">@Model.Game.Series.Name</a>
             }
         </div>
 
@@ -83,7 +83,7 @@
 
             @foreach (var language in Model.Game.Languages)
             {
-                <a asp-action="Filter" asp-route-currentFilter="language" asp-route-value="@language.Name">@language.Name</a>
+                <a asp-action="Index" asp-route-Lang="@language.Id">@language.Name</a>
             }
 
         </div>
@@ -91,7 +91,7 @@
             <span class="dark_text">Tagi:</span>
             @foreach (var tag in Model.Game.Tags)
             {
-                <a asp-action="Filter" asp-route-currentFilter="tag" asp-route-value="@tag.Name">@tag.Name</a>
+                <a asp-action="Index" asp-route-Tags="@tag.Id">@tag.Name</a>
             }
 
         </div>
