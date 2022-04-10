@@ -13,14 +13,18 @@
     var routeData = new Dictionary<string, string>();
     foreach (PropertyInfo myParam in formModel.GetType().GetProperties())
     {
-        int[] array = (int[])myParam.GetValue(formModel);
-        for (int x = 0; x < array.Length; x++)
+        if (!myParam.Name.ToString().Equals("Text"))
         {
+            int[] array = (int[])myParam.GetValue(formModel);
+            for (int x = 0; x < array.Length; x++)
+            {
 
-            routeData.Add(myParam.Name+"["+x+"]", array[x].ToString());
+                routeData.Add(myParam.Name + "[" + x + "]", array[x].ToString());
+            }
         }
-
-    }
+       
+    } 
+    routeData.Add("Text", formModel.Text);
 }
 
 <td class="title">

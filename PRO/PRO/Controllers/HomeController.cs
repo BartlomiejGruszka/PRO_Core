@@ -78,7 +78,7 @@ namespace PRO.Controllers
             switch (type)
             {
                 case "games":
-                    return RedirectToAction("Index", "Games", new { text = searchString });
+                    return RedirectToAction("Index", "Games", new { Text = searchString });
                 case "articles":
                     return RedirectToAction("Search", "Articles", new { currentFilter = searchString });
                 case "users":

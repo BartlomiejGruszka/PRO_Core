@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using PRO.Domain.Interfaces;
 namespace PRO.UI.ViewModels
 {
     public class GameFilterViewModel
@@ -12,5 +12,6 @@ namespace PRO.UI.ViewModels
         public int[] Deve { get; set; }
         public int[] Lang { get; set; }
         public int[] Tags { get; set; }
+        public string Text { get; set; }    
     }
 }

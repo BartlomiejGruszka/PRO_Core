@@ -11,172 +11,176 @@
 
 
     <div class="window-background box-shadow p-3">
-        
 
+        <div class="gamefilterformflex">
 
-
-            <div class="gamefilterformflex">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Platforms, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Plat" name="GameFilterForm.Plat" data-live-search="true" multiple title="Wybierz platformy">
-                                @foreach (var item in Model.Platforms)
-                                {
-                                    if (Model.GameFilterForm.Plat.Contains(item.Id))
-                                    {
-                                        <option selected value="@item.Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                }
-
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Statuses, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Stat" name="GameFilterForm.Stat" data-live-search="true" multiple title="Wybierz statusy">
-                                @foreach (var item in Model.Statuses)
-                                {
-                                    if (Model.GameFilterForm.Stat.Contains(item.Id))
-                                    {
-                                        <option selected value="@item.Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Genr" name="GameFilterForm.Genr" data-live-search="true" multiple title="Wybierz gatunki">
-                                @foreach (var item in Model.Genres)
-                                {
-                                    if (Model.GameFilterForm.Genr.Contains(item.Id))
-                                    {
-                                        <option selected value="@item.Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Series, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Seri" name="GameFilterForm.Seri" data-live-search="true" multiple title="Wybierz serie">
-                                @foreach (var item in Model.Series)
-                                {
-                                    if (Model.GameFilterForm.Seri.Contains(item.Id))
-                                    {
-                                        <option selected value="@item.Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                }
-                            </select>
-                        </div>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model=>model.GameFilterForm.Text,"Szukaj w tytule lub opisie", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GameFilterForm.Text, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
-                <div style="display:flex; flex-direction:column;">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Publishers, "Wydawca", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Publ" name="GameFilterForm.Publ" data-live-search="true" multiple title="Wybierz wydawców">
-                                @foreach (var item in Model.Publishers)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Platforms, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Plat" name="GameFilterForm.Plat" data-live-search="true" multiple title="Wybierz platformy">
+                            @foreach (var item in Model.Platforms)
+                            {
+                                if (Model.GameFilterForm.Plat.Contains(item.Id))
                                 {
-                                    if (Model.GameFilterForm.Publ.Contains(item.Id))
-                                    {
-                                        <option selected value="@item.Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
+                                    <option selected value="@item.Id">@item.Name</option>
                                 }
-                            </select>
-                        </div>
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+
+                        </select>
+
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Developers, "Producent", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Deve" name="GameFilterForm.Deve" data-live-search="true" multiple title="Wybierz producentów">
-                                @foreach (var item in Model.Developers)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Statuses, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Stat" name="GameFilterForm.Stat" data-live-search="true" multiple title="Wybierz statusy">
+                            @foreach (var item in Model.Statuses)
+                            {
+                                if (Model.GameFilterForm.Stat.Contains(item.Id))
                                 {
-                                    if (Model.GameFilterForm.Deve.Contains(item.Id))
-                                    {
-                                        <option selected value="@item.Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
+                                    <option selected value="@item.Id">@item.Name</option>
                                 }
-                            </select>
-                        </div>
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Languages, "Języki", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Lang" name="GameFilterForm.Lang" data-live-search="true" multiple title="Wybierz języki">
-                                @foreach (var item in Model.Languages)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Genr" name="GameFilterForm.Genr" data-live-search="true" multiple title="Wybierz gatunki">
+                            @foreach (var item in Model.Genres)
+                            {
+                                if (Model.GameFilterForm.Genr.Contains(item.Id))
                                 {
-                                    if (Model.GameFilterForm.Lang.Contains(item.Id))
-                                    {
-                                        <option selected value="@item.Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
+                                    <option selected value="@item.Id">@item.Name</option>
                                 }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Tags, "Tagi", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Tags" name="GameFilterForm.Tags" data-live-search="true" multiple title="Wybierz tagi">
-                                @foreach (var item in Model.Tags)
+                                else
                                 {
-                                    if (Model.GameFilterForm.Tags.Contains(item.Id))
-                                    {
-                                        <option selected value="@item.Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
+                                    <option value="@item.Id">@item.Name</option>
                                 }
-                            </select>
-                        </div>
+                            }
+                        </select>
                     </div>
 
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Series, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Seri" name="GameFilterForm.Seri" data-live-search="true" multiple title="Wybierz serie">
+                            @foreach (var item in Model.Series)
+                            {
+                                if (Model.GameFilterForm.Seri.Contains(item.Id))
+                                {
+                                    <option selected value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-primary">Filtruj</button>
-
+            <div style="display:flex; flex-direction:column;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Publishers, "Wydawca", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Publ" name="GameFilterForm.Publ" data-live-search="true" multiple title="Wybierz wydawców">
+                            @foreach (var item in Model.Publishers)
+                            {
+                                if (Model.GameFilterForm.Publ.Contains(item.Id))
+                                {
+                                    <option selected value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Developers, "Producent", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Deve" name="GameFilterForm.Deve" data-live-search="true" multiple title="Wybierz producentów">
+                            @foreach (var item in Model.Developers)
+                            {
+                                if (Model.GameFilterForm.Deve.Contains(item.Id))
+                                {
+                                    <option selected value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Languages, "Języki", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Lang" name="GameFilterForm.Lang" data-live-search="true" multiple title="Wybierz języki">
+                            @foreach (var item in Model.Languages)
+                            {
+                                if (Model.GameFilterForm.Lang.Contains(item.Id))
+                                {
+                                    <option selected value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tags, "Tagi", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="selectpicker show-tick" style="max-width:400px;" id="GameFilterForm.Tags" name="GameFilterForm.Tags" data-live-search="true" multiple title="Wybierz tagi">
+                            @foreach (var item in Model.Tags)
+                            {
+                                if (Model.GameFilterForm.Tags.Contains(item.Id))
+                                {
+                                    <option selected value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
 
-       
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">Filtruj</button>
+
+            </div>
+        </div>
+
+
     </div>
 
 

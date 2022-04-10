@@ -12,14 +12,17 @@
     var routeData = new Dictionary<string, string>();
     foreach (PropertyInfo myParam in formModel.GetType().GetProperties())
     {
-        int[] array = (int[])myParam.GetValue(formModel);
-        for (int x = 0; x < array.Length; x++)
+        if (!myParam.Name.ToString().Equals("Text"))
         {
+            int[] array = (int[])myParam.GetValue(formModel);
+            for (int x = 0; x < array.Length; x++)
+            {
 
-            routeData.Add(myParam.Name+"["+x+"]", array[x].ToString());
+                routeData.Add(myParam.Name + "[" + x + "]", array[x].ToString());
+            }
         }
-
     }
+    routeData.Add("Text", formModel.Text);
 }
 <div style="display: flex; justify-content: space-between; padding:10px;">
     <div class="pagination">
@@ -35,51 +38,47 @@
                 if (pagination.PageIndex > 2)
                 {
                     <li class="page-item">
-                        <a                           
-                           asp-action="@pagination.Action"
-                           asp-all-route-data="@routeData"
-                           asp-route-sortOrder="@pagination.CurrentSort"    
-                           asp-route-page="1"
-                           asp-route-items="@pagination.PageItems"
-                           class="page-link">
+                        <a asp-action="@pagination.Action"
+               asp-all-route-data="@routeData"
+               asp-route-sortOrder="@pagination.CurrentSort"
+               asp-route-page="1"
+               asp-route-items="@pagination.PageItems"
+               class="page-link">
                             «
                         </a>
                     </li>
                 }
                 <li class="page-item">
-                    <a 
-                       asp-action="@pagination.Action"
-                       asp-all-route-data="@routeData"
-                       asp-route-sortOrder="@pagination.CurrentSort"
-                       asp-route-page="@(pagination.PageIndex-1)"
-                       asp-route-items="@pagination.PageItems"
-                       class="page-link">
+                    <a asp-action="@pagination.Action"
+               asp-all-route-data="@routeData"
+               asp-route-sortOrder="@pagination.CurrentSort"
+               asp-route-page="@(pagination.PageIndex-1)"
+               asp-route-items="@pagination.PageItems"
+               class="page-link">
                         @(pagination.PageIndex - 1)
                     </a>
                 </li>
             }
 
             <li class="page-item active">
-                <a 
-                   asp-action="@pagination.Action"
-                   asp-all-route-data="@routeData"
-                   asp-route-sortOrder="@pagination.CurrentSort"  
-                   asp-route-page="@(pagination.PageIndex)"
-                   asp-route-items="@pagination.PageItems"
-                   class="page-link">
+                <a asp-action="@pagination.Action"
+               asp-all-route-data="@routeData"
+               asp-route-sortOrder="@pagination.CurrentSort"
+               asp-route-page="@(pagination.PageIndex)"
+               asp-route-items="@pagination.PageItems"
+               class="page-link">
                     @(pagination.PageIndex)
                 </a>
             </li>
             if (pagination.TotalPages > pagination.PageIndex)
             {
                 <li class="page-item">
-                    <a 
-                       asp-action="@pagination.Action"
-                       asp-all-route-data="@routeData"
-                       asp-route-sortOrder="@pagination.CurrentSort"                    
-                       asp-route-page="@(pagination.PageIndex+1)"
-                       asp-route-items="@pagination.PageItems"
-                       class="page-link">
+                    <a asp-action="@pagination.Action"
+               asp-all-route-data="@routeData"
+               asp-route-sortOrder="@pagination.CurrentSort"
+               asp-route-page="@(pagination.PageIndex+1)"
+               asp-route-items="@pagination.PageItems"
+               class="page-link">
                         @(pagination.PageIndex + 1)
                     </a>
                 </li>
@@ -87,13 +86,12 @@
                 if (pagination.TotalPages > pagination.PageIndex + 1)
                 {
                     <li class="page-item">
-                        <a 
-                           asp-action="@pagination.Action"
-                           asp-all-route-data="@routeData"
-                           asp-route-sortOrder="@pagination.CurrentSort"
-                           asp-route-page="@(pagination.TotalPages)"
-                           asp-route-items="@pagination.PageItems"
-                           class="page-link">
+                        <a asp-action="@pagination.Action"
+               asp-all-route-data="@routeData"
+               asp-route-sortOrder="@pagination.CurrentSort"
+               asp-route-page="@(pagination.TotalPages)"
+               asp-route-items="@pagination.PageItems"
+               class="page-link">
                             &raquo;
                         </a>
                     </li>
@@ -108,7 +106,8 @@
         @using (Html.BeginForm("Pages", "Home", FormMethod.Post, new { style = "display:flex;" }))
         {
             <select class="page-link" id="pageItems" name="pageItems" style="margin-right: 5px;">
-                @{ if (pagination.PageItems == 1)
+                @{
+                    if (pagination.PageItems == 1)
                     {
                         <option selected value="1">1</option>
                     }
@@ -117,7 +116,8 @@
                         <option value="1">1</option>
                     }
 
-                } @{ if (pagination.PageItems == 5)
+                } @{
+                    if (pagination.PageItems == 5)
                     {
                         <option selected value="5">5</option>
                     }
@@ -126,7 +126,8 @@
                         <option value="5">5</option>
                     }
 
-                } @{ if (pagination.PageItems == 10)
+                } @{
+                    if (pagination.PageItems == 10)
                     {
                         <option selected value="10">10</option>
                     }
@@ -135,7 +136,8 @@
                         <option value="10">10</option>
                     }
 
-                } @{ if (pagination.PageItems == 20)
+                } @{
+                    if (pagination.PageItems == 20)
                     {
                         <option selected value="20">20</option>
                     }
