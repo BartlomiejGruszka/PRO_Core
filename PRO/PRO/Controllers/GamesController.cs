@@ -91,10 +91,10 @@ namespace PRO.Controllers
             ViewData["ScoreSortParm"] = sortOrder == "Score" ? "Score_desc" : "Score";
             ViewData["UserscoreSortParm"] = sortOrder == "Userscore" ? "Userscore_desc" : "Userscore";
 
-            var games = _gameService.Filter(text, Plat, Stat, Genr, Seri, Publ, Deve, Lang, Tags);
+            var games = _gameService.Filter(true ,text, Plat, Stat, Genr, Seri, Publ, Deve, Lang, Tags);
             int? user = _userService.GetLoggedInUserId();
             var gamescores = _gameService.GetUserUnorderedGamesRanking(user, games).OrderBy(g => g.Game.Title).AsQueryable();
-            gamescores = _gameService.GameSortList(sortOrder, gamescores);
+            gamescores = _gameService.SortList(sortOrder, gamescores);
             var paginatedgamescores = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
             paginatedgamescores.Pagination.Configure(
                 ControllerContext.ActionDescriptor.ActionName.ToString(), null, sortOrder);
@@ -160,11 +160,15 @@ namespace PRO.Controllers
             ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
             ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
             ViewData["GenreSortParm"] = sortOrder == "Genre" ? "Genre_desc" : "Genre";
+            ViewData["DeveloperSortParm"] = sortOrder == "Developer" ? "Developer_desc" : "Developer";
+            ViewData["PublisherSortParm"] = sortOrder == "Publisher" ? "Publisher_desc" : "Publisher";
+            ViewData["SeriesSortParm"] = sortOrder == "Series" ? "Series_desc" : "Series";
 
-            var games = _gameService.FilterSearch(text, false);
-            games = _gameService.SortList(sortOrder, games);
-
-            var result = PaginatedList<Game>.Create(games.AsNoTracking(), page, items);
+            var games = _gameService.Filter(false, text);
+            var gamescores = games.Select(s => new GameScore { Game = s });
+            gamescores = _gameService.SortList(sortOrder, gamescores);
+            var test = gamescores.ToList();
+            var result = PaginatedList<GameScore>.Create(gamescores.AsNoTracking(), page, items);
             result.Pagination.Configure(
                 this.ControllerContext.ActionDescriptor.ActionName.ToString(), text, sortOrder);
             return View(result);

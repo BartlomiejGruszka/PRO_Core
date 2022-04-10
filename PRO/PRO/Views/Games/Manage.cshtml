@@ -1,4 +1,5 @@
-﻿@model PRO.Entities.PaginatedList<PRO.Entities.Game>
+﻿@using PRO.Domain.HelperClasses
+@model PRO.Entities.PaginatedList<GameScore>
 
 @{
     ViewBag.Title = "Manage";
@@ -56,13 +57,14 @@
                     <a asp-action="Manage" asp-route-sortOrder="@ViewData["GenreSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Gatunek</a>
                 </th>
                 <th>
-                    Producent
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["DeveloperSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Producent</a>
                 </th>
                 <th>
-                    Wydawca
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["PublisherSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Wydawca</a>
                 </th>
                 <th>
-                    Seria
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["SeriesSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Seria</a>
+
                 </th>
                 <th>
                     Dostępna
@@ -70,8 +72,10 @@
                 <th></th>
             </tr>
 
-            @{foreach (var item in Model)
+            @{
+                foreach (var gamescore in Model)
                 {
+                    var item = gamescore.Game;
                     <tr class="tablerow">
                         <td>
                             @Html.DisplayFor(modelItem => item.Title)
@@ -90,7 +94,9 @@
 
                             }
                             else
-                            { <p>Brak</p>}
+                            {
+                                <p>-</p>
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Genre.Name)
@@ -102,7 +108,9 @@
 
                             }
                             else
-                            { <p>Brak</p>}
+                            {
+                                <p>-</p>
+                            }
                         </td>
 
                         <td>
@@ -112,7 +120,9 @@
 
                             }
                             else
-                            { <p>Brak</p>}
+                            {
+                                <p>-</p>
+                            }
                         </td>
                         <td>
                             @if (item.Series != null)
@@ -121,7 +131,9 @@
 
                             }
                             else
-                            { <p>Brak</p>}
+                            {
+                                <p>-</p>
+                            }
                         </td>
 
                         <td>
@@ -130,9 +142,10 @@
                         <td>
                             @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id }) @if (@User.IsInRole("Admin"))
-                            {<text>|</text>
-                            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                        }
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                            }
                         </td>
                     </tr>
                 }

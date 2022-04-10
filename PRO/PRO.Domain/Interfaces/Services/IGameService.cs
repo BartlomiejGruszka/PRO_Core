@@ -17,7 +17,6 @@ namespace PRO.Domain.Interfaces.Services
         public IEnumerable<Game> GetRecentlyReleased();
         List<Game> GetAll();
         List<Game> GetAllActive();
-        IQueryable<GameScore> FilterByProperty(string property, string value, IQueryable<GameScore> list);
         void Delete(Game game);
         void Add(Game newGame);
         void AddTags(Game newGame, IEnumerable<int> selectedTagsId);
@@ -34,10 +33,10 @@ namespace PRO.Domain.Interfaces.Services
         public int? GetGamePosition(int gameid);
         public double? GetGameRating(int gameid);
         public int GetGamePopularity(int gameid);
-        public List<GameScore> GetFilteredGamesRanking(string query);
 
-        public IQueryable<Game> Filter(string text,
-              int[] Plat,
+        public IQueryable<Game> Filter(bool active, string text);
+        public IQueryable<Game> Filter (bool active, string text,
+              int[] Plat, 
               int[] Stat,
               int[] Genr,
               int[] Seri,
@@ -46,9 +45,7 @@ namespace PRO.Domain.Interfaces.Services
               int[] Lang,
               int[] Tags);
         void Update(Game game);
-        IQueryable<Game> FilterSearch(string query, bool active);
-        IQueryable<Game> SortList(string sortOrder, IQueryable<Game> games);
-        public IQueryable<GameScore> GameSortList(string sortOrder, IQueryable<GameScore> games);
+        public IQueryable<GameScore> SortList(string sortOrder, IQueryable<GameScore> games);
 
     }
 

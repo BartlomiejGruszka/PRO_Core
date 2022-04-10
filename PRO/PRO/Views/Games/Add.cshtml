@@ -33,6 +33,7 @@
                 @Html.LabelFor(model => model.Game.PlatformId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="Game.PlatformId" name="Game.PlatformId" data-live-search="true" title="Wybierz platformę" required>
+                         <option value="@null">Wybierz platformę</option>
                         @foreach (var item in Model.Platforms)
                         {
                             <option value="@item.Id">@item.Name</option>
@@ -52,6 +53,7 @@
                 @Html.LabelFor(model => model.Game.StatusId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="Game.StatusId" name="Game.StatusId" data-live-search="true" title="Wybierz status" required>
+                       <option value="@null">Wybierz status</option>
                         @foreach (var item in Model.Statuses)
                         {
                             <option value="@item.Id">@item.Name</option>
@@ -70,6 +72,7 @@
                 @Html.LabelFor(model => model.Game.GenreId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="Game.GenreId" name="Game.GenreId" data-live-search="true" title="Wybierz gatunek" required>
+                         <option value="@null">Wybierz gatunek</option>
                         @foreach (var item in Model.Genres)
                         {
                             <option value="@item.Id">@item.Name</option>
@@ -108,6 +111,7 @@
                 @Html.LabelFor(model => model.Game.Series, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="Game.SeriesId" name="Game.SeriesId" data-live-search="true" title="Wybierz serię">
+                         <option value="@null">Wybierz serię</option>
                         @foreach (var item in Model.Series)
                         {
                             <option value="@item.Id">@item.Name</option>
@@ -126,6 +130,7 @@
                 @Html.LabelFor(model => model.ImageTypes, "Rodzaj obrazka", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="SelectedImageTypeId" name="SelectedImageTypeId" data-live-search="true" onchange="javascript:GetImagesByType(this.value);" title="Wybierz rodzaj obrazka">
+                        <option value="@null">Wybierz rodzaj obrazka</option>
                         @foreach (var item in Model.ImageTypes)
                         {
                             <option value="@item.Id">@item.Name</option>
@@ -138,7 +143,7 @@
                 @Html.LabelFor(model => model.Game.ImageId, "Obraz", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="ImageId" name="Game.ImageId" data-live-search="true" onchange="SetImageId()" title="Wybierz obraz">
-                        <option value="0">Brak</option>
+                        <option value="@null">Wybierz obraz</option>
                     </select>
                     <a style="margin-left:10px;" asp-controller="Images"
                        asp-action="Add"
@@ -153,6 +158,7 @@
                 @Html.LabelFor(model => model.Game.PublisherId, "Wydawca", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="Game.PublisherId" name="Game.PublisherId" data-live-search="true" title="Wybierz wydawcę">
+                        <option value="@null">Wybierz wydawcę</option>
                         @foreach (var item in Model.Publishers)
                         {
                             <option value="@item.Id">@item.Name</option>
@@ -171,6 +177,7 @@
                 @Html.LabelFor(model => model.Game.DeveloperId, "Producent", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="Game.DeveloperId" name="Game.DeveloperId" data-live-search="true" title="Wybierz producenta">
+                       <option value="@null">Wybierz producenta</option>
                         @foreach (var item in Model.Developers)
                         {
                             <option value="@item.Id">@item.Name</option>

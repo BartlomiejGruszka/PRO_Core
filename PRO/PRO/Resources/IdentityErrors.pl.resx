@@ -174,7 +174,7 @@
     <comment>DuplicateRoleName</comment>
   </data>
   <data name="Role name {0} is invalid." xml:space="preserve">
-    <value>Nazwa roli '{0}' jest nieprawidłoa.</value>
+    <value>Nazwa roli '{0}' jest nieprawidłowa.</value>
     <comment>InvalidRoleName</comment>
   </data>
   <data name="User already has a password set." xml:space="preserve">

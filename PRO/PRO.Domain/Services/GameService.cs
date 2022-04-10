@@ -180,15 +180,7 @@ namespace PRO.Domain.Services
             }
             return orderedRanking;
         }
-        public List<GameScore> GetFilteredGamesRanking(string query)
-        {
-            var filteredgames = FilterSearch(query, true).Select(s => new GameScore { Game = s, Score = null }).ToList();
-            var ranking = GetUnorderedGamesRanking();
-            var result = ranking.Select(r => new GameScore { Game = r.Game, Score = r.Score })
-                .Where(g => ranking.Select(f => f.Game.Id).Intersect(filteredgames.Select(fg => fg.Game.Id)).Contains(g.Game.Id)).ToList();
 
-            return result;
-        }
         public List<GameScore> GetUnorderedGamesRanking()
         {
             var images = _imageRepository.GetAll();
@@ -276,41 +268,12 @@ namespace PRO.Domain.Services
             return games.FindIndex(s => s.Item1.Id == gameid) + 1;
         }
 
-        public IQueryable<Game> FilterSearch(string query, bool active)
+        public IQueryable<Game> Filter(bool active, string text)
         {
-            IQueryable<Game> games = null;
-            query = query.ToLower();
-
-            if (active)
-            {
-                games = GetAllActive().AsQueryable();
-            }
-            else
-            {
-                games = GetAll().AsQueryable();
-            }
-
-            if (string.IsNullOrEmpty(query)) return games;
-
-            games = games.Where(s =>
-            s.Title.ToLower().Contains(query)
-            ||
-            s.Description.ToLower().Contains(query)
-            ||
-            (s.DeveloperCompany != null && s.DeveloperCompany.Name.ToLower().Contains(query))
-            ||
-            (s.PublisherCompany != null && s.PublisherCompany.Name.ToLower().Contains(query))
-            ||
-            (s.Series != null && s.Series.Name.ToLower().Contains(query))
-            ||
-            s.Genre.Name.ToLower().Contains(query)
-            ||
-            s.Platform.Name.ToLower().Contains(query)
-            );
-
-            return games;
+            return Filter(active, text, null, null, null, null, null, null, null, null);
         }
-        public IQueryable<Game> Filter(string text,
+
+        public IQueryable<Game> Filter(bool active, string text, 
                int[] Plat,
                int[] Stat,
                int[] Genr,
@@ -320,7 +283,11 @@ namespace PRO.Domain.Services
                int[] Lang,
                int[] Tags)
         {
-            IQueryable<Game> games = GetAllActive().AsQueryable();
+            IQueryable<Game> games = Enumerable.Empty<Game>().AsQueryable();
+
+            if (active) { games = GetAllActive().AsQueryable(); }
+            else { games = GetAll().AsQueryable(); }
+
             if (!Plat.IsNullOrEmpty())
             {
                 games = games.Where(s => Plat.Contains(s.PlatformId));
@@ -335,7 +302,7 @@ namespace PRO.Domain.Services
             }
             if (!Seri.IsNullOrEmpty())
             {
-                games = games.Where(s =>s.SeriesId.HasValue && Seri.Contains(s.SeriesId.Value));
+                games = games.Where(s => s.SeriesId.HasValue && Seri.Contains(s.SeriesId.Value));
                 var test2 = games.Any();
             }
             if (!Publ.IsNullOrEmpty())
@@ -356,41 +323,18 @@ namespace PRO.Domain.Services
             }
             if (!string.IsNullOrEmpty(text))
             {
+                text = text.ToLower();
                 games = games.Where(s =>
                     s.Title.ToLower().Contains(text)
                     ||
                     s.Description.ToLower().Contains(text)
                     );
             }
-            var test = games.Any();
-            if (test)
-            {
-                var test5 = games.ToList();
-            }
+
             return games;
         }
 
-        public IQueryable<Game> SortList(string sortOrder, IQueryable<Game> games)
-        {
-            games = sortOrder switch
-            {
-                "Title_desc" => games.OrderByDescending(s => s.Title),
-                "" => games.OrderBy(s => s.Title),
-                "Platform_desc" => games.OrderByDescending(s => s.Platform.Name),
-                "Platform" => games.OrderBy(s => s.Platform.Name),
-                "Date_desc" => games.OrderByDescending(s => s.ReleaseDate),
-                "Date" => games.OrderBy(s => s.ReleaseDate),
-                "Status_desc" => games.OrderByDescending(s => s.Status.Name),
-                "Status" => games.OrderBy(s => s.Status.Name),
-                "Genre_desc" => games.OrderByDescending(s => s.Genre.Name),
-                "Genre" => games.OrderBy(s => s.Genre.Name),
-
-
-                _ => games.OrderBy(s => s.Title),
-            };
-            return games.AsQueryable();
-        }
-        public IQueryable<GameScore> GameSortList(string sortOrder, IQueryable<GameScore> games)
+        public IQueryable<GameScore> SortList(string sortOrder, IQueryable<GameScore> games)
         {
             games = sortOrder switch
             {
@@ -398,37 +342,26 @@ namespace PRO.Domain.Services
                 "" => games.OrderBy(s => s.Game.Title),
                 "Platform_desc" => games.OrderByDescending(s => s.Game.Platform.Name),
                 "Platform" => games.OrderBy(s => s.Game.Platform.Name),
-                "Date_desc" => games.OrderByDescending(s => s.Game.ReleaseDate),
-                "Date" => games.OrderBy(s => s.Game.ReleaseDate),
+                "Date_desc" => games.OrderBy(s=>s.Game.ReleaseDate.HasValue).ThenByDescending(s => s.Game.ReleaseDate),
+                "Date" => games.OrderByDescending(s => s.Game.ReleaseDate.HasValue).ThenBy(s=>s.Game.ReleaseDate),
                 "Status_desc" => games.OrderByDescending(s => s.Game.Status.Name),
                 "Status" => games.OrderBy(s => s.Game.Status.Name),
-                "Score_desc" => games.OrderByDescending(s => s.Score),
-                "Score" => games.OrderBy(s => s.Score),
-                "Userscore_desc" => games.OrderByDescending(s => s.UserScore),
-                "Userscore" => games.OrderBy(s => s.UserScore),
+                "Score_desc" => games.OrderBy(s => s.Score.HasValue).ThenBy(s => s.Score),
+                "Score" => games.OrderBy(s => s.Score.HasValue).OrderByDescending(s => s.Score),         
+                "Userscore_desc" => games.OrderByDescending(s => s.UserScore.HasValue).ThenBy(s=>s.UserScore),
+                "Userscore" => games.OrderBy(s => s.UserScore.HasValue).ThenByDescending(s => s.UserScore),
+                "Genre_desc" => games.OrderByDescending(s => s.Game.Genre.Name),
+                "Genre" => games.OrderBy(s => s.Game.Genre.Name),
+                "Publisher_desc" => games.OrderBy(s => s.Game.PublisherId.HasValue).ThenByDescending(s => s.Game.PublisherCompany != null? s.Game.PublisherCompany.Name : ""),
+                "Publisher" => games.OrderByDescending(s => s.Game.PublisherId.HasValue).ThenBy(s => s.Game.PublisherCompany != null ? s.Game.PublisherCompany.Name : ""),
+                "Developer_desc" => games.OrderBy(s => s.Game.DeveloperId.HasValue).ThenByDescending(s => s.Game.DeveloperCompany != null ? s.Game.DeveloperCompany.Name : ""),
+                "Developer" => games.OrderByDescending(s=>s.Game.DeveloperId.HasValue).ThenBy(s => s.Game.DeveloperCompany != null ? s.Game.DeveloperCompany.Name : ""),
+                "Series_desc" => games.OrderBy(s => s.Game.SeriesId.HasValue).ThenByDescending(s => s.Game.Series != null ? s.Game.Series.Name : ""),
+                "Series" => games.OrderByDescending(s => s.Game.SeriesId.HasValue).ThenBy(s => s.Game.Series != null ? s.Game.Series.Name : ""),
 
                 _ => games.OrderBy(s => s.Game.Title),
             };
             return games.AsQueryable();
-        }
-
-        public IQueryable<GameScore> FilterByProperty(string property, string value, IQueryable<GameScore> list)
-        {
-
-            list = property switch
-            {
-                "" => list.OrderBy(s => s.Game.Title),
-                "platform" => list.Where(s => s.Game.Platform.Name == value),
-                "status" => list.Where(s => s.Game.Status.Name == value),
-                "series" => list.Where(s => s.Game.Series != null && s.Game.Series.Name == value),
-                "genre" => list.Where(s => s.Game.Genre.Name == value),
-                "publisher" => list.Where(s => s.Game.PublisherCompany != null && s.Game.DeveloperCompany.Name == value),
-                "developer" => list.Where(s => s.Game.DeveloperCompany != null && s.Game.DeveloperCompany.Name == value),
-                "language" => list.Where(s => s.Game.Languages.Any(i => i.Name == value)),
-                "tag" => list.Where(s => s.Game.Tags.Any(i => i.Name == value)),
-                _ => list.OrderBy(s => s.Game.Title),
-            };
-            return list.OrderBy(s => s.Game.Title).AsQueryable();
         }
     }
 }
