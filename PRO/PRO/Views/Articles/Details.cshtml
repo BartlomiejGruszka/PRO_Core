@@ -7,14 +7,23 @@
 <div class="maingrid-container">
     <div class="news">
         <div class="article">
-            <h1 class="list-title article-list-title box-shadow">@Model.Article.Title</h1>
+            <h1 class="list-title article-list-title box-shadow edit-info">@Model.Article.Title</h1>
             <div class="news-container box-shadow">
 
                 <div>
                     <div class="news-info-block clearfix mt16 mb20">
                         <div class="sns-unit fl-r mr8"><div class="js-sns-icon-container icon-block mt0"></div></div>
-                        <div class="information">
+                        <div class="information" style="display:flex !important; justify-content:space-between !important;">
                             <div class="author">Autor <a href="/users/@Model.Article.Author.UserId">@Model.Article.Author.FirstName @Model.Article.Author.LastName</a><br>@Model.Article.PublishedDate.ToShortDateString()</div>
+
+                            @{
+                                if (User.IsInRole("Admin") || User.IsInRole("Author"))
+                                {
+                                    <div style="margin:10px;" >
+                                        <a href="/articles/edit/@Model.Article.Id">Edytuj</a>
+                                    </div>
+                                }
+                            }
 
                         </div>
                     </div>
