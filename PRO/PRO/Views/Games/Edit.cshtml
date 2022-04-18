@@ -270,7 +270,19 @@
                 @Html.LabelFor(model => model.Game.SteamAppId, "Aplikacja Steam", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <select class="selectpicker show-tick" style="max-width:400px;" id="SteamAppId" name="Game.SteamAppId" data-live-search="true" title="Wybierz grę Steam">
-                        <option value="0">Brak</option>
+                        
+                        @if (@Model.Game.SteamAppId.HasValue)
+                        {
+
+                            <option selected class="active" value="@Model.Game.SteamAppId">@Model.Game.Title</option>
+                        }
+                        else
+                        {
+                            <option value="0">Brak</option>
+                        }
+
+
+                        }
                     </select>
                     <div>@Html.ValidationMessageFor(model => model.Game.SteamAppId, "", new { @class = "text-danger" })</div>
                 </div>
