@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Services;
-using PRO.Entities;
+using PRO.Domain.Entities;
 
 namespace PRO.Controllers
 {

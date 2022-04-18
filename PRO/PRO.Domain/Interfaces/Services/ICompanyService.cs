@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using PRO.Entities;
-using System;
+using PRO.Domain.Entities;
+using PRO.Domain.HelperClasses;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PRO.Domain.Interfaces.Services
 {
@@ -16,7 +15,7 @@ namespace PRO.Domain.Interfaces.Services
         public void Delete(Company company);
 
         public void Update(Company company);
-        public List<Tuple<Company, int>> GetPopularCompanies(int? number);
+        public List<CompanyPopularity> GetPopularCompanies(int? number);
         public ModelStateDictionary ValidateCompany(Company company);
         IQueryable<Company> FilterSearch(string query);
         IQueryable<Company> SortList(string sortOrder, IQueryable<Company> companies);

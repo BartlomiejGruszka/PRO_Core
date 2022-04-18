@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
-namespace PRO.Persistance.Data
+namespace PRO.Persistance.Configuration
 {
     public static class ModelBuilderExtensions
     {
-       //static CultureInfo culture = CultureInfo.GetCultureInfo("pl-PL");
         static CultureInfo culture = CultureInfo.InvariantCulture;
         public static void Seed(this ModelBuilder modelBuilder)
         {
@@ -303,9 +302,9 @@ namespace PRO.Persistance.Data
         public static void SeedImageTypes(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ImageType>().HasData(
-                new ImageType { Id = 1, Name = "Gra", Type = Entities.ImageTypes.Game },
-                new ImageType { Id = 2, Name = "Artykuł", Type = Entities.ImageTypes.Article },
-                new ImageType { Id = 3, Name = "Użytkownik", Type = Entities.ImageTypes.User }
+                new ImageType { Id = 1, Name = "Gra", Type = ImageTypes.Game },
+                new ImageType { Id = 2, Name = "Artykuł", Type = ImageTypes.Article },
+                new ImageType { Id = 3, Name = "Użytkownik", Type = ImageTypes.User }
 
                );
         }

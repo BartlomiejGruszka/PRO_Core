@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,14 +52,13 @@ namespace PRO.Domain.Services
             return _repository.GetAll();
         }
 
-        public List<Tuple<Company, int>> GetPopularCompanies(int? number)
+        public List<CompanyPopularity> GetPopularCompanies(int? number)
         {
             var companies = _gameListRepository.GetAll()
                 .GroupBy(g => g.Game.DeveloperCompany)
-                .Select(g => new { company = g.Key, count = g.Count() })
-                .AsEnumerable()
-                .Select(c => new Tuple<Company, int>(c.company, c.count))
-                .OrderByDescending(o => o.Item2);
+                .Select(g => new CompanyPopularity{ Company = g.Key, Popularity = g.Count() })
+                .AsEnumerable()             
+                .OrderByDescending(o => o.Popularity);
 
             if (number.HasValue) { return companies.Take(number.Value).ToList(); }
             return companies.ToList();

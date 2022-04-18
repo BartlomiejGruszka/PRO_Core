@@ -30,8 +30,4 @@
     <ProjectReference Include="..\PRO.Persistance\PRO.Persistance.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\GameList\" />
-  </ItemGroup>
-
 </Project>

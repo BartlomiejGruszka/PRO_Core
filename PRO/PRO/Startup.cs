@@ -14,12 +14,13 @@ using PRO.Domain.ExternalAPI.SteamAPI;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
 using PRO.Domain.Services;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using PRO.Persistance.Data;
 using PRO.Persistance.Repositories;
 using System;
 using System.Globalization;
 using System.Reflection;
+using PRO.Domain.ExternalAPI.SteamAPI.Interfaces;
 
 namespace PRO
 {
@@ -114,7 +115,7 @@ namespace PRO
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IAwardRepository, AwardRepository>();
             services.AddScoped<ISeriesRepository, SeriesRepository>();
-            //  services.AddScoped<IRepository<ImageType>, ImageTypeRepository>();
+
 
             services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<IArticleTypeService, ArticleTypeService>();

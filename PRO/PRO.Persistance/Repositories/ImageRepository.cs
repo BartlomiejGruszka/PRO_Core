@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Repositories;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using PRO.Persistance.Data;
 
 namespace PRO.Persistance.Repositories

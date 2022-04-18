@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
-using PRO.Entities;
-using PRO.Persistance.Data;
+using PRO.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PRO.Domain.Extensions;
 
 namespace PRO.Domain.Services
 {

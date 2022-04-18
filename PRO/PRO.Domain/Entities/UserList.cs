@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Toolbelt.ComponentModel.DataAnnotations.Schema.V5;
 
-namespace PRO.Entities
+namespace PRO.Domain.Entities
 {
     public class UserList
     {

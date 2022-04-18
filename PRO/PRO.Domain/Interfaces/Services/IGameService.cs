@@ -1,5 +1,5 @@
 ﻿using PRO.Domain.HelperClasses;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace PRO.Domain.Interfaces.Services
         List<GameScore> GetUserUnorderedGamesRanking(int? userid);
         List<GameScore> GetUserUnorderedGamesRanking(int? userid, IQueryable<Game> games);
         List<GameScore> GetOrderedGamesRanking(int? number);
-        public List<Tuple<Game, int?>> GetGamesByPopularity();
+        public List<GamePopularity> GetGamesByPopularity();
 
         public int? GetGamePosition(int gameid);
         public double? GetGameRating(int gameid);

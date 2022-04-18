@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -2,11 +2,9 @@
 
 namespace PRO.Domain.HelperClasses
 {
-   public class GameScore
+    public class GamePopularity
     {
         public Game Game { get; set; }
-        public double? Score { get; set; }
-
-        public int? UserScore { get; set; }
+        public int? Popularity { get; set; }
     }
 }

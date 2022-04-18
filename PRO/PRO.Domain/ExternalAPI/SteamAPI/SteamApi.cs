@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PRO.Domain.ExternalAPI.SteamAPI.Entities;
+using PRO.Domain.ExternalAPI.SteamAPI.Interfaces;
 using PRO.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;

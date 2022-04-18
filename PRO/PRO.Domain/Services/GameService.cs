@@ -2,7 +2,7 @@
 using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,7 +72,7 @@ namespace PRO.Domain.Services
 
         public List<Game> GetAllActive()
         {
-            return _gameRepository.GetAll().Where(i => i.IsActive == true).ToList();
+            return _gameRepository.Get(i => i.IsActive == true).ToList();
         }
 
         public void Update(Game game)
@@ -216,7 +216,7 @@ namespace PRO.Domain.Services
         {
             return GetUserUnorderedGamesRanking(userid, null);
         }
-        public List<Tuple<Game, int?>> GetGamesByPopularity()
+        public List<GamePopularity> GetGamesByPopularity()
         {
             var popularity = _gameListRepository.GetAll()
                 .GroupBy(g => g.Game)
@@ -227,13 +227,13 @@ namespace PRO.Domain.Services
                 })
                 .Where(s => s.game.IsActive == true)
                 .AsEnumerable()
-                .Select(c => new Tuple<Game, int?>(c.game, c.count))
+                .Select(c => new GamePopularity {Game= c.game,Popularity = c.count})
                 .ToList();
 
             var games = GetAllActive().Where(g => !g.GameLists.Any()).ToList();
             foreach (Game game in games)
             {
-                popularity.Add(new Tuple<Game, int?>(game, null));
+                popularity.Add(new GamePopularity {Game =  game,Popularity =  null });
             }
 
 
@@ -265,7 +265,7 @@ namespace PRO.Domain.Services
         public int GetGamePopularity(int gameid)
         {
             var games = GetGamesByPopularity();
-            return games.FindIndex(s => s.Item1.Id == gameid) + 1;
+            return games.FindIndex(s => s.Game.Id == gameid) + 1;
         }
 
         public IQueryable<Game> Filter(bool active, string text)

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
-using PRO.Domain.ExternalAPI.SteamAPI;
 using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PRO.Domain.ExternalAPI.SteamAPI.Interfaces;
 
 namespace PRO.Domain.Services
 {

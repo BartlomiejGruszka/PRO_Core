@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 
-namespace PRO.Persistance.Data
+namespace PRO.Domain.Extensions
 {
     public static class ClaimsPrincipalExtensions
     {

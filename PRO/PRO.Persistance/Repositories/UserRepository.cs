@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Repositories;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using PRO.Persistance.Data;
 using System;
 using System.Collections.Generic;

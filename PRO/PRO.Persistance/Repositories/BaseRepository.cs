@@ -65,9 +65,6 @@ namespace PRO.Persistance.Repositories
             _dbContext.ChangeTracker.Clear();
             _dbContext.Entry(updatedElement).State = EntityState.Modified;
             _dbContext.SaveChanges(true);
-           // _dbContext.Attach(updatedElement);
-           //_dbContext.Entry(updatedElement).State = EntityState.Modified;
-           //_dbContext.Update(updatedElement);   
         }
 
     }

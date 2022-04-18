@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PRO.Entities
+namespace PRO.Domain.Entities
 {
     public class ApplicationUser : IdentityUser<int>
     {

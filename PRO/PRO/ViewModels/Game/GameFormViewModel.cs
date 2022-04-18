@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using PRO.Domain.ExternalAPI.SteamAPI;
-using PRO.Entities;
+using PRO.Domain.Entities;
 namespace PRO.UI.ViewModels
 {
     public class GameFormViewModel

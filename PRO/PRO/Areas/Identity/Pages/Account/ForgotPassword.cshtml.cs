@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using PRO.Entities;
+using PRO.Domain.Entities;
 
 namespace PRO.UI.Areas.Identity.Pages.Account
 {

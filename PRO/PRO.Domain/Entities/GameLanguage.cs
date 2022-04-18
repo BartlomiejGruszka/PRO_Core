@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace PRO.Entities
+namespace PRO.Domain.Entities
 {
     public class GameLanguage
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PRO.Domain.HelperClasses;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

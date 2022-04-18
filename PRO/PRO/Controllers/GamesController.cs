@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PRO.Domain.HelperClasses;
 using PRO.Domain.Interfaces.Services;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using PRO.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PRO.Domain.ExternalAPI.SteamAPI;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Reflection;
+using PRO.Domain.ExternalAPI.SteamAPI.Interfaces;
 
 namespace PRO.Controllers
 {

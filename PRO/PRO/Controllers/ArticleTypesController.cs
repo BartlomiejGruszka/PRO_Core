@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using PRO.Persistance.Data;
 using PRO.Domain.Interfaces.Services;
 using System;

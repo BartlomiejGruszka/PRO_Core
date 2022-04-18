@@ -4,7 +4,7 @@
         <div class="ranking-container ">
             <div class="ranking-unit">
                 <h3 class="title">
-                    Popularni wydawcy
+                    Popularni producenci
                 </h3>
                 <ol>
                     @{
@@ -13,7 +13,7 @@
                         {
                             <li>
                                 <span class="rank">@i</span>
-                                <a href="/games/search/@companies[i-1].Item1.Name">@companies[i - 1].Item1.Name</a>
+                                <a href="/games?Deve=@companies[i-1].Company.Id">@companies[i - 1].Company.Name</a>
                             </li>
                         }
 

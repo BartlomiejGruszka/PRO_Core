@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PRO.Domain.HelperClasses;
-using PRO.Entities;
+using PRO.Domain.Entities;
 
 
 namespace PRO.UI.ViewModels

@@ -4,7 +4,7 @@ using System.Linq;
 using PRO.UI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using PRO.Domain.Interfaces.Services;
 using Microsoft.EntityFrameworkCore;
 using System;

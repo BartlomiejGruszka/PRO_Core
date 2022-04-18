@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PRO.Domain.Interfaces.Repositories;
 using PRO.Domain.Interfaces.Services;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PRO.Domain.HelperClasses;
 
 namespace PRO.Domain.Services
 {
@@ -66,37 +67,34 @@ namespace PRO.Domain.Services
             }
             else if(_userService.IsOwner(oldgamelist.UserList.UserId))
             {
-                //oldgamelist.PersonalScore = gameList.PersonalScore;
-               // oldgamelist.HoursPlayed = gameList.HoursPlayed;
-               // oldgamelist.UserListId = gameList.UserListId;
                 Update(gameList);
             }
 
 
         }
 
-        public List<Tuple<GameList, DateTime>> GetRecentUserGameListUpdates(int userid, int? number)
+        public List<GameListDate> GetRecentUserGameListUpdates(int userid, int? number)
         {
             List<GameList> gameLists = GetAll().Where(u => u.UserList.UserId == userid).ToList();
-            var tuplelist = new List<Tuple<GameList, DateTime>>();
+            var list = new List<GameListDate>();
             foreach (var gamelist in gameLists)
             {
 
                 if (gamelist.EditedDate.HasValue)
                 {
-                    tuplelist.Add(new Tuple<GameList, DateTime>(gamelist, gamelist.EditedDate.Value));
+                    list.Add(new GameListDate{GameList = gamelist, Date = gamelist.EditedDate.Value});
                 }
                 else
                 {
-                    tuplelist.Add(new Tuple<GameList, DateTime>(gamelist, gamelist.AddedDate));
+                    list.Add(new GameListDate {GameList = gamelist, Date = gamelist.AddedDate });
                 }
             }
             if (number.HasValue)
             {
-                return tuplelist.OrderByDescending(o => o.Item2).Take(number.Value).ToList();
+                return list.OrderByDescending(o => o.Date).Take(number.Value).ToList();
             }
 
-            return tuplelist.OrderByDescending(o => o.Item2).ToList(); ;
+            return list.OrderByDescending(o => o.Date).ToList(); ;
         }
 
         public int? GetUserReviewPlaytime(Review review)

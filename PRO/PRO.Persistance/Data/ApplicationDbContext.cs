@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PRO.Entities;
+using PRO.Domain.Entities;
+using PRO.Persistance.Configuration;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -43,8 +44,6 @@ namespace PRO.Persistance.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-            //TODO setup of in-memory database just for testing purposes
-            // optionsBuilder.UseInMemoryDatabase("SampleDatabase");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

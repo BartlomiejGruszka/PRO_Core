@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PRO.Domain.Interfaces.Repositories;
-using PRO.Entities;
+using PRO.Domain.Entities;
 using PRO.Persistance.Data;
 using System;
 using System.Collections.Generic;
@@ -53,6 +53,25 @@ namespace PRO.Persistance.Repositories
                  .Include(a => a.Languages)
                  .Include(a => a.Tags)
                  .Include(i => i.GameLists);
+
+            return games;
+        }
+        public new IEnumerable<Game> Get(Func<Game, bool> wherePredicate)
+        {
+
+            var games = _dbContext.Games
+                 .Include(i => i.Platform)
+                 .Include(a => a.Genre)
+                 .Include(a => a.Status)
+                 .Include(a => a.Series)
+                 .Include(a => a.PublisherCompany)
+                 .Include(a => a.DeveloperCompany)
+                 .Include(a => a.Image)
+                 .Include(a => a.Reviews)
+                 .Include(a => a.Languages)
+                 .Include(a => a.Tags)
+                 .Include(i => i.GameLists)
+                 .Where(wherePredicate);
 
             return games;
         }

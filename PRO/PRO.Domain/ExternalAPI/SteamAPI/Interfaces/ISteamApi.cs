@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PRO.Domain.ExternalAPI.SteamAPI
+namespace PRO.Domain.ExternalAPI.SteamAPI.Interfaces
 {
     public interface ISteamApi
     {

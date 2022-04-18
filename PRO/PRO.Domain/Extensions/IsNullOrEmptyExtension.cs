@@ -2,38 +2,41 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public static class IsNullOrEmptyExtension
+namespace PRO.Domain.Extensions
 {
-    public static bool IsNullOrEmpty(this IEnumerable source)
+    public static class IsNullOrEmptyExtension
     {
-        if (source != null)
+        public static bool IsNullOrEmpty(this IEnumerable source)
         {
-            foreach (object obj in source)
+            if (source != null)
             {
-                return false;
+                foreach (object obj in source)
+                {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
-    }
 
-    public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
-    {
-        if (source != null)
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
         {
-            foreach (T obj in source)
+            if (source != null)
             {
-                return false;
+                foreach (T obj in source)
+                {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
-    }
 
-    public static bool IsNullOrEmpty(this int[] array)
-    {
-        return (array == null || array.Length == 0);
-    }
-    public static bool IsNullOrEmpty(this string[] array)
-    {
-        return (array == null || array.Length == 0);
+        public static bool IsNullOrEmpty(this int[] array)
+        {
+            return (array == null || array.Length == 0);
+        }
+        public static bool IsNullOrEmpty(this string[] array)
+        {
+            return (array == null || array.Length == 0);
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PRO.Domain.HelperClasses;
-using PRO.Entities;
+using PRO.Domain.Entities;
 namespace PRO.UI.ViewModels
 {
     public class HomeViewModel
@@ -10,7 +10,7 @@ namespace PRO.UI.ViewModels
         public IEnumerable<Game> RecentGames{ get; set; }
         public IEnumerable<Review>RecentReviews { get; set; }
         public IEnumerable<Game> ComingGames { get; set; }
-        public List<Tuple<Game, int?>> MostPopularGames { get; set; }
+        public List<GamePopularity> MostPopularGames { get; set; }
         public List<GameScore> BestRatedGames { get; set; }
     }
 }

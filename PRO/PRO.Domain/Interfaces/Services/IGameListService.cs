@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using PRO.Entities;
+using PRO.Domain.HelperClasses;
+using PRO.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace PRO.Domain.Interfaces.Services
         public GameList AddOrUpdateDates(GameList gameList);
         public void AddOrUpdate(GameList gameList);
         public int? GetUserReviewPlaytime(Review review);
-        public List<Tuple<GameList, DateTime>> GetRecentUserGameListUpdates(int userid, int? number);
+        public List<GameListDate> GetRecentUserGameListUpdates(int userid, int? number);
 
         public ModelStateDictionary ValidateGameList (GameList gameList);
         IQueryable<GameList> FilterSearch(string query);

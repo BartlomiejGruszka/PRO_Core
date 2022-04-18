@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using PRO.Entities;
+using PRO.Domain.Entities;
 
 namespace PRO.UI.ViewModels
 {

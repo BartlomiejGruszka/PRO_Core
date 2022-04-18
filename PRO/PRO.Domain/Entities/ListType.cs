@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Toolbelt.ComponentModel.DataAnnotations.Schema.V5;
 
-namespace PRO.Entities
+namespace PRO.Domain.Entities
 {
     public class ListType
     {
