@@ -101,21 +101,29 @@ namespace PRO.Domain.Services
         {
             IEnumerable<GameTag> currentGameTags = _gametagRepository.Get(g => g.GameId == game.Id);
             IEnumerable<GameTag> formGameTags = new List<GameTag>();
-            foreach (var item in selectedTagsId)
+            if (!selectedTagsId.IsNullOrEmpty())
             {
-                formGameTags = formGameTags.Append(new GameTag { GameId = game.Id, TagId = item });
+                foreach (var item in selectedTagsId)
+                {
+                    formGameTags = formGameTags.Append(new GameTag { GameId = game.Id, TagId = item });
+                }
             }
-
             var removedGameTags = currentGameTags.Except(formGameTags);
             var newGameTags = formGameTags.Except(currentGameTags);
 
-            foreach (var gametag in removedGameTags)
+            if (!removedGameTags.IsNullOrEmpty())
             {
-                _gametagRepository.Remove(gametag);
+                foreach (var gametag in removedGameTags)
+                {
+                    _gametagRepository.Remove(gametag);
+                }
             }
-            foreach (var gametag in newGameTags)
+            if (!newGameTags.IsNullOrEmpty())
             {
-                _gametagRepository.Add(gametag);
+                foreach (var gametag in newGameTags)
+                {
+                    _gametagRepository.Add(gametag);
+                }
             }
 
             _gametagRepository.Save();
@@ -142,21 +150,29 @@ namespace PRO.Domain.Services
         {
             IEnumerable<GameLanguage> currentGameLanguages = _gamelanguageRepository.Get(g => g.GameId == game.Id);
             IEnumerable<GameLanguage> formGameLangauges = new List<GameLanguage>();
-            foreach (var item in selectedLanguagesId)
+            if (!selectedLanguagesId.IsNullOrEmpty())
             {
-                formGameLangauges = formGameLangauges.Append(new GameLanguage { GameId = game.Id, LanguageId = item });
+                foreach (var item in selectedLanguagesId)
+                {
+                    formGameLangauges = formGameLangauges.Append(new GameLanguage { GameId = game.Id, LanguageId = item });
+                }
             }
 
             var removedGameLanguages = currentGameLanguages.Except(formGameLangauges);
             var newGameLanguages = formGameLangauges.Except(currentGameLanguages);
-
-            foreach (var gamelanguage in removedGameLanguages)
+            if (!removedGameLanguages.IsNullOrEmpty())
             {
-                _gamelanguageRepository.Remove(gamelanguage);
+                foreach (var gamelanguage in removedGameLanguages)
+                {
+                    _gamelanguageRepository.Remove(gamelanguage);
+                }
             }
-            foreach (var gamelanguage in newGameLanguages)
+            if (!newGameLanguages.IsNullOrEmpty())
             {
-                _gamelanguageRepository.Add(gamelanguage);
+                foreach (var gamelanguage in newGameLanguages)
+                {
+                    _gamelanguageRepository.Add(gamelanguage);
+                }
             }
 
             _gamelanguageRepository.Save();
@@ -227,13 +243,13 @@ namespace PRO.Domain.Services
                 })
                 .Where(s => s.game.IsActive == true)
                 .AsEnumerable()
-                .Select(c => new GamePopularity {Game= c.game,Popularity = c.count})
+                .Select(c => new GamePopularity { Game = c.game, Popularity = c.count })
                 .ToList();
 
             var games = GetAllActive().Where(g => !g.GameLists.Any()).ToList();
             foreach (Game game in games)
             {
-                popularity.Add(new GamePopularity {Game =  game,Popularity =  null });
+                popularity.Add(new GamePopularity { Game = game, Popularity = null });
             }
 
 
@@ -273,7 +289,7 @@ namespace PRO.Domain.Services
             return Filter(active, text, null, null, null, null, null, null, null, null);
         }
 
-        public IQueryable<Game> Filter(bool active, string text, 
+        public IQueryable<Game> Filter(bool active, string text,
                int[] Plat,
                int[] Stat,
                int[] Genr,
@@ -342,20 +358,20 @@ namespace PRO.Domain.Services
                 "" => games.OrderBy(s => s.Game.Title),
                 "Platform_desc" => games.OrderByDescending(s => s.Game.Platform.Name),
                 "Platform" => games.OrderBy(s => s.Game.Platform.Name),
-                "Date_desc" => games.OrderBy(s=>s.Game.ReleaseDate.HasValue).ThenByDescending(s => s.Game.ReleaseDate),
-                "Date" => games.OrderByDescending(s => s.Game.ReleaseDate.HasValue).ThenBy(s=>s.Game.ReleaseDate),
+                "Date_desc" => games.OrderBy(s => s.Game.ReleaseDate.HasValue).ThenByDescending(s => s.Game.ReleaseDate),
+                "Date" => games.OrderByDescending(s => s.Game.ReleaseDate.HasValue).ThenBy(s => s.Game.ReleaseDate),
                 "Status_desc" => games.OrderByDescending(s => s.Game.Status.Name),
                 "Status" => games.OrderBy(s => s.Game.Status.Name),
                 "Score_desc" => games.OrderBy(s => s.Score.HasValue).ThenBy(s => s.Score),
-                "Score" => games.OrderBy(s => s.Score.HasValue).OrderByDescending(s => s.Score),         
-                "Userscore_desc" => games.OrderByDescending(s => s.UserScore.HasValue).ThenBy(s=>s.UserScore),
+                "Score" => games.OrderBy(s => s.Score.HasValue).OrderByDescending(s => s.Score),
+                "Userscore_desc" => games.OrderByDescending(s => s.UserScore.HasValue).ThenBy(s => s.UserScore),
                 "Userscore" => games.OrderBy(s => s.UserScore.HasValue).ThenByDescending(s => s.UserScore),
                 "Genre_desc" => games.OrderByDescending(s => s.Game.Genre.Name),
                 "Genre" => games.OrderBy(s => s.Game.Genre.Name),
-                "Publisher_desc" => games.OrderBy(s => s.Game.PublisherId.HasValue).ThenByDescending(s => s.Game.PublisherCompany != null? s.Game.PublisherCompany.Name : ""),
+                "Publisher_desc" => games.OrderBy(s => s.Game.PublisherId.HasValue).ThenByDescending(s => s.Game.PublisherCompany != null ? s.Game.PublisherCompany.Name : ""),
                 "Publisher" => games.OrderByDescending(s => s.Game.PublisherId.HasValue).ThenBy(s => s.Game.PublisherCompany != null ? s.Game.PublisherCompany.Name : ""),
                 "Developer_desc" => games.OrderBy(s => s.Game.DeveloperId.HasValue).ThenByDescending(s => s.Game.DeveloperCompany != null ? s.Game.DeveloperCompany.Name : ""),
-                "Developer" => games.OrderByDescending(s=>s.Game.DeveloperId.HasValue).ThenBy(s => s.Game.DeveloperCompany != null ? s.Game.DeveloperCompany.Name : ""),
+                "Developer" => games.OrderByDescending(s => s.Game.DeveloperId.HasValue).ThenBy(s => s.Game.DeveloperCompany != null ? s.Game.DeveloperCompany.Name : ""),
                 "Series_desc" => games.OrderBy(s => s.Game.SeriesId.HasValue).ThenByDescending(s => s.Game.Series != null ? s.Game.Series.Name : ""),
                 "Series" => games.OrderByDescending(s => s.Game.SeriesId.HasValue).ThenBy(s => s.Game.Series != null ? s.Game.Series.Name : ""),
 

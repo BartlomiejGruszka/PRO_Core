@@ -21,8 +21,8 @@ namespace PRO.Domain.Entities
         {
             var count = source.Count();
     
-            if (!pageSize.HasValue) { pageSize = 5; }
-            if (pageSize.Value < 0) { pageSize = 5; }
+            if (!pageSize.HasValue) { pageSize = 10; }
+            if (pageSize.Value < 0) { pageSize = 10; }
 
             if (!pageIndex.HasValue) { pageIndex = 1; }
             if (pageIndex.Value < 1) pageIndex = 1;
