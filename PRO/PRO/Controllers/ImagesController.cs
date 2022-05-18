@@ -39,7 +39,8 @@ namespace PRO.Controllers
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
 
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
 
             var images = _imageService.FilterSearch(currentFilter);

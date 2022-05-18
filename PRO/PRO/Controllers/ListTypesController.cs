@@ -24,8 +24,9 @@ namespace PRO.Controllers
         [Route("listtypes/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
 
             var listTypes = _listTypeService.FilterSearch(currentFilter);
             listTypes = _listTypeService.SortList(sortOrder, listTypes);

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2KCprvbDipuF8CUPznDbF2IR/twgHrLbYXpTsw5b+MQ=",
+  "Hash": "5SzD1PJNfFHc3YziYtevu3GPJy57rYwYimQ1aDR1pzA=",
   "Source": "PRO.UI",
   "BasePath": "_content/PRO.UI",
   "Mode": "Default",
@@ -1205,6 +1205,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws213742499.jpg"
+    },
+    {
+      "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\546464437224109739.jpg",
+      "SourceId": "PRO.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\",
+      "BasePath": "_content/PRO.UI",
+      "RelativePath": "images/546464437224109739.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\546464437224109739.jpg"
     },
     {
       "Identity": "E:\\Repo_PRO\\PRO\\PRO\\wwwroot\\images\\6034312b4499a2d8ae681e7ad74b5500-98214840748.jpg",

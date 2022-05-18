@@ -54,13 +54,15 @@ namespace PRO.Domain.Services
         {
             awards = sortOrder switch
             {
+                "id_desc" => awards.OrderByDescending(s => s.Id),
+                "" => awards.OrderBy(s => s.Id),
                 "name_desc" => awards.OrderByDescending(s => s.Name),
-                "" => awards.OrderBy(s => s.Name),
+                "Name" => awards.OrderBy(s => s.Name),
                 "game_desc" => awards.OrderByDescending(s => s.Game.Title),
                 "game" => awards.OrderBy(s => s.Game.Title),
                 "date_desc" => awards.OrderByDescending(s => s.AwardDate),
                 "date" => awards.OrderBy(s => s.AwardDate),
-                _ => awards.OrderByDescending(s => s.AwardDate),
+                _ => awards.OrderBy(s => s.Id),
             };
             return awards.AsQueryable();
         }

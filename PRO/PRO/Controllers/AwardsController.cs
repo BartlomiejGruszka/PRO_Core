@@ -26,7 +26,8 @@ namespace PRO.Controllers
         [Route("awards/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "Name" ? "name_desc" : "Name";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
             ViewData["GameSortParm"] = sortOrder == "game" ? "game_desc" : "game";
 

@@ -157,11 +157,13 @@ namespace PRO.Domain.Services
         {
             images = sortOrder switch
             {
+                "id_desc" => images.OrderByDescending(s => s.Id),
+                "" => images.OrderBy(s => s.Id),
                 "name_desc" => images.OrderByDescending(s => s.Name),
-                "" => images.OrderBy(s => s.Name),
+                "name" => images.OrderBy(s => s.Name),
                 "type_desc" => images.OrderByDescending(s => s.ImageType.Name),
                 "type" => images.OrderBy(s => s.ImageType.Name),            
-                _ => images.OrderBy(s => s.Name),
+                _ => images.OrderBy(s => s.Id),
             };
             return images.AsQueryable();
         }

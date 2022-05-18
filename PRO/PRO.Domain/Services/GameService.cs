@@ -354,8 +354,10 @@ namespace PRO.Domain.Services
         {
             games = sortOrder switch
             {
+                "id_desc" => games.OrderByDescending(s => s.Game.Id),
+                "" => games.OrderBy(s => s.Game.Id),
                 "Title_desc" => games.OrderByDescending(s => s.Game.Title),
-                "" => games.OrderBy(s => s.Game.Title),
+                "Title" => games.OrderBy(s => s.Game.Title),
                 "Platform_desc" => games.OrderByDescending(s => s.Game.Platform.Name),
                 "Platform" => games.OrderBy(s => s.Game.Platform.Name),
                 "Date_desc" => games.OrderBy(s => s.Game.ReleaseDate.HasValue).ThenByDescending(s => s.Game.ReleaseDate),
@@ -375,7 +377,7 @@ namespace PRO.Domain.Services
                 "Series_desc" => games.OrderBy(s => s.Game.SeriesId.HasValue).ThenByDescending(s => s.Game.Series != null ? s.Game.Series.Name : ""),
                 "Series" => games.OrderByDescending(s => s.Game.SeriesId.HasValue).ThenBy(s => s.Game.Series != null ? s.Game.Series.Name : ""),
 
-                _ => games.OrderBy(s => s.Game.Title),
+                _ => games.OrderBy(s => s.Game.Id),
             };
             return games.AsQueryable();
         }

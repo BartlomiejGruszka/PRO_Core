@@ -42,6 +42,10 @@
         <table class="table tablecolor">
             <tr class="tableheadercolor">
                 <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">#</a>
+
+                </th>
+                <th>
                     <a asp-action="Manage" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Tytuł</a>
 
                 </th>
@@ -75,6 +79,9 @@
 
                     <tr class="tablerow">
                         <td>
+                            @Html.DisplayFor(modelItem => article.Id)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => article.Title)
                         </td>
                         <td>
@@ -99,9 +106,10 @@
                             @Html.ActionLink("Edytuj", "Edit", new { id = article.Id }) |
                             @Html.ActionLink("Szczegóły", "ManageDetails", new { id = article.Id })
                             @if (@User.IsInRole("Admin"))
-                            {<text>|</text>
-                            @Html.ActionLink("Usuń", "Delete", new { id = article.Id })
-                        }
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Usuń", "Delete", new { id = article.Id })
+                            }
 
                         </td>
                     </tr>

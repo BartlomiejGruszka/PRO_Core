@@ -55,13 +55,15 @@ namespace PRO.Domain.Services
         {
             moderators = sortOrder switch
             {
+                "id_desc" => moderators.OrderByDescending(s => s.UserId),
+                "" => moderators.OrderBy(s => s.UserId),
                 "user_desc" => moderators.OrderByDescending(s => s.User.UserName),
-                "" => moderators.OrderBy(s => s.User.UserName),
+                "user" => moderators.OrderBy(s => s.User.UserName),
                 "adddate_desc" => moderators.OrderByDescending(s => s.CreatedDate),
                 "adddate" => moderators.OrderBy(s => s.CreatedDate),
                 "logindate_desc" => moderators.OrderByDescending(s => s.LastLoginDate),
                 "logindate" => moderators.OrderBy(s => s.LastLoginDate),
-                _ => moderators.OrderBy(s => s.User.UserName),
+                _ => moderators.OrderBy(s => s.UserId),
             };
             return moderators.AsQueryable();
         }

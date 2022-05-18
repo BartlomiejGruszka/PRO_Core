@@ -54,9 +54,11 @@ namespace PRO.Domain.Services
         {
             tags = sortOrder switch
             {
+                "id_desc" => tags.OrderByDescending(s => s.Id),
+                "" => tags.OrderBy(s => s.Id),
                 "name_desc" => tags.OrderByDescending(s => s.Name),
-                "" => tags.OrderBy(s => s.Name),
-                _ => tags.OrderBy(s => s.Name),
+                "name" => tags.OrderBy(s => s.Name),
+                _ => tags.OrderBy(s => s.Id),
             };
             return tags.AsQueryable();
         }

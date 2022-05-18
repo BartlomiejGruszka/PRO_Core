@@ -52,9 +52,11 @@ namespace PRO.Domain.Services
         {
             articleTypes = sortOrder switch
             {
+                "id_desc" => articleTypes.OrderByDescending(s => s.Id),
+                "" => articleTypes.OrderBy(s => s.Id),
                 "name_desc" => articleTypes.OrderByDescending(s => s.Name),
-                "" => articleTypes.OrderBy(s => s.Name),
-                _ => articleTypes.OrderBy(s => s.Name),
+                "Name" => articleTypes.OrderBy(s => s.Name),
+                _ => articleTypes.OrderBy(s => s.Id),
             };
             return articleTypes.AsQueryable();
         }

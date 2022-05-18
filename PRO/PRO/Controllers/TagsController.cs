@@ -21,8 +21,9 @@ namespace PRO.Controllers
         // GET: Tags
         [Route("tags/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
-        {          
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+        {
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             var tags = _tagService.FilterSearch(currentFilter);
             tags = _tagService.SortList(sortOrder, tags);
             var result = PaginatedList<Tag>.Create(tags.AsNoTracking(), page, items);

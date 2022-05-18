@@ -40,8 +40,9 @@ namespace PRO.Controllers
         [Route("userlists/manage")]
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
-        {        
-            ViewData["AddDateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "adddate_desc" : "";
+        {
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["AddDateSortParm"] = sortOrder == "adddate" ? "adddate_desc" : "adddate";
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
             ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";

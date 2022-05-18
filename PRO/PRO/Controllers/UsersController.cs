@@ -60,7 +60,8 @@ namespace PRO.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "user_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
             ViewData["EmailSortParm"] = sortOrder == "email" ? "email_desc" : "email";
             ViewData["AddDateSortParm"] = sortOrder == "adddate" ? "adddate_desc" : "adddate";
             ViewData["EditDateSortParm"] = sortOrder == "editdate" ? "editdate_desc" : "editdate";

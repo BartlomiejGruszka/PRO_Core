@@ -36,6 +36,10 @@
         <table class="table tablecolor">
             <tr class="tableheadercolor">
                 <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">#</a>
+
+                </th>
+                <th>
                     <label>Obraz</label>
                 </th>
                 <th>
@@ -50,13 +54,17 @@
 
                 </th>
                 <th>
-Opcje
+                    Opcje
                 </th>
             </tr>
 
-            @{ foreach (var item in Model)
+            @{
+                foreach (var item in Model)
                 {
                     <tr class="tablerow">
+                        <td style="max-width:400px;">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
                         <td>
                             <div style="text-align: center;">
                                 <img style="max-height:200px;max-width:100px;" class="img" alt="myimage" src="@item.ImagePath">
@@ -75,9 +83,10 @@ Opcje
                             @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
                             @if (@User.IsInRole("Admin"))
-                            {<text>|</text>
-                            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                        }
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                            }
                         </td>
                     </tr>
                 }

@@ -39,6 +39,9 @@
         <table class="table tablecolor">
             <tr class="tableheadercolor">
                 <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">#</a>
+                </th>
+                <th>
                     Obraz
                 </th>
                 <th>
@@ -64,11 +67,16 @@
                 <th>Opcje</th>
             </tr>
 
-            @{ foreach (var item in Model)
+            @{
+                foreach (var item in Model)
                 {
                     <tr class="tablerow">
                         <td>
-                            @{if (item.Image != null)
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @{
+                                if (item.Image != null)
                                 {
 
                                     <div style="text-align: center;">
@@ -76,7 +84,9 @@
                                     </div>
                                 }
                                 else
-                                { <p>Brak obrazu</p>}
+                                {
+                                    <p>Brak obrazu</p>
+                                }
                             }
 
                         </td>
@@ -92,9 +102,13 @@
                         </td>
                         <td>
                             @if (item.EditDate.HasValue)
-                            {@Html.DisplayFor(modelItem => item.EditDate)}
-                        else
-                        { <p>brak</p>}
+                            {
+                                @Html.DisplayFor(modelItem => item.EditDate)
+                            }
+                            else
+                            {
+                                <p>brak</p>
+                            }
 
                         </td>
                         <td>
@@ -107,11 +121,14 @@
                             @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
                             @if (User.IsInRole("Admin"))
-                            {<text>|</text>
-                            @Html.ActionLink("Usuń", "Delete", new { id = item.Id });
-                            <text>|</text>
-                            @Html.ActionLink("Zmień hasło", "ChangePassword", new { id = item.Id });
-                        }
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                                ;
+                                <text>|</text>
+                                @Html.ActionLink("Zmień hasło", "ChangePassword", new { id = item.Id })
+                                ;
+                            }
 
                         </td>
                     </tr>
@@ -121,7 +138,7 @@
 
         </table>
 
-    </div>     
+    </div>
     <div>
         <partial name="~/Views/Shared/_Pagination.cshtml" , model="Model.Pagination" />
     </div>

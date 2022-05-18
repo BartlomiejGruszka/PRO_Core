@@ -35,7 +35,10 @@
     <div class="table-container">
         <table class="table tablecolor">
             <tr class="tableheadercolor">
-                <th style="width:70%;">
+                <th style="width:10%;">
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">#</a>
+                </th>
+                <th style="width:60%;">
                     <a asp-action="Manage" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Nazwa</a>
                 </th>
                 <th style="width:30%;">Opcje</th>
@@ -45,6 +48,9 @@
                 foreach (var item in Model)
                 {
                     <tr class="tablerow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>

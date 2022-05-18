@@ -34,6 +34,9 @@
         <table class="table tablecolor">
             <tr class="tableheadercolor">
                 <th>
+                    <a asp-action="Manage" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">#</a>
+                </th>
+                <th>
                     <a asp-action="Manage" asp-route-sortOrder="@ViewData["GameSortParm"]" asp-route-currentFilter="@Model.Pagination.CurrentFilter" asp-route-items="@Model.Pagination.PageItems" asp-route-page="@Model.Pagination.PageIndex">Gra</a>
                 </th>
                 <th>
@@ -64,9 +67,13 @@
                 <th>Opcje</th>
             </tr>
 
-            @{ foreach (var item in Model)
+            @{
+                foreach (var item in Model)
                 {
                     <tr class="tablerow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Game.Title)
                         </td>
@@ -79,16 +86,22 @@
                         <td>
                             @if (item.EditDate.HasValue)
                             {
-                                @Html.DisplayFor(modelItem => item.EditDate)}
+                                @Html.DisplayFor(modelItem => item.EditDate)
+                            }
                             else
-                            { <p>Brak</p>}
+                            {
+                                <p>Brak</p>
+                            }
                         </td>
                         <td>
                             @if (item.Moderator != null)
                             {
-                                @Html.DisplayFor(modelItem => item.Moderator.User.UserName)}
+                                @Html.DisplayFor(modelItem => item.Moderator.User.UserName)
+                            }
                             else
-                            { <p>Brak</p>}
+                            {
+                                <p>Brak</p>
+                            }
                         </td>
 
                         <td>
@@ -107,9 +120,10 @@
                             @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
                             @if (@User.IsInRole("Admin"))
-                            {<text>|</text>
-                            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-                        }
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                            }
 
                         </td>
                     </tr>

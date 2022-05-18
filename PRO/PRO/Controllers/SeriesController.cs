@@ -25,7 +25,8 @@ namespace PRO.Controllers
         [Route("series/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";         
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             var series = _seriesService.FilterSearch(currentFilter);
             series = _seriesService.SortList(sortOrder, series);
             var result = PaginatedList<Series>.Create(series.AsNoTracking(), page, items);

@@ -25,8 +25,9 @@ namespace PRO.Controllers
         // GET: Moderators
         [Route("moderators/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
-        {         
-            ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "user_desc" : "";
+        {
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
             ViewData["AddDateSortParm"] = sortOrder == "adddate" ? "adddate_desc" : "adddate";
             ViewData["LoginDateSortParm"] = sortOrder == "logindate" ? "logindate_desc" : "logindate";
             var moderators = _moderatorService.FilterSearch(currentFilter);

@@ -29,7 +29,8 @@ namespace PRO.Controllers
         [Route("genres/manage/{currentFilter?}")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             var genres = _genreService.FilterSearch(currentFilter);
             genres = _genreService.SortList(sortOrder, genres);
 

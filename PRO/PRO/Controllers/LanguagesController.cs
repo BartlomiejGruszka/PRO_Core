@@ -29,7 +29,8 @@ namespace PRO.Controllers
         [Route("languages/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             var languages = _languageService.FilterSearch(currentFilter);
             languages = _languageService.SortList(sortOrder, languages);
             var result = PaginatedList<Language>.Create(languages.AsNoTracking(), page, items);

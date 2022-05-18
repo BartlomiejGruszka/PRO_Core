@@ -26,7 +26,8 @@ namespace PRO.Controllers
         [Route("authors/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {          
-            ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["UserSortParm"] = sortOrder == "User" ? "User_desc" : "User";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
             ViewData["SurnameSortParm"] = sortOrder == "Surname" ? "Surname_desc" : "Surname";

@@ -42,7 +42,8 @@ namespace PRO.Controllers
         [Route("gamelists/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {
-            ViewData["UserSortParm"] = String.IsNullOrEmpty(sortOrder) ? "user_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["UserSortParm"] = sortOrder == "user" ? "user_desc" : "user";
             ViewData["GameSortParm"] = sortOrder == "game" ? "game_desc" : "game";
             ViewData["AddDateSortParm"] = sortOrder == "adddate" ? "adddate_desc" : "adddate";
             ViewData["EditDateSortParm"] = sortOrder == "editdate" ? "editdate_desc" : "editdate";

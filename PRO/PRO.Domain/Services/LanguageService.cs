@@ -53,9 +53,11 @@ namespace PRO.Domain.Services
         {
             languages = sortOrder switch
             {
+                "id_desc" => languages.OrderByDescending(s => s.Id),
+                "" => languages.OrderBy(s => s.Id),
                 "name_desc" => languages.OrderByDescending(s => s.Name),
-                "" => languages.OrderBy(s => s.Name),
-                _ => languages.OrderBy(s => s.Name),
+                "name" => languages.OrderBy(s => s.Name),
+                _ => languages.OrderBy(s => s.Id),
             };
             return languages.AsQueryable();
         }

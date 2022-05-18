@@ -54,9 +54,11 @@ namespace PRO.Domain.Services
         {
             listTypes = sortOrder switch
             {
+                "id_desc" => listTypes.OrderByDescending(s => s.Id),
+                "" => listTypes.OrderBy(s => s.Id),
                 "name_desc" => listTypes.OrderByDescending(s => s.Name),
-                "" => listTypes.OrderBy(s => s.Name),
-                _ => listTypes.OrderBy(s => s.Name),
+                "name" => listTypes.OrderBy(s => s.Name),
+                _ => listTypes.OrderBy(s => s.Id),
             };
             return listTypes.AsQueryable();
         }

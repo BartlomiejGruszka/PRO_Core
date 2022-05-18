@@ -138,15 +138,17 @@ namespace PRO.Domain.Services
         {
             users = sortOrder switch
             {
-                "name_desc" => users.OrderByDescending(s => s.UserName),
-                "" => users.OrderBy(s => s.UserName),
+                "id_desc" => users.OrderByDescending(s => s.Id),
+                "" => users.OrderBy(s => s.Id),
+                "user_desc" => users.OrderByDescending(s => s.UserName),
+                "user" => users.OrderBy(s => s.UserName),
                 "email_desc" => users.OrderByDescending(s => s.Email),
                 "email" => users.OrderBy(s => s.Email),
                 "adddate_desc" => users.OrderByDescending(s => s.RegisterDate),
                 "adddate" => users.OrderBy(s => s.RegisterDate),
                 "editdate_desc" => users.OrderByDescending(s => s.EditDate),
                 "editdate" => users.OrderBy(s => s.EditDate),
-                _ => users.OrderBy(s => s.UserName),
+                _ => users.OrderBy(s => s.Id),
             };
             return users.AsQueryable();
         }

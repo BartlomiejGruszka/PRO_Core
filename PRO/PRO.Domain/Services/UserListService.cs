@@ -97,8 +97,10 @@ namespace PRO.Domain.Services
         {
             userlists = sortOrder switch
             {
+                "id_desc" => userlists.OrderByDescending(s => s.Id),
+                "" => userlists.OrderBy(s => s.Id),
                 "adddate_desc" => userlists.OrderByDescending(s => s.CreatedDate),
-                "" => userlists.OrderBy(s => s.CreatedDate),
+                "adddate" => userlists.OrderBy(s => s.CreatedDate),
                 "name_desc" => userlists.OrderByDescending(s => s.Name),
                 "name" => userlists.OrderBy(s => s.Name),
                 "user_desc" => userlists.OrderByDescending(s => s.User.UserName),
@@ -107,7 +109,7 @@ namespace PRO.Domain.Services
                 "type" => userlists.OrderBy(s => s.ListType.Name),
                 "count_desc" => userlists.OrderByDescending(s => s.GameLists.Count()),
                 "count" => userlists.OrderBy(s => s.GameLists.Count()),
-                _ => userlists.OrderBy(s => s.CreatedDate),
+                _ => userlists.OrderBy(s => s.Id),
             };
             return userlists.AsQueryable();
         }

@@ -166,8 +166,10 @@ namespace PRO.Domain.Services
         {
             gameLists = sortOrder switch
             {
+                "id_desc" => gameLists.OrderByDescending(s => s.Id),
+                "" => gameLists.OrderBy(s => s.Id),
                 "user_desc" => gameLists.OrderByDescending(s => s.UserList.User.UserName),
-                "" => gameLists.OrderBy(s => s.UserList.User.UserName),
+                "user" => gameLists.OrderBy(s => s.UserList.User.UserName),
                 "list_desc" => gameLists.OrderByDescending(s => s.UserList.Name),
                 "list" => gameLists.OrderBy(s => s.UserList.Name),
                 "adddate_desc" => gameLists.OrderByDescending(s => s.AddedDate),
@@ -182,7 +184,7 @@ namespace PRO.Domain.Services
                 "score" => gameLists.OrderBy(s => s.PersonalScore),
                 "Name_desc" => gameLists.OrderByDescending(s => s.UserList.Name),
                 "Name" => gameLists.OrderBy(s => s.UserList.Name),
-                _ => gameLists.OrderBy(s => s.UserList.User.UserName),
+                _ => gameLists.OrderBy(s => s.Id),
             };
             return gameLists.AsQueryable();
         }

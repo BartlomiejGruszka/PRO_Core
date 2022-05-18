@@ -31,7 +31,8 @@ namespace PRO.Controllers
         [Route("companies/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {            
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";    
             
             var companies = _companyService.FilterSearch(currentFilter);

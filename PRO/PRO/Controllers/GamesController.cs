@@ -89,6 +89,7 @@ namespace PRO.Controllers
             ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";
             ViewData["ScoreSortParm"] = sortOrder == "Score" ? "Score_desc" : "Score";
             ViewData["UserscoreSortParm"] = sortOrder == "Userscore" ? "Userscore_desc" : "Userscore";
+
             var games = _gameService.Filter(true ,Text, Plat, Stat, Genr, Seri, Publ, Deve, Lang, Tags);
             int? user = _userService.GetLoggedInUserId();
             var gamescores = _gameService.GetUserUnorderedGamesRanking(user, games).OrderBy(g => g.Game.Title).AsQueryable();
@@ -153,8 +154,8 @@ namespace PRO.Controllers
         [Route("games/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string Text)
         {
-
-            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["TitleSortParm"] = sortOrder == "Title" ? "Title_desc" : "Title";
             ViewData["PlatformSortParm"] = sortOrder == "Platform" ? "Platform_desc" : "Platform";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "Date_desc" : "Date";
             ViewData["StatusSortParm"] = sortOrder == "Status" ? "Status_desc" : "Status";

@@ -182,15 +182,17 @@ namespace PRO.Domain.Services
         {
             reviews = sortOrder switch
             {
+                "id_desc" => reviews.OrderByDescending(s => s.Id),
+                "" => reviews.OrderBy(s => s.Id),
                 "date_desc" => reviews.OrderByDescending(s => s.ReviewDate),
-                "" => reviews.OrderBy(s => s.ReviewDate),
+                "date" => reviews.OrderBy(s => s.ReviewDate),
                 "game_desc" => reviews.OrderByDescending(s => s.Game.Title),
                 "game" => reviews.OrderBy(s => s.Game.Title),
                 "user_desc" => reviews.OrderByDescending(s => s.User.UserName),
                 "user" => reviews.OrderBy(s => s.User.UserName),
                 "editdate_desc" => reviews.OrderByDescending(s => s.EditDate),
                 "editdate" => reviews.OrderBy(s => s.EditDate),
-                _ => reviews.OrderBy(s => s.ReviewDate),
+                _ => reviews.OrderBy(s => s.Id),
             };
             return reviews.AsQueryable();
         }

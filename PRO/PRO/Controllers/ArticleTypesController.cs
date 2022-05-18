@@ -25,8 +25,9 @@ namespace PRO.Controllers
         [Route("articletypes/manage")]
         public ActionResult Manage(int? page, int? items, string sortOrder, string currentFilter)
         {            
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-           
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "Name" ? "name_desc" : "Name";
+
             var articleTypesList = _articleTypeService.FilterSearch(currentFilter);
             articleTypesList = _articleTypeService.SortList(sortOrder, articleTypesList);
             var result = PaginatedList<ArticleType>.Create(articleTypesList.AsNoTracking(), page, items);

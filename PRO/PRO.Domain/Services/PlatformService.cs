@@ -55,13 +55,15 @@ namespace PRO.Domain.Services
         {
             platforms = sortOrder switch
             {
+                "id_desc" => platforms.OrderByDescending(s => s.Id),
+                "" => platforms.OrderBy(s => s.Id),
                 "name_desc" => platforms.OrderByDescending(s => s.Name),
-                "" => platforms.OrderBy(s => s.Name),
+                "name" => platforms.OrderBy(s => s.Name),
                 "company_desc" => platforms.OrderByDescending(s => s.Company.Name),
                 "company" => platforms.OrderBy(s => s.Company.Name),
                 "date_desc" => platforms.OrderByDescending(s => s.ReleaseDate),
                 "date" => platforms.OrderBy(s => s.ReleaseDate),
-                _ => platforms.OrderBy(s => s.Name),
+                _ => platforms.OrderBy(s => s.Id),
             };
             return platforms.AsQueryable();
         }

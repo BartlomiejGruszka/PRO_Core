@@ -67,9 +67,11 @@ namespace PRO.Domain.Services
         {
             series = sortOrder switch
             {
+                "id_desc" => series.OrderByDescending(s => s.Id),
+                "" => series.OrderBy(s => s.Id),
                 "name_desc" => series.OrderByDescending(s => s.Name),
-                "" => series.OrderBy(s => s.Name),
-                _ => series.OrderBy(s => s.Name),
+                "name" => series.OrderBy(s => s.Name),
+                _ => series.OrderBy(s => s.Id),
             };
             return series.AsQueryable();
         }
