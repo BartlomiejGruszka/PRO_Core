@@ -22,28 +22,38 @@ namespace PRO
                 .Build().Run();
         }
 
+        //Azure config
+
+        /*   public static IHostBuilder CreateHostBuilder(string[] args) =>
+           Host.CreateDefaultBuilder(args)
+ .ConfigureAppConfiguration((context, config) =>
+ {
+     var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+     config.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+ })
+                 .ConfigureWebHostDefaults(webBuilder =>
+                  webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                  {
+                      var settings = config.Build();
+
+                      config.AddAzureAppConfiguration(options =>
+                      {
+                          options.Connect(settings["ConnectionStrings:AppConfig"])
+                                  .ConfigureKeyVault(kv =>
+                                  {
+                                      kv.SetCredential(new DefaultAzureCredential(false));
+                                  });
+                      });
+                  })
+                     .UseStartup<Startup>());
+*/
+
+        //Standard config
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-.ConfigureAppConfiguration((context, config) =>
-{
-    var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-    config.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-})
-                .ConfigureWebHostDefaults(webBuilder =>
-                 webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
-                 {
-                     var settings = config.Build();
-
-                     config.AddAzureAppConfiguration(options =>
-                     {
-                         options.Connect(settings["ConnectionStrings:AppConfig"])
-                                 .ConfigureKeyVault(kv =>
-                                 {
-                                     kv.SetCredential(new DefaultAzureCredential(false));
-                                 });
-                     });
-                 })
-                    .UseStartup<Startup>());
-
+           Host.CreateDefaultBuilder(args)
+               .ConfigureWebHostDefaults(webBuilder =>
+               {
+                   webBuilder.UseStartup<Startup>();
+               });
     }
-}
+    }

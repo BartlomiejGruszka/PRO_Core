@@ -38,7 +38,10 @@ namespace PRO
         {
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration["s15762PROapp:DbConnectionString"]));
+                //Azure config
+                // options.UseSqlServer(Configuration["s15762PROapp:DbConnectionString"]));
+                //Standard config
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole<int>>()
@@ -181,7 +184,8 @@ namespace PRO
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
-            services.AddAzureAppConfiguration();
+            //Azure config
+            //services.AddAzureAppConfiguration();
 
         }
 
@@ -210,7 +214,9 @@ namespace PRO
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseAzureAppConfiguration();
+
+            // Azure config
+           // app.UseAzureAppConfiguration();
 
             app.UseRouting();
 

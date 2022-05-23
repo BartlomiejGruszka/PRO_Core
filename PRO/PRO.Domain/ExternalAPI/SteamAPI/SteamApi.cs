@@ -18,11 +18,21 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
         private readonly IConfiguration _config;
         private readonly IUserService _userService;
         private static bool ConnectionErrorLock = false;
-
+        private readonly string _steamApiKey;
         public SteamApi(IConfiguration config, IUserService userService)
         {
             _config = config;
             _userService = userService;
+            try
+            {
+                //Azure config
+                _steamApiKey = _config["s15762PROapp:SteamApiKey"];
+            }
+            catch (Exception ex)
+            {
+                //Standard config
+                _steamApiKey = "INSERT_YOUR_STEAM_API_KEY_HERE";
+            }
         }
 
 
@@ -118,10 +128,10 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public string UserSteamGamesUrl(UInt64 userid, int? appid)
         {
-            var apikey = _config["s15762PROapp:SteamApiKey"];
+            //var apikey = _config["s15762PROapp:SteamApiKey"];
             var sb = new StringBuilder();
             sb.Append("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1?key=");
-            sb.Append(apikey);
+            sb.Append(_steamApiKey);
             sb.Append("&steamid=");
             sb.Append(userid);
             sb.Append("&include_appinfo=0&include_played_free_games=1");
@@ -134,7 +144,7 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
 
         public async Task<bool> CheckAppOwnershipAsync(int? userid, int? appid)
         {
-            if (_config["s15762PROapp:SteamApiKey"] == null || ConnectionErrorLock == true || appid == null) return false;
+            if (_steamApiKey == null || ConnectionErrorLock == true || appid == null) return false;
             var logins = _userService.GetUserLoginsAsync(userid);
             var provider = GetUserSteamProvider(logins.Result);
             var steamid = GetSteamUserId(provider);
