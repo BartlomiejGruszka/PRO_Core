@@ -38,8 +38,10 @@ namespace PRO
         {
 
             services.AddDbContext<ApplicationDbContext>(options =>
+                //Azure config
                 options.UseSqlServer(Configuration["s15762PROapp:DbConnectionString"]));
-
+            //Standard config
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole<int>>()
                 .AddErrorDescriber<CustomIdentityErrorDescriber>() //localized identity errors
@@ -62,7 +64,8 @@ namespace PRO
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor((x) => L["Null value is invalid.", x]);
             }).
             AddViewLocalization(o => o.ResourcesPath = "Resources")
-            .AddDataAnnotationsLocalization(o => {
+            .AddDataAnnotationsLocalization(o =>
+            {
                 var localizer = F.Create("DataAnnotationResource", "PRO.UI");
                 o.DataAnnotationLocalizerProvider = (t, f) => localizer;
             })
@@ -181,6 +184,7 @@ namespace PRO
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+            //Azure config
             services.AddAzureAppConfiguration();
 
         }
@@ -199,7 +203,7 @@ namespace PRO
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-               // app.UseDatabaseErrorPage();
+                // app.UseDatabaseErrorPage();
 
             }
             else
@@ -210,6 +214,8 @@ namespace PRO
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            //Azure config
             app.UseAzureAppConfiguration();
 
             app.UseRouting();
