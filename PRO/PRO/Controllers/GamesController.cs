@@ -368,7 +368,7 @@ namespace PRO.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin,Moderator")]
         [Route("games/{id}/userreview/{reviewid}")]
         public ActionResult UserReview(int id, int reviewid)
         {
