@@ -147,12 +147,13 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
         public async Task<bool> CheckAppOwnershipAsync(int? userid, int? appid)
         {
             if (_steamApiKey == null || ConnectionErrorLock == true || appid == null) return false;
+            if (appid == 0) return false;
             var logins = _userService.GetUserLoginsAsync(userid);
             var provider = GetUserSteamProvider(logins.Result);
             var steamid = GetSteamUserId(provider);
             if (steamid == 0) return false;
             var games = await GetUserSteamGames(steamid, appid);
-            if (games == null) return false;
+            if (games?.SteamGames?.SteamAppPlaytimes == null) return false;
             var result = games.SteamGames.SteamAppPlaytimes.Any(s => s.AppId == appid) ? true : false;
             return result;
 

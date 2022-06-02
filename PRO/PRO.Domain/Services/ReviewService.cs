@@ -128,6 +128,11 @@ namespace PRO.Domain.Services
             if (review == null) return errors;
 
             var reviews = _reviewRepository.GetAll().Where(i => i.GameId == review.GameId && i.UserId == review.UserId && i.Id != review.Id);
+            var gamelists = _gameListRepository.GetAll().Where(i => i.GameId == review.GameId && i.UserList.UserId == review.UserId);
+            if (!gamelists.Any())
+            {
+                errors.TryAddModelError("GameId", "Nie możesz napisać recenzji dla gry której nie posiadasz na żadnej ze swoich list.");
+            }
             if (reviews.Any())
             {
                 errors.TryAddModelError("GameId", "Napisałeś już recenzję dla tej gry.");
@@ -210,8 +215,12 @@ namespace PRO.Domain.Services
         public bool UserDelete(int id)
         {
             Review review = Find(id);
+            if (review == null) return false;
             var IsOwner = _userService.IsOwner(review?.UserId);
-            if (!IsOwner || review == null) return false;
+            var userid = _userService.GetLoggedInUserId();
+            bool isModerator =  _userService.IsUserInRole(_userService.Find(userid), "Moderator").Result;
+            bool isAdmin = _userService.IsUserInRole(_userService.Find(userid), "Admin").Result;
+            if (!(IsOwner || isModerator || isAdmin)) return false;
             Delete(review);
             return true;
         }
@@ -221,7 +230,6 @@ namespace PRO.Domain.Services
             foreach (var paginatedreview in paginatedreviews)
             {
                 if (paginatedreview.Review != null && paginatedreview.Review?.Game != null)
-                    // paginatedreview.VerifiedOwner = _steamApi.CheckAppOwnershipAsync(paginatedreview.Review.UserId, paginatedreview.Review.Game.SteamAppId).Result;
                     paginatedreview.VerifiedOwner = paginatedreview.Review.IsVerifiedOwner;
                            
             }

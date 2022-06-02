@@ -23,16 +23,16 @@ namespace PRO.Persistance.Repositories
             return _dbContext.GameLists
                 .Include(i => i.UserList)
                 .Where(f => f.GameId == gameid && f.UserList.UserId == userid)
-                .Select(s=>s.HoursPlayed)
+                .Select(s => s.HoursPlayed)
                 .FirstOrDefault();
         }
         public new IEnumerable<GameList> GetAll()
-        {   
+        {
             return _dbContext.GameLists
                 .Include(i => i.Game)
                 .Include(i => i.Game.Image)
                 .Include(i => i.Game.DeveloperCompany)
-                .Include(u=>u.UserList)
+                .Include(u => u.UserList)
                 .Include(u => u.UserList.User)
                 .Include(u => u.UserList.ListType);
         }

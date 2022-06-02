@@ -58,6 +58,13 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Zapisz" class="btn btn-primary" />
+            @if(!(User.IsInRole("Admin") || User.IsInRole("Moderator"))&& revid > 0){
+                  <a href="/games/@ViewBag.GameId/userdelete" class="btn btn-secondary">Usuń</a>
+                }
+                @if((User.IsInRole("Admin") || User.IsInRole("Moderator"))&& revid > 0)
+                {
+                     <a href="/games/userdelete?gameid=@ViewBag.GameId&reviewid=@revid" class="btn btn-secondary">Usuń</a>
+                }
             <a href="/games/@ViewBag.GameId" class="btn btn-secondary">Powrót</a>
         </div>
     </div>
