@@ -90,7 +90,7 @@ namespace PRO.Controllers
             ViewData["ScoreSortParm"] = sortOrder == "Score" ? "Score_desc" : "Score";
             ViewData["UserscoreSortParm"] = sortOrder == "Userscore" ? "Userscore_desc" : "Userscore";
 
-            var games = _gameService.Filter(true ,Text, Plat, Stat, Genr, Seri, Publ, Deve, Lang, Tags);
+            var games = _gameService.Filter(true, Text, Plat, Stat, Genr, Seri, Publ, Deve, Lang, Tags);
             int? user = _userService.GetLoggedInUserId();
             var gamescores = _gameService.GetUserUnorderedGamesRanking(user, games).OrderBy(g => g.Game.Title).AsQueryable();
             gamescores = _gameService.SortList(sortOrder, gamescores);
@@ -121,7 +121,8 @@ namespace PRO.Controllers
         public ActionResult MultiFilter(GamesViewModel viewModel)
         {
             var filterform = viewModel.GameFilterForm;
-            return RedirectToAction("Index", new {
+            return RedirectToAction("Index", new
+            {
                 filterform.Text,
                 filterform.Plat,
                 filterform.Stat,
@@ -391,8 +392,27 @@ namespace PRO.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("games/{id}/userdelete")]
+        public ActionResult UserDeleteReview(int? id)
+        {
+            Review review = _reviewService.GetUserGameReview(_userService.GetLoggedInUserId(), id);
+            var game = _gameService.FindActive(id);
+            if (game == null || review == null) return NotFound();
+
+            var DetailsModel = new GameDetailsViewModel
+            {
+                GameInfo = SetupGameInfo(game),
+                ReviewPlaytimes = _reviewService.PrepareReviews(new List<Review> { review }, null, null),
+            };
+            DetailsModel.ReviewPlaytimes.Pagination.Action = this.ControllerContext.ActionDescriptor.ActionName.ToString();
+
+            return View("UserDeleteReview", DetailsModel);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin,Moderator")]
         [Route("games/userdelete")]
-        public ActionResult UserDeleteReview(int? gameid, int? reviewid)
+        public ActionResult DeleteReview(int? gameid, int? reviewid)
         {
             Review review = _reviewService.Find(reviewid);
             var game = _gameService.FindActive(gameid);
