@@ -24,7 +24,11 @@
     <hr />
     <p>
         <div class="btn btn-primary"><a class="actionLinkManage" href="/languages/edit/@Model.Id">Edytuj</a></div>
-        <a href="/languages/delete/@Model.Id" class="btn btn-secondary">Usuń</a>
+         @if (User.IsInRole("Admin"))
+        {
+             <a href="/languages/delete/@Model.Id" class="btn btn-secondary">Usuń</a>
+        }
+       
         <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
 
     </p>

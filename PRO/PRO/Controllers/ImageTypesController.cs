@@ -9,6 +9,7 @@ using System;
 
 namespace PRO.Controllers
 {
+    [Authorize(Roles = "Admin,Author")]
     public class ImageTypesController : Controller
     {
 

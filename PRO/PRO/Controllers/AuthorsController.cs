@@ -11,7 +11,7 @@ using PRO.Domain.Entities;
 
 namespace PRO.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AuthorsController : Controller
     {
         private readonly IAuthorService _authorService;

@@ -23,7 +23,11 @@
     <hr />
     <p>
         <div class="btn btn-primary"><a class="actionLinkManage" href="/tags/edit/@Model.Id">Edytuj</a></div>
-        <a href="/tags/delete/@Model.Id" class="btn btn-secondary">Usuń</a>
+         @if (User.IsInRole("Admin"))
+        {
+           <a href="/tags/delete/@Model.Id" class="btn btn-secondary">Usuń</a> 
+        }
+        
         <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
     </p>
 </div>

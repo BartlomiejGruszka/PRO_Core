@@ -9,9 +9,11 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PRO.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ModeratorsController : Controller
     {
         private readonly IModeratorService _moderatorService;

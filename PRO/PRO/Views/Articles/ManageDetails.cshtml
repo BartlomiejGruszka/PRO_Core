@@ -63,7 +63,7 @@
 </div>
 
 <h2 class="list-title box-shadow" style="margin-top:20px;">Szczegóły artykułu - pozostałe dane</h2>
-<div class="window-background box-shadow p-3" style="margin-top:20px;"> 
+<div class="window-background box-shadow p-3" style="margin-top:20px;">
     <div>
 
         <dl class="dl-horizontal">
@@ -75,7 +75,7 @@
             <dd>
                 @Html.DisplayFor(model => model.Article.IsActive)
             </dd>
-            
+
             <dt>
                 @Html.DisplayNameFor(model => model.Article.Preview)
             </dt>
@@ -90,7 +90,12 @@
     <hr />
     <p>
         <div class="btn btn-primary"><a class="actionLinkManage" href="/articles/edit/@Model.Article.Id">Edytuj</a></div>
-        <a href="/articles/delete/@Model.Article.Id" class="btn btn-secondary">Usuń</a>
+        @if (User.IsInRole("Admin"))
+        {
+
+            <a href="/articles/delete/@Model.Article.Id" class="btn btn-secondary">Usuń</a>
+        }
+
         <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
     </p>
 </div>

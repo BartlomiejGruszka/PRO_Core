@@ -86,8 +86,9 @@
         @if (User.IsInRole("Admin"))
         {
             <div class="btn btn-primary"><a class="actionLinkManage" href="/users/changePassword/@Model.Id">Zmień hasło</a></div>
+            <a href="/users/delete/@Model.Id" class="btn btn-secondary">Usuń</a>
         }
-        <a href="/users/delete/@Model.Id" class="btn btn-secondary">Usuń</a>
+
         <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
     </p>
 </div>

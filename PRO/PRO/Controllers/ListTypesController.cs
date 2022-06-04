@@ -10,7 +10,7 @@ using System.Net;
 
 namespace PRO.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ListTypesController : Controller
     {
 

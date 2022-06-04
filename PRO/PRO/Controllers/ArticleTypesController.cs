@@ -12,7 +12,7 @@ using System;
 
 namespace PRO.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Author")]
     public class ArticleTypesController : Controller
     {
         private readonly IArticleTypeService _articleTypeService;
@@ -104,6 +104,7 @@ namespace PRO.Controllers
             return View(articleType);
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("articletypes/delete/{id}")]
         public ActionResult Delete(int? id)
         {
@@ -115,7 +116,7 @@ namespace PRO.Controllers
             return View(articleType);
         }
 
-        // POST: Genres/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [Route("articletypes/delete/{id}")]
         [ValidateAntiForgeryToken]
