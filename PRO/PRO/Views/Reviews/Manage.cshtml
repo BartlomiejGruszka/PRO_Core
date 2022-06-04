@@ -119,7 +119,7 @@
                         <td>
                             @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Szczegóły", "ManageDetails", new { id = item.Id })
-                            @if (@User.IsInRole("Admin"))
+                            @if (@User.IsInRole("Admin,Moderator"))
                             {
                                 <text>|</text>
                                 @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
