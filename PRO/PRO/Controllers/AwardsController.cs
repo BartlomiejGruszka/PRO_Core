@@ -114,7 +114,6 @@ namespace PRO.Controllers
             return View(award);
         }
 
-        // GET: Awards/Delete/5
         [Route("awards/delete/{id}")]
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
@@ -127,7 +126,6 @@ namespace PRO.Controllers
             return View(award);
         }
 
-        // POST: Awards/Delete/5
         [HttpPost, ActionName("Delete")]
         [Route("awards/delete/{id}")]
         [Authorize(Roles = "Admin")]

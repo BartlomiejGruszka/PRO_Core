@@ -10,7 +10,7 @@ using PRO.Domain.Entities;
 
 namespace PRO.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Author")]
     public class LanguagesController : Controller
     {
         private readonly ILanguageService _languageService;
@@ -118,7 +118,7 @@ namespace PRO.Controllers
             return View(language);
         }
 
-        // GET: Languages/Delete/5
+        [Authorize(Roles = "Admin")]
         [Route("languages/delete/{id}")]
         public ActionResult Delete(int? id)
         {
@@ -130,7 +130,7 @@ namespace PRO.Controllers
             return View(language);
         }
 
-        // POST: Languages/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [Route("languages/delete/{id}")]
         [ValidateAntiForgeryToken]

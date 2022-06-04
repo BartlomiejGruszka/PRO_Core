@@ -10,7 +10,7 @@ using PRO.Domain.Entities;
 
 namespace PRO.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Author")]
     public class StatusController : Controller
     {
         private readonly IStatusService _statusService;
@@ -109,6 +109,7 @@ namespace PRO.Controllers
         }
 
         // GET: Status/Delete/5
+        [Authorize(Roles = "Admin")]
         [Route("status/delete/{id}")]
         public ActionResult Delete(int? id)
         {
@@ -121,6 +122,7 @@ namespace PRO.Controllers
         }
 
         // POST: Status/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [Route("status/delete/{id}")]
         [ValidateAntiForgeryToken]

@@ -106,7 +106,7 @@ namespace PRO.Controllers
             return View(tag);
         }
 
-        // GET: Tags/Delete/5
+        [Authorize(Roles = "Admin")]
         [Route("tags/delete/{id}")]
         public ActionResult Delete(int? id)
         {
@@ -119,7 +119,7 @@ namespace PRO.Controllers
             return View(tag);
         }
 
-        // POST: Tags/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [Route("tags/delete/{id}")]
         [ValidateAntiForgeryToken]

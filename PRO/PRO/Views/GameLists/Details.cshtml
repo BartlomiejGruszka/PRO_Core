@@ -67,10 +67,13 @@
         </dl>
     </div>
     <hr />
-    <p>
-        <div class="form-actions no-color">
-            <input type="submit" value="Usuń" class="btn btn-primary" />
-            <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
-        </div>
+     <p>
+        <div class="btn btn-primary"><a class="actionLinkManage" href="/gamelists/edit/@Model.Id">Edytuj</a></div>
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="/gamelists/delete/@Model.Id" class="btn btn-secondary">Usuń</a>
+        }
+
+        <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
     </p>
 </div>

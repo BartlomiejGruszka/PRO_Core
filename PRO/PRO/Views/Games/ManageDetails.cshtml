@@ -1,5 +1,4 @@
-﻿
-@model PRO.UI.ViewModels.GameDetailsViewModel
+﻿@model PRO.UI.ViewModels.GameDetailsViewModel
 
 @{
     ViewBag.Title = "ManageDetails";
@@ -111,7 +110,7 @@
 
 
 <h2 class="list-title box-shadow" style="margin-top:20px;">Szczegóły gry - pozostałe dane</h2>
-<div class="window-background box-shadow p-3" style="margin-top:20px;"> 
+<div class="window-background box-shadow p-3" style="margin-top:20px;">
     <div>
 
         <dl class="dl-horizontal">
@@ -133,7 +132,9 @@
                     @Model.GameInfo.Game.SteamAppId
                 }
                 else
-                { <p>Brak przypisanej aplikacji Steam</p>}
+                {
+                    <p>Brak przypisanej aplikacji Steam</p>
+                }
 
             </dd>
 
@@ -142,7 +143,11 @@
     <hr />
     <p>
         <div class="btn btn-primary"><a class="actionLinkManage" href="/games/edit/@Model.GameInfo.Game.Id">Edytuj</a></div>
-        <a href="/games/delete/@Model.GameInfo.Game.Id" class="btn btn-secondary">Usuń</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="/games/delete/@Model.GameInfo.Game.Id" class="btn btn-secondary">Usuń</a>
+        }
+
         <a href="#" class="btn btn-secondary" onclick="javascript:window.history.back(-1);return false;">Powrót</a>
     </p>
 </div>
