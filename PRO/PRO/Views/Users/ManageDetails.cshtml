@@ -60,7 +60,10 @@
             </dt>
 
             <dd>
-                @Html.Raw(Model.Description)
+                 @if (Model.Description == null)
+                {<p>Brak</p> }
+                else
+                {  @Html.Raw(Model.Description)}
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.IsActive)

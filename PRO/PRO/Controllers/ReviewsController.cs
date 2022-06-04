@@ -174,7 +174,7 @@ namespace PRO.Controllers
 
 
         [Route("reviews/delete/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Delete(int? id)
         {
             Review review = _reviewService.Find(id);
@@ -188,7 +188,7 @@ namespace PRO.Controllers
         // POST: Tags/Delete/5
         [HttpPost, ActionName("Delete")]
         [Route("reviews/delete/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Moderator")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
