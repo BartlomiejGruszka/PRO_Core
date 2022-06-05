@@ -27,20 +27,14 @@ namespace PRO.Domain.ExternalAPI.SteamAPI
             {
                 //Azure config
                 _steamApiKey = _config["s15762PROapp:SteamApiKey"];
-            }
-            catch (Exception ex) { }
 
-            if (_steamApiKey == null)
-            {
-                //Standard config
-                try
+                if (_steamApiKey == null)
                 {
+                    //Standard config
                     _steamApiKey = _config["ExternalApi:Steam"];
                 }
-                catch (Exception) { }
-
-
             }
+            catch (Exception) { }
         }
 
 
