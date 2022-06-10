@@ -4,11 +4,11 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
-<div class="" style="margin-top: 15px;        display: flex;        flex-direction: row;">
+<div class="LoginRegisterButtons" style="">
     @if (SignInManager.IsSignedIn(User))
     {
 
-        <div class="btn btn-primary my-2 my-sm-0" style="margin-right: 10px;">
+        <div class="btn btn-primary my-2 my-sm-0 registerButton" style="">
             @Html.ActionLink("Witaj " + User.Identity.Name + "!", "UserProfile", "Users", routeValues: null, htmlAttributes: new { title = "Manage" })
 
 
@@ -25,7 +25,7 @@
     else
     {
 
-        <a class="btn btn-primary my-2 my-sm-0" style="margin-right: 10px;" asp-area="Identity" asp-page="/Account/Register">Zarejestruj</a>
+        <a class="btn btn-primary my-2 my-sm-0 registerButton" style="" asp-area="Identity" asp-page="/Account/Register">Zarejestruj</a>
 
 
         <a class="btn btn-secondary my-2 my-sm-0" asp-area="Identity" asp-page="/Account/Login">Zaloguj</a>

@@ -94,9 +94,9 @@
 
                 <div class="form-inline my-2 my-lg-0">
 
-                    @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { style = "display:flex;" }))
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "searchForm" }))
                     {
-                        <select class="form-control" id="type" name="type" style="margin-right:5px;">
+                        <select class="form-control searchFormDropdown" id="type" name="type">
                             <option hidden disabled selected> Wybierz</option>
                             <option value="games">Gry</option>
                             <option value="articles">Artykuły</option>
