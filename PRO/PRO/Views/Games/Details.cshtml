@@ -39,9 +39,9 @@
 
                                             </div>
                                         </div>
-                                        <div class="di-ib ml12 pl20 pt8">
-                                            <span class="numbers ranked">Ranking<strong>#@Model.GameInfo.Position</strong></span>
-                                            <span class="numbers popularity">Popularność<strong>#@Model.GameInfo.Popularity</strong></span>
+                                        <div class="di-ib ml12 pl20 pt8 gameRankingValues">
+                                            <span class="numbers ranked">Ranking <strong>#@Model.GameInfo.Position</strong></span>
+                                            <span class="numbers popularity">Popularność <strong>#@Model.GameInfo.Popularity</strong></span>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
 
                                     foreach (var article in Model.RelevantArticles)
                                     {
-                                        <div class="clearfix">
+                                        <div class="clearfix connectedArticleCard">
                                             <div class="picSurround fl-l mr8 ml3 mt4" style="padding-top:10px;">
                                                 @if (article.Image != null)
                                                 {
