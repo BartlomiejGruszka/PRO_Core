@@ -5840,25 +5840,17 @@ a.badge-dark:focus, a.badge-dark.focus {
     text-align: inherit;
 }
 
-#home-article-cards {
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    grid-template-rows: 1fr;
-    grid-gap: 1em 1em;
-    grid-template-areas: ". .";
-}
+    .list-group-item-action:hover, .list-group-item-action:focus {
+        z-index: 1;
+        color: #2e3134;
+        text-decoration: none;
+        background-color: #f8f9fa;
+    }
 
-.list-group-item-action:hover, .list-group-item-action:focus {
-    z-index: 1;
-    color: #2e3134;
-    text-decoration: none;
-    background-color: #f8f9fa;
-}
-
-.list-group-item-action:active {
-    color: #2e3134;
-    background-color: #e9ecef;
-}
+    .list-group-item-action:active {
+        color: #2e3134;
+        background-color: #e9ecef;
+    }
 
 .list-group-item {
     position: relative;
@@ -11295,10 +11287,7 @@ a.text-dark:hover, a.text-dark:focus {
         margin-inline-end: 0px;
     }
 
-    .footer-ranking .ranking-container {
-        display: table;
-        margin: 0 auto;
-    }
+
 
 .page-common .footer-ranking .ranking-unit ol {
     list-style: none;
@@ -11377,44 +11366,35 @@ a.text-dark:hover, a.text-dark:focus {
             color: #323232;
         }
 
-.news-list .news-unit {
-    border-bottom: #ededed 1px solid;
-    font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
-    margin-bottom: 16px;
-    padding: 0 0 16px;
+
+
+.news-list .news-unit .image-link {
+    border: #d8d8d8 1px solid;
+    display: block;
+    float: left;
+    margin-right: 12px;
+    overflow: hidden;
+    width: 200px;
 }
 
-    .news-list .news-unit .image-link {
-        border: #d8d8d8 1px solid;
-        display: block;
-        float: left;
-        margin-right: 12px;
-        overflow: hidden;
-        width: 200px;
-    }
+.news-list .news-unit.rect .image-link .image {
+    height: 156px;
+    width: 100px;
+}
 
-    .news-list .news-unit.rect .image-link .image {
-        height: 156px;
-        width: 100px;
-    }
-
-    .news-list .news-unit .title {
-        font-weight: 700;
-        padding-bottom: 4px;
-        margin: 0px;
-    }
-
-    .news-list .news-unit .news-unit-right {
-        margin-left: 112px;
-    }
+.news-list .news-unit .title {
+    font-weight: 700;
+    padding-bottom: 4px;
+    margin: 0px;
+}
 
 
-    .news-list .news-unit .text {
-        color: #323232;
-        font-family: verdana,arial,sans-serif;
-        font-size: 12px;
-        line-height: 1.5em;
-    }
+.news-list .news-unit .text {
+    color: #323232;
+    font-family: verdana,arial,sans-serif;
+    font-size: 12px;
+    line-height: 1.5em;
+}
 
 
 
@@ -12634,4 +12614,128 @@ a.sort-link:hover {
     .gamefilterformflex {
         display: block;
     }
+}
+/*mobile*/
+@media (max-width: 575.98px) {
+    .LoginRegisterButtons {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .searchForm {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .searchFormDropdown {
+        margin-bottom: 5px;
+    }
+
+    .footer-ranking .ranking-container {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    .news-list .news-unit .news-unit-right {
+    }
+    .connectedArticleCard {
+        display: flex;
+        flex-direction: column;
+    }
+    .loginForm {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 475.98px) {
+    #home-article-cards {
+    }
+
+    .homeArticleTitle {
+        margin-top: 5px;
+    }
+
+    .recentGamesList {
+        display: flex;
+        flex-direction: column;
+        max-width: 200px;
+        margin: auto;
+    }
+    .news-list .news-unit {
+        border-bottom: #ededed 1px solid;
+        font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
+        margin-bottom: 16px;
+        padding: 0 0 16px;
+        display:flex;
+        flex-direction:column;
+    }
+    .list-table .list-table-header .header-title .link.sort{
+        white-space:unset !important;
+    }
+
+}
+/*non-mobile*/
+@media (min-width: 575.99px) {
+    .LoginRegisterButtons {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .registerButton {
+        margin-right: 10px;
+    }
+
+    .searchForm {
+        display: flex;
+    }
+    .connectedArticleCard {
+        
+    }
+
+    .searchFormDropdown {
+        margin-right: 5px;
+    }
+
+    .footer-ranking .ranking-container {
+        display: table;
+        margin: 0 auto;
+    }
+
+    .news-list .news-unit .news-unit-right {
+        margin-left: 112px;
+    }
+    .loginForm{
+        padding:3rem;
+    }
+}
+
+@media (min-width: 475.98px) {
+    #home-article-cards {
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        grid-template-rows: 1fr;
+        grid-gap: 1em 1em;
+        grid-template-areas: ". .";
+    }
+
+    .recentGamesList {
+    }
+    .news-list .news-unit {
+        border-bottom: #ededed 1px solid;
+        font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
+        margin-bottom: 16px;
+        padding: 0 0 16px;
+    }
+}
+.gameRankingValues {
+    display: flex !important;
+    flex-direction: column;
+    padding-left:30px !important;
+}
+.non-link{
+    font-size:11px;
+    text-decoration:none;
 }
